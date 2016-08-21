@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程,GCD,死锁," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="五个案例明白 GCD 死锁首先来回忆几个概念：
+
+任务：需要执行的操作；
+队列：储存任务的数据结构；
+同步：只能开启一个子线程执行队列；
+异步：可开启多个子线程执行队列；
+串行：同一时间只能执行一个任务；
+并行：同一时间可执行多个任务；
+
+假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="五个案例明白 GCD 死锁">
+<meta property="og:url" content="http://yoursite.com/2016/07/23/五个案例明白 GCD 死锁/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="五个案例明白 GCD 死锁首先来回忆几个概念：
+
+任务：需要执行的操作；
+队列：储存任务的数据结构；
+同步：只能开启一个子线程执行队列；
+异步：可开启多个子线程执行队列；
+串行：同一时间只能执行一个任务；
+并行：同一时间可执行多个任务；
+
+假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：">
+<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E4%B8%BB%E9%98%9F%E5%88%97.png">
+<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97.png">
+<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-1.png">
+<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-2.png">
+<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-3.png">
+<meta property="og:updated_time" content="2016-08-21T18:12:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="五个案例明白 GCD 死锁">
+<meta name="twitter:description" content="五个案例明白 GCD 死锁首先来回忆几个概念：
+
+任务：需要执行的操作；
+队列：储存任务的数据结构；
+同步：只能开启一个子线程执行队列；
+异步：可开启多个子线程执行队列；
+串行：同一时间只能执行一个任务；
+并行：同一时间可执行多个任务；
+
+假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：">
+<meta name="twitter:image" content="http://oal3qtwiu.bkt.clouddn.com/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E4%B8%BB%E9%98%9F%E5%88%97.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/23/五个案例明白 GCD 死锁/"/>
+
+  <title> 五个案例明白 GCD 死锁 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                五个案例明白 GCD 死锁
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-23T03:11:00+08:00" content="2016-07-23">
+              2016-07-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/23/五个案例明白 GCD 死锁/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="五个案例明白-GCD-死锁"><a href="#五个案例明白-GCD-死锁" class="headerlink" title="五个案例明白 GCD 死锁"></a>五个案例明白 GCD 死锁</h4><p>首先来回忆几个概念：</p>
+<ol>
+<li>任务：需要执行的操作；</li>
+<li>队列：储存任务的数据结构；</li>
+<li>同步：只能开启一个子线程执行队列；</li>
+<li>异步：可开启多个子线程执行队列；</li>
+<li>串行：同一时间只能执行一个任务；</li>
+<li>并行：同一时间可执行多个任务；</li>
+</ol>
+<p>假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：</p>
+<a id="more"></a>
+<h4 id="案例一"><a href="#案例一" class="headerlink" title="案例一"></a>案例一</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadLockOne</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    <span class="keyword">let</span> mainQueue = dispatch_get_main_queue()</div><div class="line">    dispatch_sync(mainQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span></div></pre></td></tr></table></figure>
+<p>分析：</p>
+<ol>
+<li><code>dispatch_get_main_queue</code> 表示运行在主线程的主队列；</li>
+<li><code>dispatch_sync</code> 表示是一个同步线程；</li>
+<li><code>2</code> 是同步线程的主队列的任务；</li>
+</ol>
+<p>首先执行<code>1</code> ，是没有问题的，只是接下来，程序遇到了同步线程 <code>dispatch_sync</code> ，那么它会进入队列，等待<code>2</code> 执行完，然后执行<code>3</code>。但这是队列，有任务来，当然会将任务加到队尾部，然后遵循先入先出的原则执行任务，那么，<code>2</code> 就会被加到最后，<code>3</code> 排在 <code>2</code> 的前面。</p>
+<p>使用 <code>dispatch_sync</code> 执行 <code>mainQueue</code> 时， <code>mainQueue</code> 存放着两个任务 <code>1、3</code> ，使用 <code>block</code> 加入了 <code>2</code> 以后，<code>mainQueue</code> 变成 <code>1、3、2</code> ，但在执行上，是 <code>1、2、3</code> ，所以执行队列到 <code>2</code> 时，<code>2</code> 需要等 <code>3</code>  先执行完，但是因为 <code>dispatch_sync</code> 是同步函数，不执行完 <code>2</code> ，是不会执行 <code>3</code> 的，所以 <code>2</code> 和 <code>3</code> 就进入了互相等的状态，死锁发生。</p>
+<p>图解：</p>
+<p>  <img src="http://oal3qtwiu.bkt.clouddn.com/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E4%B8%BB%E9%98%9F%E5%88%97.png" alt=""></p>
+<h4 id="案例二"><a href="#案例二" class="headerlink" title="案例二"></a>案例二</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadLockTwo</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    <span class="keyword">let</span> concurrentQueue = dispatch_get_global_queue(<span class="type">QOS_CLASS_USER_INITIATED</span>, <span class="number">0</span>)</div><div class="line">    dispatch_sync(concurrentQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"3"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span></div><div class="line"><span class="number">2</span></div><div class="line">&lt;<span class="type">NSThread</span>: <span class="number">0x7c8627c0</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">3</span></div><div class="line">&lt;<span class="type">NSThread</span>: <span class="number">0x7c8627c0</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div></pre></td></tr></table></figure>
+<p>分析：</p>
+<ol>
+<li><code>dispatch_get_global_queue</code> 表示是一个全局并行队列；</li>
+<li><code>dispatch_sync</code> 表示是一个同步线程；</li>
+<li><code>2</code> 是同步线程的全局并行队列的任务；</li>
+</ol>
+<p>首先执行 <code>1</code> ，接下来遇到一个同步线程，程序会进入等待，等待任务 <code>2</code> 完成以后，才会继续执行任务 <code>3</code> ，从 <code>dispatch_get_global_queue</code> 可以看出，<code>2</code> 被加入一个全局并行队列中，当 <code>2</code> 执行以后，不等待结果，返回到主队列，继续执行 <code>3</code>。</p>
+<p>图解：</p>
+<p> <img src="http://oal3qtwiu.bkt.clouddn.com/%E5%90%8C%E6%AD%A5%E5%87%BD%E6%95%B0%E6%89%A7%E8%A1%8C%E5%B9%B6%E8%A1%8C%E9%98%9F%E5%88%97.png" alt=""></p>
+<h4 id="案例三"><a href="#案例三" class="headerlink" title="案例三"></a>案例三</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadLockThird</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> queue = dispatch_queue_create(<span class="string">"tianziyao.space"</span>, <span class="type">DISPATCH_QUEUE_SERIAL</span>)</div><div class="line">    <span class="built_in">print</span>(<span class="string">"1 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    dispatch_async(queue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        dispatch_sync(queue, &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"3 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        &#125;)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"4 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"5 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7967a6c0</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">5</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7967a6c0</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">2</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7aa922e0</span>&gt;&#123;number = <span class="number">3</span>, name = (null)&#125;</div></pre></td></tr></table></figure>
+<p>分析：</p>
+<p>这个案例没有使用系统提供的串行或并行队列，而是自己通过 <code>dispatch_queue_creat</code> 创建了<code>DISPATCH_QUEUE_SERIAL</code> 的串行队列。</p>
+<ol>
+<li>执行 <code>1</code>；</li>
+<li>遇到异步线程，将 <code>2、同步线程、4</code> 加入串行队列，因为是异步线程，所以主线程中的 <code>5</code> 不必等待异步线程内的任务执行完毕；</li>
+<li>因为 <code>5</code> 不需要等待，所以异步线程里的 <code>2</code>，和主线程中的 <code>5</code> ，执行顺序不能确定；</li>
+<li><code>2</code> 执行完以后，遇到同步线程，这时将 <code>3</code> 加入串行队列；</li>
+<li>又因为 <code>4</code> 比 <code>3</code> 先加入串行队列，所以 <code>4</code> 执行完以后 <code>3</code> 才会执行，但是 <code>同步线程</code> 要执行完 <code>3</code> 才能返回，所以造成死锁。</li>
+</ol>
+<p>图解：</p>
+<p>  <img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-1.png" alt="QQ20160723-1"></p>
+<h4 id="案例四"><a href="#案例四" class="headerlink" title="案例四"></a>案例四</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadLockFour</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> globalQueue = dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_HIGH</span>, <span class="number">0</span>)</div><div class="line">    <span class="keyword">let</span> mainQueue = dispatch_get_main_queue()</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"1"</span>)</div><div class="line">    dispatch_async(globalQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"2 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        dispatch_sync(mainQueue, &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"3 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        &#125;)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"4 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"5 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span></div><div class="line"><span class="number">5</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x79e31490</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">2</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7b33ae60</span>&gt;&#123;number = <span class="number">3</span>, name = (null)&#125;</div><div class="line"><span class="number">3</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x79e31490</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line"><span class="number">4</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7b33ae60</span>&gt;&#123;number = <span class="number">3</span>, name = (null)&#125;</div></pre></td></tr></table></figure>
+<p>分析：</p>
+<p>首先，主线程的队列是 <code>mainQueue</code> ，任务是：<code>1、异步线程、5</code> ；</p>
+<p>异步线程的队列是 <code>globalQueue</code> ，任务是：<code>2、同步线程、4</code></p>
+<ol>
+<li>主线程中执行 <code>1</code> ，然后遇到异步函数 ，将 <code>2、同步线程、4</code> 加入并行队列；</li>
+<li>开线程，因为 <code>2</code> 在异步线程，所以 <code>2</code> 和 <code>5</code> 的执行顺序随机，但在同一级运行；</li>
+<li>异步线程中遇到同步线程，执行主队列，将 <code>3</code> 加入到主队列，这时 <code>3 在 5的后面</code> ；</li>
+<li>这时 <code>5</code> ，已经执行完，所以 <code>3</code> 可以执行，然后执行 <code>4</code> 。</li>
+</ol>
+<p>从以上分析看，<code>2</code> 和 <code>5</code> 的输出顺序不确定，但是 <code>5</code> 一定在 <code>3</code> 前面，<code>3</code> 一定在 <code>4</code> 前面；</p>
+<p>图解：</p>
+<p>   <img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-2.png" alt="QQ20160723-2"></p>
+<h4 id="案例五"><a href="#案例五" class="headerlink" title="案例五"></a>案例五</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deadLockFive</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    dispatch_async(dispatch_get_global_queue(<span class="type">DISPATCH_QUEUE_PRIORITY_HIGH</span>, <span class="number">0</span>)) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"1 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        dispatch_sync(dispatch_get_main_queue(), &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"2 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">        &#125;)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"3 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="built_in">print</span>(<span class="string">"4 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    <span class="keyword">while</span> <span class="literal">true</span> &#123;</div><div class="line"></div><div class="line">    &#125;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"5 线程<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>打印结果：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7c1b5250</span>&gt;&#123;number = <span class="number">2</span>, name = (null)&#125;</div><div class="line"><span class="number">4</span> 线程&lt;<span class="type">NSThread</span>: <span class="number">0x7b77a510</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div></pre></td></tr></table></figure>
+<p>分析：</p>
+<p>首先来看下，加进了哪些任务：</p>
+<p><code>mainQueue</code> 里面有 <code>异步线程、4、死循环、5</code> ，<code>globalQueue</code> 里面有 <code>1、同步线程、3</code> 。</p>
+<ol>
+<li>异步线程，所以 <code>4</code> 不用等，<code>1</code> 和 <code>4</code> 的顺序随机；</li>
+<li>主线程遇到死循环，所以 <code>5</code> 不会执行，异步线程中遇到同步线程执行主队列，<code>2</code> 在 <code>5</code> 的后面，因为 <code>5</code> 不会执行，所以 <code>2</code> 是死锁，所以 <code>3</code> 也不会执行。</li>
+</ol>
+<p>最终结果是 <code>1</code> 和 <code>4</code>，执行顺序随机。</p>
+<p>图解：</p>
+<p> <img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160723-3.png" alt="QQ20160723-3"></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+            <a href="/tags/GCD/" rel="tag">#GCD</a>
+          
+            <a href="/tags/死锁/" rel="tag">#死锁</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/22/iOS多线程之 GCD线程管理（上）/" rel="next" title="iOS多线程 - GCD线程管理">
+                <i class="fa fa-chevron-left"></i> iOS多线程 - GCD线程管理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/24/iOS多线程之 同步线程/" rel="prev" title="iOS多线程 - 同步线程">
+                iOS多线程 - 同步线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/"
+     data-title="五个案例明白 GCD 死锁"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/23/五个案例明白 GCD 死锁/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/"
+           data-title="五个案例明白 GCD 死锁" data-url="http://yoursite.com/2016/07/23/五个案例明白 GCD 死锁/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#五个案例明白-GCD-死锁"><span class="nav-number">1.</span> <span class="nav-text">五个案例明白 GCD 死锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例一"><span class="nav-number">2.</span> <span class="nav-text">案例一</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例二"><span class="nav-number">3.</span> <span class="nav-text">案例二</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例三"><span class="nav-number">4.</span> <span class="nav-text">案例三</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例四"><span class="nav-number">5.</span> <span class="nav-text">案例四</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#案例五"><span class="nav-number">6.</span> <span class="nav-text">案例五</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

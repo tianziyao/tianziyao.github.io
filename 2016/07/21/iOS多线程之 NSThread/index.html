@@ -1,0 +1,837 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="首先介绍 NSThread 创建线程的方法：
+1public convenience init(target: AnyObject, selector: Selector, object argument: AnyObject?)
+public class NSThread : NSObject  从这里可以看出，NSThread 是继承自 NSObject 的类，它的创建是一个构造器 init">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS多线程 - NSThread">
+<meta property="og:url" content="http://yoursite.com/2016/07/21/iOS多线程之 NSThread/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="首先介绍 NSThread 创建线程的方法：
+1public convenience init(target: AnyObject, selector: Selector, object argument: AnyObject?)
+public class NSThread : NSObject  从这里可以看出，NSThread 是继承自 NSObject 的类，它的创建是一个构造器 init">
+<meta property="og:updated_time" content="2016-08-21T18:12:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS多线程 - NSThread">
+<meta name="twitter:description" content="首先介绍 NSThread 创建线程的方法：
+1public convenience init(target: AnyObject, selector: Selector, object argument: AnyObject?)
+public class NSThread : NSObject  从这里可以看出，NSThread 是继承自 NSObject 的类，它的创建是一个构造器 init">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/07/21/iOS多线程之 NSThread/"/>
+
+  <title> iOS多线程 - NSThread | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS多线程 - NSThread
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T04:44:00+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/21/iOS多线程之 NSThread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 NSThread/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>首先介绍 <code>NSThread</code> 创建线程的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
+<p><code>public class NSThread : NSObject</code>  从这里可以看出，<code>NSThread</code> 是继承自 <code>NSObject</code> 的类，它的创建是一个构造器 <code>init</code>  ，所以使用实例化对象的方式就可以调用了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: &lt;<span class="type">AnyObject</span>&gt;, selector: &lt;<span class="type">Selector</span>&gt;, object: &lt;<span class="type">AnyObject</span>&gt;)</div></pre></td></tr></table></figure>
+<p>现在我们来看一下，这个方法的几个参数，分别代表的含义。</p>
+<table>
+<thead>
+<tr>
+<th>形参名</th>
+<th>形参类型</th>
+<th>作用</th>
+<th>方法填写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>AnyObject</td>
+<td>当前类的一个对象。是selector消息发送的对象。</td>
+<td>一般是 self</td>
+</tr>
+<tr>
+<td>selector</td>
+<td>Selector</td>
+<td>线程要执行的方法。只能接收一个参数。</td>
+<td>创建方法传入</td>
+</tr>
+<tr>
+<td>object</td>
+<td>AnyObject?</td>
+<td>selector线程函数的唯一传入值，可以是 nil 。</td>
+<td>nil</td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<p>下面，我们要做的是通过点击，来调用 <code>NSThread</code>。</p>
+<p>我们在<code>ViewController</code>里创建一个<code>touchesBegan</code>的方法，并创建一个对象接收线程：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesBegan</span><span class="params">(touches: Set&lt;UITouch&gt;, withEvent event: UIEvent?)</span></span> &#123;</div><div class="line">  		<span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"我是run的传入值"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们在<code>ViewController</code> 中创建 <code>run</code> 这个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//线程函数</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(str: NSString)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> thread = <span class="type">NSThread</span>.currentThread()</div><div class="line">    <span class="built_in">print</span>(<span class="string">"<span class="subst">\(str)</span> , 我是线程<span class="subst">\(thread)</span> , 我要run了"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 <code>touchesBegan</code> 方法中，启动线程：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">touchesBegan</span><span class="params">(touches: Set&lt;UITouch&gt;, withEvent event: UIEvent?)</span></span> &#123;</div><div class="line"><span class="comment">//创建线程</span></div><div class="line"><span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"我是run的传入值"</span>)</div><div class="line"><span class="comment">//启动线程</span></div><div class="line">thread.start()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们运行模拟器，点击一下屏幕，控制台打印出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">我是run的传入值 , 我是线程&lt;<span class="type">NSThread</span>: <span class="number">0x7b97e1c0</span>&gt;&#123;number = <span class="number">2</span>, name = (null)&#125; , 我要run了</div></pre></td></tr></table></figure>
+<p><code>number = 2, name = (null)</code> 所以我们成功使用了<code>NSThread</code> 子线程。</p>
+<p>我是run的传入值，表示 <code>init</code> 构造器的第三个参数，同时也是第二个参数的传入值。</p>
+<hr>
+<h4 id="isMainThread-mainThread"><a href="#isMainThread-mainThread" class="headerlink" title="isMainThread mainThread"></a>isMainThread mainThread</h4><p>这三个的表达式如下</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> isMainThread: <span class="type">Bool</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">isMainThread</span>() -&gt; <span class="title">Bool</span></span></div><div class="line"></div><div class="line"><span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">mainThread</span>() -&gt; <span class="title">NSThrea</span></div></pre></td></tr></table></figure>
+<p>我们来看一下这三个表达式的含义</p>
+<table>
+<thead>
+<tr>
+<th>名字</th>
+<th>类型</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>var isMainThread</td>
+<td>计算属性，返回 bool 类型。</td>
+<td>判断一条线程是不是主线程</td>
+</tr>
+<tr>
+<td>func isMainThread</td>
+<td>类型方法，返回 bool 类型。</td>
+<td>判断一条线程是不是主线程</td>
+</tr>
+<tr>
+<td>func mainThread</td>
+<td>类型方法， 返回线程类型。</td>
+<td>返回当前线程里的主线程</td>
+</tr>
+</tbody>
+</table>
+<p>现在我们来使用 <code>var isMainThread</code> 计算属性做一个判断，我们在 <code>TouchesBengan</code> 方法中写入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="type">NSThread</span>.currentThread().isMainThread &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"touchesBegan 是主线程"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"touchesBegan 不是主线程"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 <code>run</code> 方法中写入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="type">NSThread</span>.currentThread().isMainThread &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"run 是主线程"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"run 不是主线程"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行程序，点击屏幕，控制台输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">touchesBegan 是主线程</div><div class="line">run 不是主线程</div></pre></td></tr></table></figure>
+<p>通过  <code>isMainThread</code> 我们可以得知当前方法所在的线程。</p>
+<p>接下来，我们通过 <code>mainThread</code> 来获取主线程，首先我们在 <code>run</code> 这个方法中写入 ：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> <span class="type">NSThread</span>.mainThread().isMainThread &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"NSThread.mainThread 是主线程"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"NSThread.mainThread 不是主线程"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行程序，点击屏幕，控制台输出：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NSThread</span>.mainThread 是主线程</div></pre></td></tr></table></figure>
+<p>我们在子线程中获得了主线程，可以说明， <code>func mainThread</code> 返回的是一个主线程。</p>
+<hr>
+<h4 id="栈大小-stackSize"><a href="#栈大小-stackSize" class="headerlink" title="栈大小 stackSize"></a>栈大小 stackSize</h4><p>下面是它的表达式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> stackSize: <span class="type">Int</span></div></pre></td></tr></table></figure>
+<p>由此可以看出，<code>stackSize</code> 是一个储存属性的整型。</p>
+<p>每个线程在创建时都会分配一块内存空间，这个内存空间叫做自有栈，下面我们来看下，一个线程的栈是多少，我们在 <code>TouchesBengan</code> 方法中写入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"子线程 的栈大小是<span class="subst">\(thread.stackSize/<span class="number">1024</span>)</span>"</span>)</div><div class="line"><span class="built_in">print</span>(<span class="string">"主线程 的栈大小是<span class="subst">\(NSThread.mainThread()</span>.stackSize/1024)"</span>)</div></pre></td></tr></table></figure>
+<p>因为 <code>stackSize</code> 传回的是字节数，所以我们 /1024 是它转为 KB，打印结果如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">thread 的栈大小是<span class="number">512</span></div><div class="line">thread 的栈大小是<span class="number">512</span></div></pre></td></tr></table></figure>
+<p>由此可以看出，主线程和子线程的栈大小均为 512KB。值得注意的是，<code>stackSize</code> 并不是一个只读属性，可以进行赋值，我们在 <code>TouchesBengan</code> 中写入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">thread.stackSize = <span class="number">1024</span>*<span class="number">512</span>*<span class="number">100</span></div><div class="line"><span class="type">NSThread</span>.mainThread().stackSize = <span class="number">1024</span>*<span class="number">512</span>*<span class="number">100</span></div></pre></td></tr></table></figure>
+<p>打印结果为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">子线程 的栈大小是<span class="number">51200</span></div><div class="line">主线程 的栈大小是<span class="number">51200</span></div></pre></td></tr></table></figure>
+<p>这个结果相当灵异，栈的大小是否真的有了变化，还需要进一步考证。</p>
+<hr>
+<h4 id="线程的优先级"><a href="#线程的优先级" class="headerlink" title="线程的优先级"></a>线程的优先级</h4><p>表达式如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">var</span> threadPriority: <span class="type">Double</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">setThreadPriority</span>(<span class="title">p</span>: <span class="title">Double</span>) -&gt; <span class="title">Bool</span></span></div><div class="line"><span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">threadPriority</span>() -&gt; <span class="title">Double</span></div></pre></td></tr></table></figure>
+<p>先来看下默认的优先级：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"子线程优先级是<span class="subst">\(thread.threadPriority)</span> 主线程优先级是<span class="subst">\(NSThread.mainThread()</span>.threadPriority)"</span>)</div></pre></td></tr></table></figure>
+<p>打印结果为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">子线程优先级是<span class="number">0.5</span> 主线程优先级是<span class="number">0.758064516129032</span></div></pre></td></tr></table></figure>
+<p>优先级是CUP处理线程时的权重，同等条件下，优先级越高的线程，优先获得CUP的处理时间。为了验证这一点，我们再创建一个线程。在 <code>TouchesBengan</code> 方法中，写入以下代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subThread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"线程2参数"</span>)</div><div class="line">subThread.start()</div><div class="line"></div><div class="line">thread.name = <span class="string">"子线程1"</span></div><div class="line">subThread.name = <span class="string">"子线程2"</span></div></pre></td></tr></table></figure>
+<p>现在我们有了两条线程，两个线程共同执行 <code>run</code> 这个方法，在这个方法中我们使用 for 循环输出一句话：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">for _ in 0...100 &#123;</div><div class="line">    print("当前线程是\(NSThread.currentThread().name)</div><div class="line">           当前参数是\(str)</div><div class="line">           当前优先级是\(NSThread.currentThread().threadPriority)")</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行，控制台输出如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程2"</span>) 当前参数是线程<span class="number">2</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程2"</span>) 当前参数是线程<span class="number">2</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div></pre></td></tr></table></figure>
+<p>可以看出，在优先级相同的情况下，两个线程轮流执行。现在我们修改线程的优先级：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">subThread.threadPriority = <span class="number">0.1</span></div><div class="line">thread.threadPriority = <span class="number">0.9</span></div></pre></td></tr></table></figure>
+<p>输出结果为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程2"</span>) 当前参数是线程<span class="number">2</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程2"</span>) 当前参数是线程<span class="number">2</span>参数</div><div class="line">当前线程是<span class="type">Optional</span>(<span class="string">"子线程1"</span>) 当前参数是线程<span class="number">1</span>参数</div></pre></td></tr></table></figure>
+<p>可以看到，刚开始运行时，基本都是权重高的进程在计算，需要注意的是，<strong>优先级要设定在另一个进程 start 之前</strong>，写在 start 之后无效。</p>
+<hr>
+<h5 id="其他属性和方法"><a href="#其他属性和方法" class="headerlink" title="其他属性和方法"></a>其他属性和方法</h5><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">currentThread</span>() -&gt; <span class="title">NSThread</span>				//获取当前的线程</span></div><div class="line"><span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">sleepForTimeInterval</span>(<span class="title">ti</span>: <span class="title">NSTimeInterval</span>)	//休眠到指定的时间</div><div class="line"><span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">exit</span>()									//退出进程</div><div class="line"><span class="title">public</span> <span class="title">class</span> <span class="title">func</span> <span class="title">sleepUntilDate</span>(<span class="title">date</span>: <span class="title">NSDate</span>)				//休眠到指定的日期</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/21/No Such Module 错误/" rel="next" title="No Such Module 错误处理">
+                <i class="fa fa-chevron-left"></i> No Such Module 错误处理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/21/iOS多线程之 3种方式创建线程/" rel="prev" title="iOS多线程 - 3种方式创建线程">
+                iOS多线程 - 3种方式创建线程 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/07/21/iOS多线程之 NSThread/"
+     data-title="iOS多线程 - NSThread"
+     data-content=""
+     data-url="http://yoursite.com/2016/07/21/iOS多线程之 NSThread/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/07/21/iOS多线程之 NSThread/"
+           data-title="iOS多线程 - NSThread" data-url="http://yoursite.com/2016/07/21/iOS多线程之 NSThread/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">52</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#isMainThread-mainThread"><span class="nav-number">1.</span> <span class="nav-text">isMainThread mainThread</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#栈大小-stackSize"><span class="nav-number">2.</span> <span class="nav-text">栈大小 stackSize</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#线程的优先级"><span class="nav-number">3.</span> <span class="nav-text">线程的优先级</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#其他属性和方法"><span class="nav-number">3.1.</span> <span class="nav-text">其他属性和方法</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
