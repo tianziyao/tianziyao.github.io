@@ -347,52 +347,13 @@
 
       
         
-          
-            <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
+          <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
 <p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
-<h2 id="UIApplicationMain"><a href="#UIApplicationMain" class="headerlink" title="UIApplicationMain"></a>UIApplicationMain</h2><p>截图中默认的iOS程序就是从main函数开始执行的，但是在main函数中我们其实只能看到一个方法，这个方法内部是一个消息循环（相当于一个死循 环），因此运行到</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]))</div></pre></td></tr></table></figure>
-<p>UIApplicationMain这个方法之后程序不会自动退出，而只有当用户手动关闭程序这个循环才结束。这个方法有四个参数：</p>
-<ul>
-<li>第一个参数和第二个参数其实就是main函数的参数，分别代表：参数个数、参数内容；</li>
-<li>第三个参数代表UIApplication类（或子类）字符串，这个参数默认为nil则代表默认为UIApplication类，用户 可以自定义一个类继承于这个类；如果为nil则等价于NSStringFromClass([UIApplication class])，大家可以自己试验，效果完全一样；UIApplication是单例模式，一个应用程序只有一个UIApplication对象或子对 象；</li>
-<li>第四个参数是UIApplication的代理类字符串，默认生成的是AppDelegate类，这个类主要用于监听整个应用程序生命 周期的各个事件，当UIApplication运行过程中引发了某个事件之后会调用代理中对应的方法；</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">int main(int argc, char *argv[])</div><div class="line">&#123;</div><div class="line">    @autoreleasepool &#123;</div><div class="line">        return UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>main</code>函数的两个参数<code>(int argc, char *argv[])</code>，iOS中没有用到，包括这两个参数是为了与标准ANSI C保持一致。</p>
-<p><code>UIApplicationMain</code>函数，前两个参数和<code>main</code>函数一样，重点是后两个，官方说明是这样的：</p>
-<blockquote>
-<p>// If nil is specified for principalClassName, the value for NSPrincipalClass from the Info.plist is used. If there is no<br>// NSPrincipalClass key specified, the UIApplication class is used. The delegate class will be instantiated using init.<br>UIKIT_EXTERN int UIApplicationMain(int argc, char <em>argv[], NSString </em>principalClassName, NSString *delegateClassName);</p>
-</blockquote>
-<p>后两个参数分别表示程序的主要类（principal class）和代理类（delegate class）。如果主要类为nil，将从Info.plist中获取，如果Info.plist中不存在对应的key，则默认为UIApplication；如果代理类为nil，将在新建工程时创建。</p>
-<p>根据UIApplicationMain函数，程序将进入AppDelegate.m，这个文件是Xcode新建工程时自动生成的。</p>
-<p>上面实例代码中有一个很重要的函数<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIKitFunctionReference/index.html#//apple_ref/c/func/UIApplicationMain" target="_blank" rel="external">UIApplicationMain</a>，它主要是创建app的几个核心对象来处理以下过程：</p>
-<ol>
-<li>从可用<code>Storyboard</code>文件加载用户界面</li>
-<li>调用<code>AppDelegate</code>自定义代码来做一些初始化设置</li>
-<li>将app放入<code>Main Run Loop</code>环境中来响应和处理与用户交互产生的事件</li>
-</ol>
-<h3 id="Swift中的Main函数"><a href="#Swift中的Main函数" class="headerlink" title="Swift中的Main函数"></a>Swift中的Main函数</h3><p>用OC语言创建的项目，一定会有一个main.m文件，里面有一个main函数，在这个函数中唤醒app。如果在app启动时放置断点，可以看到应用程序调用栈，main函数作为程序启动后的第二个函数被调用，然后在main函数中再启动UIApplication，并绑定AppDelegate。如下图：</p>
-<p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.png" alt="ocmain"></p>
-<p>但是Swift项目中没有一个名为main.swift的文件，为什么app的入口没有了？官方文档的说法是这样的：</p>
-<blockquote>
-<p>In Xcode, Mac templates default to including a “main.swift” file, but for iOS apps the default for new iOS project templates is to add @UIApplicationMain to a regular Swift file. This causes the compiler to synthesize a mainentry point for your iOS app, and eliminates the need for a “main.swift” file.</p>
-</blockquote>
-<p>这段话的意思是，Swift项目中添加了@UIApplicationMain 到swift文件中，使得编译器合成了一个app入口，所以不需要main.swift文件。</p>
-<p> <img src="http://oboehz2ag.bkt.clouddn.com/swiftmain.png" alt="swiftmain"></p>
-<p>可能苹果认为我们并不需要自行配置app入口，所以干脆简化了项目配置，使用更加简单的方式启动应用，但有时候我们可能需要自己配置入口，例如我们要创建一个UIApplication的子类时。</p>
-<h2 id="自定义UIApplicationMain"><a href="#自定义UIApplicationMain" class="headerlink" title="自定义UIApplicationMain"></a>自定义UIApplicationMain</h2><p>如果你希望通过自行配置入口的方式来创建一个UIApplication子类，首先定义一个UIApplication的子类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import Foundation</div><div class="line">import UIKit</div><div class="line"></div><div class="line">class MyApplication: UIApplication &#123;</div><div class="line">    override func sendEvent(event: UIEvent) &#123;</div><div class="line">        super.sendEvent(event)</div><div class="line">        print(&quot;send event&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后新建main.swift文件：设置入口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import Foundation</div><div class="line">import UIKit</div><div class="line"></div><div class="line">UIApplicationMain(Process.argc, Process.unsafeArgv, NSStringFromClass(myApplication), NSStringFromClass(AppDelegate))</div></pre></td></tr></table></figure>
-<p>在Appdelegate的最顶部声明@UIApplicationMain，表示该类是application的delegate。</p>
-<p>如果不用该属性标识，另外一种做法是在main.swift中调用UIApplicationMain函数，设置delegate和application。以上我们就是根据这种方法来设置的。</p>
-<p>去掉Appdelegate的@UIApplicationMain，我们就将main.swift设置为了入口。</p>
-<h2 id="UIApplicationMain的参数"><a href="#UIApplicationMain的参数" class="headerlink" title="UIApplicationMain的参数"></a>UIApplicationMain的参数</h2><p>以前OC的main函数的argv参数是一个字符串指针，打印出来后是应用程序的路径。</p>
-<p>Swift中main函数的 Process.unsafeArgv 参数变成了一串十六进制数字，应该也是代表应用程序地址。</p>
-<h2 id="Demo下载"><a href="#Demo下载" class="headerlink" title="Demo下载"></a>Demo下载</h2><p><a href="https://github.com/tianziyao/demo/tree/master/CustomApplication" target="_blank" rel="external">GitHub传送门</a></p>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/24/iOS生命周期 - Main函数/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -509,33 +470,17 @@
 
       
         
-          
-            <p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
+          <p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
 <p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
 <p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
-<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
-<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
-<p>以下表示现有进程中找不到ssh对应的进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
-<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
-<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
-<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>如果提示以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
-<p>尝试以下的解决方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
-<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
-
-          
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/24/Mac技巧 -  SHH登录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>

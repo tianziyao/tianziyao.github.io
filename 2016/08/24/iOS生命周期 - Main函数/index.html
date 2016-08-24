@@ -104,25 +104,19 @@
 
 
 
-<meta name="description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：
- 
-UIApplicationMain截图中默认的iOS程序就是从main函数开始执行的，但">
+<meta name="description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS生命周期 - Main函数">
 <meta property="og:url" content="http://yoursite.com/2016/08/24/iOS生命周期 - Main函数/index.html">
 <meta property="og:site_name" content="iSTian'notes">
-<meta property="og:description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：
- 
-UIApplicationMain截图中默认的iOS程序就是从main函数开始执行的，但">
+<meta property="og:description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/ocmain.png">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/swiftmain.png">
-<meta property="og:updated_time" content="2016-08-24T04:24:55.000Z">
+<meta property="og:updated_time" content="2016-08-24T04:28:51.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS生命周期 - Main函数">
-<meta name="twitter:description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：
- 
-UIApplicationMain截图中默认的iOS程序就是从main函数开始执行的，但">
+<meta name="twitter:description" content="所有基于C编写的app的入口都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你不应该修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：">
 <meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png">
 
 
@@ -354,6 +348,7 @@ UIApplicationMain截图中默认的iOS程序就是从main函数开始执行的�
       
         <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
 <p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
+<a id="more"></a>
 <h2 id="UIApplicationMain"><a href="#UIApplicationMain" class="headerlink" title="UIApplicationMain"></a>UIApplicationMain</h2><p>截图中默认的iOS程序就是从main函数开始执行的，但是在main函数中我们其实只能看到一个方法，这个方法内部是一个消息循环（相当于一个死循 环），因此运行到</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">UIApplicationMain(argc, argv, nil, NSStringFromClass([AppDelegate class]))</div></pre></td></tr></table></figure>
 <p>UIApplicationMain这个方法之后程序不会自动退出，而只有当用户手动关闭程序这个循环才结束。这个方法有四个参数：</p>
