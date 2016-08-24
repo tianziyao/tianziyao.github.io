@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-24T04:28:51.000Z</updated>
+  <updated>2016-08-24T05:03:41.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/08/24/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%20-%20Main%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2016/08/24/iOS生命周期 - Main函数/</id>
     <published>2016-08-24T10:16:00.000Z</published>
-    <updated>2016-08-24T04:28:51.000Z</updated>
+    <updated>2016-08-24T05:03:41.000Z</updated>
     
     <content type="html"><![CDATA[<p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
 <p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
@@ -57,9 +57,9 @@
 <p> <img src="http://oboehz2ag.bkt.clouddn.com/swiftmain.png" alt="swiftmain"></p>
 <p>可能苹果认为我们并不需要自行配置app入口，所以干脆简化了项目配置，使用更加简单的方式启动应用，但有时候我们可能需要自己配置入口，例如我们要创建一个UIApplication的子类时。</p>
 <h2 id="自定义UIApplicationMain"><a href="#自定义UIApplicationMain" class="headerlink" title="自定义UIApplicationMain"></a>自定义UIApplicationMain</h2><p>如果你希望通过自行配置入口的方式来创建一个UIApplication子类，首先定义一个UIApplication的子类：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import Foundation</div><div class="line">import UIKit</div><div class="line"></div><div class="line">class MyApplication: UIApplication &#123;</div><div class="line">    override func sendEvent(event: UIEvent) &#123;</div><div class="line">        super.sendEvent(event)</div><div class="line">        print(&quot;send event&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后新建main.swift文件：设置入口</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">import Foundation</div><div class="line">import UIKit</div><div class="line"></div><div class="line">UIApplicationMain(Process.argc, Process.unsafeArgv, NSStringFromClass(myApplication), NSStringFromClass(AppDelegate))</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span>: <span class="title">UIApplication</span> </span>&#123;</div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">sendEvent</span><span class="params">(event: UIEvent)</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.sendEvent(event)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"send event"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后新建main.swift文件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"><span class="keyword">import</span> UIKit</div><div class="line"></div><div class="line"><span class="type">UIApplicationMain</span>(<span class="type">Process</span>.argc, <span class="type">Process</span>.unsafeArgv, <span class="type">NSStringFromClass</span>(myApplication), <span class="type">NSStringFromClass</span>(<span class="type">AppDelegate</span>))</div></pre></td></tr></table></figure>
 <p>在Appdelegate的最顶部声明@UIApplicationMain，表示该类是application的delegate。</p>
 <p>如果不用该属性标识，另外一种做法是在main.swift中调用UIApplicationMain函数，设置delegate和application。以上我们就是根据这种方法来设置的。</p>
 <p>去掉Appdelegate的@UIApplicationMain，我们就将main.swift设置为了入口。</p>
