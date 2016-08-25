@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/24/iOS生命周期 - Main函数/" itemprop="url">
-                  iOS生命周期 - Main函数
+                <a class="post-title-link" href="/2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="url">
+                  iOS网络编程 - NSURLConnection
                 </a>
               
             
@@ -292,8 +292,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-24T18:16:00+08:00" content="2016-08-24">
-              2016-08-24
+            <time itemprop="dateCreated" datetime="2016-08-25T18:16:00+08:00" content="2016-08-25">
+              2016-08-25
             </time>
           </span>
 
@@ -322,8 +322,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/24/iOS生命周期 - Main函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/iOS生命周期 - Main函数/" itemprop="commentsCount"></span>
+                <a href="/2016/08/25/iOS网络编程 - NSURLConnection/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,13 +347,87 @@
 
       
         
-          <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
-<p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/24/iOS生命周期 - Main函数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果需要兼容到很低版本的iOS系统，有时就必须使用NSURLConnection类了。</p>
+<p>使用NSURLConnection用到的六个关于网络连接的类分别是：</p>
+<ul>
+<li>NSURLConnection：提供了初始化、开始和取消一个网络连接</li>
+<li>NSURL：封装了一个网络路径</li>
+<li>NSURLRequest：设置网络的请求信息</li>
+<li>NSMutableURLRequest：NSURLRequest的子类，可以设置请求参数</li>
+<li>NSURLResponse：接收服务器返回的信息</li>
+<li>NSError：包含了网络请求中遇到的错误信息</li>
+</ul>
+<p>使用NSURLConnection发送请求的步骤很简单：</p>
+<ol>
+<li>创建一个NSURL对象，设置请求路径（设置请求路径）</li>
+<li>传入NSURL创建一个NSURLRequest对象，设置请求头和请求体（创建请求对象）</li>
+<li>使用NSURLConnection发送NSURLRequest（发送请求）</li>
+</ol>
+<p>使用NSURLConnection发送请求有两张情况，同步请求和异步请求。</p>
+<h2 id="NSURLConnection-同步请求"><a href="#NSURLConnection-同步请求" class="headerlink" title="NSURLConnection 同步请求"></a>NSURLConnection 同步请求</h2><p>对于网络请求分为同步和异步两种，同步是指在请求结果返回之前，程序代码会卡在请求处，之后的代码不会被执行，异步是指在发送请求之后，一边在子线程中接收返回数据，一边执行之后的代码，当返回数据接收完毕后，采用回调的方式通知主线程做处理。</p>
+<p>异步的连接将会创建一个新的线程，这个线程将会来负责下载的动作。而对于同步连接，在下载连接和处理通讯时，则会阻塞当前调用线程。许多开发者都会认为同步的连接将会堵塞主线程，其实这种观点是错误的。</p>
+<p>一个同步的连接是会阻塞调用它的线程，如果你在主线程中创建一个同步连接，主线程会阻塞，但是如果你并不是从主线程开启的一个同步的连接，它将会类似异步的连接一样，因此这种情况并不会堵塞你的主线程。</p>
+<p>事实上，同步和异步的主要区别就是运行 runtime 为会异步连接创建一个线程，而同步连接则不会。</p>
+<p>下面是同步请求的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!)</div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">let</span> data = <span class="keyword">try</span> <span class="type">NSURLConnection</span>.sendSynchronousRequest(request, returningResponse: <span class="literal">nil</span>)</div><div class="line">    <span class="built_in">print</span>(data)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"出错了"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="NSURLConnection-异步请求"><a href="#NSURLConnection-异步请求" class="headerlink" title="NSURLConnection 异步请求"></a>NSURLConnection 异步请求</h2><p>使用同步的方式进行请求有一个很大的弊端，在进行网络请求时，数据的返回往往需要一定时间，不可能瞬间完成，使用同步的方式将很有可能会导致界面卡死，没有提示也不能交互任何用户操作，会给用户程序卡死的假象。</p>
+<p>NSURLConnection类提供代理和block两种方式进行异步请求操作。</p>
+<h3 id="NSURLConnection-代理"><a href="#NSURLConnection-代理" class="headerlink" title="NSURLConnection 代理"></a>NSURLConnection 代理</h3><p>首先遵守NSURLConnectionDataDelegate协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">NSURLConnectionDataDelegate</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> url: <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用如下的代码进行请求：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">connectionWithDelegate</span><span class="params">(url: String?)</span></span> -&gt; <span class="type">NSURLConnection</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">NSURLConnection</span>(request:  <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!), delegate: <span class="keyword">self</span>)!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>请求发出后，会一次调用如下代理方法进行请求过程的监听和数据的获取：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didFailWithError error: NSError)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"连接失败，<span class="subst">\(error)</span>"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didReceiveResponse response: NSURLResponse)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"收到服务器响应，<span class="subst">\(response)</span>"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didReceiveData data: NSData)</span></span> &#123;</div><div class="line">data.appendData(data)</div><div class="line"><span class="built_in">print</span>(<span class="string">"正在接收数据"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connectionDidFinishLoading</span><span class="params">(connection: NSURLConnection)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"数据传输完成，<span class="subst">\(connection)</span>"</span>)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>其中didReceiveData有可能被多次调用，比如下载一个文件夹，文件夹中每有一个文件下载完，有可能就会调用 一次，所以这个函数有时会使用累加代码，将多次下载的数据写入到一个文件里面。</p>
+<h3 id="NSURLConnection-Block"><a href="#NSURLConnection-Block" class="headerlink" title="NSURLConnection Block"></a>NSURLConnection Block</h3><p>使用如下代码进行block方式的异步请求，在block中会传入请求到的返回数据和数据信息等参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">connectionWithThread</span><span class="params">(url: String?)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> queue = <span class="type">NSOperationQueue</span>()</div><div class="line">    <span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!)</div><div class="line">    <span class="type">NSURLConnection</span>.sendAsynchronousRequest(request, queue: queue) &#123;</div><div class="line">        (resp: <span class="type">NSURLResponse</span>?, data: <span class="type">NSData</span>?, error: <span class="type">NSError</span>?) <span class="keyword">in</span></div><div class="line">        <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"出错了，<span class="subst">\(error)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">            <span class="keyword">let</span> dict = <span class="keyword">try</span>? <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions)</div><div class="line">            <span class="keyword">self</span>.imageUrl = dict?.objectForKey(<span class="string">"headimgurl"</span>) <span class="keyword">as</span>? <span class="type">String</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="NSURLConnection-网络请求设置"><a href="#NSURLConnection-网络请求设置" class="headerlink" title="NSURLConnection 网络请求设置"></a>NSURLConnection 网络请求设置</h2><p>网络请求的设置如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setRequestMessage</span><span class="params">(url: String?)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> user = <span class="string">"username=admin&amp;password=12345&amp;department=125"</span></div><div class="line">        <span class="keyword">let</span> queue = <span class="type">NSOperationQueue</span>()</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(),</div><div class="line">                                          cachePolicy: <span class="type">NSURLRequestCachePolicy</span>.<span class="type">ReloadIgnoringLocalCacheData</span>,</div><div class="line">                                          timeoutInterval: <span class="number">60</span>) <span class="comment">//超出60秒后请求失败</span></div><div class="line">        </div><div class="line">        request.<span class="type">URL</span> = <span class="type">NSURL</span>(string: url!)!</div><div class="line">        request.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span></div><div class="line">        <span class="keyword">let</span> data = user.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">        request.<span class="type">HTTPBody</span> = data</div><div class="line">        </div><div class="line">        <span class="type">NSURLConnection</span>.sendAsynchronousRequest(request, queue: queue) &#123;</div><div class="line">            (resp: <span class="type">NSURLResponse</span>?, data: <span class="type">NSData</span>?, error: <span class="type">NSError</span>?) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"出错了，<span class="subst">\(error)</span>"</span>)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"服务器返回了响应消息，<span class="subst">\(resp)</span>"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>其中的核心在于：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(),</div><div class="line">                                          cachePolicy: <span class="type">NSURLRequestCachePolicy</span>.<span class="type">ReloadIgnoringLocalCacheData</span>,</div><div class="line">                                          timeoutInterval: <span class="number">60</span>) <span class="comment">//超出60秒后请求失败</span></div></pre></td></tr></table></figure>
+<p>NSURLRequestCachePolicy指定缓存逻辑。URL加载系统提供了一个磁盘和内存混合的缓存，来响应网络请求。这个缓存允许一个应用减少对网络连接的依赖，并且增加性能。</p>
+<p>使用缓存的目的是为了使用的应用程序能更快速的响应用户输入，是程序高效的运行。有时候我们需要将远程web服务器获取的数据缓存起来，减少对同一个url多次请求。     </p>
+<p><strong>可变请求才具有cachePolicy和timeoutInterval参数。</strong></p>
+<h3 id="NSURLRequestCachePolicy-参数"><a href="#NSURLRequestCachePolicy-参数" class="headerlink" title="NSURLRequestCachePolicy 参数"></a>NSURLRequestCachePolicy 参数</h3><ul>
+<li>NSURLRequestUseProtocolCachePolicy = 0：</li>
+</ul>
+<p>默认缓存策略。</p>
+<p>如果一个NSCachedURLResponse对于请求并不存在，数据将会从源端获取；</p>
+<p>如果请求拥有一个缓存的响应，那么URL加载系统会检查这个响应来决定；</p>
+<p>如果它指定内容必须重新生效，将建立一个连向源端的连接来查看内容是否发生变化；</p>
+<p>假如内容没有变化，那么响应就从本地缓存返回数据；</p>
+<p>如果内容变化了，那么数据将从源端获取；</p>
+<ul>
+<li>NSURLRequestReloadIgnoringLocalCacheData = 1：</li>
+</ul>
+<p>URL应该加载源端数据，不使用本地缓存数据；</p>
+<ul>
+<li>NSURLRequestReturnCacheDataElseLoad = 2：</li>
+</ul>
+<p>指定已存的缓存数据应该用来响应请求，不管它的生命时长和过期时间；</p>
+<p>如果在缓存中没有已存数据来响应请求的话，数据从源端加载；</p>
+<ul>
+<li>NSURLRequestReturnCacheDataDontLoad = 3：</li>
+</ul>
+<p>指定已存的缓存数据用来满足请求，不管生命时长和过期时间；</p>
+<p>如果在缓存中没有已存数据来响应URL加载请求的话，不去尝试从源段加载数据， 此时认为加载请求失败；</p>
+<p>这个常量指定了一个类似于离线模式的行为，常用于离线模式；</p>
+<ul>
+<li>NSURLRequestReloadIgnoringLocalAndRemoteCacheData =4：</li>
+</ul>
+<p>本地缓存数据、代理和其他中介都要忽视他们的缓存，直接加载源数据； </p>
+<p>NSURLRequestReloadIgnoringCacheData和NSURLRequestReloadIgnoringLocalCacheData，两个的设置相同；</p>
+<ul>
+<li>NSURLRequestReloadRevalidatingCacheData = 5：</li>
+</ul>
+<p>指定如果已存的缓存数据被提供它的源段确认为有效则允许使用缓存数据响应请求，否则从源段加载数据； </p>
+<p>只有响应http和https的请求会被缓存，ftp和文件协议当被缓存策略允许的时候尝试接入源段；</p>
+<p>自定义的NSURLProtocol类能够保护缓存， 如果它们被选择使用的话；</p>
+<p><code>HTTPMethod</code>和<code>HTTPBody</code>分别对应网络请求中的请求头和请求体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">request.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span></div><div class="line"><span class="keyword">let</span> data = user.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">request.<span class="type">HTTPBody</span> = data</div></pre></td></tr></table></figure>
+
+          
         
       
     </div>
@@ -478,6 +552,129 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/24/Mac技巧 -  SHH登录/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/24/iOS生命周期 - Main函数/" itemprop="url">
+                  iOS生命周期 - Main函数
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-24T18:16:00+08:00" content="2016-08-24">
+              2016-08-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/24/iOS生命周期 - Main函数/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/iOS生命周期 - Main函数/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
+<p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/24/iOS生命周期 - Main函数/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -942,129 +1139,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/17/HTTP协议/" itemprop="url">
-                  HTTP协议 - HTTP请求
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-17T04:44:00+08:00" content="2016-08-17">
-              2016-08-17
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/17/HTTP协议/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/HTTP协议/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
-<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/17/HTTP协议/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/08/17/SQL基础语法/" itemprop="url">
                   MYSQL入门 - 基础语法
                 </a>
@@ -1148,6 +1222,129 @@
 <p>表是相关的数据项的集合，它由列和行组成。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/17/SQL基础语法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/17/HTTP协议/" itemprop="url">
+                  HTTP协议 - HTTP请求
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-17T04:44:00+08:00" content="2016-08-17">
+              2016-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTTP/" itemprop="url" rel="index">
+                    <span itemprop="name">HTTP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/17/HTTP协议/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/17/HTTP协议/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
+<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/17/HTTP协议/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1476,129 +1673,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/12/PHP-面向对象/" itemprop="url">
-                  PHP入门 - 面向对象
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-12T04:43:00+08:00" content="2016-08-12">
-              2016-08-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/PHP/" itemprop="url" rel="index">
-                    <span itemprop="name">PHP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/12/PHP-面向对象/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/12/PHP-面向对象/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Hello &#123;</div><div class="line"></div><div class="line">    public function sayello() &#123;</div><div class="line">        echo &apos;Hello PHP&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="类的实例化"><a href="#类的实例化" class="headerlink" title="类的实例化"></a>类的实例化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$h = new Hello();</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/12/PHP-面向对象/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1644,7 +1718,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">36</span>
+              <span class="site-state-item-count">37</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1661,7 +1735,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">57</span>
+                <span class="site-state-item-count">58</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

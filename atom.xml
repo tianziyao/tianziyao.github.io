@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-24T05:03:41.000Z</updated>
+  <updated>2016-08-25T01:35:23.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,160 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS网络编程 - NSURLConnection</title>
+    <link href="http://yoursite.com/2016/08/25/iOS%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%20-%20NSURLConnection/"/>
+    <id>http://yoursite.com/2016/08/25/iOS网络编程 - NSURLConnection/</id>
+    <published>2016-08-25T10:16:00.000Z</published>
+    <updated>2016-08-25T01:35:23.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果需要兼容到很低版本的iOS系统，有时就必须使用NSURLConnection类了。</p>
+<p>使用NSURLConnection用到的六个关于网络连接的类分别是：</p>
+<ul>
+<li>NSURLConnection：提供了初始化、开始和取消一个网络连接</li>
+<li>NSURL：封装了一个网络路径</li>
+<li>NSURLRequest：设置网络的请求信息</li>
+<li>NSMutableURLRequest：NSURLRequest的子类，可以设置请求参数</li>
+<li>NSURLResponse：接收服务器返回的信息</li>
+<li>NSError：包含了网络请求中遇到的错误信息</li>
+</ul>
+<p>使用NSURLConnection发送请求的步骤很简单：</p>
+<ol>
+<li>创建一个NSURL对象，设置请求路径（设置请求路径）</li>
+<li>传入NSURL创建一个NSURLRequest对象，设置请求头和请求体（创建请求对象）</li>
+<li>使用NSURLConnection发送NSURLRequest（发送请求）</li>
+</ol>
+<p>使用NSURLConnection发送请求有两张情况，同步请求和异步请求。</p>
+<h2 id="NSURLConnection-同步请求"><a href="#NSURLConnection-同步请求" class="headerlink" title="NSURLConnection 同步请求"></a>NSURLConnection 同步请求</h2><p>对于网络请求分为同步和异步两种，同步是指在请求结果返回之前，程序代码会卡在请求处，之后的代码不会被执行，异步是指在发送请求之后，一边在子线程中接收返回数据，一边执行之后的代码，当返回数据接收完毕后，采用回调的方式通知主线程做处理。</p>
+<p>异步的连接将会创建一个新的线程，这个线程将会来负责下载的动作。而对于同步连接，在下载连接和处理通讯时，则会阻塞当前调用线程。许多开发者都会认为同步的连接将会堵塞主线程，其实这种观点是错误的。</p>
+<p>一个同步的连接是会阻塞调用它的线程，如果你在主线程中创建一个同步连接，主线程会阻塞，但是如果你并不是从主线程开启的一个同步的连接，它将会类似异步的连接一样，因此这种情况并不会堵塞你的主线程。</p>
+<p>事实上，同步和异步的主要区别就是运行 runtime 为会异步连接创建一个线程，而同步连接则不会。</p>
+<p>下面是同步请求的示例：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!)</div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">let</span> data = <span class="keyword">try</span> <span class="type">NSURLConnection</span>.sendSynchronousRequest(request, returningResponse: <span class="literal">nil</span>)</div><div class="line">    <span class="built_in">print</span>(data)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"出错了"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="NSURLConnection-异步请求"><a href="#NSURLConnection-异步请求" class="headerlink" title="NSURLConnection 异步请求"></a>NSURLConnection 异步请求</h2><p>使用同步的方式进行请求有一个很大的弊端，在进行网络请求时，数据的返回往往需要一定时间，不可能瞬间完成，使用同步的方式将很有可能会导致界面卡死，没有提示也不能交互任何用户操作，会给用户程序卡死的假象。</p>
+<p>NSURLConnection类提供代理和block两种方式进行异步请求操作。</p>
+<h3 id="NSURLConnection-代理"><a href="#NSURLConnection-代理" class="headerlink" title="NSURLConnection 代理"></a>NSURLConnection 代理</h3><p>首先遵守NSURLConnectionDataDelegate协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">NSURLConnectionDataDelegate</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> url: <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>调用如下的代码进行请求：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">connectionWithDelegate</span><span class="params">(url: String?)</span></span> -&gt; <span class="type">NSURLConnection</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="type">NSURLConnection</span>(request:  <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!), delegate: <span class="keyword">self</span>)!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>请求发出后，会一次调用如下代理方法进行请求过程的监听和数据的获取：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didFailWithError error: NSError)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"连接失败，<span class="subst">\(error)</span>"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didReceiveResponse response: NSURLResponse)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"收到服务器响应，<span class="subst">\(response)</span>"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connection</span><span class="params">(connection: NSURLConnection, didReceiveData data: NSData)</span></span> &#123;</div><div class="line">data.appendData(data)</div><div class="line"><span class="built_in">print</span>(<span class="string">"正在接收数据"</span>)</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">connectionDidFinishLoading</span><span class="params">(connection: NSURLConnection)</span></span> &#123;</div><div class="line">      <span class="built_in">print</span>(<span class="string">"数据传输完成，<span class="subst">\(connection)</span>"</span>)</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>其中didReceiveData有可能被多次调用，比如下载一个文件夹，文件夹中每有一个文件下载完，有可能就会调用 一次，所以这个函数有时会使用累加代码，将多次下载的数据写入到一个文件里面。</p>
+<h3 id="NSURLConnection-Block"><a href="#NSURLConnection-Block" class="headerlink" title="NSURLConnection Block"></a>NSURLConnection Block</h3><p>使用如下代码进行block方式的异步请求，在block中会传入请求到的返回数据和数据信息等参数：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">connectionWithThread</span><span class="params">(url: String?)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> queue = <span class="type">NSOperationQueue</span>()</div><div class="line">    <span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: url!)!)</div><div class="line">    <span class="type">NSURLConnection</span>.sendAsynchronousRequest(request, queue: queue) &#123;</div><div class="line">        (resp: <span class="type">NSURLResponse</span>?, data: <span class="type">NSData</span>?, error: <span class="type">NSError</span>?) <span class="keyword">in</span></div><div class="line">        <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"出错了，<span class="subst">\(error)</span>"</span>)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">            <span class="keyword">let</span> dict = <span class="keyword">try</span>? <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions)</div><div class="line">            <span class="keyword">self</span>.imageUrl = dict?.objectForKey(<span class="string">"headimgurl"</span>) <span class="keyword">as</span>? <span class="type">String</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="NSURLConnection-网络请求设置"><a href="#NSURLConnection-网络请求设置" class="headerlink" title="NSURLConnection 网络请求设置"></a>NSURLConnection 网络请求设置</h2><p>网络请求的设置如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setRequestMessage</span><span class="params">(url: String?)</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> user = <span class="string">"username=admin&amp;password=12345&amp;department=125"</span></div><div class="line">        <span class="keyword">let</span> queue = <span class="type">NSOperationQueue</span>()</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(),</div><div class="line">                                          cachePolicy: <span class="type">NSURLRequestCachePolicy</span>.<span class="type">ReloadIgnoringLocalCacheData</span>,</div><div class="line">                                          timeoutInterval: <span class="number">60</span>) <span class="comment">//超出60秒后请求失败</span></div><div class="line">        </div><div class="line">        request.<span class="type">URL</span> = <span class="type">NSURL</span>(string: url!)!</div><div class="line">        request.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span></div><div class="line">        <span class="keyword">let</span> data = user.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">        request.<span class="type">HTTPBody</span> = data</div><div class="line">        </div><div class="line">        <span class="type">NSURLConnection</span>.sendAsynchronousRequest(request, queue: queue) &#123;</div><div class="line">            (resp: <span class="type">NSURLResponse</span>?, data: <span class="type">NSData</span>?, error: <span class="type">NSError</span>?) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"出错了，<span class="subst">\(error)</span>"</span>)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"服务器返回了响应消息，<span class="subst">\(resp)</span>"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>其中的核心在于：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> request = <span class="type">NSMutableURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(),</div><div class="line">                                          cachePolicy: <span class="type">NSURLRequestCachePolicy</span>.<span class="type">ReloadIgnoringLocalCacheData</span>,</div><div class="line">                                          timeoutInterval: <span class="number">60</span>) <span class="comment">//超出60秒后请求失败</span></div></pre></td></tr></table></figure>
+<p>NSURLRequestCachePolicy指定缓存逻辑。URL加载系统提供了一个磁盘和内存混合的缓存，来响应网络请求。这个缓存允许一个应用减少对网络连接的依赖，并且增加性能。</p>
+<p>使用缓存的目的是为了使用的应用程序能更快速的响应用户输入，是程序高效的运行。有时候我们需要将远程web服务器获取的数据缓存起来，减少对同一个url多次请求。     </p>
+<p><strong>可变请求才具有cachePolicy和timeoutInterval参数。</strong></p>
+<h3 id="NSURLRequestCachePolicy-参数"><a href="#NSURLRequestCachePolicy-参数" class="headerlink" title="NSURLRequestCachePolicy 参数"></a>NSURLRequestCachePolicy 参数</h3><ul>
+<li>NSURLRequestUseProtocolCachePolicy = 0：</li>
+</ul>
+<p>默认缓存策略。</p>
+<p>如果一个NSCachedURLResponse对于请求并不存在，数据将会从源端获取；</p>
+<p>如果请求拥有一个缓存的响应，那么URL加载系统会检查这个响应来决定；</p>
+<p>如果它指定内容必须重新生效，将建立一个连向源端的连接来查看内容是否发生变化；</p>
+<p>假如内容没有变化，那么响应就从本地缓存返回数据；</p>
+<p>如果内容变化了，那么数据将从源端获取；</p>
+<ul>
+<li>NSURLRequestReloadIgnoringLocalCacheData = 1：</li>
+</ul>
+<p>URL应该加载源端数据，不使用本地缓存数据；</p>
+<ul>
+<li>NSURLRequestReturnCacheDataElseLoad = 2：</li>
+</ul>
+<p>指定已存的缓存数据应该用来响应请求，不管它的生命时长和过期时间；</p>
+<p>如果在缓存中没有已存数据来响应请求的话，数据从源端加载；</p>
+<ul>
+<li>NSURLRequestReturnCacheDataDontLoad = 3：</li>
+</ul>
+<p>指定已存的缓存数据用来满足请求，不管生命时长和过期时间；</p>
+<p>如果在缓存中没有已存数据来响应URL加载请求的话，不去尝试从源段加载数据， 此时认为加载请求失败；</p>
+<p>这个常量指定了一个类似于离线模式的行为，常用于离线模式；</p>
+<ul>
+<li>NSURLRequestReloadIgnoringLocalAndRemoteCacheData =4：</li>
+</ul>
+<p>本地缓存数据、代理和其他中介都要忽视他们的缓存，直接加载源数据； </p>
+<p>NSURLRequestReloadIgnoringCacheData和NSURLRequestReloadIgnoringLocalCacheData，两个的设置相同；</p>
+<ul>
+<li>NSURLRequestReloadRevalidatingCacheData = 5：</li>
+</ul>
+<p>指定如果已存的缓存数据被提供它的源段确认为有效则允许使用缓存数据响应请求，否则从源段加载数据； </p>
+<p>只有响应http和https的请求会被缓存，ftp和文件协议当被缓存策略允许的时候尝试接入源段；</p>
+<p>自定义的NSURLProtocol类能够保护缓存， 如果它们被选择使用的话；</p>
+<p><code>HTTPMethod</code>和<code>HTTPBody</code>分别对应网络请求中的请求头和请求体：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">request.<span class="type">HTTPMethod</span> = <span class="string">"POST"</span></div><div class="line"><span class="keyword">let</span> data = user.dataUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">request.<span class="type">HTTPBody</span> = data</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="iOS网络编程" scheme="http://yoursite.com/tags/iOS%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac开发工具 -  SHH登录</title>
+    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
+    <published>2016-08-24T10:16:00.000Z</published>
+    <updated>2016-08-24T04:40:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
+<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
+<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
+<p>以下表示现有进程中找不到ssh对应的进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
+<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
+<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
+<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>如果提示以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
+<p>尝试以下的解决方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
+<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
+    
+    
+      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
+    
+      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS生命周期 - Main函数</title>
@@ -79,60 +233,6 @@
     
     
       <category term="iOS生命周期" scheme="http://yoursite.com/tags/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mac开发工具 -  SHH登录</title>
-    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
-    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
-    <published>2016-08-24T10:16:00.000Z</published>
-    <updated>2016-08-24T04:40:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
-<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
-<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
-<p>以下表示现有进程中找不到ssh对应的进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
-<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
-<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
-<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>如果提示以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
-<p>尝试以下的解决方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
-<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
-    
-    
-      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
-    
-      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -513,217 +613,6 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
-    
-    
-      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议 - HTTP请求</title>
-    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
-    <published>2016-08-16T20:44:00.000Z</published>
-    <updated>2016-08-21T18:09:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
-<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
-<a id="more"></a>
-<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
-<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
-<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
-<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
-<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
-<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
-<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
-<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
-<p>统一资源定位符的标准格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scheme</td>
-<td>指定低层使用的协议，如 http, https, ftp。</td>
-</tr>
-<tr>
-<td>host</td>
-<td>HTTP服务器的IP地址或者域名。</td>
-</tr>
-<tr>
-<td>port</td>
-<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
-</tr>
-<tr>
-<td>path</td>
-<td>访问资源的路径。</td>
-</tr>
-<tr>
-<td>query-string</td>
-<td>发送给http服务器的数据。</td>
-</tr>
-<tr>
-<td>anchor</td>
-<td>锚点。</td>
-</tr>
-</tbody>
-</table>
-<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
-<ul>
-<li>schema: <code>http</code></li>
-<li>host: <code>www.mywebsite.com</code></li>
-<li>path: <code>/sj/test</code></li>
-<li>query string: <code>name=sviergn&amp;x=true</code></li>
-<li>anchor: <code>stuff</code></li>
-</ul>
-<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
-<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
-<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
-<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
-<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
-<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
-<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
-<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
-<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
-<blockquote>
-<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
-<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
-<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
-<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
-<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
-<p>Connection：表示是否需要持久连接。</p>
-<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
-<p>Content-Length：表示请求消息正文的长度。</p>
-<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
-<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
-<p>Host：指定请求的服务器的域名和端口号。</p>
-<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
-</blockquote>
-<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
-<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
-<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
-<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
-<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
-<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1xx</td>
-<td>指示信息–表示请求已接收，继续处理。</td>
-</tr>
-<tr>
-<td>2xx</td>
-<td>成功–表示请求已被成功接收、理解、接受。</td>
-</tr>
-<tr>
-<td>3xx</td>
-<td>重定向–要完成请求必须进行更进一步的操作。</td>
-</tr>
-<tr>
-<td>4xx</td>
-<td>客户端错误–请求有语法错误或请求无法实现。</td>
-</tr>
-<tr>
-<td>5xx</td>
-<td>服务器端错误–服务器未能实现合法的请求。</td>
-</tr>
-</tbody>
-</table>
-<p>常见状态代码、状态描述、说明：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200 OK</td>
-<td>客户端请求成功。</td>
-</tr>
-<tr>
-<td>400 Bad Request</td>
-<td>客户端请求有语法错误，不能被服务器所理解。</td>
-</tr>
-<tr>
-<td>401 Unauthorized</td>
-<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
-</tr>
-<tr>
-<td>403 Forbidden</td>
-<td>服务器收到请求，但是拒绝提供服务。</td>
-</tr>
-<tr>
-<td>404 Not Found</td>
-<td>请求资源不存在，eg：输入了错误的URL。</td>
-</tr>
-<tr>
-<td>500 Internal Server Error</td>
-<td>服务器发生不可预期的错误。</td>
-</tr>
-<tr>
-<td>503 Server Unavailable</td>
-<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
-</tr>
-</tbody>
-</table>
-<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
-<p>常见的响应头信息如下：</p>
-<blockquote>
-<p>Allow</p>
-<p>服务器支持哪些请求方法（如GET、POST等）。</p>
-<p>Content-Encoding</p>
-<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
-<p>Content-Length</p>
-<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
-<p>Content-Type</p>
-<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
-<p>Date</p>
-<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
-<p>Last-Modified</p>
-<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
-<p>Location</p>
-<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
-<p>Refresh</p>
-<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
-<p>Server</p>
-<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
-<p>Set-Cookie</p>
-<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
-<p>WWW-Authenticate</p>
-<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
-</blockquote>
-<p>下面是一个典型的响应消息： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
-<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
-&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
     
     </summary>
     
@@ -1576,6 +1465,217 @@
     
     
       <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP协议 - HTTP请求</title>
+    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
+    <published>2016-08-16T20:44:00.000Z</published>
+    <updated>2016-08-21T18:09:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
+<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
+<a id="more"></a>
+<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
+<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
+<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
+<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
+<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
+<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
+<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
+<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
+<p>统一资源定位符的标准格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scheme</td>
+<td>指定低层使用的协议，如 http, https, ftp。</td>
+</tr>
+<tr>
+<td>host</td>
+<td>HTTP服务器的IP地址或者域名。</td>
+</tr>
+<tr>
+<td>port</td>
+<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>访问资源的路径。</td>
+</tr>
+<tr>
+<td>query-string</td>
+<td>发送给http服务器的数据。</td>
+</tr>
+<tr>
+<td>anchor</td>
+<td>锚点。</td>
+</tr>
+</tbody>
+</table>
+<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
+<ul>
+<li>schema: <code>http</code></li>
+<li>host: <code>www.mywebsite.com</code></li>
+<li>path: <code>/sj/test</code></li>
+<li>query string: <code>name=sviergn&amp;x=true</code></li>
+<li>anchor: <code>stuff</code></li>
+</ul>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
+<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
+<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
+<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
+<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
+<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
+<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
+<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
+<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
+<blockquote>
+<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
+<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
+<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
+<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
+<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
+<p>Connection：表示是否需要持久连接。</p>
+<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
+<p>Content-Length：表示请求消息正文的长度。</p>
+<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
+<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
+<p>Host：指定请求的服务器的域名和端口号。</p>
+<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
+</blockquote>
+<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
+<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
+<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
+<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
+<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td>指示信息–表示请求已接收，继续处理。</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>成功–表示请求已被成功接收、理解、接受。</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>重定向–要完成请求必须进行更进一步的操作。</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端错误–请求有语法错误或请求无法实现。</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务器端错误–服务器未能实现合法的请求。</td>
+</tr>
+</tbody>
+</table>
+<p>常见状态代码、状态描述、说明：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200 OK</td>
+<td>客户端请求成功。</td>
+</tr>
+<tr>
+<td>400 Bad Request</td>
+<td>客户端请求有语法错误，不能被服务器所理解。</td>
+</tr>
+<tr>
+<td>401 Unauthorized</td>
+<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>服务器收到请求，但是拒绝提供服务。</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>请求资源不存在，eg：输入了错误的URL。</td>
+</tr>
+<tr>
+<td>500 Internal Server Error</td>
+<td>服务器发生不可预期的错误。</td>
+</tr>
+<tr>
+<td>503 Server Unavailable</td>
+<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
+</tr>
+</tbody>
+</table>
+<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
+<p>常见的响应头信息如下：</p>
+<blockquote>
+<p>Allow</p>
+<p>服务器支持哪些请求方法（如GET、POST等）。</p>
+<p>Content-Encoding</p>
+<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
+<p>Content-Length</p>
+<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
+<p>Content-Type</p>
+<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
+<p>Date</p>
+<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
+<p>Last-Modified</p>
+<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
+<p>Location</p>
+<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
+<p>Refresh</p>
+<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
+<p>Server</p>
+<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
+<p>Set-Cookie</p>
+<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
+<p>WWW-Authenticate</p>
+<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
+</blockquote>
+<p>下面是一个典型的响应消息： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
+<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
+&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
+    
+    
+      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
     
   </entry>
   
@@ -2789,162 +2889,6 @@
       <category term="代理模式" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
     
       <category term="Plist" scheme="http://yoursite.com/tags/Plist/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>版本管理工具 - GitHub</title>
-    <link href="http://yoursite.com/2016/07/30/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7%20-%20GitHub/"/>
-    <id>http://yoursite.com/2016/07/30/版本管理工具 - GitHub/</id>
-    <published>2016-07-29T18:24:00.000Z</published>
-    <updated>2016-08-21T18:07:30.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="版本管理工具的作用"><a href="#版本管理工具的作用" class="headerlink" title="版本管理工具的作用"></a>版本管理工具的作用</h3><hr>
-<p><strong>1. 备份文件</strong></p>
-<p>   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 <code>BOSS</code> ，如果不提前存档，那么打输了，之前的游戏记录就全消失了，还得重新打。</p>
-<hr>
-<p><strong>2. 记录历史</strong></p>
-<p>   版本管理工具会帮助我们保管文件，但是版本管理工具的保管和网盘，U盘的保管不尽相同，网盘和U盘帮我们保存的是一个最新的文件状态，而历史的版本是找不回来的，比如说网盘里有一个文件，是用来记录每天的日记，有一天我们想知道某一天的某一行是哪天，几点钟加上去的，这个信息网盘或者U盘是没有办法告诉我们的，除非我们自己在这个地方加一条改动记录。</p>
-<p>   而版本管理工具是在我们每一次修改完，提交给版本管理工具后，它都会留一份备份，它会记录着当时这个修改是几点几分，是谁进行的修改，那么这样的话，当我们需要去回溯，去查找这些信息的时候，版本管理工具是可以告诉我们的。</p>
-   <a id="more"></a>
-<hr>
-<p><strong>3. 回到过去</strong></p>
-<p>   版本管理工具会将我们每一次的修改做一个备份，如果我们不小心删除了某一个日记，并将这个删除也提交给了版本管理工具，通过版本管理工具，我们是可以通过历史备份把它恢复过来的，就好像是一个机器猫的时光机，我们可以让我们的文件恢复到任意过去的一个时间的的状态。</p>
-<hr>
-<p><strong>4. 多端共享</strong></p>
-<p>   版本管理工具的另一个特性是我们托管的文件可以在多端进行同步，类似于苹果的 <code>iCould</code> 服务，我们可以在不同的设备上拿到最新的文件。比如说某天我在公司的电脑上提交了一个文件，可能是我们正在进行的一个工作，而我们没有做完就提交到了版本管理工具。那么我们可以回到家之后，通过版本管理工具，把我们之前提交的做到一半的的文件拿回来继续写，这就是多端共享。</p>
-<hr>
-<p><strong>5. 团队协作</strong></p>
-<p>   软件开发项目和复仇者联盟团伙作案其实很相似，在我们的团队中，虽然各个都可以独挡一面，但是如果配合不好的话，也会相互扯后腿。版本管理工具就是帮我们解决这种冲突的，即使我们发生了一些冲突，版本管理工具也可以帮我们迅速的解决我们的一些冲突，将负面影响降低到最小。</p>
-<hr>
-<h3 id="版本管理工具区别"><a href="#版本管理工具区别" class="headerlink" title="版本管理工具区别"></a>版本管理工具区别</h3><p>版本管理工具分为两种，集中式和分布式，集中式的版本管理工具代表如 <code>CVS</code> 和 <code>SVN</code> ，是比较老的版本工具，分布式的如 <code>Git</code> 和 <code>GitHub</code> ，是新型的版本管理工具。</p>
-<p>所谓集中式，就是说它必须要有一个中心服务器来放置最新的文件，如果不联网就没有办法提交和查看。</p>
-<p>而分布式的版本管理工具，每一个拥有版本库的人都可以在不联网的情况下快速完成文件的提交、查看记录、删除等操作，在效率上比集中式要高很多。</p>
-<p>其中 <code>Git</code> 和 <code>GitHub</code> 经常出现在一起，导致很多人认为它们是一个东西，其实不然，<code>GitHub</code> 实际上是一个程序员社区网站，在这个网站上程序员可以托管他自己的代码库，当然托管这件事是基于 <code>Git</code> 完成的。</p>
-<h3 id="GitHub客户端下载和使用"><a href="#GitHub客户端下载和使用" class="headerlink" title="GitHub客户端下载和使用"></a>GitHub客户端下载和使用</h3><p>点击进入 <a href="https://desktop.GitHub.com/" target="_blank" rel="external">GitHub桌面版</a> 下载对应的版本，以 <code>Mac</code> 为例，将 <code>GitHub</code> 拖进 <code>Applications</code> ，打开后点击<code>Continue</code> ，输入 <code>GitHub</code> 的用户名和密码 。</p>
-<p>往客户端里面添加项目仓库有三种方式。点击上图箭头所指的 <code>+</code> 号，就可以看到了，也就是下面图中的<code>Add</code>，<code>Create</code>，<code>Clone</code> 这三种形式。</p>
-<p><code>add</code> ：来源是你本地机器上已经存在的项目，填写它的文件夹位置，然后点击 <code>Create&amp;Add Repository</code>，如果这个项目本身就是一个 <code>Git仓库</code> 了，就直接添加进来，如果不是，就把它变成一个 <code>Git仓库</code>（<strong>其实也就是在项目内创建一个 .git 文件夹</strong>）然后再添加进客户端。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/add.png" alt="add"></p>
-<hr>
-<p><code>create</code> ：就是自己新建项目。填写项目名，选择项目存放位置，然后点 <code>Create Repository</code> 按钮，仓库就创建好了。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/create.png" alt="create"></p>
-<hr>
-<p><code>clone</code>：就是从 <code>GitHub.com</code> 上往本地 <code>clone</code> 。选中一个项目，在本地硬盘上找一个位置存放起来就可以了。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/clone.png" alt="create"></p>
-<h4 id="Clone的工作原理"><a href="#Clone的工作原理" class="headerlink" title="Clone的工作原理"></a>Clone的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/clone%E5%8E%9F%E7%90%86.png" alt=""></p>
-<hr>
-<h4 id="项目修改"><a href="#项目修改" class="headerlink" title="项目修改"></a>项目修改</h4><p>在你对项目中的文件进行修改后，要特别留意以下几点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1. 项目修改数量的提醒；</div><div class="line"></div><div class="line">2. 文件修改数量的提醒；</div><div class="line"></div><div class="line">3. 是否只需要修改部分内容，蓝色标识代表将要修改；</div><div class="line"></div><div class="line">4. 你对此次修改的留言；</div><div class="line"></div><div class="line">5. 你对此次修改的详细描述；</div></pre></td></tr></table></figure>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/change.png" alt=""></p>
-<hr>
-<h4 id="删除项目"><a href="#删除项目" class="headerlink" title="删除项目"></a>删除项目</h4><p>要删除一个仓库，就到下图左侧列表的项目名字上，右击，然后点 <code>Remove</code> 就行了。简单说说另外几项，<a href="https://atom.io/" target="_blank" rel="external">Atom</a> 是 <code>GitHub</code> 公司开发的开源免费的代码编辑器，<code>Terminal</code> 是命令行终端，<code>Finder</code> 是文件浏览器。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/remove.png" alt=""></p>
-<hr>
-<h4 id="查看修改历史"><a href="#查看修改历史" class="headerlink" title="查看修改历史"></a>查看修改历史</h4><p>进入 <code>History</code> ，红框内依次是修改留言、修改人、上个版本号、修改时间。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/History.png" alt=""></p>
-<hr>
-<h4 id="撤销最近一次的修改"><a href="#撤销最近一次的修改" class="headerlink" title="撤销最近一次的修改"></a>撤销最近一次的修改</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/Undo.png" alt=""></p>
-<p><strong>值得注意的是 <code>Undo</code> 适用于未同步到 <code>GitHub</code> 之前的操作</strong>，如果已经进行过同步，需要进入 <code>History</code> ，点击<code>Revert This Commit</code> 进行撤销：</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/RevertCommit.png" alt=""></p>
-<hr>
-<h4 id="发布项目到-GitHub"><a href="#发布项目到-GitHub" class="headerlink" title="发布项目到 GitHub"></a>发布项目到 GitHub</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/Publish.png" alt=""></p>
-<hr>
-<h4 id="同步项目到GitHub"><a href="#同步项目到GitHub" class="headerlink" title="同步项目到GitHub"></a>同步项目到GitHub</h4><p>当项目发布以后，<code>Publish</code> 就会变成 <code>Sync</code> 了，以后这个项目的下的文件改变以后，可以点击 <code>Sync</code> 同步到 <code>GitHub</code> 。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/Sync.png" alt=""></p>
-<h4 id="Sync-的工作原理"><a href="#Sync-的工作原理" class="headerlink" title="Sync 的工作原理"></a>Sync 的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/sync.png" alt=""></p>
-<hr>
-<h3 id="GitHub-分支"><a href="#GitHub-分支" class="headerlink" title="GitHub 分支"></a>GitHub 分支</h3><p><code>Git</code> 最核心的操作对象是<code>版本（ commit ）</code> ，版本最核心的操作技巧就是<code>分支（branch）</code> 。</p>
-<p>仓库创建后，一旦有了新 <code>commit</code> ，默认就会放到一个分支上，名字叫 <code>master</code> 。前面看到的多个版本组成的一条历史线，就是 <code>master</code> 分支。但是一个仓库内，用户可以自己创建其他的分支，可以有多条历史线。</p>
-<p><code>master</code> 这个名字，一般中文叫【主分支】，其实从技术底层来讲它跟其他我们自己要创建的分支没有区别，只不过它是天生的默认分支。实际工程项目中会人为的给它一个重要的使命，存放稳定代码。就像 <code>GitHub</code> 公司<a href="http://scottchacon.com/2011/08/31/GitHub-flow.html" target="_blank" rel="external">倡导</a>的。</p>
-<p><strong>master 分支上的所有代码都应该是可以部署的</strong>。</p>
-<p>意思就是 <code>master</code> 分支上的代码是随时可以放到产品服务器上跑的代码。这样，如果想开发一个新功能，可以新开分支。 想象一下历史线上有很多节，每个版本就是一节。一个分支相当于一跟竹子，一节节的往上长。</p>
-<p>但是实际上在底层并不是每个分支都拷贝出自己独立的一条历史线。其实 <code>master</code> 本身只是一个指针，指向 <code>master</code> 分支上最新的一个版本。这样由于每个 <code>commit</code> 都可以顺藤摸瓜找到自己的前一个 <code>commit</code>，那么这条历史线就可以确定了。</p>
-<h4 id="master-的原理"><a href="#master-的原理" class="headerlink" title="master 的原理"></a>master 的原理</h4><p><img src="http://Gitbeijing.com/images/simple_branching/master_branch.png" alt="img"></p>
-<hr>
-<h4 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h4><p>点击所示按钮，就会弹出对话框。<code>Create new branch</code> 就是来创建一个分支。所谓 <code>from master</code> 意思是<strong>基于 <code>master</code> 分支，拥有和 <code>master</code> 一样的历史</strong>。</p>
-<p> <img src="http://ob2q6r0fn.bkt.clouddn.com/Branch.png" alt="Branch"></p>
-<h4 id="分支的原理"><a href="#分支的原理" class="headerlink" title="分支的原理"></a>分支的原理</h4><p>就是就是创建一个新的指针，跟 <code>master</code> 指针指向同一个版本，根本没有拷贝历史线。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/new_branch.png" alt=""></p>
-<p>如果现在我们对项目做一下修改，然后 <code>commit</code> 了。那么移动的只是 <code>idea</code> 指针，<code>master</code> 不变。就成了这样：</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/new_branch_commit.png" alt="img"></p>
-<p>现在 <code>master</code> 分支包含两个版本 <code>C1 和 C2</code> ，<code>idea</code> 分支包含三个版本 <code>C1，C2，C3</code> 。</p>
-<p>默认情况下这个 <code>idea</code> 分支只是存在于本地，如果想在远端仓库上发布这个分支，就点一下 <code>idea</code> 分支右侧的<code>Publish</code> 按钮。现在这个项目就有了两个分支。</p>
-<p> <img src="http://ob2q6r0fn.bkt.clouddn.com//webGitHub.png" alt="webGitHub"></p>
-<hr>
-<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><p>删除分支不在图形界面中，在顶部的控制栏 <code>Branch - Delete</code> 。如果只删除 <code>GitHub.com</code> 的分支，而不删除本地的分支，使用 <code>Branch - Unpublish</code>。</p>
-<hr>
-<h4 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h4><p>分支合并在顶部的控制栏 <code>Branch - Merge</code> ，他会新成了一个 <code>C5</code> ，这是一个 <code>融合版本（ Merge Commit ）</code> ，这个合并比较特殊，里面一般没有修改内容，它的作用主要是把两个分支合并起来。怎么合并的呢？融合版本包含两个版本，一个指向 <code>C2</code> ，一个指向 <code>C3</code> 。</p>
-<p><code>master</code> 分支指针指向了 <code>merge commit</code> ，也就自动拥有了 <code>idea</code> 分支上的 <code>C3</code> 这个版本了。<code>idea</code> 分支一般现在就可以删除了。</p>
-<h4 id="分支融合的工作原理"><a href="#分支融合的工作原理" class="headerlink" title="分支融合的工作原理"></a>分支融合的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com//after_merge.png" alt="img"></p>
-<hr>
-<h4 id="代码冲突"><a href="#代码冲突" class="headerlink" title="代码冲突"></a>代码冲突</h4><p>实际中经常有这样的情况，我们正在 <code>idea</code> 分支上开发一个功能。但是这个时候突然发现了一个紧急的问题需要修复，所以会直接到 <code>master</code> 分支上，做一个 <code>commit</code> 来解决这个紧急的问题。然后会来继续到 <code>idea</code> 上开发。</p>
-<p>其他的情形也有，总之这样就会出现，两个不同分支上并行开发，同时都有新的 <code>commit</code> ，这个一般没有问题，一样可以直接 <code>merge</code> ，如下图：</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/p_merge.png" alt="img"></p>
-<p><strong>但是如果在两个分支上改动了同一个地方，合并的就会出现代码冲突。 因为 Git 不知道该听哪个分支的，所以只能报出冲突的位置，让开发者手动解决。</strong></p>
-<hr>
-<h4 id="合并远端分支"><a href="#合并远端分支" class="headerlink" title="合并远端分支"></a>合并远端分支</h4><p>现在我们的本地仓库叫 <code>TestRepository</code> ，<code>GitHub.com</code> 上也托管了这个仓库。那么自然就有一个<code>本地master</code>  分支，和一个 <code>远端master</code> 分支 ，这两个分支虽然名字都叫 <code>master</code> ，但是本质上也是两个分支，也存在分支合并的问题。</p>
-<p><strong>举例来说，我们在 <code>GitHub.com</code> 网页上，修改一下项目，把修改内容 <code>commit</code> 到 <code>master</code> 分支之上。这样，<code>远端master</code> 分支就比 <code>本地master</code> 分支多了一个 <code>commit</code> 。此时在我们的客户端点 <code>sync</code> 按钮执行同步，这个 <code>commit</code> 就会直接被 <code>pull</code> 到本地。</strong></p>
-<p><strong>另外一种情况，在没有 <code>sync</code> 之前，我们在本地也做了一个 <code>commit</code> ，也就是 <code>本地master</code> 和 <code>远端master</code> 出现了并行开发的情况，这种情况是非常常见的。这个时候我们执行 <code>sync</code> ，跟本地两个分支合并是一样的，一般也会生成一个 <code>merge commit</code> ，在本地客户端和 <code>GitHub.com</code> 上的历史线都可以看到。</strong></p>
-<p>在特定条件下，点击 <code>sync</code> 按钮两个分支合并会不使用 <code>融合（ merge ）</code> 方式，而采用 <code>变基（ rebase ）</code> 方式，这样最终不会生成一个 <code>merge commit</code> 。但是达成的效果是一样的，也是实现了两个分支代码的合并，处理冲突的方式也一样，所以暂时不必深究。</p>
-<h3 id="团队合作"><a href="#团队合作" class="headerlink" title="团队合作"></a>团队合作</h3><p>前面讲的都是开发者唱独角戏，但是尽管如此也可以看出 <code>Git</code> 带来的便利了，比如代码写错了可以回滚，为了新功能开发可以开新分支等等。但是 <code>Git 和 GitHub</code> 更大的威力在于<strong>协作</strong>。</p>
-<blockquote>
-<p>GitHub 是 Git 仓库的托管平台，让我们的项目仓库可以方便的备份同步。但是其实也许比这个还要重要的是，GitHub 是一个大家一起协作做项目的平台，是一种开发者的工作方式，引导一种看着不像流程的一种真正健康轻便的开发流程。</p>
-</blockquote>
-<p><code>Github</code> 的核心叫做 <a href="https://guides.Github.com/introduction/flow/index.html" target="_blank" rel="external">Github Flow</a> ，网站上的各个功能都是围绕着这个核心来开发的。<code>GitHub Flow</code> 就是一套团队协作流程，它是一个非常轻便的，基于分支的工作流。非常适合代码部署非常频繁的团队和项目。概况来讲，它就是给一个项目开发新功能要走的几步，整个过程的核心是“拉取请求” 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1. 创建新的分支。</div><div class="line"></div><div class="line">2. 不断实现功能，做成一个新版本。</div><div class="line"></div><div class="line">3. 发起拉取请求 Pull Request ；</div><div class="line"></div><div class="line">4. 代码审核；</div><div class="line"></div><div class="line">5. 把分支的内容合并到 master ；</div></pre></td></tr></table></figure>
-<p><strong>使用 <code>GitHub Flow</code> 进行代码开发分为两种情况，第一种是团队成员之间互相熟知，另外一种是在开源项目当中，与互不相识的开源贡献者合作。</strong></p>
-<p>下面我们用一个实际例子先来了解团队中的协作：</p>
-<blockquote>
-<p>我要和 Team 合作开发一个新项目，于是我先创建这个项目，然后让 Team 具有写的权限，创建项目前面已经介绍过，下面我们让 Team 成为这个项目的协作者。</p>
-</blockquote>
-<p>首先到项目页面，点击 <code>Settings</code> 一项，到项目的 <code>Settings</code> 页面，可以看到如下图所示的 <code>Collaborator</code> 选项，输入框中输入协作者的用户名，此时这个协作者就具有对这个项目的写权限了。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/Collaborators.png" alt="Collaborators"></p>
-<p>对于非常有把握的代码，可以直接在 <code>本地master</code> 开发然后 <code>sync</code> 到 <code>远端master</code> 分支上面。但是如果是比较重要的功能，就需要走完整的 <code>GitHub Flow</code> 流程了。</p>
-<p><strong>整个 <code>GitHub Flow</code> 的核心就是 <code>Pull Request</code> ，而 <code>Pull Request</code> 的目的就是用来引发讨论和代码审核的</strong>。</p>
-<hr>
-<p><strong>NO.1 我们来开一个新的分支，这是后面进行 <code>Pull Request</code> 的前提。</strong></p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/add-home-page.png" alt="add-home-page"></p>
-<hr>
-<p><strong>NO.2 现在 <code>Team</code> 登录以后，就会收到提醒，也就是我们所做的修改。</strong></p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/commit.png" alt="commit"></p>
-<hr>
-<p><strong>NO.3 <code>Team</code> 可以进入这个分支的版本中，进入我们所做的修改，对它留言进行讨论。发布的讨论对方会收到通知和提醒。</strong></p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/talk.png" alt="talk"></p>
-<hr>
-<p><strong>NO.4 当我和 <code>Team</code> 不断完善这个分支，并完成它时，就可以发起 <code>Pull Request</code> 了。</strong></p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/pullRequest.png" alt="pullRequest"></p>
-<hr>
-<p><strong>NO.5 这时就相当于告诉项目的发起者，可以将这个分支合并到 <code>master</code> 了</strong>。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/pullrequest2.png" alt="pullrequest2"></p>
-<hr>
-<p><strong>NO.6 在大家都讨论完毕后，就可以将这个分支和 <code>master</code> 进行合并了：</strong></p>
-<p> <img src="http://ob2q6r0fn.bkt.clouddn.com/pullRequest3.png" alt="pullRequest3"></p>
-<hr>
-<p>至此，团队协作进行一个项目就完成了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;版本管理工具的作用&quot;&gt;&lt;a href=&quot;#版本管理工具的作用&quot; class=&quot;headerlink&quot; title=&quot;版本管理工具的作用&quot;&gt;&lt;/a&gt;版本管理工具的作用&lt;/h3&gt;&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;1. 备份文件&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 &lt;code&gt;BOSS&lt;/code&gt; ，如果不提前存档，那么打输了，之前的游戏记录就全消失了，还得重新打。&lt;/p&gt;
-&lt;hr&gt;
-&lt;p&gt;&lt;strong&gt;2. 记录历史&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;   版本管理工具会帮助我们保管文件，但是版本管理工具的保管和网盘，U盘的保管不尽相同，网盘和U盘帮我们保存的是一个最新的文件状态，而历史的版本是找不回来的，比如说网盘里有一个文件，是用来记录每天的日记，有一天我们想知道某一天的某一行是哪天，几点钟加上去的，这个信息网盘或者U盘是没有办法告诉我们的，除非我们自己在这个地方加一条改动记录。&lt;/p&gt;
-&lt;p&gt;   而版本管理工具是在我们每一次修改完，提交给版本管理工具后，它都会留一份备份，它会记录着当时这个修改是几点几分，是谁进行的修改，那么这样的话，当我们需要去回溯，去查找这些信息的时候，版本管理工具是可以告诉我们的。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="Git" scheme="http://yoursite.com/categories/Git/"/>
-    
-    
-      <category term="GitHub" scheme="http://yoursite.com/tags/GitHub/"/>
-    
-      <category term="GitHub分支" scheme="http://yoursite.com/tags/GitHub%E5%88%86%E6%94%AF/"/>
-    
-      <category term="GithubFlow" scheme="http://yoursite.com/tags/GithubFlow/"/>
-    
-      <category term="版本管理工具" scheme="http://yoursite.com/tags/%E7%89%88%E6%9C%AC%E7%AE%A1%E7%90%86%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
