@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-25T01:35:23.000Z</updated>
+  <updated>2016-08-25T01:54:03.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,9 +20,11 @@
     <link href="http://yoursite.com/2016/08/25/iOS%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%20-%20NSURLConnection/"/>
     <id>http://yoursite.com/2016/08/25/iOS网络编程 - NSURLConnection/</id>
     <published>2016-08-25T10:16:00.000Z</published>
-    <updated>2016-08-25T01:35:23.000Z</updated>
+    <updated>2016-08-25T01:54:03.000Z</updated>
     
-    <content type="html"><![CDATA[<p>在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果需要兼容到很低版本的iOS系统，有时就必须使用NSURLConnection类了。</p>
+    <content type="html"><![CDATA[<p><img src="http://pic.58pic.com/58pic/15/60/34/15Q58PICAS4_1024.png" alt=""></p>
+<a id="more"></a>
+<p>在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果需要兼容到很低版本的iOS系统，有时就必须使用NSURLConnection类了。</p>
 <p>使用NSURLConnection用到的六个关于网络连接的类分别是：</p>
 <ul>
 <li>NSURLConnection：提供了初始化、开始和取消一个网络连接</li>
@@ -104,7 +106,7 @@
     
     <summary type="html">
     
-      &lt;p&gt;在iOS7后，NSURLSession基本代替了NSURLConnection进行网络开发，在iOS9后，NSURLConnection相关方法被完全的弃用，iOS系统有向下兼容的特性，尽管NSURLConnection已经被弃用，但在开发中，其方法依然可以被使用，并且如果
+      &lt;p&gt;&lt;img src=&quot;http://pic.58pic.com/58pic/15/60/34/15Q58PICAS4_1024.png&quot; alt=&quot;&quot;&gt;&lt;/p&gt;
     
     </summary>
     
