@@ -1,0 +1,894 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,微信开发," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。
+
+群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……
+如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。
+在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信开发 - 快速入门">
+<meta property="og:url" content="http://yoursite.com/2016/09/02/微信开发 - 快速入门/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。
+
+群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……
+如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。
+在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP">
+<meta property="og:image" content="http://yoursite.com/Users/Tian/Desktop/微信开发模式数据传输.gif">
+<meta property="og:updated_time" content="2016-09-02T11:47:01.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信开发 - 快速入门">
+<meta name="twitter:description" content="微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。
+
+群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……
+如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。
+在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP">
+<meta name="twitter:image" content="http://yoursite.com/Users/Tian/Desktop/微信开发模式数据传输.gif">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/02/微信开发 - 快速入门/"/>
+
+  <title> 微信开发 - 快速入门 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                微信开发 - 快速入门
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
+              2016-09-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
+</blockquote>
+<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
+<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
+<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
+<p>下面进入正题！</p>
+   <a id="more"></a>
+<h2 id="接入开发者模式"><a href="#接入开发者模式" class="headerlink" title="接入开发者模式"></a>接入开发者模式</h2><p>接入开发者模式非常简单，主要分下面几个步骤：</p>
+<ol>
+<li>下载官方接口文件；</li>
+<li>简单调整接口文件的代码；</li>
+<li>将调整好的接口文件上传到服务器；</li>
+<li>在开发者后台进行接口的验证；</li>
+</ol>
+<p>首先下载PHP接口文件，下载地址请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421135319&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信公众平台开发者文档</a>。</p>
+<p>将原有的代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">"TOKEN"</span>, <span class="string">"weixin"</span>);</div><div class="line">$wechatObj = <span class="keyword">new</span> wechatCallbackapiTest();</div><div class="line">$wechatObj-&gt;valid();</div></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">"TOKEN"</span>, <span class="string">"wechat"</span>);</div><div class="line"></div><div class="line">$wechatObj = <span class="keyword">new</span> wechatCallbackapiTest();</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($_GET[<span class="string">"echostr"</span>]) &#123;</div><div class="line">    $wechatObj-&gt;valid();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    $wechatObj-&gt;responseMsg();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后将修改后的PHP文件上传至你的服务器，进入：</p>
+<blockquote>
+<p>微信公众平台 &gt; 开发 &gt; 基本配置 &gt; 服务器配置 &gt; 修改配置</p>
+</blockquote>
+<p>在弹出的<strong>基本配置/ 填写服务器配置</strong>中：</p>
+<blockquote>
+<p>URL填写你的PHP文件地址，如：<code>https://localhost/filepath/wx_sample.php</code> ；</p>
+<p>Token填写你在PHP文件中设定的值，如：<code>define(&quot;TOKEN&quot;, &quot;wechat&quot;);</code>，填写<code>wechat</code> ；</p>
+<p>EncodingAESKey使用<code>随机生成</code>即可；</p>
+<p>消息加解密方式选择<code>明文模式</code>即可；</p>
+</blockquote>
+<p>点击提交，就完成了开发者模式的接入。</p>
+<h2 id="开发者模式下数据传输及处理"><a href="#开发者模式下数据传输及处理" class="headerlink" title="开发者模式下数据传输及处理"></a>开发者模式下数据传输及处理</h2><p> <img src="/Users/Tian/Desktop/微信开发模式数据传输.gif" alt="微信开发模式数据传输"></p>
+<p>了解开发者模式下的数据传输后，我们开始编写第一个程序。</p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>没错，就是从它开始……</p>
+<p>实现Hello World非常简单，首先编写程序代码，将PHP文件中原代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = <span class="string">"Welcome to wechat world!"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = $keyword.<span class="string">"World"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>此时，向你的公众号发送一个<code>Hello</code>，就会返回一个<code>Hello World</code>，相信大家都已经明白，<strong><code>$keyword</code>这个变量，就是用户发送的文本信息</strong>。</p>
+<p>这时当用户发送语音，图片，位置等信息时，因为PHP文件对此没有进行对应的处理，所以用户设备会收到<strong>该公众号暂时无法提供服务，请稍后再试</strong>。</p>
+<h2 id="被动回复消息"><a href="#被动回复消息" class="headerlink" title="被动回复消息"></a>被动回复消息</h2><p>当用户发送消息给公众号时（或某些特定的用户操作引发的事件推送时），会产生一个POST请求，开发者可以在响应包（Get）中返回特定XML结构，来对该消息进行响应（现支持回复文本、图片、图文、语音、视频、音乐）。严格来说，发送被动响应消息其实并不是一种接口，而是对微信服务器发过来消息的一次回复。</p>
+<p><strong>一旦遇到以下情况，微信都会在公众号会话中，向用户下发系统提示“该公众号暂时无法提供服务，请稍后再试”：</strong></p>
+<blockquote>
+<p>1、开发者在5秒内未回复任何内容</p>
+<p>2、开发者回复了异常数据，比如JSON数据等</p>
+</blockquote>
+<p>另外，请注意，回复图片等多媒体消息时需要预先通过素材管理接口上传临时素材到微信服务器，可以使用素材管理中的临时素材，也可以使用永久素材。</p>
+<p>被动回复支持的消息类型有：</p>
+<p><strong>文本、图片、语音、视频、音乐</strong></p>
+<p>当然，还有可以包括以上所有类型的<strong>图文消息</strong>。</p>
+<p>各消息类型是由XML数据包构成，关于数据包的格式请访问<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信开发者文档</a>。</p>
+<h2 id="关注事件处理"><a href="#关注事件处理" class="headerlink" title="关注事件处理"></a>关注事件处理</h2><p>用户在关注与取消关注公众号时，微信会把这个事件推送到开发者填写的URL。方便开发者给用户下发欢迎消息或者做帐号的解绑。</p>
+<p><strong>关注事件实际上是获取Event事件类型，并设置不同消息类型的XML数据包推送到用户设备</strong>。</p>
+<p>推送XML数据包示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[FromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>123456789<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[event]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Event</span>&gt;</span>&lt;![CDATA[subscribe]]&gt;<span class="tag">&lt;/<span class="name">Event</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ToUserName</td>
+<td>开发者微信号</td>
+</tr>
+<tr>
+<td>FromUserName</td>
+<td>发送方帐号（一个OpenID）</td>
+</tr>
+<tr>
+<td>CreateTime</td>
+<td>消息创建时间 （整型）</td>
+</tr>
+<tr>
+<td>MsgType</td>
+<td>消息类型，event</td>
+</tr>
+<tr>
+<td>Event</td>
+<td>事件类型，subscribe(订阅)、unsubscribe(取消订阅)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="关注事件文字回复"><a href="#关注事件文字回复" class="headerlink" title="关注事件文字回复"></a>关注事件文字回复</h3><p>首先我们需要获取Event参数，并对Event进行相应的处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$postObj = simplexml_load_string($postStr, <span class="string">'SimpleXMLElement'</span>, LIBXML_NOCDATA);</div><div class="line">                $fromUsername = $postObj-&gt;FromUserName;</div><div class="line">                $toUsername = $postObj-&gt;ToUserName;</div><div class="line">                $keyword = trim($postObj-&gt;Content);</div><div class="line">                $event = $postObj-&gt;Event;</div><div class="line">                $time = time();</div><div class="line">                $textTpl = <span class="string">"&lt;xml&gt;</span></div><div class="line">							&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;</div><div class="line">							&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;</div><div class="line">							&lt;CreateTime&gt;%s&lt;/CreateTime&gt;</div><div class="line">							&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;</div><div class="line">							&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;</div><div class="line">							&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;</div><div class="line">							&lt;/xml&gt;";</div><div class="line"></div><div class="line">                <span class="keyword">if</span> ($event == <span class="string">"subscribe"</span>) &#123;</div><div class="line">                    <span class="keyword">echo</span> <span class="string">"订阅事件"</span>;</div><div class="line">                    $msgType = <span class="string">"text"</span>;</div><div class="line">                    $contentStr = <span class="string">"欢迎关注superliar"</span>;</div><div class="line">                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">elseif</span> ($event == <span class="string">"unsubscribe"</span>) &#123;</div><div class="line">                    <span class="keyword">echo</span> <span class="string">"取消订阅事件"</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>这时我们取消关注的公众号，再重新关注它，会收到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">欢迎关注superliar</div></pre></td></tr></table></figure>
+<h3 id="关注事件图文回复"><a href="#关注事件图文回复" class="headerlink" title="关注事件图文回复"></a>关注事件图文回复</h3><p>图文消息的XML包结构如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>12345678<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[news]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>2<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title1]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description1]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ToUserName</td>
+<td>是</td>
+<td>接收方帐号（收到的OpenID）</td>
+</tr>
+<tr>
+<td>FromUserName</td>
+<td>是</td>
+<td>开发者微信号</td>
+</tr>
+<tr>
+<td>CreateTime</td>
+<td>是</td>
+<td>消息创建时间 （整型）</td>
+</tr>
+<tr>
+<td>MsgType</td>
+<td>是</td>
+<td>news</td>
+</tr>
+<tr>
+<td>ArticleCount</td>
+<td>是</td>
+<td>图文消息个数，限制为10条以内</td>
+</tr>
+<tr>
+<td>Articles</td>
+<td>是</td>
+<td>多条图文消息信息，默认第一个item为大图,注意，如果图文数超过10，则将会无响应</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>否</td>
+<td>图文消息标题</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>否</td>
+<td>图文消息描述</td>
+</tr>
+<tr>
+<td>PicUrl</td>
+<td>否</td>
+<td>图片链接，支持JPG、PNG格式，较好的效果为大图360<em>200，小图200</em>200</td>
+</tr>
+<tr>
+<td>Url</td>
+<td>否</td>
+<td>点击图文消息跳转链接</td>
+</tr>
+</tbody>
+</table>
+<p><code>MsgTyp</code>描述的是推送消息的类型，如<code>text\image\voice\video\music\news</code>等。</p>
+<p>首先定义一个图文消息类型的XML包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$newsTpl = "<span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>2<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[欢迎关注superliar]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line">                           <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[superliar是一个真人秀节目,balabalabalabalabalabalabalabala]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[http://i2.hdslb.com/bfs/archive/e4d44a24ef5b838db63ac6c4c5fda0302102fb23.jpg]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[http://www.panda.tv/]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[玩狼人杀有什么独家技巧?]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[一个玩家做了什么不重要，重要的是要知道ta为什么这么做。]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[http://i0.hdslb.com/bfs/archive/b957f527aadaddc3c32287f0ff5c1858df696658.jpg]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[https://www.zhihu.com/question/25833846]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line">						<span class="tag">&lt;/<span class="name">xml</span>&gt;</span>";</div></pre></td></tr></table></figure>
+<p>然后将订阅的Event事件处理修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ($event == <span class="string">"subscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"订阅事件"</span>;</div><div class="line">    $msgType = <span class="string">"news"</span>;</div><div class="line">    $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($event == <span class="string">"unsubscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"取消订阅事件"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时再重新关注，收到的就是一条图文消息了，其他类型的消息也是同样的原理。</p>
+<h2 id="关键字触发事件"><a href="#关键字触发事件" class="headerlink" title="关键字触发事件"></a>关键字触发事件</h2><p>关键字触发一般用于运营活动中，即用户发送一条特定的消息，服务器返回一条特定的消息。</p>
+<h3 id="返回文本消息"><a href="#返回文本消息" class="headerlink" title="返回文本消息"></a>返回文本消息</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">if</span> ($keyword == <span class="string">"text"</span>) &#123;</div><div class="line">                        $msgType = <span class="string">"text"</span>;</div><div class="line">                        $contentStr = <span class="string">"您发送了"</span>.$keyword;</div><div class="line">                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                        <span class="keyword">echo</span> $resultStr;</div><div class="line">                    &#125;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = <span class="string">"Hello World"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>这时用户输入<code>text</code>，就会收到服务器返回的<code>您发送了text</code>。用户发送其他信息，则返回<code>Hello World</code>。</p>
+<h3 id="返回图文消息"><a href="#返回图文消息" class="headerlink" title="返回图文消息"></a>返回图文消息</h3><p>重新定义一个图文消息XML数据包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">         $newsNoImgTpl = "<span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>1<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[欢迎关注superliar]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line">                     <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[superliar是一个真人秀节目,balabalabalabalabalabalabalabala]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[http://www.panda.tv/]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span>";</div></pre></td></tr></table></figure>
+<p>触发事件设置为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> ($keyword == <span class="string">"text"</span>) &#123;</div><div class="line">                    $msgType = <span class="string">"text"</span>;</div><div class="line">                    $contentStr = <span class="string">"您发送了"</span>.$keyword;</div><div class="line">                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> ($keyword == <span class="string">"news"</span>) &#123;</div><div class="line">                    $msgType = <span class="string">"news"</span>;</div><div class="line">                    $resultStr = sprintf($newsNoImgTpl, $fromUsername, $toUsername, $time, $msgType);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">          		$msgType = <span class="string">"text"</span>;</div><div class="line">            	$contentStr = <span class="string">"Hello World"</span>;</div><div class="line">            	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">            	<span class="keyword">echo</span> $resultStr;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">            	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+<p>此时当用户发送news时，就会收到一条无图的图文消息。</p>
+<h2 id="接收不同类型消息"><a href="#接收不同类型消息" class="headerlink" title="接收不同类型消息"></a>接收不同类型消息</h2><p>如果要接收处理不同类型的消息，首先要获取用户发送的消息类型：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$msgType = $postObj-&gt;MsgType;</div></pre></td></tr></table></figure>
+<p>此时可针对用户发送的不同类型的消息，进行对应的处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ($msgType == <span class="string">"image"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了image类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"voice"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了voice类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"video"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了video类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"music"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了music类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
+          
+            <a href="/tags/微信开发/" rel="tag">#微信开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/02/微信开发 - 公众平台简介/" rel="next" title="微信开发 - 公众平台简介">
+                <i class="fa fa-chevron-left"></i> 微信开发 - 公众平台简介
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/02/微信开发 - 快速入门/"
+     data-title="微信开发 - 快速入门"
+     data-content=""
+     data-url="http://yoursite.com/2016/09/02/微信开发 - 快速入门/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/02/微信开发 - 快速入门/"
+           data-title="微信开发 - 快速入门" data-url="http://yoursite.com/2016/09/02/微信开发 - 快速入门/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">39</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接入开发者模式"><span class="nav-number">1.</span> <span class="nav-text">接入开发者模式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发者模式下数据传输及处理"><span class="nav-number">2.</span> <span class="nav-text">开发者模式下数据传输及处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Hello-World"><span class="nav-number">3.</span> <span class="nav-text">Hello World</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#被动回复消息"><span class="nav-number">4.</span> <span class="nav-text">被动回复消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关注事件处理"><span class="nav-number">5.</span> <span class="nav-text">关注事件处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#关注事件文字回复"><span class="nav-number">5.1.</span> <span class="nav-text">关注事件文字回复</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关注事件图文回复"><span class="nav-number">5.2.</span> <span class="nav-text">关注事件图文回复</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#关键字触发事件"><span class="nav-number">6.</span> <span class="nav-text">关键字触发事件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#返回文本消息"><span class="nav-number">6.1.</span> <span class="nav-text">返回文本消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#返回图文消息"><span class="nav-number">6.2.</span> <span class="nav-text">返回图文消息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接收不同类型消息"><span class="nav-number">7.</span> <span class="nav-text">接收不同类型消息</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo下载请点击这里"><span class="nav-number">8.</span> <span class="nav-text">Demo下载请点击这里</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-08-25T01:54:03.000Z</updated>
+  <updated>2016-09-02T11:47:01.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,275 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信开发 - 快速入门</title>
+    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/"/>
+    <id>http://yoursite.com/2016/09/02/微信开发 - 快速入门/</id>
+    <published>2016-09-01T18:24:00.000Z</published>
+    <updated>2016-09-02T11:47:01.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
+</blockquote>
+<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
+<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
+<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
+<p>下面进入正题！</p>
+   <a id="more"></a>
+<h2 id="接入开发者模式"><a href="#接入开发者模式" class="headerlink" title="接入开发者模式"></a>接入开发者模式</h2><p>接入开发者模式非常简单，主要分下面几个步骤：</p>
+<ol>
+<li>下载官方接口文件；</li>
+<li>简单调整接口文件的代码；</li>
+<li>将调整好的接口文件上传到服务器；</li>
+<li>在开发者后台进行接口的验证；</li>
+</ol>
+<p>首先下载PHP接口文件，下载地址请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421135319&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信公众平台开发者文档</a>。</p>
+<p>将原有的代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">"TOKEN"</span>, <span class="string">"weixin"</span>);</div><div class="line">$wechatObj = <span class="keyword">new</span> wechatCallbackapiTest();</div><div class="line">$wechatObj-&gt;valid();</div></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">define(<span class="string">"TOKEN"</span>, <span class="string">"wechat"</span>);</div><div class="line"></div><div class="line">$wechatObj = <span class="keyword">new</span> wechatCallbackapiTest();</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($_GET[<span class="string">"echostr"</span>]) &#123;</div><div class="line">    $wechatObj-&gt;valid();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    $wechatObj-&gt;responseMsg();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后将修改后的PHP文件上传至你的服务器，进入：</p>
+<blockquote>
+<p>微信公众平台 &gt; 开发 &gt; 基本配置 &gt; 服务器配置 &gt; 修改配置</p>
+</blockquote>
+<p>在弹出的<strong>基本配置/ 填写服务器配置</strong>中：</p>
+<blockquote>
+<p>URL填写你的PHP文件地址，如：<code>https://localhost/filepath/wx_sample.php</code> ；</p>
+<p>Token填写你在PHP文件中设定的值，如：<code>define(&quot;TOKEN&quot;, &quot;wechat&quot;);</code>，填写<code>wechat</code> ；</p>
+<p>EncodingAESKey使用<code>随机生成</code>即可；</p>
+<p>消息加解密方式选择<code>明文模式</code>即可；</p>
+</blockquote>
+<p>点击提交，就完成了开发者模式的接入。</p>
+<h2 id="开发者模式下数据传输及处理"><a href="#开发者模式下数据传输及处理" class="headerlink" title="开发者模式下数据传输及处理"></a>开发者模式下数据传输及处理</h2><p> <img src="/Users/Tian/Desktop/微信开发模式数据传输.gif" alt="微信开发模式数据传输"></p>
+<p>了解开发者模式下的数据传输后，我们开始编写第一个程序。</p>
+<h2 id="Hello-World"><a href="#Hello-World" class="headerlink" title="Hello World"></a>Hello World</h2><p>没错，就是从它开始……</p>
+<p>实现Hello World非常简单，首先编写程序代码，将PHP文件中原代码：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = <span class="string">"Welcome to wechat world!"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = $keyword.<span class="string">"World"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>此时，向你的公众号发送一个<code>Hello</code>，就会返回一个<code>Hello World</code>，相信大家都已经明白，<strong><code>$keyword</code>这个变量，就是用户发送的文本信息</strong>。</p>
+<p>这时当用户发送语音，图片，位置等信息时，因为PHP文件对此没有进行对应的处理，所以用户设备会收到<strong>该公众号暂时无法提供服务，请稍后再试</strong>。</p>
+<h2 id="被动回复消息"><a href="#被动回复消息" class="headerlink" title="被动回复消息"></a>被动回复消息</h2><p>当用户发送消息给公众号时（或某些特定的用户操作引发的事件推送时），会产生一个POST请求，开发者可以在响应包（Get）中返回特定XML结构，来对该消息进行响应（现支持回复文本、图片、图文、语音、视频、音乐）。严格来说，发送被动响应消息其实并不是一种接口，而是对微信服务器发过来消息的一次回复。</p>
+<p><strong>一旦遇到以下情况，微信都会在公众号会话中，向用户下发系统提示“该公众号暂时无法提供服务，请稍后再试”：</strong></p>
+<blockquote>
+<p>1、开发者在5秒内未回复任何内容</p>
+<p>2、开发者回复了异常数据，比如JSON数据等</p>
+</blockquote>
+<p>另外，请注意，回复图片等多媒体消息时需要预先通过素材管理接口上传临时素材到微信服务器，可以使用素材管理中的临时素材，也可以使用永久素材。</p>
+<p>被动回复支持的消息类型有：</p>
+<p><strong>文本、图片、语音、视频、音乐</strong></p>
+<p>当然，还有可以包括以上所有类型的<strong>图文消息</strong>。</p>
+<p>各消息类型是由XML数据包构成，关于数据包的格式请访问<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1421140543&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">微信开发者文档</a>。</p>
+<h2 id="关注事件处理"><a href="#关注事件处理" class="headerlink" title="关注事件处理"></a>关注事件处理</h2><p>用户在关注与取消关注公众号时，微信会把这个事件推送到开发者填写的URL。方便开发者给用户下发欢迎消息或者做帐号的解绑。</p>
+<p><strong>关注事件实际上是获取Event事件类型，并设置不同消息类型的XML数据包推送到用户设备</strong>。</p>
+<p>推送XML数据包示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[FromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>123456789<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[event]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Event</span>&gt;</span>&lt;![CDATA[subscribe]]&gt;<span class="tag">&lt;/<span class="name">Event</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>参数说明：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ToUserName</td>
+<td>开发者微信号</td>
+</tr>
+<tr>
+<td>FromUserName</td>
+<td>发送方帐号（一个OpenID）</td>
+</tr>
+<tr>
+<td>CreateTime</td>
+<td>消息创建时间 （整型）</td>
+</tr>
+<tr>
+<td>MsgType</td>
+<td>消息类型，event</td>
+</tr>
+<tr>
+<td>Event</td>
+<td>事件类型，subscribe(订阅)、unsubscribe(取消订阅)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="关注事件文字回复"><a href="#关注事件文字回复" class="headerlink" title="关注事件文字回复"></a>关注事件文字回复</h3><p>首先我们需要获取Event参数，并对Event进行相应的处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$postObj = simplexml_load_string($postStr, <span class="string">'SimpleXMLElement'</span>, LIBXML_NOCDATA);</div><div class="line">                $fromUsername = $postObj-&gt;FromUserName;</div><div class="line">                $toUsername = $postObj-&gt;ToUserName;</div><div class="line">                $keyword = trim($postObj-&gt;Content);</div><div class="line">                $event = $postObj-&gt;Event;</div><div class="line">                $time = time();</div><div class="line">                $textTpl = <span class="string">"&lt;xml&gt;</span></div><div class="line">							&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;</div><div class="line">							&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;</div><div class="line">							&lt;CreateTime&gt;%s&lt;/CreateTime&gt;</div><div class="line">							&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;</div><div class="line">							&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;</div><div class="line">							&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;</div><div class="line">							&lt;/xml&gt;";</div><div class="line"></div><div class="line">                <span class="keyword">if</span> ($event == <span class="string">"subscribe"</span>) &#123;</div><div class="line">                    <span class="keyword">echo</span> <span class="string">"订阅事件"</span>;</div><div class="line">                    $msgType = <span class="string">"text"</span>;</div><div class="line">                    $contentStr = <span class="string">"欢迎关注superliar"</span>;</div><div class="line">                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">elseif</span> ($event == <span class="string">"unsubscribe"</span>) &#123;</div><div class="line">                    <span class="keyword">echo</span> <span class="string">"取消订阅事件"</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>这时我们取消关注的公众号，再重新关注它，会收到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">欢迎关注superliar</div></pre></td></tr></table></figure>
+<h3 id="关注事件图文回复"><a href="#关注事件图文回复" class="headerlink" title="关注事件图文回复"></a>关注事件图文回复</h3><p>图文消息的XML包结构如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[toUser]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[fromUser]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>12345678<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[news]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>2<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title1]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line"><span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description1]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[title]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[description]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[picurl]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[url]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>参数说明如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ToUserName</td>
+<td>是</td>
+<td>接收方帐号（收到的OpenID）</td>
+</tr>
+<tr>
+<td>FromUserName</td>
+<td>是</td>
+<td>开发者微信号</td>
+</tr>
+<tr>
+<td>CreateTime</td>
+<td>是</td>
+<td>消息创建时间 （整型）</td>
+</tr>
+<tr>
+<td>MsgType</td>
+<td>是</td>
+<td>news</td>
+</tr>
+<tr>
+<td>ArticleCount</td>
+<td>是</td>
+<td>图文消息个数，限制为10条以内</td>
+</tr>
+<tr>
+<td>Articles</td>
+<td>是</td>
+<td>多条图文消息信息，默认第一个item为大图,注意，如果图文数超过10，则将会无响应</td>
+</tr>
+<tr>
+<td>Title</td>
+<td>否</td>
+<td>图文消息标题</td>
+</tr>
+<tr>
+<td>Description</td>
+<td>否</td>
+<td>图文消息描述</td>
+</tr>
+<tr>
+<td>PicUrl</td>
+<td>否</td>
+<td>图片链接，支持JPG、PNG格式，较好的效果为大图360<em>200，小图200</em>200</td>
+</tr>
+<tr>
+<td>Url</td>
+<td>否</td>
+<td>点击图文消息跳转链接</td>
+</tr>
+</tbody>
+</table>
+<p><code>MsgTyp</code>描述的是推送消息的类型，如<code>text\image\voice\video\music\news</code>等。</p>
+<p>首先定义一个图文消息类型的XML包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">$newsTpl = "<span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>2<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[欢迎关注superliar]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line">                           <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[superliar是一个真人秀节目,balabalabalabalabalabalabalabala]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[http://i2.hdslb.com/bfs/archive/e4d44a24ef5b838db63ac6c4c5fda0302102fb23.jpg]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[http://www.panda.tv/]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[玩狼人杀有什么独家技巧?]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[一个玩家做了什么不重要，重要的是要知道ta为什么这么做。]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">PicUrl</span>&gt;</span>&lt;![CDATA[http://i0.hdslb.com/bfs/archive/b957f527aadaddc3c32287f0ff5c1858df696658.jpg]]&gt;<span class="tag">&lt;/<span class="name">PicUrl</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[https://www.zhihu.com/question/25833846]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">item</span>&gt;</span></div><div class="line">                           <span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line">						<span class="tag">&lt;/<span class="name">xml</span>&gt;</span>";</div></pre></td></tr></table></figure>
+<p>然后将订阅的Event事件处理修改为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ($event == <span class="string">"subscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"订阅事件"</span>;</div><div class="line">    $msgType = <span class="string">"news"</span>;</div><div class="line">    $resultStr = sprintf($newsTpl, $fromUsername, $toUsername, $time, $msgType);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($event == <span class="string">"unsubscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"取消订阅事件"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>此时再重新关注，收到的就是一条图文消息了，其他类型的消息也是同样的原理。</p>
+<h2 id="关键字触发事件"><a href="#关键字触发事件" class="headerlink" title="关键字触发事件"></a>关键字触发事件</h2><p>关键字触发一般用于运营活动中，即用户发送一条特定的消息，服务器返回一条特定的消息。</p>
+<h3 id="返回文本消息"><a href="#返回文本消息" class="headerlink" title="返回文本消息"></a>返回文本消息</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">                &#123;</div><div class="line">                    <span class="keyword">if</span> ($keyword == <span class="string">"text"</span>) &#123;</div><div class="line">                        $msgType = <span class="string">"text"</span>;</div><div class="line">                        $contentStr = <span class="string">"您发送了"</span>.$keyword;</div><div class="line">                        $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                        <span class="keyword">echo</span> $resultStr;</div><div class="line">                    &#125;</div><div class="line">              		$msgType = <span class="string">"text"</span>;</div><div class="line">                	$contentStr = <span class="string">"Hello World"</span>;</div><div class="line">                	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                	<span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;<span class="keyword">else</span>&#123;</div><div class="line">                	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">                &#125;</div></pre></td></tr></table></figure>
+<p>这时用户输入<code>text</code>，就会收到服务器返回的<code>您发送了text</code>。用户发送其他信息，则返回<code>Hello World</code>。</p>
+<h3 id="返回图文消息"><a href="#返回图文消息" class="headerlink" title="返回图文消息"></a>返回图文消息</h3><p>重新定义一个图文消息XML数据包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">         $newsNoImgTpl = "<span class="tag">&lt;<span class="name">xml</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ToUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">ToUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">FromUserName</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">FromUserName</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">CreateTime</span>&gt;</span>%s<span class="tag">&lt;/<span class="name">CreateTime</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">MsgType</span>&gt;</span>&lt;![CDATA[%s]]&gt;<span class="tag">&lt;/<span class="name">MsgType</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ArticleCount</span>&gt;</span>1<span class="tag">&lt;/<span class="name">ArticleCount</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Articles</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">item</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Title</span>&gt;</span>&lt;![CDATA[欢迎关注superliar]]&gt;<span class="tag">&lt;/<span class="name">Title</span>&gt;</span> </div><div class="line">                     <span class="tag">&lt;<span class="name">Description</span>&gt;</span>&lt;![CDATA[superliar是一个真人秀节目,balabalabalabalabalabalabalabala]]&gt;<span class="tag">&lt;/<span class="name">Description</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;<span class="name">Url</span>&gt;</span>&lt;![CDATA[http://www.panda.tv/]]&gt;<span class="tag">&lt;/<span class="name">Url</span>&gt;</span></div><div class="line">                     <span class="tag">&lt;/<span class="name">Articles</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">xml</span>&gt;</span>";</div></pre></td></tr></table></figure>
+<p>触发事件设置为：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(!<span class="keyword">empty</span>( $keyword ))</div><div class="line">            &#123;</div><div class="line">                <span class="keyword">if</span> ($keyword == <span class="string">"text"</span>) &#123;</div><div class="line">                    $msgType = <span class="string">"text"</span>;</div><div class="line">                    $contentStr = <span class="string">"您发送了"</span>.$keyword;</div><div class="line">                    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">                <span class="keyword">if</span> ($keyword == <span class="string">"news"</span>) &#123;</div><div class="line">                    $msgType = <span class="string">"news"</span>;</div><div class="line">                    $resultStr = sprintf($newsNoImgTpl, $fromUsername, $toUsername, $time, $msgType);</div><div class="line">                    <span class="keyword">echo</span> $resultStr;</div><div class="line">                &#125;</div><div class="line">          		$msgType = <span class="string">"text"</span>;</div><div class="line">            	$contentStr = <span class="string">"Hello World"</span>;</div><div class="line">            	$resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">            	<span class="keyword">echo</span> $resultStr;</div><div class="line">            &#125;<span class="keyword">else</span>&#123;</div><div class="line">            	<span class="keyword">echo</span> <span class="string">"Input something..."</span>;</div><div class="line">            &#125;</div></pre></td></tr></table></figure>
+<p>此时当用户发送news时，就会收到一条无图的图文消息。</p>
+<h2 id="接收不同类型消息"><a href="#接收不同类型消息" class="headerlink" title="接收不同类型消息"></a>接收不同类型消息</h2><p>如果要接收处理不同类型的消息，首先要获取用户发送的消息类型：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$msgType = $postObj-&gt;MsgType;</div></pre></td></tr></table></figure>
+<p>此时可针对用户发送的不同类型的消息，进行对应的处理：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ($msgType == <span class="string">"image"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了image类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"voice"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了voice类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"video"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了video类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($msgType == <span class="string">"music"</span>) &#123;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"您发送了music类型的消息,服务器返回text类型消息"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……&lt;/p&gt;
+&lt;p&gt;如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。&lt;/p&gt;
+&lt;p&gt;在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。&lt;/p&gt;
+&lt;p&gt;下面进入正题！&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信开发 - 公众平台简介</title>
+    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2016/09/02/微信开发 - 公众平台简介/</id>
+    <published>2016-09-01T18:24:00.000Z</published>
+    <updated>2016-09-02T11:47:54.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
+<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
+<h2 id="主要模板"><a href="#主要模板" class="headerlink" title="主要模板"></a>主要模板</h2><p>微信公众账号不会做太多深度的开放，为了把微信做得更“轻”。在2013年6月份的合作伙伴大会上，微信产品部助理曾鸣提出，微信公众账号不是一个纯粹的营销工具，让公众账号提供最体现企业价值的东西。</p>
+<ul>
+<li>在线营销：向终端客户推荐新品、促销策略等；</li>
+<li>售后服务：通过微信平台，自动与客户进行交互，展示企业产品、售后支持；</li>
+<li>电子商务：将企业网站或购物平台与微信对接，推荐到朋友圈获取免费宣传；</li>
+<li>会员管理：企业会员可通过微信平台进行线下活动预约、积分管理等操作。</li>
+</ul>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>公众平台是企业在OTT产品基础上新增的功能模块，基于“再小的个体也有自己品牌”这一理念。通过这一平台，个人和企业都可以打造一个公众号，并实现和特定群体的文字、图片、语音的全方位沟通、互动。同时，企业也可以利用公众平台进行CRM式管理，个人可以进行自媒体创作。</p>
+<h3 id="微信官网"><a href="#微信官网" class="headerlink" title="微信官网"></a>微信官网</h3><ol>
+<li>公司介绍：支持多级分类；</li>
+<li>产品展示：产品支持多图显示，手指滑动浏览图片；</li>
+<li>新闻资讯：对接微信公众平台消息推送；</li>
+<li>联系方式：LBS地图位置标注，点击电话号码直接拨打；</li>
+<li>信息推送：以微信官方规定的消息推送为标准。</li>
+</ol>
+<h3 id="微信客服"><a href="#微信客服" class="headerlink" title="微信客服"></a>微信客服</h3><ol>
+<li>多人工客服：实现多个人工客服在线与微信公众平台客户沟通；</li>
+<li>LBS位置服务：用户经过微信提供位置，公众平台自动应答离用户最近的门店、经销商；</li>
+<li>建议/投诉/售后：微信平台内嵌售后服务表单。</li>
+</ol>
+<h3 id="微信商城"><a href="#微信商城" class="headerlink" title="微信商城"></a>微信商城</h3><ol>
+<li>在线订购：支持现有商城系统进行对接；</li>
+<li>会员系统：支持现有会员系统进行对接；</li>
+<li>在线支付：支持在线支付功能，若无需在线支付，则只记录订单信息与流程。</li>
+</ol>
+<h3 id="活动与促销"><a href="#活动与促销" class="headerlink" title="活动与促销"></a>活动与促销</h3><ol>
+<li>活动发布：软商系统直接对接微信平台发布；</li>
+<li>抽奖刮刮卡：支持系统自定义奖品。</li>
+<li>抽奖转盘：支持系统自定义奖品。</li>
+</ol>
+<h2 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h2><p>公众平台推出新的认证体系，微信将免费开放地理位置、客服、语音等九大高级技术接口 。针对服务号领域，微信还将推出一些垂直领域定制。微信产品部模式识别中心总监陈波透露，图像识别还将与微信支付结合，提供购买流程。这两个技术主要为公众平台提供服务，后续将向App开放。</p>
+<ol>
+<li>语音识别接口</li>
+<li>客服接口</li>
+<li>OAuth2.0 网页授权接口</li>
+<li>生成带参数的二维码接口</li>
+<li>获取用户地理位置接口</li>
+<li>获取用户基本信息接口</li>
+<li>获取关注者列表接口</li>
+<li>用户分组接口</li>
+<li>上传下载多媒体文件接口</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS网络编程 - NSURLConnection</title>
@@ -615,6 +884,217 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
+    
+    
+      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTTP协议 - HTTP请求</title>
+    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
+    <published>2016-08-16T20:44:00.000Z</published>
+    <updated>2016-08-21T18:09:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
+<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
+<a id="more"></a>
+<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
+<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
+<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
+<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
+<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
+<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
+<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
+<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
+<p>统一资源定位符的标准格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scheme</td>
+<td>指定低层使用的协议，如 http, https, ftp。</td>
+</tr>
+<tr>
+<td>host</td>
+<td>HTTP服务器的IP地址或者域名。</td>
+</tr>
+<tr>
+<td>port</td>
+<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>访问资源的路径。</td>
+</tr>
+<tr>
+<td>query-string</td>
+<td>发送给http服务器的数据。</td>
+</tr>
+<tr>
+<td>anchor</td>
+<td>锚点。</td>
+</tr>
+</tbody>
+</table>
+<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
+<ul>
+<li>schema: <code>http</code></li>
+<li>host: <code>www.mywebsite.com</code></li>
+<li>path: <code>/sj/test</code></li>
+<li>query string: <code>name=sviergn&amp;x=true</code></li>
+<li>anchor: <code>stuff</code></li>
+</ul>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
+<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
+<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
+<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
+<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
+<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
+<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
+<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
+<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
+<blockquote>
+<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
+<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
+<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
+<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
+<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
+<p>Connection：表示是否需要持久连接。</p>
+<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
+<p>Content-Length：表示请求消息正文的长度。</p>
+<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
+<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
+<p>Host：指定请求的服务器的域名和端口号。</p>
+<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
+</blockquote>
+<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
+<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
+<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
+<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
+<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td>指示信息–表示请求已接收，继续处理。</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>成功–表示请求已被成功接收、理解、接受。</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>重定向–要完成请求必须进行更进一步的操作。</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端错误–请求有语法错误或请求无法实现。</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务器端错误–服务器未能实现合法的请求。</td>
+</tr>
+</tbody>
+</table>
+<p>常见状态代码、状态描述、说明：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200 OK</td>
+<td>客户端请求成功。</td>
+</tr>
+<tr>
+<td>400 Bad Request</td>
+<td>客户端请求有语法错误，不能被服务器所理解。</td>
+</tr>
+<tr>
+<td>401 Unauthorized</td>
+<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>服务器收到请求，但是拒绝提供服务。</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>请求资源不存在，eg：输入了错误的URL。</td>
+</tr>
+<tr>
+<td>500 Internal Server Error</td>
+<td>服务器发生不可预期的错误。</td>
+</tr>
+<tr>
+<td>503 Server Unavailable</td>
+<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
+</tr>
+</tbody>
+</table>
+<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
+<p>常见的响应头信息如下：</p>
+<blockquote>
+<p>Allow</p>
+<p>服务器支持哪些请求方法（如GET、POST等）。</p>
+<p>Content-Encoding</p>
+<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
+<p>Content-Length</p>
+<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
+<p>Content-Type</p>
+<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
+<p>Date</p>
+<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
+<p>Last-Modified</p>
+<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
+<p>Location</p>
+<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
+<p>Refresh</p>
+<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
+<p>Server</p>
+<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
+<p>Set-Cookie</p>
+<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
+<p>WWW-Authenticate</p>
+<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
+</blockquote>
+<p>下面是一个典型的响应消息： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
+<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
+&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
     
     </summary>
     
@@ -1467,217 +1947,6 @@
     
     
       <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议 - HTTP请求</title>
-    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
-    <published>2016-08-16T20:44:00.000Z</published>
-    <updated>2016-08-21T18:09:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
-<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
-<a id="more"></a>
-<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
-<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
-<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
-<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
-<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
-<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
-<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
-<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
-<p>统一资源定位符的标准格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scheme</td>
-<td>指定低层使用的协议，如 http, https, ftp。</td>
-</tr>
-<tr>
-<td>host</td>
-<td>HTTP服务器的IP地址或者域名。</td>
-</tr>
-<tr>
-<td>port</td>
-<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
-</tr>
-<tr>
-<td>path</td>
-<td>访问资源的路径。</td>
-</tr>
-<tr>
-<td>query-string</td>
-<td>发送给http服务器的数据。</td>
-</tr>
-<tr>
-<td>anchor</td>
-<td>锚点。</td>
-</tr>
-</tbody>
-</table>
-<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
-<ul>
-<li>schema: <code>http</code></li>
-<li>host: <code>www.mywebsite.com</code></li>
-<li>path: <code>/sj/test</code></li>
-<li>query string: <code>name=sviergn&amp;x=true</code></li>
-<li>anchor: <code>stuff</code></li>
-</ul>
-<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
-<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
-<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
-<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
-<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
-<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
-<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
-<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
-<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
-<blockquote>
-<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
-<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
-<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
-<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
-<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
-<p>Connection：表示是否需要持久连接。</p>
-<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
-<p>Content-Length：表示请求消息正文的长度。</p>
-<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
-<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
-<p>Host：指定请求的服务器的域名和端口号。</p>
-<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
-</blockquote>
-<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
-<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
-<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
-<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
-<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
-<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1xx</td>
-<td>指示信息–表示请求已接收，继续处理。</td>
-</tr>
-<tr>
-<td>2xx</td>
-<td>成功–表示请求已被成功接收、理解、接受。</td>
-</tr>
-<tr>
-<td>3xx</td>
-<td>重定向–要完成请求必须进行更进一步的操作。</td>
-</tr>
-<tr>
-<td>4xx</td>
-<td>客户端错误–请求有语法错误或请求无法实现。</td>
-</tr>
-<tr>
-<td>5xx</td>
-<td>服务器端错误–服务器未能实现合法的请求。</td>
-</tr>
-</tbody>
-</table>
-<p>常见状态代码、状态描述、说明：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200 OK</td>
-<td>客户端请求成功。</td>
-</tr>
-<tr>
-<td>400 Bad Request</td>
-<td>客户端请求有语法错误，不能被服务器所理解。</td>
-</tr>
-<tr>
-<td>401 Unauthorized</td>
-<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
-</tr>
-<tr>
-<td>403 Forbidden</td>
-<td>服务器收到请求，但是拒绝提供服务。</td>
-</tr>
-<tr>
-<td>404 Not Found</td>
-<td>请求资源不存在，eg：输入了错误的URL。</td>
-</tr>
-<tr>
-<td>500 Internal Server Error</td>
-<td>服务器发生不可预期的错误。</td>
-</tr>
-<tr>
-<td>503 Server Unavailable</td>
-<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
-</tr>
-</tbody>
-</table>
-<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
-<p>常见的响应头信息如下：</p>
-<blockquote>
-<p>Allow</p>
-<p>服务器支持哪些请求方法（如GET、POST等）。</p>
-<p>Content-Encoding</p>
-<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
-<p>Content-Length</p>
-<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
-<p>Content-Type</p>
-<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
-<p>Date</p>
-<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
-<p>Last-Modified</p>
-<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
-<p>Location</p>
-<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
-<p>Refresh</p>
-<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
-<p>Server</p>
-<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
-<p>Set-Cookie</p>
-<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
-<p>WWW-Authenticate</p>
-<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
-</blockquote>
-<p>下面是一个典型的响应消息： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
-<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
-&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
-    
-    
-      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
     
   </entry>
   
@@ -2741,156 +3010,6 @@
       <category term="Ruby" scheme="http://yoursite.com/tags/Ruby/"/>
     
       <category term="第三方库" scheme="http://yoursite.com/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS数据处理 - 转载·字符串MD5加密</title>
-    <link href="http://yoursite.com/2016/08/03/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Swift%20-%20%E8%8E%B7%E5%8F%96%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84MD5%E5%80%BC/"/>
-    <id>http://yoursite.com/2016/08/03/【转载】Swift - 获取字符串的MD5值/</id>
-    <published>2016-08-02T18:46:00.000Z</published>
-    <updated>2016-08-24T04:46:11.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>MD5 即 Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。 其作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。</p>
-</blockquote>
-<p>首先，创建桥接头文件 <code>bridge.h</code> 来包含需要引用的 <code>Objective-C</code> 头文件，并在项目中配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;CommonCrypto/CommonDigest.h&gt;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>其次，对 <code>String</code> 增加 <code>MD5</code> 扩展：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</div><div class="line">   <span class="keyword">var</span> md5 : <span class="type">String</span>&#123;</div><div class="line">       <span class="keyword">let</span> str = <span class="keyword">self</span>.cStringUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">       <span class="keyword">let</span> strLen = <span class="type">CC_LONG</span>(<span class="keyword">self</span>.lengthOfBytesUsingEncoding(<span class="type">NSUTF8StringEncoding</span>))</div><div class="line">       <span class="keyword">let</span> digestLen = <span class="type">Int</span>(<span class="type">CC_MD5_DIGEST_LENGTH</span>)</div><div class="line">       <span class="keyword">let</span> result = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">CUnsignedChar</span>&gt;.alloc(digestLen);</div><div class="line"></div><div class="line">       <span class="type">CC_MD5</span>(str!, strLen, result);</div><div class="line"></div><div class="line">       <span class="keyword">let</span> hash = <span class="type">NSMutableString</span>();</div><div class="line">       <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; digestLen &#123;</div><div class="line">           hash.appendFormat(<span class="string">"%02x"</span>, result[i]);</div><div class="line">       &#125;</div><div class="line">       result.destroy();</div><div class="line"></div><div class="line">       <span class="keyword">return</span> <span class="type">String</span>(format: hash <span class="keyword">as</span> <span class="type">String</span>)</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="使用样例："><a href="#使用样例：" class="headerlink" title="使用样例："></a>使用样例：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">print(&quot;welcome to hangge.com&quot;.md5)		//输出：6ad70eb3a4a50011af9c62cc0674803a</div></pre></td></tr></table></figure>
-<p>转载自：<a href="http://www.hangge.com/blog/cache/detail_650.html" target="_blank" rel="external">http://www.hangge.com/blog/cache/detail_650.html</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;MD5 即 Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。 其作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;首先，创建桥接头文件 &lt;code&gt;bridge.h&lt;/code&gt; 来包含需要引用的 &lt;code&gt;Objective-C&lt;/code&gt; 头文件，并在项目中配置：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;#import &amp;lt;CommonCrypto/CommonDigest.h&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="MD5" scheme="http://yoursite.com/tags/MD5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS多线程 - 下载及图片缓存</title>
-    <link href="http://yoursite.com/2016/08/03/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B8%8B%E8%BD%BD%E5%8F%8A%E5%9B%BE%E7%89%87%E7%BC%93%E5%AD%98/"/>
-    <id>http://yoursite.com/2016/08/03/iOS多线程下载及图片缓存/</id>
-    <published>2016-08-02T18:46:00.000Z</published>
-    <updated>2016-08-21T18:12:34.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。</p>
-</blockquote>
-<p>下面我们通过代码来了解以下几个知识点：</p>
-<ol>
-<li>多线程下载；</li>
-<li>自定义 NSOperation ；</li>
-<li>NSCache 增删改查；</li>
-<li>NSFileManager 增删改查；</li>
-<li>代理模式；</li>
-<li>闭包反向传值；</li>
-<li>扩展方法；</li>
-<li>Plist 文件解析；</li>
-</ol>
-<a id="more"></a>
-<p>首先我们给 String 类型添加扩展方法，获取字符串的MD5值：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> md5 : <span class="type">String</span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> str = <span class="keyword">self</span>.cStringUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">        <span class="keyword">let</span> strLen = <span class="type">CC_LONG</span>(<span class="keyword">self</span>.lengthOfBytesUsingEncoding(<span class="type">NSUTF8StringEncoding</span>))</div><div class="line">        <span class="keyword">let</span> digestLen = <span class="type">Int</span>(<span class="type">CC_MD5_DIGEST_LENGTH</span>)</div><div class="line">        <span class="keyword">let</span> result = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">CUnsignedChar</span>&gt;.alloc(digestLen);</div><div class="line"></div><div class="line">        <span class="type">CC_MD5</span>(str!, strLen, result);</div><div class="line"></div><div class="line">        <span class="keyword">let</span> hash = <span class="type">NSMutableString</span>();</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; digestLen &#123;</div><div class="line">            hash.appendFormat(<span class="string">"%02x"</span>, result[i]);</div><div class="line">        &#125;</div><div class="line">        result.destroy();</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="type">String</span>(format: hash <span class="keyword">as</span> <span class="type">String</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们来自定义一个 NSOperation ，新建一个继承自 NSOperation 的类，并声明以下属性：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadOperation</span>: <span class="title">NSOperation</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> memCache: <span class="type">NSCache</span>!</div><div class="line">    <span class="keyword">var</span> fileMgr: <span class="type">NSFileManager</span>!</div><div class="line">    <span class="keyword">var</span> diskCachePath: <span class="type">String</span>!</div><div class="line"></div><div class="line">    <span class="keyword">var</span> operations: [<span class="type">NSOperation</span>] = []</div><div class="line">    <span class="keyword">var</span> getImageQueue: <span class="type">NSOperationQueue</span>!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后声明一个闭包：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typealias</span> <span class="type">Block</span> = (<span class="type">UIImage</span>) -&gt; (<span class="type">Void</span>)</div></pre></td></tr></table></figure>
-<p>最后声明一个协议，并创建两个代理方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">DownloadDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">userCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cleanCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span></div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们重写自定义 NSOperation 的 init 方法，用来创建沙盒目录，实例 NSCache NSFileManager NSOperationQueue ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="keyword">init</span>() &#123;</div><div class="line"></div><div class="line">    memCache = <span class="type">NSCache</span>()</div><div class="line">    fileMgr = <span class="type">NSFileManager</span>()</div><div class="line"></div><div class="line">    <span class="keyword">let</span> paths = <span class="type">NSSearchPathForDirectoriesInDomains</span>(<span class="type">NSSearchPathDirectory</span>.<span class="type">DocumentDirectory</span>,</div><div class="line">                                                    <span class="type">NSSearchPathDomainMask</span>.<span class="type">UserDomainMask</span>,</div><div class="line">                                                    <span class="literal">true</span>)</div><div class="line">    <span class="keyword">self</span>.diskCachePath = paths.first?.stringByAppendingString(<span class="string">"/ImageCache"</span>)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> !(<span class="type">NSFileManager</span>.defaultManager().fileExistsAtPath(<span class="keyword">self</span>.diskCachePath!)) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">try</span>! <span class="type">NSFileManager</span>.defaultManager().createDirectoryAtPath(<span class="keyword">self</span>.diskCachePath!,</div><div class="line">                                                                  withIntermediateDirectories: <span class="literal">true</span>,</div><div class="line">                                                                  attributes: <span class="literal">nil</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    getImageQueue = <span class="type">NSOperationQueue</span>()</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面是闭包反向传值的第一步，初始化闭包：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">ininWithblock</span><span class="params">(block: Block)</span></span> &#123;</div><div class="line">    showImage = block</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们利用文件名获得要保存的路径：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">diskPathForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> (diskCachePath?.stringByAppendingString(<span class="string">"/<span class="subst">\(key.md5)</span>"</span>))!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们利用文件名判断这个文件在内存中是否存在：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">cacheIsExist</span><span class="params">(key: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> data = memCache.objectForKey(key)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> data != <span class="literal">nil</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们利用文件名判断这个文件在磁盘中是否存在：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">fileIsExist</span><span class="params">(key: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> fileMgr.fileExistsAtPath(diskPathForKey(key))</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们实现利用文件名从内存中获取文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">readFromeMem</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> image = memCache.objectForKey(key) <span class="keyword">as</span>! <span class="type">UIImage</span></div><div class="line">    <span class="keyword">return</span> image</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们实现利用文件名从磁盘中获取文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">readFromeDisk</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span>  data = fileMgr.contentsAtPath(diskPathForKey(key))</div><div class="line">    <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data!)</div><div class="line">    <span class="keyword">return</span> image!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们实现利用链接下载文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">download</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> url = <span class="type">NSURL</span>(string: key)</div><div class="line">    <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: url!)</div><div class="line">    <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data!)</div><div class="line">    <span class="keyword">return</span> image!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面实现将文件写入内存：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveToMem</span><span class="params">(image: UIImage, key: String)</span></span> &#123;</div><div class="line"></div><div class="line">    memCache.setObject(image, forKey: key)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下载实现将文件写入磁盘：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveToDisk</span><span class="params">(image: UIImage, key: String)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> key = diskPathForKey(key)</div><div class="line"></div><div class="line">    fileMgr.createFileAtPath(key,</div><div class="line">                             contents: <span class="type">UIImageJPEGRepresentation</span>(image, <span class="number">1.0</span>),</div><div class="line">                             attributes: <span class="literal">nil</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面实现利用链接下载文件，并将下载的文件写入内存和磁盘：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">saveToMemAndDisk</span><span class="params">(key: String, toDisk: Bool)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> image = download(key)</div><div class="line"></div><div class="line">    saveToMem(image, key: key)</div><div class="line"></div><div class="line">    <span class="keyword">if</span> toDisk &#123;</div><div class="line">        saveToDisk(image, key: key)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面实现读取文件，如果内存中有就从内存读取，如果磁盘中有就从磁盘读取，并写入到内存，如果都没有，就下载并写入到内存和磁盘：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">readImage</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> cacheIsExist(key) &#123;</div><div class="line">        <span class="keyword">let</span> image = readFromeMem(key)</div><div class="line">        <span class="keyword">return</span> image</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">else</span> <span class="keyword">if</span> fileIsExist(key) &#123;</div><div class="line">        <span class="keyword">let</span> image = readFromeDisk(key)</div><div class="line">        saveToMem(image, key: key)</div><div class="line">        <span class="keyword">return</span> image</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    saveToMemAndDisk(key, toDisk: <span class="literal">true</span>)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> readFromeMem(key)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面实现利用存放链接的数组，批量下载文件，设置下载线程的最大值并使用 block 执行 ViewController 预设的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getImage</span><span class="params">(keys: [String], <span class="built_in">max</span>: Int)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> keys &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> operation = <span class="type">NSBlockOperation</span>(block: &#123;</div><div class="line"></div><div class="line">            <span class="keyword">let</span> image = <span class="keyword">self</span>.readImage(key)</div><div class="line">            <span class="keyword">self</span>.showImage!(image)</div><div class="line">        &#125;)</div><div class="line"></div><div class="line">        operations.append(operation)</div><div class="line">    &#125;</div><div class="line">    getImageQueue.maxConcurrentOperationCount = <span class="built_in">max</span></div><div class="line">    getImageQueue.addOperations(operations, waitUntilFinished: <span class="literal">true</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面实现利用文件名删除文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteFile</span><span class="params">(key: String)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> fileMgr.isDeletableFileAtPath(key) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"删除成功"</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>下面实现调用代理的两个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">showImg</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegete != <span class="literal">nil</span>) &amp;&amp; (<span class="keyword">self</span>.delegete?.userCache != <span class="literal">nil</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.delegete?.userCache(<span class="keyword">self</span>, imageCache: <span class="keyword">self</span>.memCache)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">deleteImg</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.delegete != <span class="literal">nil</span>) &amp;&amp; (<span class="keyword">self</span>.delegete?.cleanCache != <span class="literal">nil</span>) &#123;</div><div class="line">        <span class="keyword">self</span>.delegete?.cleanCache(<span class="keyword">self</span>, imageCache: <span class="keyword">self</span>.memCache)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们回到 ViewController 中，声明以下几个属性：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> keys: <span class="type">NSArray</span>!</div><div class="line">    <span class="keyword">var</span> imgView: <span class="type">UIImageView</span>!</div><div class="line">    <span class="keyword">var</span> downloadBtn: <span class="type">UIButton</span>?</div><div class="line">    <span class="keyword">var</span> cleanBtn: <span class="type">UIButton</span>?</div><div class="line"></div><div class="line">    <span class="keyword">var</span> operation: <span class="type">DownloadOperation</span>!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们创建 block 要执行的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">showImage</span><span class="params">(image: UIImage)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.imgView = <span class="type">UIImageView</span>(frame: <span class="keyword">self</span>.view.bounds)</div><div class="line">    <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.imgView!)</div><div class="line">    <span class="keyword">self</span>.imgView.image = image</div><div class="line">    <span class="built_in">print</span>(<span class="string">"block 加载图片"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们解析 Plist 文件为数组，并将包含下载链接的数组传给自定义 NSOperation 的获取文件方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">downloadForKeys</span><span class="params">(<span class="built_in">max</span>: Int)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> imgPaths = <span class="type">NSBundle</span>.mainBundle().pathForResource(<span class="string">"ImageLinks"</span>, ofType: <span class="string">"plist"</span>)</div><div class="line">    <span class="keyword">let</span> imgUrls = <span class="type">NSURL</span>(fileURLWithPath: imgPaths!)</div><div class="line">    <span class="keyword">self</span>.keys = <span class="type">NSArray</span>(contentsOfURL: imgUrls)!</div><div class="line">    operation.getImage(keys <span class="keyword">as</span>! [<span class="type">String</span>], <span class="built_in">max</span>: <span class="built_in">max</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们给 ViewController 添加两个 Button ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addButton</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> width = <span class="keyword">self</span>.view.bounds.size.width</div><div class="line">    <span class="keyword">let</span> height = <span class="keyword">self</span>.view.bounds.size.height</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.downloadBtn = <span class="type">UIButton</span>(type: .<span class="type">Custom</span>)</div><div class="line">    <span class="keyword">let</span> downloadBtnframe = <span class="type">CGRectMake</span>(<span class="number">20</span>, height-<span class="number">60</span>, <span class="number">80</span>, <span class="number">40</span>)</div><div class="line">    <span class="keyword">self</span>.downloadBtn?.frame = downloadBtnframe</div><div class="line">    <span class="keyword">self</span>.downloadBtn?.backgroundColor = <span class="type">UIColor</span>.lightGrayColor()</div><div class="line">    <span class="keyword">self</span>.downloadBtn?.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">18</span>)</div><div class="line">    <span class="keyword">self</span>.downloadBtn?.setTitle(<span class="string">"下载"</span>, forState: .<span class="type">Normal</span>)</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.cleanBtn = <span class="type">UIButton</span>(type: .<span class="type">Custom</span>)</div><div class="line">    <span class="keyword">let</span> cleanBtnframe = <span class="type">CGRectMake</span>(width-<span class="number">80</span>-<span class="number">20</span>, height-<span class="number">60</span>, <span class="number">80</span>, <span class="number">40</span>)</div><div class="line">    <span class="keyword">self</span>.cleanBtn?.frame = cleanBtnframe</div><div class="line">    <span class="keyword">self</span>.cleanBtn?.backgroundColor = <span class="type">UIColor</span>.lightGrayColor()</div><div class="line">    <span class="keyword">self</span>.cleanBtn?.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">18</span>)</div><div class="line">    <span class="keyword">self</span>.cleanBtn?.setTitle(<span class="string">"清除"</span>, forState: .<span class="type">Normal</span>)</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.downloadBtn?.addTarget(<span class="keyword">self</span>,</div><div class="line">                                action: #selector(<span class="type">ViewController</span>.downloadBtnClicked),</div><div class="line">                                forControlEvents: .<span class="type">TouchUpInside</span>)</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.cleanBtn?.addTarget(<span class="keyword">self</span>,</div><div class="line">                                action: #selector(<span class="type">ViewController</span>.cleanBtnClicked),</div><div class="line">                                forControlEvents: .<span class="type">TouchUpInside</span>)</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.downloadBtn!)</div><div class="line">    <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.cleanBtn!)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们实现 Button 的响应事件方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">downloadBtnClicked</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    operation.showImg()</div><div class="line">    addButton()</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">cleanBtnClicked</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">    operation.deleteImg()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>下面我们实现代理方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">userCache</span><span class="params">(operation: DownloadOperation, imageCache: NSCache)</span></span> &#123;</div><div class="line"></div><div class="line">    imgView.removeFromSuperview()</div><div class="line"></div><div class="line">    <span class="keyword">let</span> width = <span class="keyword">self</span>.view.bounds.size.width</div><div class="line">    <span class="keyword">let</span> imgHeight = <span class="keyword">self</span>.view.bounds.size.height / <span class="type">CGFloat</span>(<span class="type">Float</span>(keys.<span class="built_in">count</span>))</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; keys.<span class="built_in">count</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="type">CGFloat</span>(i) * imgHeight, width, imgHeight)</div><div class="line">        <span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(frame: frame)</div><div class="line">        <span class="keyword">let</span> key = keys[i] <span class="keyword">as</span>! <span class="type">String</span></div><div class="line">        <span class="keyword">let</span> image = operation.readImage(key)</div><div class="line">        imageView.image = image</div><div class="line">        imageView.contentMode = .<span class="type">ScaleToFill</span></div><div class="line">        <span class="keyword">self</span>.view.addSubview(imageView)</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">cleanCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span> &#123;</div><div class="line"></div><div class="line">    imageCache.removeAllObjects()</div><div class="line"></div><div class="line">    <span class="keyword">for</span> subView <span class="keyword">in</span> <span class="keyword">self</span>.view.subviews &#123;</div><div class="line">        subView.removeFromSuperview()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> keys &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> temKey = operation.diskPathForKey(key <span class="keyword">as</span>! <span class="type">String</span>)</div><div class="line">        operation.deleteFile(temKey)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    addButton()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后我们引入代理协议，实例化自定义的  ，实例化代理对象，实例化 block，以上几个功能点就完成了：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">DownloadDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> keys: <span class="type">NSArray</span>!</div><div class="line">    <span class="keyword">var</span> imgView: <span class="type">UIImageView</span>!</div><div class="line">    <span class="keyword">var</span> downloadBtn: <span class="type">UIButton</span>?</div><div class="line">    <span class="keyword">var</span> cleanBtn: <span class="type">UIButton</span>?</div><div class="line">    <span class="keyword">var</span> operation: <span class="type">DownloadOperation</span>!</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">        operation = <span class="type">DownloadOperation</span>()</div><div class="line">        operation.ininWithblock(showImage)</div><div class="line">        operation.delegete = <span class="keyword">self</span></div><div class="line">        downloadForKeys(<span class="number">3</span>)</div><div class="line">        addButton()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>完整代码如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">String</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> md5 : <span class="type">String</span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> str = <span class="keyword">self</span>.cStringUsingEncoding(<span class="type">NSUTF8StringEncoding</span>)</div><div class="line">        <span class="keyword">let</span> strLen = <span class="type">CC_LONG</span>(<span class="keyword">self</span>.lengthOfBytesUsingEncoding(<span class="type">NSUTF8StringEncoding</span>))</div><div class="line">        <span class="keyword">let</span> digestLen = <span class="type">Int</span>(<span class="type">CC_MD5_DIGEST_LENGTH</span>)</div><div class="line">        <span class="keyword">let</span> result = <span class="type">UnsafeMutablePointer</span>&lt;<span class="type">CUnsignedChar</span>&gt;.alloc(digestLen);</div><div class="line"></div><div class="line">        <span class="type">CC_MD5</span>(str!, strLen, result);</div><div class="line"></div><div class="line">        <span class="keyword">let</span> hash = <span class="type">NSMutableString</span>();</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; digestLen &#123;</div><div class="line">            hash.appendFormat(<span class="string">"%02x"</span>, result[i]);</div><div class="line">        &#125;</div><div class="line">        result.destroy();</div><div class="line"></div><div class="line">        <span class="keyword">return</span> <span class="type">String</span>(format: hash <span class="keyword">as</span> <span class="type">String</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typealias</span> <span class="type">Block</span> = (<span class="type">UIImage</span>) -&gt; (<span class="type">Void</span>)</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">DownloadDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">userCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cleanCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span></div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">DownloadOperation</span>: <span class="title">NSOperation</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> memCache: <span class="type">NSCache</span>!</div><div class="line">    <span class="keyword">var</span> fileMgr: <span class="type">NSFileManager</span>!</div><div class="line">    <span class="keyword">var</span> diskCachePath: <span class="type">String</span>!</div><div class="line"></div><div class="line">    <span class="keyword">var</span> operations: [<span class="type">NSOperation</span>] = []</div><div class="line">    <span class="keyword">var</span> getImageQueue: <span class="type">NSOperationQueue</span>!</div><div class="line"></div><div class="line">    <span class="keyword">var</span> showImage: <span class="type">Block</span>?</div><div class="line">    <span class="keyword">var</span> delegete:<span class="type">DownloadDelegate</span>?</div><div class="line"></div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</div><div class="line"></div><div class="line">        memCache = <span class="type">NSCache</span>()</div><div class="line">        fileMgr = <span class="type">NSFileManager</span>()</div><div class="line"></div><div class="line">        <span class="keyword">let</span> paths = <span class="type">NSSearchPathForDirectoriesInDomains</span>(<span class="type">NSSearchPathDirectory</span>.<span class="type">DocumentDirectory</span>,</div><div class="line">                                                        <span class="type">NSSearchPathDomainMask</span>.<span class="type">UserDomainMask</span>,</div><div class="line">                                                        <span class="literal">true</span>)</div><div class="line">        <span class="keyword">self</span>.diskCachePath = paths.first?.stringByAppendingString(<span class="string">"/ImageCache"</span>)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> !(<span class="type">NSFileManager</span>.defaultManager().fileExistsAtPath(<span class="keyword">self</span>.diskCachePath!)) &#123;</div><div class="line"></div><div class="line">            <span class="keyword">try</span>! <span class="type">NSFileManager</span>.defaultManager().createDirectoryAtPath(<span class="keyword">self</span>.diskCachePath!,</div><div class="line">                                                                      withIntermediateDirectories: <span class="literal">true</span>,</div><div class="line">                                                                      attributes: <span class="literal">nil</span>)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        getImageQueue = <span class="type">NSOperationQueue</span>()</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">ininWithblock</span><span class="params">(block: Block)</span></span> &#123;</div><div class="line">        showImage = block</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">diskPathForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> (diskCachePath?.stringByAppendingString(<span class="string">"/<span class="subst">\(key.md5)</span>"</span>))!</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">fileIsExist</span><span class="params">(key: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> fileMgr.fileExistsAtPath(diskPathForKey(key))</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cacheIsExist</span><span class="params">(key: String)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> data = memCache.objectForKey(key)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> data != <span class="literal">nil</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">readFromeMem</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> image = memCache.objectForKey(key) <span class="keyword">as</span>! <span class="type">UIImage</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"内存读取"</span>)</div><div class="line">        <span class="keyword">return</span> image</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">readFromeDisk</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span>  data = fileMgr.contentsAtPath(diskPathForKey(key))</div><div class="line">        <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data!)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"文件读取"</span>)</div><div class="line">        <span class="keyword">return</span> image!</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">deleteFile</span><span class="params">(key: String)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> fileMgr.isDeletableFileAtPath(key) &#123;</div><div class="line">            <span class="built_in">print</span>(<span class="string">"删除成功"</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">download</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> url = <span class="type">NSURL</span>(string: key)</div><div class="line">        <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: url!)</div><div class="line">        <span class="keyword">let</span> image = <span class="type">UIImage</span>(data: data!)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"下载"</span>)</div><div class="line">        <span class="keyword">return</span> image!</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">saveToMemAndDisk</span><span class="params">(key: String, toDisk: Bool)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> image = download(key)</div><div class="line"></div><div class="line">        saveToMem(image, key: key)</div><div class="line"></div><div class="line">        <span class="keyword">if</span> toDisk &#123;</div><div class="line">            saveToDisk(image, key: key)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">saveToMem</span><span class="params">(image: UIImage, key: String)</span></span> &#123;</div><div class="line"></div><div class="line">        memCache.setObject(image, forKey: key)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"写入内存"</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">saveToDisk</span><span class="params">(image: UIImage, key: String)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> key = diskPathForKey(key)</div><div class="line"></div><div class="line">        fileMgr.createFileAtPath(key,</div><div class="line">                                 contents: <span class="type">UIImageJPEGRepresentation</span>(image, <span class="number">1.0</span>),</div><div class="line">                                 attributes: <span class="literal">nil</span>)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"写入文件"</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">readImage</span><span class="params">(key: String)</span></span> -&gt; <span class="type">UIImage</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> cacheIsExist(key) &#123;</div><div class="line">            <span class="keyword">let</span> image = readFromeMem(key)</div><div class="line">            <span class="keyword">return</span> image</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> fileIsExist(key) &#123;</div><div class="line">            <span class="keyword">let</span> image = readFromeDisk(key)</div><div class="line">            saveToMem(image, key: key)</div><div class="line">            <span class="keyword">return</span> image</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        saveToMemAndDisk(key, toDisk: <span class="literal">true</span>)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> readFromeMem(key)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getImage</span><span class="params">(keys: [String], <span class="built_in">max</span>: Int)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> keys &#123;</div><div class="line"></div><div class="line">            <span class="keyword">let</span> operation = <span class="type">NSBlockOperation</span>(block: &#123;</div><div class="line"></div><div class="line">                <span class="keyword">let</span> image = <span class="keyword">self</span>.readImage(key)</div><div class="line">                <span class="keyword">self</span>.showImage!(image)</div><div class="line">            &#125;)</div><div class="line"></div><div class="line">            operations.append(operation)</div><div class="line">        &#125;</div><div class="line">        getImageQueue.maxConcurrentOperationCount = <span class="built_in">max</span></div><div class="line">        getImageQueue.addOperations(operations, waitUntilFinished: <span class="literal">true</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showImg</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.delegete != <span class="literal">nil</span>) &amp;&amp; (<span class="keyword">self</span>.delegete?.userCache != <span class="literal">nil</span>) &#123;</div><div class="line">            <span class="keyword">self</span>.delegete?.userCache(<span class="keyword">self</span>, imageCache: <span class="keyword">self</span>.memCache)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">deleteImg</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (<span class="keyword">self</span>.delegete != <span class="literal">nil</span>) &amp;&amp; (<span class="keyword">self</span>.delegete?.cleanCache != <span class="literal">nil</span>) &#123;</div><div class="line">            <span class="keyword">self</span>.delegete?.cleanCache(<span class="keyword">self</span>, imageCache: <span class="keyword">self</span>.memCache)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span>, <span class="title">DownloadDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> keys: <span class="type">NSArray</span>!</div><div class="line">    <span class="keyword">var</span> imgView: <span class="type">UIImageView</span>!</div><div class="line">    <span class="keyword">var</span> downloadBtn: <span class="type">UIButton</span>?</div><div class="line">    <span class="keyword">var</span> cleanBtn: <span class="type">UIButton</span>?</div><div class="line">    <span class="keyword">var</span> operation: <span class="type">DownloadOperation</span>!</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">        operation = <span class="type">DownloadOperation</span>()</div><div class="line">        operation.ininWithblock(showImage)</div><div class="line">        operation.delegete = <span class="keyword">self</span></div><div class="line"></div><div class="line">        downloadForKeys(<span class="number">3</span>)</div><div class="line">        addButton()</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">downloadForKeys</span><span class="params">(<span class="built_in">max</span>: Int)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> imgPaths = <span class="type">NSBundle</span>.mainBundle().pathForResource(<span class="string">"ImageLinks"</span>, ofType: <span class="string">"plist"</span>)</div><div class="line">        <span class="keyword">let</span> imgUrls = <span class="type">NSURL</span>(fileURLWithPath: imgPaths!)</div><div class="line">        <span class="keyword">self</span>.keys = <span class="type">NSArray</span>(contentsOfURL: imgUrls)!</div><div class="line">        operation.getImage(keys <span class="keyword">as</span>! [<span class="type">String</span>], <span class="built_in">max</span>: <span class="built_in">max</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">showImage</span><span class="params">(image: UIImage)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.imgView = <span class="type">UIImageView</span>(frame: <span class="keyword">self</span>.view.bounds)</div><div class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.imgView!)</div><div class="line">        <span class="keyword">self</span>.imgView.image = image</div><div class="line">        <span class="built_in">print</span>(<span class="string">"block 加载图片"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">addButton</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> width = <span class="keyword">self</span>.view.bounds.size.width</div><div class="line">        <span class="keyword">let</span> height = <span class="keyword">self</span>.view.bounds.size.height</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.downloadBtn = <span class="type">UIButton</span>(type: .<span class="type">Custom</span>)</div><div class="line">        <span class="keyword">let</span> downloadBtnframe = <span class="type">CGRectMake</span>(<span class="number">20</span>, height-<span class="number">60</span>, <span class="number">80</span>, <span class="number">40</span>)</div><div class="line">        <span class="keyword">self</span>.downloadBtn?.frame = downloadBtnframe</div><div class="line">        <span class="keyword">self</span>.downloadBtn?.backgroundColor = <span class="type">UIColor</span>.lightGrayColor()</div><div class="line">        <span class="keyword">self</span>.downloadBtn?.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">18</span>)</div><div class="line">        <span class="keyword">self</span>.downloadBtn?.setTitle(<span class="string">"下载"</span>, forState: .<span class="type">Normal</span>)</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.cleanBtn = <span class="type">UIButton</span>(type: .<span class="type">Custom</span>)</div><div class="line">        <span class="keyword">let</span> cleanBtnframe = <span class="type">CGRectMake</span>(width-<span class="number">80</span>-<span class="number">20</span>, height-<span class="number">60</span>, <span class="number">80</span>, <span class="number">40</span>)</div><div class="line">        <span class="keyword">self</span>.cleanBtn?.frame = cleanBtnframe</div><div class="line">        <span class="keyword">self</span>.cleanBtn?.backgroundColor = <span class="type">UIColor</span>.lightGrayColor()</div><div class="line">        <span class="keyword">self</span>.cleanBtn?.titleLabel?.font = <span class="type">UIFont</span>.systemFontOfSize(<span class="number">18</span>)</div><div class="line">        <span class="keyword">self</span>.cleanBtn?.setTitle(<span class="string">"清除"</span>, forState: .<span class="type">Normal</span>)</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.downloadBtn?.addTarget(<span class="keyword">self</span>,</div><div class="line">                                    action: #selector(<span class="type">ViewController</span>.downloadBtnClicked),</div><div class="line">                                    forControlEvents: .<span class="type">TouchUpInside</span>)</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.cleanBtn?.addTarget(<span class="keyword">self</span>,</div><div class="line">                                    action: #selector(<span class="type">ViewController</span>.cleanBtnClicked),</div><div class="line">                                    forControlEvents: .<span class="type">TouchUpInside</span>)</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.downloadBtn!)</div><div class="line">        <span class="keyword">self</span>.view.addSubview(<span class="keyword">self</span>.cleanBtn!)</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">userCache</span><span class="params">(operation: DownloadOperation, imageCache: NSCache)</span></span> &#123;</div><div class="line"></div><div class="line">        imgView.removeFromSuperview()</div><div class="line"></div><div class="line">        <span class="keyword">let</span> width = <span class="keyword">self</span>.view.bounds.size.width</div><div class="line">        <span class="keyword">let</span> imgHeight = <span class="keyword">self</span>.view.bounds.size.height / <span class="type">CGFloat</span>(<span class="type">Float</span>(keys.<span class="built_in">count</span>))</div><div class="line"></div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; keys.<span class="built_in">count</span> &#123;</div><div class="line"></div><div class="line">            <span class="keyword">let</span> frame = <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="type">CGFloat</span>(i) * imgHeight, width, imgHeight)</div><div class="line">            <span class="keyword">let</span> imageView = <span class="type">UIImageView</span>(frame: frame)</div><div class="line">            <span class="keyword">let</span> key = keys[i] <span class="keyword">as</span>! <span class="type">String</span></div><div class="line">            <span class="keyword">let</span> image = operation.readImage(key)</div><div class="line">            imageView.image = image</div><div class="line">            imageView.contentMode = .<span class="type">ScaleToFill</span></div><div class="line">            <span class="keyword">self</span>.view.addSubview(imageView)</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cleanCache</span> <span class="params">(operation: DownloadOperation, imageCache:NSCache)</span></span> &#123;</div><div class="line"></div><div class="line">        imageCache.removeAllObjects()</div><div class="line"></div><div class="line">        <span class="keyword">for</span> subView <span class="keyword">in</span> <span class="keyword">self</span>.view.subviews &#123;</div><div class="line">            subView.removeFromSuperview()</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">for</span> key <span class="keyword">in</span> keys &#123;</div><div class="line"></div><div class="line">            <span class="keyword">let</span> temKey = operation.diskPathForKey(key <span class="keyword">as</span>! <span class="type">String</span>)</div><div class="line">            operation.deleteFile(temKey)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        addButton()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">downloadBtnClicked</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        operation.showImg()</div><div class="line">        addButton()</div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">cleanBtnClicked</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        operation.deleteImg()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;下面我们通过代码来了解以下几个知识点：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;多线程下载；&lt;/li&gt;
-&lt;li&gt;自定义 NSOperation ；&lt;/li&gt;
-&lt;li&gt;NSCache 增删改查；&lt;/li&gt;
-&lt;li&gt;NSFileManager 增删改查；&lt;/li&gt;
-&lt;li&gt;代理模式；&lt;/li&gt;
-&lt;li&gt;闭包反向传值；&lt;/li&gt;
-&lt;li&gt;扩展方法；&lt;/li&gt;
-&lt;li&gt;Plist 文件解析；&lt;/li&gt;
-&lt;/ol&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="闭包" scheme="http://yoursite.com/tags/%E9%97%AD%E5%8C%85/"/>
-    
-      <category term="多线程" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="文件管理" scheme="http://yoursite.com/tags/%E6%96%87%E4%BB%B6%E7%AE%A1%E7%90%86/"/>
-    
-      <category term="代理模式" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="Plist" scheme="http://yoursite.com/tags/Plist/"/>
     
   </entry>
   
