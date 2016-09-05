@@ -1,0 +1,814 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="微信开发," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。
+开通测试账号的路径为：
+
+微信公众平台 &amp;gt; 开发者工具 &amp;gt; 公众平台测试帐号 &amp;gt; 进入
+
+或点击传送门，需要填写的为以下几项：
+
+URL：接口文档所在的路径，如：https://local">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信开发 - 接口简介">
+<meta property="og:url" content="http://yoursite.com/2016/09/02/微信开发 - 接口简介/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。
+开通测试账号的路径为：
+
+微信公众平台 &amp;gt; 开发者工具 &amp;gt; 公众平台测试帐号 &amp;gt; 进入
+
+或点击传送门，需要填写的为以下几项：
+
+URL：接口文档所在的路径，如：https://local">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/snsapi_userinfo.jpg">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/snsapi_base.jpg">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/JSSDK.PNG">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF.PNG">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/%E5%8A%9F%E8%83%BD%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B.gif">
+<meta property="og:updated_time" content="2016-09-05T11:39:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="微信开发 - 接口简介">
+<meta name="twitter:description" content="由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。
+开通测试账号的路径为：
+
+微信公众平台 &amp;gt; 开发者工具 &amp;gt; 公众平台测试帐号 &amp;gt; 进入
+
+或点击传送门，需要填写的为以下几项：
+
+URL：接口文档所在的路径，如：https://local">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/snsapi_userinfo.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/09/02/微信开发 - 接口简介/"/>
+
+  <title> 微信开发 - 接口简介 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                微信开发 - 接口简介
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
+              2016-09-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/02/微信开发 - 接口简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 接口简介/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。</p>
+<p>开通测试账号的路径为：</p>
+<blockquote>
+<p>微信公众平台 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</p>
+</blockquote>
+<p>或点击<a href="http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank" rel="external">传送门</a>，需要填写的为以下几项：</p>
+<blockquote>
+<p>URL：接口文档所在的路径，如：<code>https://localhost/filepath/wxapifile.php</code></p>
+<p>Token：接口文档中设定的Token</p>
+<p>域名：网址或主机名，如：<code>localhost</code></p>
+</blockquote>
+<p>如对以上步骤陌生的同学可以先看<a href="https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" target="_blank" rel="external">这篇文章</a>。</p>
+   <a id="more"></a>
+<h2 id="接口频率限制"><a href="#接口频率限制" class="headerlink" title="接口频率限制"></a>接口频率限制</h2><p>公众号调用接口并不是无限制的。为了防止公众号的程序错误而引发微信服务器负载异常，默认情况下，每个公众号调用接口都不能超过一定限制，当超过一定限制时，调用对应接口会收到如下错误返回码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;errcode&quot;:45009,&quot;errmsg&quot;:&quot;api freq out of limit&quot;&#125;</div></pre></td></tr></table></figure>
+<p>接口频率限制的说明请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433744592&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">传送门</a>。</p>
+<h2 id="全局返回码"><a href="#全局返回码" class="headerlink" title="全局返回码"></a>全局返回码</h2><p>公众号每次调用接口时，可能获得正确或错误的返回码，开发者可以根据返回码信息调试接口，排查错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;errcode&quot;:45009,&quot;errmsg&quot;:&quot;api freq out of limit&quot;&#125;</div></pre></td></tr></table></figure>
+<p>如上的返回码<code>45009</code>表达的就是<code>接口调用超过限制</code>。接口频率限制的说明请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433744592&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">传送门</a>。</p>
+<h2 id="接口介绍"><a href="#接口介绍" class="headerlink" title="接口介绍"></a>接口介绍</h2><p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。</p>
+<p>access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p>access_token相当于开发者的服务器访问微信服务器的一把钥匙，而微信服务器提供的各种API是一个个门，具有正确的access_token才可以得到门后面的东西。</p>
+<h3 id="获取微信服务器IP接口"><a href="#获取微信服务器IP接口" class="headerlink" title="获取微信服务器IP接口"></a>获取微信服务器IP接口</h3><p>如果公众号基于安全等考虑，需要获知微信服务器的IP地址列表，以便进行相关限制，它一般是为了判断请求是否来自于微信，如不是微信服务器则可以返回非法访问等操作。</p>
+<h3 id="长链接转短链接接口"><a href="#长链接转短链接接口" class="headerlink" title="长链接转短链接接口"></a>长链接转短链接接口</h3><p>顾名思义，就是将一条长链接转成短链接。它的主要使用场景是，如果开发者用于生成二维码的原链接（商品、支付二维码等）太长导致扫码速度和成功率下降，将原长链接通过此接口转成短链接再生成二维码将大大提升扫码速度和成功率。</p>
+<h3 id="获取用户列表接口"><a href="#获取用户列表接口" class="headerlink" title="获取用户列表接口"></a>获取用户列表接口</h3><p>公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求。</p>
+<p>它主要用于获取和保存用户信息，在高级群发接口中也会使用到。</p>
+<h3 id="获取用户基本信息接口"><a href="#获取用户基本信息接口" class="headerlink" title="获取用户基本信息接口"></a>获取用户基本信息接口</h3><p>在关注者与公众号产生消息交互后，公众号可获得关注者的OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的。对于不同公众号，同一用户的openid不同）。</p>
+<p>公众号可通过本接口来根据OpenID获取用户基本信息，包括<strong>昵称、头像、性别、所在城市、语言和关注时间</strong>。</p>
+<h4 id="UnionID机制"><a href="#UnionID机制" class="headerlink" title="UnionID机制"></a>UnionID机制</h4><p>开发者可通过OpenID来获取用户基本信息。特别需要注意的是，<strong>如果开发者拥有多个移动应用、网站应用和公众帐号，可通过获取用户基本信息中的unionid来区分用户的唯一性</strong>。</p>
+<p>因为只要是同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的unionid是唯一的，换句话说，同一用户，对同一个微信开放平台下的不同应用，unionid是相同的。 </p>
+<p><strong>这也就是说，openid是开发者的唯一用户标识，unionid是整个微信的唯一用户标识，openid是获取unionid的先决条件，两种标识都需要用户关注或使用应用后才能获取。</strong></p>
+<h3 id="网页授权接口"><a href="#网页授权接口" class="headerlink" title="网页授权接口"></a>网页授权接口</h3><p>如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息。</p>
+<h4 id="网页授权的两种范围"><a href="#网页授权的两种范围" class="headerlink" title="网页授权的两种范围"></a>网页授权的两种范围</h4><ul>
+<li>以snsapi_base为scope发起的网页授权，是用来<strong>获取进入页面的用户的openid的</strong>，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）。</li>
+<li>以snsapi_userinfo为scope发起的网页授权，是用来<strong>获取用户的基本信息的</strong>。但这种授权需要用户手动同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。 </li>
+<li>用户管理类接口中的“获取用户基本信息接口”，是在用户和公众号产生消息交互或关注后事件推送后，才能根据用户OpenID来获取用户基本信息。这个接口，包括其他微信接口，都是<strong>需要该用户（即openid）关注了公众号后，才能调用成功的</strong>。 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">snsapi_userinfo演示</th>
+<th style="text-align:center">可能是snsapi_base</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/snsapi_userinfo.jpg" alt="snsapi_userinfo"></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/snsapi_base.jpg" alt="snsapi_base"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="高级群发接口"><a href="#高级群发接口" class="headerlink" title="高级群发接口"></a>高级群发接口</h3><p>在公众平台网站上，为订阅号提供了每天一条的群发权限，为服务号提供每月（自然月）4条的群发权限。而对于某些具备开发能力的公众号运营者，可以通过高级群发接口，实现更灵活的群发能力。</p>
+<p>高级群发具有两个优点：</p>
+<ul>
+<li>可根据用户标签或openid进行群发，普通群发只可针对标签和全部进行群发，高级群发的针对性更强；</li>
+<li>高级群发图文内容支持HTML</li>
+</ul>
+<h3 id="JS-SDK接口"><a href="#JS-SDK接口" class="headerlink" title="JS-SDK接口"></a>JS-SDK接口</h3><p>微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。</p>
+<p>通过使用微信JS-SDK，网页开发者可借助微信高效地使用拍照、选图、语音、位置等手机系统的能力，同时可以直接使用微信分享、扫一扫、卡券、支付等微信特有的能力，为微信用户提供更优质的网页体验。</p>
+<p>例如分享功能，JS-SDK可以提供自定义分享标题，内容和图片的支持，还有调用相机，位置等接口。</p>
+<h3 id="模板消息接口"><a href="#模板消息接口" class="headerlink" title="模板消息接口"></a>模板消息接口</h3><p>公众号可以主动向用户发送消息，用户可以收到服务号每月4条，订阅号每天1条的消息，超出后公众号发送的消息将对此用户屏蔽，这样的限制是不能满足我们的开发需求的。</p>
+<p>当用户在公众号进行特定行为时，可以使用模板消息。模板消息仅用于公众号向用户发送重要的服务通知，只能用于符合其要求的服务场景中，如信用卡刷卡通知，商品购买成功通知等。</p>
+<p>不支持广告等营销类消息以及其它所有可能对用户造成骚扰的消息。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">JS-SDK分享演示</th>
+<th style="text-align:center">模板消息演示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/JSSDK.PNG" alt="JSSDK"></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF.PNG" alt="模板消息"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="开发前确定需要的接口"><a href="#开发前确定需要的接口" class="headerlink" title="开发前确定需要的接口"></a>开发前确定需要的接口</h2><p>案例如下：</p>
+<p>某公司希望将自己的PC商城和自己的微信公众平台进行对接，也就是在微信上绑定PC商城账号的功能，以实现在微信中点击菜单无需登录即可查看自己账号的详情，购物记录等。</p>
+<p>那么如何得知需要的接口有哪些呢？首先我们需要：</p>
+<h3 id="确定功能的流程"><a href="#确定功能的流程" class="headerlink" title="确定功能的流程"></a>确定功能的流程</h3><p> <img src="http://oboehz2ag.bkt.clouddn.com/%E5%8A%9F%E8%83%BD%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B.gif" alt="功能流程示例"></p>
+<p>将功能的流程罗列好以后，即可按照每个流程的需求来确定需要调用的接口。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/微信开发/" rel="tag">#微信开发</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/09/02/微信开发 - 公众平台简介/" rel="next" title="微信开发 - 公众平台简介">
+                <i class="fa fa-chevron-left"></i> 微信开发 - 公众平台简介
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/09/02/微信开发 - 接口简介/"
+     data-title="微信开发 - 接口简介"
+     data-content=""
+     data-url="http://yoursite.com/2016/09/02/微信开发 - 接口简介/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/02/微信开发 - 接口简介/"
+           data-title="微信开发 - 接口简介" data-url="http://yoursite.com/2016/09/02/微信开发 - 接口简介/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#接口频率限制"><span class="nav-number">1.</span> <span class="nav-text">接口频率限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局返回码"><span class="nav-number">2.</span> <span class="nav-text">全局返回码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#接口介绍"><span class="nav-number">3.</span> <span class="nav-text">接口介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取微信服务器IP接口"><span class="nav-number">3.1.</span> <span class="nav-text">获取微信服务器IP接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#长链接转短链接接口"><span class="nav-number">3.2.</span> <span class="nav-text">长链接转短链接接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取用户列表接口"><span class="nav-number">3.3.</span> <span class="nav-text">获取用户列表接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取用户基本信息接口"><span class="nav-number">3.4.</span> <span class="nav-text">获取用户基本信息接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#UnionID机制"><span class="nav-number">3.4.1.</span> <span class="nav-text">UnionID机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网页授权接口"><span class="nav-number">3.5.</span> <span class="nav-text">网页授权接口</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网页授权的两种范围"><span class="nav-number">3.5.1.</span> <span class="nav-text">网页授权的两种范围</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#高级群发接口"><span class="nav-number">3.6.</span> <span class="nav-text">高级群发接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JS-SDK接口"><span class="nav-number">3.7.</span> <span class="nav-text">JS-SDK接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模板消息接口"><span class="nav-number">3.8.</span> <span class="nav-text">模板消息接口</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#开发前确定需要的接口"><span class="nav-number">4.</span> <span class="nav-text">开发前确定需要的接口</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#确定功能的流程"><span class="nav-number">4.1.</span> <span class="nav-text">确定功能的流程</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

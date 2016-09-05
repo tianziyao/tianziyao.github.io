@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-02T12:03:15.000Z</updated>
+  <updated>2016-09-05T11:39:04.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,189 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>微信开发 - 接口简介</title>
+    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2016/09/02/微信开发 - 接口简介/</id>
+    <published>2016-09-01T18:24:00.000Z</published>
+    <updated>2016-09-05T11:39:04.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。</p>
+<p>开通测试账号的路径为：</p>
+<blockquote>
+<p>微信公众平台 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</p>
+</blockquote>
+<p>或点击<a href="http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index" target="_blank" rel="external">传送门</a>，需要填写的为以下几项：</p>
+<blockquote>
+<p>URL：接口文档所在的路径，如：<code>https://localhost/filepath/wxapifile.php</code></p>
+<p>Token：接口文档中设定的Token</p>
+<p>域名：网址或主机名，如：<code>localhost</code></p>
+</blockquote>
+<p>如对以上步骤陌生的同学可以先看<a href="https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/" target="_blank" rel="external">这篇文章</a>。</p>
+   <a id="more"></a>
+<h2 id="接口频率限制"><a href="#接口频率限制" class="headerlink" title="接口频率限制"></a>接口频率限制</h2><p>公众号调用接口并不是无限制的。为了防止公众号的程序错误而引发微信服务器负载异常，默认情况下，每个公众号调用接口都不能超过一定限制，当超过一定限制时，调用对应接口会收到如下错误返回码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;errcode&quot;:45009,&quot;errmsg&quot;:&quot;api freq out of limit&quot;&#125;</div></pre></td></tr></table></figure>
+<p>接口频率限制的说明请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433744592&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">传送门</a>。</p>
+<h2 id="全局返回码"><a href="#全局返回码" class="headerlink" title="全局返回码"></a>全局返回码</h2><p>公众号每次调用接口时，可能获得正确或错误的返回码，开发者可以根据返回码信息调试接口，排查错误。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;&quot;errcode&quot;:45009,&quot;errmsg&quot;:&quot;api freq out of limit&quot;&#125;</div></pre></td></tr></table></figure>
+<p>如上的返回码<code>45009</code>表达的就是<code>接口调用超过限制</code>。接口频率限制的说明请点击<a href="https://mp.weixin.qq.com/wiki?t=resource/res_main&amp;id=mp1433744592&amp;token=&amp;lang=zh_CN" target="_blank" rel="external">传送门</a>。</p>
+<h2 id="接口介绍"><a href="#接口介绍" class="headerlink" title="接口介绍"></a>接口介绍</h2><p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。</p>
+<p>access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p>access_token相当于开发者的服务器访问微信服务器的一把钥匙，而微信服务器提供的各种API是一个个门，具有正确的access_token才可以得到门后面的东西。</p>
+<h3 id="获取微信服务器IP接口"><a href="#获取微信服务器IP接口" class="headerlink" title="获取微信服务器IP接口"></a>获取微信服务器IP接口</h3><p>如果公众号基于安全等考虑，需要获知微信服务器的IP地址列表，以便进行相关限制，它一般是为了判断请求是否来自于微信，如不是微信服务器则可以返回非法访问等操作。</p>
+<h3 id="长链接转短链接接口"><a href="#长链接转短链接接口" class="headerlink" title="长链接转短链接接口"></a>长链接转短链接接口</h3><p>顾名思义，就是将一条长链接转成短链接。它的主要使用场景是，如果开发者用于生成二维码的原链接（商品、支付二维码等）太长导致扫码速度和成功率下降，将原长链接通过此接口转成短链接再生成二维码将大大提升扫码速度和成功率。</p>
+<h3 id="获取用户列表接口"><a href="#获取用户列表接口" class="headerlink" title="获取用户列表接口"></a>获取用户列表接口</h3><p>公众号可通过本接口来获取帐号的关注者列表，关注者列表由一串OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的）组成。一次拉取调用最多拉取10000个关注者的OpenID，可以通过多次拉取的方式来满足需求。</p>
+<p>它主要用于获取和保存用户信息，在高级群发接口中也会使用到。</p>
+<h3 id="获取用户基本信息接口"><a href="#获取用户基本信息接口" class="headerlink" title="获取用户基本信息接口"></a>获取用户基本信息接口</h3><p>在关注者与公众号产生消息交互后，公众号可获得关注者的OpenID（加密后的微信号，每个用户对每个公众号的OpenID是唯一的。对于不同公众号，同一用户的openid不同）。</p>
+<p>公众号可通过本接口来根据OpenID获取用户基本信息，包括<strong>昵称、头像、性别、所在城市、语言和关注时间</strong>。</p>
+<h4 id="UnionID机制"><a href="#UnionID机制" class="headerlink" title="UnionID机制"></a>UnionID机制</h4><p>开发者可通过OpenID来获取用户基本信息。特别需要注意的是，<strong>如果开发者拥有多个移动应用、网站应用和公众帐号，可通过获取用户基本信息中的unionid来区分用户的唯一性</strong>。</p>
+<p>因为只要是同一个微信开放平台帐号下的移动应用、网站应用和公众帐号，用户的unionid是唯一的，换句话说，同一用户，对同一个微信开放平台下的不同应用，unionid是相同的。 </p>
+<p><strong>这也就是说，openid是开发者的唯一用户标识，unionid是整个微信的唯一用户标识，openid是获取unionid的先决条件，两种标识都需要用户关注或使用应用后才能获取。</strong></p>
+<h3 id="网页授权接口"><a href="#网页授权接口" class="headerlink" title="网页授权接口"></a>网页授权接口</h3><p>如果用户在微信客户端中访问第三方网页，公众号可以通过微信网页授权机制，来获取用户基本信息。</p>
+<h4 id="网页授权的两种范围"><a href="#网页授权的两种范围" class="headerlink" title="网页授权的两种范围"></a>网页授权的两种范围</h4><ul>
+<li>以snsapi_base为scope发起的网页授权，是用来<strong>获取进入页面的用户的openid的</strong>，并且是静默授权并自动跳转到回调页的。用户感知的就是直接进入了回调页（往往是业务页面）。</li>
+<li>以snsapi_userinfo为scope发起的网页授权，是用来<strong>获取用户的基本信息的</strong>。但这种授权需要用户手动同意，并且由于用户同意过，所以无须关注，就可在授权后获取该用户的基本信息。 </li>
+<li>用户管理类接口中的“获取用户基本信息接口”，是在用户和公众号产生消息交互或关注后事件推送后，才能根据用户OpenID来获取用户基本信息。这个接口，包括其他微信接口，都是<strong>需要该用户（即openid）关注了公众号后，才能调用成功的</strong>。 </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">snsapi_userinfo演示</th>
+<th style="text-align:center">可能是snsapi_base</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/snsapi_userinfo.jpg" alt="snsapi_userinfo"></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/snsapi_base.jpg" alt="snsapi_base"></td>
+</tr>
+</tbody>
+</table>
+<h3 id="高级群发接口"><a href="#高级群发接口" class="headerlink" title="高级群发接口"></a>高级群发接口</h3><p>在公众平台网站上，为订阅号提供了每天一条的群发权限，为服务号提供每月（自然月）4条的群发权限。而对于某些具备开发能力的公众号运营者，可以通过高级群发接口，实现更灵活的群发能力。</p>
+<p>高级群发具有两个优点：</p>
+<ul>
+<li>可根据用户标签或openid进行群发，普通群发只可针对标签和全部进行群发，高级群发的针对性更强；</li>
+<li>高级群发图文内容支持HTML</li>
+</ul>
+<h3 id="JS-SDK接口"><a href="#JS-SDK接口" class="headerlink" title="JS-SDK接口"></a>JS-SDK接口</h3><p>微信JS-SDK是微信公众平台面向网页开发者提供的基于微信内的网页开发工具包。</p>
+<p>通过使用微信JS-SDK，网页开发者可借助微信高效地使用拍照、选图、语音、位置等手机系统的能力，同时可以直接使用微信分享、扫一扫、卡券、支付等微信特有的能力，为微信用户提供更优质的网页体验。</p>
+<p>例如分享功能，JS-SDK可以提供自定义分享标题，内容和图片的支持，还有调用相机，位置等接口。</p>
+<h3 id="模板消息接口"><a href="#模板消息接口" class="headerlink" title="模板消息接口"></a>模板消息接口</h3><p>公众号可以主动向用户发送消息，用户可以收到服务号每月4条，订阅号每天1条的消息，超出后公众号发送的消息将对此用户屏蔽，这样的限制是不能满足我们的开发需求的。</p>
+<p>当用户在公众号进行特定行为时，可以使用模板消息。模板消息仅用于公众号向用户发送重要的服务通知，只能用于符合其要求的服务场景中，如信用卡刷卡通知，商品购买成功通知等。</p>
+<p>不支持广告等营销类消息以及其它所有可能对用户造成骚扰的消息。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">JS-SDK分享演示</th>
+<th style="text-align:center">模板消息演示</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/JSSDK.PNG" alt="JSSDK"></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/%E6%A8%A1%E6%9D%BF%E6%B6%88%E6%81%AF.PNG" alt="模板消息"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="开发前确定需要的接口"><a href="#开发前确定需要的接口" class="headerlink" title="开发前确定需要的接口"></a>开发前确定需要的接口</h2><p>案例如下：</p>
+<p>某公司希望将自己的PC商城和自己的微信公众平台进行对接，也就是在微信上绑定PC商城账号的功能，以实现在微信中点击菜单无需登录即可查看自己账号的详情，购物记录等。</p>
+<p>那么如何得知需要的接口有哪些呢？首先我们需要：</p>
+<h3 id="确定功能的流程"><a href="#确定功能的流程" class="headerlink" title="确定功能的流程"></a>确定功能的流程</h3><p> <img src="http://oboehz2ag.bkt.clouddn.com/%E5%8A%9F%E8%83%BD%E6%B5%81%E7%A8%8B%E7%A4%BA%E4%BE%8B.gif" alt="功能流程示例"></p>
+<p>将功能的流程罗列好以后，即可按照每个流程的需求来确定需要调用的接口。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。&lt;/p&gt;
+&lt;p&gt;开通测试账号的路径为：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;微信公众平台 &amp;gt; 开发者工具 &amp;gt; 公众平台测试帐号 &amp;gt; 进入&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;或点击&lt;a href=&quot;http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;amp;t=sandbox/index&quot;&gt;传送门&lt;/a&gt;，需要填写的为以下几项：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;URL：接口文档所在的路径，如：&lt;code&gt;https://localhost/filepath/wxapifile.php&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Token：接口文档中设定的Token&lt;/p&gt;
+&lt;p&gt;域名：网址或主机名，如：&lt;code&gt;localhost&lt;/code&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如对以上步骤陌生的同学可以先看&lt;a href=&quot;https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&quot;&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信开发 - 公众平台简介</title>
+    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2016/09/02/微信开发 - 公众平台简介/</id>
+    <published>2016-09-01T18:24:00.000Z</published>
+    <updated>2016-09-02T11:50:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
+<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
+   <a id="more"></a>
+<h2 id="主要模板"><a href="#主要模板" class="headerlink" title="主要模板"></a>主要模板</h2><p>微信公众账号不会做太多深度的开放，为了把微信做得更“轻”。在2013年6月份的合作伙伴大会上，微信产品部助理曾鸣提出，微信公众账号不是一个纯粹的营销工具，让公众账号提供最体现企业价值的东西。</p>
+<ul>
+<li>在线营销：向终端客户推荐新品、促销策略等；</li>
+<li>售后服务：通过微信平台，自动与客户进行交互，展示企业产品、售后支持；</li>
+<li>电子商务：将企业网站或购物平台与微信对接，推荐到朋友圈获取免费宣传；</li>
+<li>会员管理：企业会员可通过微信平台进行线下活动预约、积分管理等操作。</li>
+</ul>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>公众平台是企业在OTT产品基础上新增的功能模块，基于“再小的个体也有自己品牌”这一理念。通过这一平台，个人和企业都可以打造一个公众号，并实现和特定群体的文字、图片、语音的全方位沟通、互动。同时，企业也可以利用公众平台进行CRM式管理，个人可以进行自媒体创作。</p>
+<h3 id="微信官网"><a href="#微信官网" class="headerlink" title="微信官网"></a>微信官网</h3><ol>
+<li>公司介绍：支持多级分类；</li>
+<li>产品展示：产品支持多图显示，手指滑动浏览图片；</li>
+<li>新闻资讯：对接微信公众平台消息推送；</li>
+<li>联系方式：LBS地图位置标注，点击电话号码直接拨打；</li>
+<li>信息推送：以微信官方规定的消息推送为标准。</li>
+</ol>
+<h3 id="微信客服"><a href="#微信客服" class="headerlink" title="微信客服"></a>微信客服</h3><ol>
+<li>多人工客服：实现多个人工客服在线与微信公众平台客户沟通；</li>
+<li>LBS位置服务：用户经过微信提供位置，公众平台自动应答离用户最近的门店、经销商；</li>
+<li>建议/投诉/售后：微信平台内嵌售后服务表单。</li>
+</ol>
+<h3 id="微信商城"><a href="#微信商城" class="headerlink" title="微信商城"></a>微信商城</h3><ol>
+<li>在线订购：支持现有商城系统进行对接；</li>
+<li>会员系统：支持现有会员系统进行对接；</li>
+<li>在线支付：支持在线支付功能，若无需在线支付，则只记录订单信息与流程。</li>
+</ol>
+<h3 id="活动与促销"><a href="#活动与促销" class="headerlink" title="活动与促销"></a>活动与促销</h3><ol>
+<li>活动发布：软商系统直接对接微信平台发布；</li>
+<li>抽奖刮刮卡：支持系统自定义奖品。</li>
+<li>抽奖转盘：支持系统自定义奖品。</li>
+</ol>
+<h2 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h2><p>公众平台推出新的认证体系，微信将免费开放地理位置、客服、语音等九大高级技术接口 。针对服务号领域，微信还将推出一些垂直领域定制。微信产品部模式识别中心总监陈波透露，图像识别还将与微信支付结合，提供购买流程。这两个技术主要为公众平台提供服务，后续将向App开放。</p>
+<ol>
+<li>语音识别接口</li>
+<li>客服接口</li>
+<li>OAuth2.0 网页授权接口</li>
+<li>生成带参数的二维码接口</li>
+<li>获取用户地理位置接口</li>
+<li>获取用户基本信息接口</li>
+<li>获取关注者列表接口</li>
+<li>用户分组接口</li>
+<li>上传下载多媒体文件接口</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。&lt;/p&gt;
+&lt;p&gt;通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。&lt;br&gt;微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>微信开发 - 快速入门</title>
@@ -219,74 +402,6 @@
   </entry>
   
   <entry>
-    <title>微信开发 - 公众平台简介</title>
-    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E7%AE%80%E4%BB%8B/"/>
-    <id>http://yoursite.com/2016/09/02/微信开发 - 公众平台简介/</id>
-    <published>2016-09-01T18:24:00.000Z</published>
-    <updated>2016-09-02T11:50:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
-<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
-   <a id="more"></a>
-<h2 id="主要模板"><a href="#主要模板" class="headerlink" title="主要模板"></a>主要模板</h2><p>微信公众账号不会做太多深度的开放，为了把微信做得更“轻”。在2013年6月份的合作伙伴大会上，微信产品部助理曾鸣提出，微信公众账号不是一个纯粹的营销工具，让公众账号提供最体现企业价值的东西。</p>
-<ul>
-<li>在线营销：向终端客户推荐新品、促销策略等；</li>
-<li>售后服务：通过微信平台，自动与客户进行交互，展示企业产品、售后支持；</li>
-<li>电子商务：将企业网站或购物平台与微信对接，推荐到朋友圈获取免费宣传；</li>
-<li>会员管理：企业会员可通过微信平台进行线下活动预约、积分管理等操作。</li>
-</ul>
-<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>公众平台是企业在OTT产品基础上新增的功能模块，基于“再小的个体也有自己品牌”这一理念。通过这一平台，个人和企业都可以打造一个公众号，并实现和特定群体的文字、图片、语音的全方位沟通、互动。同时，企业也可以利用公众平台进行CRM式管理，个人可以进行自媒体创作。</p>
-<h3 id="微信官网"><a href="#微信官网" class="headerlink" title="微信官网"></a>微信官网</h3><ol>
-<li>公司介绍：支持多级分类；</li>
-<li>产品展示：产品支持多图显示，手指滑动浏览图片；</li>
-<li>新闻资讯：对接微信公众平台消息推送；</li>
-<li>联系方式：LBS地图位置标注，点击电话号码直接拨打；</li>
-<li>信息推送：以微信官方规定的消息推送为标准。</li>
-</ol>
-<h3 id="微信客服"><a href="#微信客服" class="headerlink" title="微信客服"></a>微信客服</h3><ol>
-<li>多人工客服：实现多个人工客服在线与微信公众平台客户沟通；</li>
-<li>LBS位置服务：用户经过微信提供位置，公众平台自动应答离用户最近的门店、经销商；</li>
-<li>建议/投诉/售后：微信平台内嵌售后服务表单。</li>
-</ol>
-<h3 id="微信商城"><a href="#微信商城" class="headerlink" title="微信商城"></a>微信商城</h3><ol>
-<li>在线订购：支持现有商城系统进行对接；</li>
-<li>会员系统：支持现有会员系统进行对接；</li>
-<li>在线支付：支持在线支付功能，若无需在线支付，则只记录订单信息与流程。</li>
-</ol>
-<h3 id="活动与促销"><a href="#活动与促销" class="headerlink" title="活动与促销"></a>活动与促销</h3><ol>
-<li>活动发布：软商系统直接对接微信平台发布；</li>
-<li>抽奖刮刮卡：支持系统自定义奖品。</li>
-<li>抽奖转盘：支持系统自定义奖品。</li>
-</ol>
-<h2 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h2><p>公众平台推出新的认证体系，微信将免费开放地理位置、客服、语音等九大高级技术接口 。针对服务号领域，微信还将推出一些垂直领域定制。微信产品部模式识别中心总监陈波透露，图像识别还将与微信支付结合，提供购买流程。这两个技术主要为公众平台提供服务，后续将向App开放。</p>
-<ol>
-<li>语音识别接口</li>
-<li>客服接口</li>
-<li>OAuth2.0 网页授权接口</li>
-<li>生成带参数的二维码接口</li>
-<li>获取用户地理位置接口</li>
-<li>获取用户基本信息接口</li>
-<li>获取关注者列表接口</li>
-<li>用户分组接口</li>
-<li>上传下载多媒体文件接口</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。&lt;/p&gt;
-&lt;p&gt;通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。&lt;br&gt;微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>iOS网络编程 - NSURLConnection</title>
     <link href="http://yoursite.com/2016/08/25/iOS%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B%20-%20NSURLConnection/"/>
     <id>http://yoursite.com/2016/08/25/iOS网络编程 - NSURLConnection/</id>
@@ -389,60 +504,6 @@
   </entry>
   
   <entry>
-    <title>Mac开发工具 -  SHH登录</title>
-    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
-    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
-    <published>2016-08-24T10:16:00.000Z</published>
-    <updated>2016-08-24T04:40:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
-<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
-<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
-<p>以下表示现有进程中找不到ssh对应的进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
-<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
-<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
-<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>如果提示以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
-<p>尝试以下的解决方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
-<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
-    
-    
-      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
-    
-      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
     <title>iOS生命周期 - Main函数</title>
     <link href="http://yoursite.com/2016/08/24/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%20-%20Main%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2016/08/24/iOS生命周期 - Main函数/</id>
@@ -506,6 +567,60 @@
     
     
       <category term="iOS生命周期" scheme="http://yoursite.com/tags/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac开发工具 -  SHH登录</title>
+    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
+    <published>2016-08-24T10:16:00.000Z</published>
+    <updated>2016-08-24T04:40:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
+<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
+<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
+<p>以下表示现有进程中找不到ssh对应的进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
+<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
+<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
+<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>如果提示以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
+<p>尝试以下的解决方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
+<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
+    
+    
+      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
+    
+      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -886,217 +1001,6 @@
 &lt;/tr&gt;
 &lt;/tbody&gt;
 &lt;/table&gt;
-    
-    </summary>
-    
-      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
-    
-    
-      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP协议 - HTTP请求</title>
-    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
-    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
-    <published>2016-08-16T20:44:00.000Z</published>
-    <updated>2016-08-21T18:09:42.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
-<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
-<a id="more"></a>
-<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
-<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
-<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
-<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
-<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
-<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
-<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
-<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
-<p>统一资源定位符的标准格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>名称</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>scheme</td>
-<td>指定低层使用的协议，如 http, https, ftp。</td>
-</tr>
-<tr>
-<td>host</td>
-<td>HTTP服务器的IP地址或者域名。</td>
-</tr>
-<tr>
-<td>port</td>
-<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
-</tr>
-<tr>
-<td>path</td>
-<td>访问资源的路径。</td>
-</tr>
-<tr>
-<td>query-string</td>
-<td>发送给http服务器的数据。</td>
-</tr>
-<tr>
-<td>anchor</td>
-<td>锚点。</td>
-</tr>
-</tbody>
-</table>
-<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
-<ul>
-<li>schema: <code>http</code></li>
-<li>host: <code>www.mywebsite.com</code></li>
-<li>path: <code>/sj/test</code></li>
-<li>query string: <code>name=sviergn&amp;x=true</code></li>
-<li>anchor: <code>stuff</code></li>
-</ul>
-<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
-<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
-<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
-<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
-<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
-<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
-<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
-<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
-<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
-<blockquote>
-<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
-<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
-<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
-<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
-<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
-<p>Connection：表示是否需要持久连接。</p>
-<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
-<p>Content-Length：表示请求消息正文的长度。</p>
-<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
-<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
-<p>Host：指定请求的服务器的域名和端口号。</p>
-<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
-</blockquote>
-<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
-<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
-<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
-<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
-<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
-<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1xx</td>
-<td>指示信息–表示请求已接收，继续处理。</td>
-</tr>
-<tr>
-<td>2xx</td>
-<td>成功–表示请求已被成功接收、理解、接受。</td>
-</tr>
-<tr>
-<td>3xx</td>
-<td>重定向–要完成请求必须进行更进一步的操作。</td>
-</tr>
-<tr>
-<td>4xx</td>
-<td>客户端错误–请求有语法错误或请求无法实现。</td>
-</tr>
-<tr>
-<td>5xx</td>
-<td>服务器端错误–服务器未能实现合法的请求。</td>
-</tr>
-</tbody>
-</table>
-<p>常见状态代码、状态描述、说明：</p>
-<table>
-<thead>
-<tr>
-<th>状态码</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>200 OK</td>
-<td>客户端请求成功。</td>
-</tr>
-<tr>
-<td>400 Bad Request</td>
-<td>客户端请求有语法错误，不能被服务器所理解。</td>
-</tr>
-<tr>
-<td>401 Unauthorized</td>
-<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
-</tr>
-<tr>
-<td>403 Forbidden</td>
-<td>服务器收到请求，但是拒绝提供服务。</td>
-</tr>
-<tr>
-<td>404 Not Found</td>
-<td>请求资源不存在，eg：输入了错误的URL。</td>
-</tr>
-<tr>
-<td>500 Internal Server Error</td>
-<td>服务器发生不可预期的错误。</td>
-</tr>
-<tr>
-<td>503 Server Unavailable</td>
-<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
-</tr>
-</tbody>
-</table>
-<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
-<p>常见的响应头信息如下：</p>
-<blockquote>
-<p>Allow</p>
-<p>服务器支持哪些请求方法（如GET、POST等）。</p>
-<p>Content-Encoding</p>
-<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
-<p>Content-Length</p>
-<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
-<p>Content-Type</p>
-<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
-<p>Date</p>
-<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
-<p>Last-Modified</p>
-<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
-<p>Location</p>
-<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
-<p>Refresh</p>
-<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
-<p>Server</p>
-<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
-<p>Set-Cookie</p>
-<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
-<p>WWW-Authenticate</p>
-<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
-</blockquote>
-<p>下面是一个典型的响应消息： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
-<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
-&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
     
     </summary>
     
@@ -1953,6 +1857,217 @@
   </entry>
   
   <entry>
+    <title>HTTP协议 - HTTP请求</title>
+    <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
+    <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
+    <published>2016-08-16T20:44:00.000Z</published>
+    <updated>2016-08-21T18:09:42.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。</p>
+<p>超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。</p>
+<a id="more"></a>
+<p>通过HTTP或者HTTPS协议请求的资源由统一资源标识符（Uniform Resource Identifiers，URI）来标识。</p>
+<p>超文本传输协议，是一种无状态协议，就是说客户端发送一次请求，服务器端接收请求，经过处理返回给客户端信息，然后客户端和服务器端的链接就断开了，为了维护他们之间的链接，让服务器知道这是前一个用户发送的请求，必须在一个地方保存客户端的信息，有2中解决方案，一是在客户端保存，二是在服务器端保存。<br>1.在客户端保存:Cookie<br>2.在服务器端保存:Session(session需要依靠cookie来实现)<br>3.在用户禁用cookie的限制下，只能使用URL重写的方式在每次请求之后附上一个键值对来保存客户端的信息。<br>4.隐藏表单。<code>&lt;input type=&quot;hidden&quot; name=&quot;method&quot; value=&quot;login&quot;&gt;</code></p>
+<h3 id="URI统一资源标识符"><a href="#URI统一资源标识符" class="headerlink" title="URI统一资源标识符"></a>URI统一资源标识符</h3><p>统一资源标识符（Uniform Resource Identifier，或URI）是一个用于标识某一互联网资源名称的字符串。 该种标识允许用户对网络中（一般指万维网）的资源通过特定的协议进行交互操作。URI的最常见的形式是统一资源定位符（URL），经常指定为非正式的网址。</p>
+<p>更罕见的用法是统一资源名称（URN），其目的是通过提供一种途径。用于在特定的命名空间资源的标识，以补充网址。</p>
+<p>URI可被视为定位符（URL），名称（URN）或两者兼备。统一资源名（URN）如同一个人的名称，而统一资源定位符（URL）代表一个人的住址。换言之，URN定义某事物的身份，而URL提供查找该事物的方法。</p>
+<p>用于标识唯一书目的ISBN系统是一个典型的URN使用范例。例如，ISBN 0-486-27557-4( urn:isbn:0-486-27557-4 )无二义性地标识出莎士比亚的戏剧《罗密欧与朱丽叶》的某一特定版本。为获得该资源并阅读该书，人们需要它的位置，也就是一个URL地址。在类Unix操作系统中，一个典型的URL地址可能是一个文件目录，例如file:///home/username/RomeoAndJuliet.pdf。该URL标识出存储于本地硬盘中的电子书文件。因此，URL和URN有着互补的作用。</p>
+<h4 id="URL统一资源定位符"><a href="#URL统一资源定位符" class="headerlink" title="URL统一资源定位符"></a>URL统一资源定位符</h4><p>统一资源定位符（或称统一资源定位器/定位地址、URL地址等，英语：Uniform / Universal Resource Locator，常缩写为URL），有时也被俗称为网页地址（网址）。如同在网络上的门牌，是因特网上标准的资源的地址（Address）。</p>
+<p>在因特网的历史上，统一资源定位符的发明是一个非常基础的步骤。统一资源定位符的语法是一般的，可扩展的，它使用ASCII代码的一部分来表示因特网的地址。统一资源定位符的开始，一般会标志着一个计算机网络所使用的网络协议。</p>
+<p>统一资源定位符的标准格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">协议类型://服务器地址:端口名/路径/文件名/?参数名=参数#锚点名</div><div class="line">schema://host[:port#]/path/.../[?query-string][#anchor]</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>scheme</td>
+<td>指定低层使用的协议，如 http, https, ftp。</td>
+</tr>
+<tr>
+<td>host</td>
+<td>HTTP服务器的IP地址或者域名。</td>
+</tr>
+<tr>
+<td>port</td>
+<td>HTTP服务器的断开，默认是80。如非默认端口必须显式指明。</td>
+</tr>
+<tr>
+<td>path</td>
+<td>访问资源的路径。</td>
+</tr>
+<tr>
+<td>query-string</td>
+<td>发送给http服务器的数据。</td>
+</tr>
+<tr>
+<td>anchor</td>
+<td>锚点。</td>
+</tr>
+</tbody>
+</table>
+<p>以 <code>http://www.mywebsite.com/sj/test;id=8079?name=sviergn&amp;x=true#stuff</code> 举例：</p>
+<ul>
+<li>schema: <code>http</code></li>
+<li>host: <code>www.mywebsite.com</code></li>
+<li>path: <code>/sj/test</code></li>
+<li>query string: <code>name=sviergn&amp;x=true</code></li>
+<li>anchor: <code>stuff</code></li>
+</ul>
+<h3 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h3><p>http请求由三部分组成，分别是：请求行，请求头，请求正文。</p>
+<p>请求行主要由三部分组成，请求方法、请求路径、协议版本，其格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">MethodRequest URI/HTTP-Version CRLF</div><div class="line"></div><div class="line">MethodRequest：HTTP规范定义了8种可能的请求方法，常用的是GET、POST和HEAD方法。</div><div class="line">URI：请求路径可以是相对或者绝对的方式。</div><div class="line">HTTP-Version：目前常用的支持HTTP/1.0和HTTP/1.1方式。</div><div class="line">CRLF：回车和换行，除了作为结尾的CRLF，其余位置不允许出现单独的CR或LF。</div></pre></td></tr></table></figure>
+<p>get方法的请求方式比较简单，所有请求的参数都显示追加在请求的url后面，而且请求长度有限制。</p>
+<p>post方式的请求参数都追加在请求体当中，消息长度没有限制而且以隐式的方式进行发送，安全性相对较高。</p>
+<p>head方法通常用于测试超链接的有效性，是否可以访问，以及最近是否更新。</p>
+<p>head方法与get方法几乎是一样的，head请求的回应部分中HTTP头部的信息与get请求所得到信息是相同的，利用这个方法，不必传输整个资源内容，就可以得到这个URI所标识的资源内容的信息，例如在下载文件前，需要知道文件的大小，格式，文件名等，就可以使用该方法。</p>
+<p>在下面的例子中，<code>GET</code> 是请求方法，<code>http://www.microsoft.com</code> 是请求路径，<code>HTTP/1.1</code> 是协议和版本。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">GET http://www.microsoft.com/HTTP/1.1</div></pre></td></tr></table></figure>
+<p>在下面的例子，请求方法是 <code>POST</code> ，获得的额外数据是 <code>user=jeffrey&amp;pwd=1234</code>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">POST /reg.jsp HTTP/ (CRLF)</div><div class="line"></div><div class="line">Accept:image/gif,image/x-xbit,... (CRLF)</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line">HOST:www.guet.edu.cn (CRLF)</div><div class="line">Content-Length:22 (CRLF)</div><div class="line">Connection:Keep-Alive (CRLF)</div><div class="line">Cache-Control:no-cache (CRLF)</div><div class="line">(CRLF)         //该CRLF表示消息报头已经结束，在此之前为请求头</div><div class="line"></div><div class="line">user=jeffrey&amp;pwd=1234</div></pre></td></tr></table></figure>
+<p>请求头都是以key:value形式进行保存的，里面记录了客户端的一些基本信息，常用的请求头如下所示：</p>
+<blockquote>
+<p>Accept：浏览器可接受的MIME类型，也就是文件类型。</p>
+<p>Accept-Charset：浏览器可接受的字符集，如GBK。</p>
+<p>Accept-Encoding：浏览器能够进行解码的数据编码方式，比如gzip。</p>
+<p>Accept-Language：浏览器所希望的语言种类，当服务器能够提供一种以上的语言版本时要用到。</p>
+<p>Authorization：授权信息，通常出现在对服务器发送的WWW-Authenticate头的应答中。</p>
+<p>Connection：表示是否需要持久连接。</p>
+<p>Cache-Control：指定请求和响应遵循的缓存机制。</p>
+<p>Content-Length：表示请求消息正文的长度。</p>
+<p>Cookie：HTTP请求发送时，会把保存在该请求域名下的所有cookie值一起发送给web服务器。</p>
+<p>From：请求发送者的email地址，由一些特殊的Web客户程序使用，浏览器不会用到它。</p>
+<p>Host：指定请求的服务器的域名和端口号。</p>
+<p>UA-Pixels，UA-Color，UA-OS，UA-CPU：表示屏幕大小、颜色深度、操作系统和CPU类型。 </p>
+</blockquote>
+<p>请求体（又叫请求正文）是post请求方式当中的请求参数，以key=value形式进行存储，多个请求参数之间用&amp;连接，如果请求当中有请求提，那么在请求头当中的Content-Length属性中记录的是该请求体的长度。</p>
+<p>下面来看一个还算完整的请求消息吧，这样可能会稍微直观一点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">POST hysj.jsp HTTP/1.1</div><div class="line">********************************</div><div class="line">Host: search.cnipr.com</div><div class="line">User-Agent: Mozilla/5.0 (Windows; U; Windows NT 6.0; zh-CN; rv:1.9.1.13) Gecko/20100914 Firefox/3.5.13 ( .NET CLR 3.5.30729)</div><div class="line">Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8</div><div class="line">Accept-Language: zh-cn,zh;q=0.5</div><div class="line">Accept-Encoding: gzip,deflate</div><div class="line">Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7</div><div class="line">Keep-Alive: 300</div><div class="line">Connection: keep-alive</div><div class="line">Referer: http://search.cnipr.com/cnipr/zljs/hyjs-biaodan-y.jsp</div><div class="line">Content-Length: 405</div><div class="line">********************************</div><div class="line">username=guest&amp;extension=&amp;issearch=on&amp;searchword=pd%3D%2820100901%29&amp;presearchword=&amp;sortfield=RELEVANCE&amp;sRecordNumber=&amp;searchType=0&amp;searchFrom=0&amp;channelid=14%2C15%2C16&amp;searchChannel=14%2C15%2C16&amp;strdb=14&amp;strdb=15&amp;strdb=16&amp;cizi=2&amp;sortcolumn=RELEVANCE&amp;R1=-&amp;txtA=&amp;txtB=&amp;txtC=&amp;txtD=20100901&amp;txtE=&amp;txtF=&amp;txtG=&amp;txtH=&amp;txtI=&amp;txtJ=&amp;txtK=&amp;txtL=&amp;txtM=&amp;txtN=&amp;txtP=&amp;txtQ=&amp;txtR=&amp;txtSearchWord=&amp;Submit=%BC%EC%A1%A1%CB%F7</div></pre></td></tr></table></figure>
+<h3 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h3><p>在接收和解释请求消息后，服务器返回一个HTTP响应消息。</p>
+<p>HTTP响应也是由三个部分组成，分别是：响应行、响应头、响应正文。</p>
+<p>响应行是标识服务器端对客户端请求的处理结果，主要由响应状态信息，响应状态码，服务器协议组成：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">HTTP-Version Status-Code Reason-Phrase CRLF</div><div class="line"></div><div class="line">HTTP-Version：表示服务器HTTP协议的版本</div><div class="line">Status-Code：表示服务器发回的响应状态代码</div><div class="line">Reason-Phrase：表示状态代码的文本描述</div></pre></td></tr></table></figure>
+<p>状态代码有三位数字组成，第一个数字定义了响应的类别，且有五种可能取值：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1xx</td>
+<td>指示信息–表示请求已接收，继续处理。</td>
+</tr>
+<tr>
+<td>2xx</td>
+<td>成功–表示请求已被成功接收、理解、接受。</td>
+</tr>
+<tr>
+<td>3xx</td>
+<td>重定向–要完成请求必须进行更进一步的操作。</td>
+</tr>
+<tr>
+<td>4xx</td>
+<td>客户端错误–请求有语法错误或请求无法实现。</td>
+</tr>
+<tr>
+<td>5xx</td>
+<td>服务器端错误–服务器未能实现合法的请求。</td>
+</tr>
+</tbody>
+</table>
+<p>常见状态代码、状态描述、说明：</p>
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200 OK</td>
+<td>客户端请求成功。</td>
+</tr>
+<tr>
+<td>400 Bad Request</td>
+<td>客户端请求有语法错误，不能被服务器所理解。</td>
+</tr>
+<tr>
+<td>401 Unauthorized</td>
+<td>请求未经授权，这个状态代码必须和WWW-Authenticate报头域一起使用。</td>
+</tr>
+<tr>
+<td>403 Forbidden</td>
+<td>服务器收到请求，但是拒绝提供服务。</td>
+</tr>
+<tr>
+<td>404 Not Found</td>
+<td>请求资源不存在，eg：输入了错误的URL。</td>
+</tr>
+<tr>
+<td>500 Internal Server Error</td>
+<td>服务器发生不可预期的错误。</td>
+</tr>
+<tr>
+<td>503 Server Unavailable</td>
+<td>服务器当前不能处理客户端的请求，一段时间后可能恢复正常。</td>
+</tr>
+</tbody>
+</table>
+<p>响应头域允许服务器传递不能放在状态行的附加信息，这些域主要描述服务器的信息和 Request-URI进一步的信息。响应头域包含Age、Location、Proxy-Authenticate、Public、Retry- After、Server、Vary、Warning、WWW-Authenticate。对响应头域的扩展要求通讯双方都支持，如果存在不支持的响应头域，一般将会作为实体头域处理。 </p>
+<p>常见的响应头信息如下：</p>
+<blockquote>
+<p>Allow</p>
+<p>服务器支持哪些请求方法（如GET、POST等）。</p>
+<p>Content-Encoding</p>
+<p>文档的编码（Encode）方法。只有在解码之后才可以得到Content-Type头指定的内容类型。利用gzip压缩文档能够显著地减少HTML文档的下载时间。Java的GZIPOutputStream可以很方便地进行gzip压缩，但只有Unix上的Netscape和Windows上的IE 4、IE 5才支持它。因此，Servlet应该通过查看Accept-Encoding头（即request.getHeader(“Accept-Encoding”)）检查浏览器是否支持gzip，为支持gzip的浏览器返回经gzip压缩的HTML页面，为其他浏览器返回普通页面。</p>
+<p>Content-Length</p>
+<p>表示内容长度。只有当浏览器使用持久HTTP连接时才需要这个数据。如果你想要利用持久连接的优势，可以把输出文档写入ByteArrayOutputStram，完成后查看其大小，然后把该值放入Content-Length头，最后通过byteArrayStream.writeTo(response.getOutputStream()发送内容。</p>
+<p>Content-Type</p>
+<p>表示后面的文档属于什么MIME类型。Servlet默认为text/plain，但通常需要显式地指定为text/html。由于经常要设置Content-Type，因此HttpServletResponse提供了一个专用的方法setContentType。 </p>
+<p>Date</p>
+<p>当前的GMT时间。你可以用setDateHeader来设置这个头以避免转换时间格式的麻烦。</p>
+<p>Last-Modified</p>
+<p>文档的最后改动时间。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置。</p>
+<p>Location</p>
+<p>表示客户应当到哪里去提取文档。Location通常不是直接设置的，而是通过HttpServletResponse的sendRedirect方法，该方法同时设置状态代码为302</p>
+<p>Refresh</p>
+<p>表示浏览器应该在多少时间之后刷新文档，以秒计。</p>
+<p>Server</p>
+<p>服务器名字。Servlet一般不设置这个值，而是由Web服务器自己设置。</p>
+<p>Set-Cookie</p>
+<p>设置和页面关联的Cookie。Servlet不应使用response.setHeader(“Set-Cookie”, …)，而是应使用HttpServletResponse提供的专用方法addCookie。</p>
+<p>WWW-Authenticate</p>
+<p>客户应该在Authorization头中提供什么类型的授权信息？在包含401（Unauthorized）状态行的应答中这个头是必需的。例如，<code>response.setHeader(&quot;WWW-Authenticate&quot;, &quot;BASIC realm=＼&quot;executives＼&quot;&quot;)</code>。<br>注意Servlet一般不进行这方面的处理，而是让Web服务器的专门机制来控制受密码保护页面的访问（例如.htaccess）。</p>
+</blockquote>
+<p>下面是一个典型的响应消息： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">HTTP/1.0200OK </div><div class="line">Date:Mon,31Dec200104:25:57GMT </div><div class="line">Server:Apache/1.3.14(Unix) </div><div class="line">Content-type:text/html </div><div class="line">Last-modified:Tue,17Apr200106:46:28GMT </div><div class="line">Etag:&quot;a030f020ac7c01:1e9f&quot; </div><div class="line">Content-length:39725426 </div><div class="line">Content-range:bytes554554-40279979/40279980</div></pre></td></tr></table></figure>
+<p>下面是以Charles工具抓取的优酷响应消息的截图：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/youku.png" alt="youku"></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;协议是指计算机通信网络中两台计算机之间进行通信所必须共同遵守的规定或规则，超文本传输协议(HTTP)是一种通信协议，它允许将超文本标记语言(HTML)文档从Web服务器传送到客户端的浏览。&lt;/p&gt;
+&lt;p&gt;超文本传输协议（英文：HyperText Transfer Protocol，缩写：HTTP）是互联网上应用最为广泛的一种网络协议。设计HTTP最初的目的是为了提供一种发布和接收HTML页面的方法。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="HTTP" scheme="http://yoursite.com/categories/HTTP/"/>
+    
+    
+      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
+    
+  </entry>
+  
+  <entry>
     <title>PHP数据操作 - MYSQL</title>
     <link href="http://yoursite.com/2016/08/17/PHP%E6%93%8D%E4%BD%9CMySQL/"/>
     <id>http://yoursite.com/2016/08/17/PHP操作MySQL/</id>
@@ -2261,39 +2376,6 @@
   </entry>
   
   <entry>
-    <title>PHP入门 - 面向对象</title>
-    <link href="http://yoursite.com/2016/08/12/PHP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
-    <id>http://yoursite.com/2016/08/12/PHP-面向对象/</id>
-    <published>2016-08-11T20:43:00.000Z</published>
-    <updated>2016-08-24T04:43:27.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Hello &#123;</div><div class="line"></div><div class="line">    public function sayello() &#123;</div><div class="line">        echo &apos;Hello PHP&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="类的实例化"><a href="#类的实例化" class="headerlink" title="类的实例化"></a>类的实例化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$h = new Hello();</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<h4 id="类方法的引用"><a href="#类方法的引用" class="headerlink" title="类方法的引用"></a>类方法的引用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$h-&gt;sayello();</div></pre></td></tr></table></figure>
-<h4 id="类的构造器和外部形参"><a href="#类的构造器和外部形参" class="headerlink" title="类的构造器和外部形参"></a>类的构造器和外部形参</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Man constructor.</div><div class="line">     * @param int $age  年龄</div><div class="line">     * @param string $name 名字</div><div class="line">     */</div><div class="line"></div><div class="line">    public function __construct($age, $name) &#123;</div><div class="line">    echo &apos;coustruct&apos;;</div><div class="line">        $this-&gt;_age = $age;</div><div class="line">        $this-&gt;_name = $name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function getAge() &#123;</div><div class="line">        return $this-&gt;_age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function getName() &#123;</div><div class="line">        return $this-&gt;_name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private $_age, $_name;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="类方法的声明和使用"><a href="#类方法的声明和使用" class="headerlink" title="类方法的声明和使用"></a>类方法的声明和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    public static function sayHello() &#123;</div><div class="line">        echo &apos;Hello Men&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Man::sayHello();</div></pre></td></tr></table></figure>
-<h4 id="PHP静态属性的声明和使用："><a href="#PHP静态属性的声明和使用：" class="headerlink" title="PHP静态属性的声明和使用："></a>PHP静态属性的声明和使用：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    public function __construct($age, $name) &#123;</div><div class="line">    echo &apos;coustruct&apos;;</div><div class="line">        $this-&gt;_age = $age;</div><div class="line">        $this-&gt;_name = $name;</div><div class="line">        Man::$NUM++;</div><div class="line">        if (Man::$NUM&gt;Man::MAX_NUM) &#123;</div><div class="line">            throw new Exception(&apos;不能创建更多的MAN&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private $_age, $_name;</div><div class="line">    private static $NUM = 0;</div><div class="line">    const MAX_NUM = 100;</div><div class="line">&#125;</div><div class="line"></div><div class="line">for ($i=0; $i&lt;200; $i++) &#123;</div><div class="line">    $m = new Man($i,&apos;Geek&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>静态的属性和方法是为了描述类的信息，比如以上描述的就是初始人数是0，最大人数是100，成员属性和方法是为了描述类的实例。</p>
-<h4 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name, $sex) &#123;</div><div class="line">       $this-&gt;_age = $age;</div><div class="line">       $this-&gt;_name = $name;</div><div class="line">       $this-&gt;_sex = $sex;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo $this-&gt;_name.&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   private $_age, $_name, $_sex;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class Women extends People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name) &#123;</div><div class="line">       parent::__construct($age, $name, &apos;女&apos;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">$w = new Women(10, &apos;Geek&apos;);</div><div class="line">$w-&gt;sayHi();</div></pre></td></tr></table></figure>
-<h4 id="重写类方法"><a href="#重写类方法" class="headerlink" title="重写类方法"></a>重写类方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">class People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name, $sex) &#123;</div><div class="line">       $this-&gt;_age = $age;</div><div class="line">       $this-&gt;_name = $name;</div><div class="line">       $this-&gt;_sex = $sex;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo $this-&gt;_name.&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   private $_age, $_name, $_sex;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class Women extends People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name) &#123;</div><div class="line">       parent::__construct($age, $name, &apos;女&apos;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo &apos;women &apos;.$this-&gt;getName().&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$w = new Women(10, &apos;Geek&apos;);</div><div class="line">$w-&gt;sayHi();</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;类的声明&quot;&gt;&lt;a href=&quot;#类的声明&quot; class=&quot;headerlink&quot; title=&quot;类的声明&quot;&gt;&lt;/a&gt;类的声明&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;class Hello &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    public function sayello() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        echo &amp;apos;Hello PHP&amp;apos;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;h4 id=&quot;类的实例化&quot;&gt;&lt;a href=&quot;#类的实例化&quot; class=&quot;headerlink&quot; title=&quot;类的实例化&quot;&gt;&lt;/a&gt;类的实例化&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$h = new Hello();&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
-    
-    
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
     <title>PHP入门 - 时间和日期</title>
     <link href="http://yoursite.com/2016/08/12/PHP-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/"/>
     <id>http://yoursite.com/2016/08/12/PHP-时间和日期/</id>
@@ -2514,6 +2596,39 @@
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;echo date(&amp;apos;Y - m - d  A  h:i:s &amp;apos;,time()).&amp;apos;&amp;lt;br&amp;gt;&amp;apos;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;p&gt;时间戳也可以从指定的时间开始计算：&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;echo date(&amp;apos;Y - m - d  A  h:i:s &amp;apos;,&amp;apos;10000&amp;apos;).&amp;apos;&amp;lt;br&amp;gt;&amp;apos;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>PHP入门 - 面向对象</title>
+    <link href="http://yoursite.com/2016/08/12/PHP-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/"/>
+    <id>http://yoursite.com/2016/08/12/PHP-面向对象/</id>
+    <published>2016-08-11T20:43:00.000Z</published>
+    <updated>2016-08-24T04:43:27.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">class Hello &#123;</div><div class="line"></div><div class="line">    public function sayello() &#123;</div><div class="line">        echo &apos;Hello PHP&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="类的实例化"><a href="#类的实例化" class="headerlink" title="类的实例化"></a>类的实例化</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$h = new Hello();</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<h4 id="类方法的引用"><a href="#类方法的引用" class="headerlink" title="类方法的引用"></a>类方法的引用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$h-&gt;sayello();</div></pre></td></tr></table></figure>
+<h4 id="类的构造器和外部形参"><a href="#类的构造器和外部形参" class="headerlink" title="类的构造器和外部形参"></a>类的构造器和外部形参</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    /**</div><div class="line">     * Man constructor.</div><div class="line">     * @param int $age  年龄</div><div class="line">     * @param string $name 名字</div><div class="line">     */</div><div class="line"></div><div class="line">    public function __construct($age, $name) &#123;</div><div class="line">    echo &apos;coustruct&apos;;</div><div class="line">        $this-&gt;_age = $age;</div><div class="line">        $this-&gt;_name = $name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function getAge() &#123;</div><div class="line">        return $this-&gt;_age;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    public function getName() &#123;</div><div class="line">        return $this-&gt;_name;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private $_age, $_name;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="类方法的声明和使用"><a href="#类方法的声明和使用" class="headerlink" title="类方法的声明和使用"></a>类方法的声明和使用</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    public static function sayHello() &#123;</div><div class="line">        echo &apos;Hello Men&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Man::sayHello();</div></pre></td></tr></table></figure>
+<h4 id="PHP静态属性的声明和使用："><a href="#PHP静态属性的声明和使用：" class="headerlink" title="PHP静态属性的声明和使用："></a>PHP静态属性的声明和使用：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">class Man &#123;</div><div class="line"></div><div class="line">    public function __construct($age, $name) &#123;</div><div class="line">    echo &apos;coustruct&apos;;</div><div class="line">        $this-&gt;_age = $age;</div><div class="line">        $this-&gt;_name = $name;</div><div class="line">        Man::$NUM++;</div><div class="line">        if (Man::$NUM&gt;Man::MAX_NUM) &#123;</div><div class="line">            throw new Exception(&apos;不能创建更多的MAN&apos;);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    private $_age, $_name;</div><div class="line">    private static $NUM = 0;</div><div class="line">    const MAX_NUM = 100;</div><div class="line">&#125;</div><div class="line"></div><div class="line">for ($i=0; $i&lt;200; $i++) &#123;</div><div class="line">    $m = new Man($i,&apos;Geek&apos;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>静态的属性和方法是为了描述类的信息，比如以上描述的就是初始人数是0，最大人数是100，成员属性和方法是为了描述类的实例。</p>
+<h4 id="类的继承"><a href="#类的继承" class="headerlink" title="类的继承"></a>类的继承</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">class People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name, $sex) &#123;</div><div class="line">       $this-&gt;_age = $age;</div><div class="line">       $this-&gt;_name = $name;</div><div class="line">       $this-&gt;_sex = $sex;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo $this-&gt;_name.&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   private $_age, $_name, $_sex;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class Women extends People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name) &#123;</div><div class="line">       parent::__construct($age, $name, &apos;女&apos;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">$w = new Women(10, &apos;Geek&apos;);</div><div class="line">$w-&gt;sayHi();</div></pre></td></tr></table></figure>
+<h4 id="重写类方法"><a href="#重写类方法" class="headerlink" title="重写类方法"></a>重写类方法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line">class People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name, $sex) &#123;</div><div class="line">       $this-&gt;_age = $age;</div><div class="line">       $this-&gt;_name = $name;</div><div class="line">       $this-&gt;_sex = $sex;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo $this-&gt;_name.&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   private $_age, $_name, $_sex;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class Women extends People &#123;</div><div class="line"></div><div class="line">   public function __construct($age, $name) &#123;</div><div class="line">       parent::__construct($age, $name, &apos;女&apos;);</div><div class="line">   &#125;</div><div class="line"></div><div class="line">   public function sayHi() &#123;</div><div class="line">       echo &apos;women &apos;.$this-&gt;getName().&apos; say hi&apos;;</div><div class="line">   &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$w = new Women(10, &apos;Geek&apos;);</div><div class="line">$w-&gt;sayHi();</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;类的声明&quot;&gt;&lt;a href=&quot;#类的声明&quot; class=&quot;headerlink&quot; title=&quot;类的声明&quot;&gt;&lt;/a&gt;类的声明&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;class Hello &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    public function sayello() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        echo &amp;apos;Hello PHP&amp;apos;;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;h4 id=&quot;类的实例化&quot;&gt;&lt;a href=&quot;#类的实例化&quot; class=&quot;headerlink&quot; title=&quot;类的实例化&quot;&gt;&lt;/a&gt;类的实例化&lt;/h4&gt;&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;$h = new Hello();&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -2954,64 +3069,6 @@
     
     
       <category term="Xcode错误处理" scheme="http://yoursite.com/tags/Xcode%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS第三方库 - CocoaPods安装和使用</title>
-    <link href="http://yoursite.com/2016/08/03/CocoaPods%20%E5%AE%89%E8%A3%85%E5%92%8C%E4%BD%BF%E7%94%A8/"/>
-    <id>http://yoursite.com/2016/08/03/CocoaPods 安装和使用/</id>
-    <published>2016-08-02T18:46:00.000Z</published>
-    <updated>2016-08-24T04:36:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
-<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
-<a id="more"></a>
-<p>No.1 安装 RVM</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">curl -L get.rvm.io | bash -s stable</div></pre></td></tr></table></figure>
-<p>No.2 测试是否安装正常</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm -v</div></pre></td></tr></table></figure>
-<p>No.3 查看当前 Ruby 版本  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ruby -v</div></pre></td></tr></table></figure>
-<p>No.4 列出已知的 Ruby 版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm list known</div></pre></td></tr></table></figure>
-<p>No.5 安装 Ruby 2.3  </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm install 2.3</div></pre></td></tr></table></figure>
-<p>No.6 检查已安装的 Ruby 版本</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm list</div></pre></td></tr></table></figure>
-<p>No.7 创建并使用 Ruby2.3</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">rvm use 2.3@newgemset --create --default</div></pre></td></tr></table></figure>
-<p>No.8 安装 CocoaPods</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo gem install cocoapods</div></pre></td></tr></table></figure>
-<p>No.9 如果被墙的话，可以使用淘宝的镜像</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ gem sources --add https://ruby.taobao.org/ --remove https://rubygems.org/</div><div class="line">$ gem sources -l</div><div class="line">*** CURRENT SOURCES ***</div><div class="line"></div><div class="line">https://ruby.taobao.org</div><div class="line"># 请确保只有 ruby.taobao.org</div><div class="line">$ gem install rails</div></pre></td></tr></table></figure>
-<p>现在 CocoaPods 就安装好了。下面介绍 CocoaPods 的使用：</p>
-<p>No.1 创建 Podfile 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi Podfile</div></pre></td></tr></table></figure>
-<p>No.2 按 i，进入编辑模式，指定目标平台和版本，以及要安装的类库</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">platform :ios, &apos;8.0&apos;</div><div class="line">use_frameworks!</div><div class="line"></div><div class="line">target &apos;MyApp&apos; do</div><div class="line">  pod &apos;AFNetworking&apos;, &apos;~&gt; 2.6&apos;</div><div class="line">  pod &apos;ORStackView&apos;, &apos;~&gt; 3.0&apos;</div><div class="line">  pod &apos;SwiftyJSON&apos;, &apos;~&gt; 2.3&apos;</div><div class="line">end</div></pre></td></tr></table></figure>
-<p>No.3 按 Esc，并且输入“ :x ”号退出保存，然后进行安装</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod install</div></pre></td></tr></table></figure>
-<p>No.4 打开 xcworkspace 文件，类库已经成功导入到项目。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。&lt;/p&gt;
-&lt;p&gt;这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="CocoaPods" scheme="http://yoursite.com/tags/CocoaPods/"/>
-    
-      <category term="RVM" scheme="http://yoursite.com/tags/RVM/"/>
-    
-      <category term="Ruby" scheme="http://yoursite.com/tags/Ruby/"/>
-    
-      <category term="第三方库" scheme="http://yoursite.com/tags/%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93/"/>
     
   </entry>
   
