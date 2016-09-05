@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/03/iOS多线程下载及图片缓存/" itemprop="url">
-                  iOS多线程 - 下载及图片缓存
+                <a class="post-title-link" href="/2016/08/05/Failed to import && .h file not found/" itemprop="url">
+                  Failed to import && .h file not found
                 </a>
               
             
@@ -292,8 +292,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T02:46:00+08:00" content="2016-08-03">
-              2016-08-03
+            <time itemprop="dateCreated" datetime="2016-08-05T05:46:00+08:00" content="2016-08-05">
+              2016-08-05
             </time>
           </span>
 
@@ -322,8 +322,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/03/iOS多线程下载及图片缓存/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/iOS多线程下载及图片缓存/" itemprop="commentsCount"></span>
+                <a href="/2016/08/05/Failed to import && .h file not found/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/Failed to import && .h file not found/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,22 +347,12 @@
 
       
         
-          <blockquote>
-<p>线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。</p>
-</blockquote>
-<p>下面我们通过代码来了解以下几个知识点：</p>
-<ol>
-<li>多线程下载；</li>
-<li>自定义 NSOperation ；</li>
-<li>NSCache 增删改查；</li>
-<li>NSFileManager 增删改查；</li>
-<li>代理模式；</li>
-<li>闭包反向传值；</li>
-<li>扩展方法；</li>
-<li>Plist 文件解析；</li>
-</ol>
+          <p>出现这两个问题时，首先要确保相关的库和依赖已经导入到工程，如果还是有提示，这说明出错的文件 Xcode 无法获取到。</p>
+<p>首先进入工程的 Build Phases ，找到 Link Binary With Libraries ，点击 + 号将提示缺失的文件导入。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/buildphases.png" alt=""></p>
+<p>如果文件已经存在的话，进入工程的 Build Settings ，在 TARGETS 而不是 PROJECT 下，搜索 Search Paths，确保 Frameworks Search Paths 和 Header Search Paths 指向正确的文件路径。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/03/iOS多线程下载及图片缓存/#more" rel="contents">
+            <a class="btn" href="/2016/08/05/Failed to import && .h file not found/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -486,6 +476,141 @@
 <p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/03/CocoaPods 安装和使用/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/03/iOS多线程下载及图片缓存/" itemprop="url">
+                  iOS多线程 - 下载及图片缓存
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T02:46:00+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/03/iOS多线程下载及图片缓存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/iOS多线程下载及图片缓存/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。</p>
+</blockquote>
+<p>下面我们通过代码来了解以下几个知识点：</p>
+<ol>
+<li>多线程下载；</li>
+<li>自定义 NSOperation ；</li>
+<li>NSCache 增删改查；</li>
+<li>NSFileManager 增删改查；</li>
+<li>代理模式；</li>
+<li>闭包反向传值；</li>
+<li>扩展方法；</li>
+<li>Plist 文件解析；</li>
+</ol>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/03/iOS多线程下载及图片缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1411,141 +1536,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/22/iOS多线程之 GCD线程管理（上）/" itemprop="url">
-                  iOS多线程 - GCD线程管理
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T04:55:00+08:00" content="2016-07-22">
-              2016-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/22/iOS多线程之 GCD线程管理（上）/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/iOS多线程之 GCD线程管理（上）/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>GCD全称是 Grand Central Dispatch，它是基于 C 语言开发的一套多线程开发机制，也是目前苹果官方推荐的多线程开发方法。</p>
-</blockquote>
-<h4 id="GCD的优势"><a href="#GCD的优势" class="headerlink" title="GCD的优势"></a>GCD的优势</h4><ol>
-<li>GCD 是苹果公司为<strong>多核的并行运算</strong>提供的解决方案；</li>
-<li>GCD 会自动利用更多的CPU内核（比如双核、四核）；</li>
-<li>GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁任务）；</li>
-</ol>
-<p>因此，程序员只需要告诉 GCD 想要执行什么任务，把任务放在对应的 <code>block</code> 里面。不需要编写任何线程管理代码。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/iOS多线程之 GCD线程管理（上）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1586,7 +1581,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">40</span>
+              <span class="site-state-item-count">41</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
