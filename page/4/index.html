@@ -278,6 +278,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/23/五个案例明白 GCD 死锁/" itemprop="url">
+                  iOS案例 - GCD 死锁
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-23T03:11:00+08:00" content="2016-07-23">
+              2016-07-23
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/23/五个案例明白 GCD 死锁/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>首先来回忆几个概念：</p>
+<ol>
+<li>任务：需要执行的操作；</li>
+<li>队列：储存任务的数据结构；</li>
+<li>同步：只能开启一个子线程执行队列；</li>
+<li>异步：可开启多个子线程执行队列；</li>
+<li>串行：同一时间只能执行一个任务；</li>
+<li>并行：同一时间可执行多个任务；</li>
+</ol>
+<p>假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/23/五个案例明白 GCD 死锁/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/22/iOS多线程之 GCD线程管理（上）/" itemprop="url">
                   iOS多线程 - GCD线程管理
                 </a>
@@ -358,137 +489,6 @@
 <p>因此，程序员只需要告诉 GCD 想要执行什么任务，把任务放在对应的 <code>block</code> 里面。不需要编写任何线程管理代码。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/22/iOS多线程之 GCD线程管理（上）/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
-                  iOS自定义控件 - 时间轴
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
-              2016-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
-</blockquote>
-<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
-<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
-<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
-<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
-<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
-<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
-<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -738,6 +738,137 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>: <span class="title">NSObject</span>, <span class="title">NSCoding</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"从 Coder 中读取"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encodeWithCoder</span><span class="params">(aCoder: NSCoder)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"保存到 Coder 中"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
+                  iOS自定义控件 - 时间轴
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
+              2016-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
+</blockquote>
+<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
+<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
+<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
+<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
+<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
+<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
+<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1438,140 +1569,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/20/Markdown 语法的简要规则/" itemprop="url">
-                  Markdown 语法的简要规则
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T18:16:00+08:00" content="2016-07-20">
-              2016-07-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/20/Markdown 语法的简要规则/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/20/Markdown 语法的简要规则/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><p>在 <code>Markdown</code> 中，如果要定义一段文字为标题，只要在这段文字前加 <code>#</code> 号即可，标题一共有 6 级，建议在 <code>#</code> 号后加写一个空格，这是 <code>Markdown</code> 最标准的写法。</p>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p><code>Markdown</code> 的列表与 <code>HTML</code> 相同，分为有序列表和无序列表，在 <code>Markdown</code> 下，列表的显示只需要在文字前加上 - 即可变为无序列表，有序列表直接在文字前加<code>1. 2. 3.</code></p>
-<p>符号和文字之前要加上一个字符的空格。</p>
-<h4 id="这是一个无序列表"><a href="#这是一个无序列表" class="headerlink" title="这是一个无序列表"></a>这是一个无序列表</h4><ul>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ul>
-<h4 id="这是一个有序列表"><a href="#这是一个有序列表" class="headerlink" title="这是一个有序列表"></a>这是一个有序列表</h4><ol>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/Markdown 语法的简要规则/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1617,7 +1614,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

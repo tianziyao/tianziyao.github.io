@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-05T12:08:19.000Z</updated>
+  <updated>2016-09-12T01:09:39.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,76 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2016/09/12/iOS%E9%80%9A%E8%AE%AF%20-%20Socket%E9%80%9A%E8%AE%AF/"/>
+    <id>http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/</id>
+    <published>2016-09-12T00:05:48.000Z</published>
+    <updated>2016-09-12T01:09:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>iOS通讯 - Socket通讯</p>
+<p>iOS网络编程层次结构</p>
+<ul>
+<li>Cocoa层<ul>
+<li>NSURL</li>
+<li>NSURLRequest</li>
+<li>NSURLResponse</li>
+<li>NSURLConnection</li>
+<li>NSURLSession</li>
+<li>GameKit</li>
+<li>WebKit</li>
+</ul>
+</li>
+<li>Core Foundation层<ul>
+<li>基于C语言的CFNetworking和CFNetServices</li>
+</ul>
+</li>
+<li>OS层<ul>
+<li>基于C语言的BSD Socket</li>
+</ul>
+</li>
+</ul>
+<p>Cocoa层是最上层的基于 Objective-C 的 API，比如 URL访问，NSStream，Bonjour，GameKit等，这是大多数情况下我们常用的 API。Cocoa 层是基于 Core Foundation 实现的。</p>
+<p>Core Foundation层：因为直接使用Socket需要更多的编程工作，所以苹果对OS层的Socket进行简单的封装以简化编程任务。该层提供了CFNetwork和CFNetServices两个类，其中CFNetwork又是基于CFStream和CFSocket。</p>
+<p>OS层：最底层的BSD Socket提供了对网络编程最大程度的控制，但是编程工作也是最多的，关于BSD Socket的介绍请查看它的维基词条，<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="external">传送门</a>。</p>
+<p>Socket的作用是提供点对点的网络通讯，比如我们平时浏览网页，访问服务器，用到的是HTTP通讯，而QQ，网络直播这样的，需要单点对单点，单点对多点这种情况下就会使用到Socket。</p>
+<p>它的内部原理是通过IP地址来标识一台主机，通过端口号来标识主机上的某一个程序，这两点就可以确定一个唯一的程序客户端。</p>
+<h2 id="TCP和UPD"><a href="#TCP和UPD" class="headerlink" title="TCP和UPD"></a>TCP和UPD</h2><p>网络通信结构是有一套标准模型的，由国际标准化组织ISO提出，被称为OSI模型，又称为七层模型。</p>
+<p>这是一个普通段落。</p>
+<table><br>​    <tr><br>​        <td>Foo</td><br>​    </tr><br></table>
+
+
+
+<style type="text/css">
+table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
+table.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
+table.tftable tr {background-color:#d4e3e5;}
+table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
+</style>
+
+<table id="tfhover" class="tftable" border="1"><br><tr><th>Header 1</th><th>Header 2</th><th>Header 3</th><th>Header 4</th><th>Header 5</th></tr><br><tr><td>Row:1 Cell:1</td><td>Row:1 Cell:2</td><td>Row:1 Cell:3</td><td>Row:1 Cell:4</td><td>Row:1 Cell:5</td></tr><br><tr><td>Row:2 Cell:1</td><td>Row:2 Cell:2</td><td>Row:2 Cell:3</td><td>Row:2 Cell:4</td><td>Row:2 Cell:5</td></tr><br><tr><td>Row:3 Cell:1</td><td>Row:3 Cell:2</td><td>Row:3 Cell:3</td><td>Row:3 Cell:4</td><td>Row:3 Cell:5</td></tr><br><tr><td>Row:4 Cell:1</td><td>Row:4 Cell:2</td><td>Row:4 Cell:3</td><td>Row:4 Cell:4</td><td>Row:4 Cell:5</td></tr><br><tr><td>Row:5 Cell:1</td><td>Row:5 Cell:2</td><td>Row:5 Cell:3</td><td>Row:5 Cell:4</td><td>Row:5 Cell:5</td></tr><br><tr><td>Row:6 Cell:1</td><td>Row:6 Cell:2</td><td>Row:6 Cell:3</td><td>Row:6 Cell:4</td><td>Row:6 Cell:5</td></tr><br></table>
+
+<p><small>Created with the <a href="http://www.textfixer.com/html/html-table-generator.php" target="_blank">HTML Table Generator</a></small></p>
+
+<p>这是另一个普通段落。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;iOS通讯 - Socket通讯&lt;/p&gt;
+&lt;p&gt;iOS网络编程层次结构&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Cocoa层&lt;ul&gt;
+&lt;li&gt;NSURL&lt;/li&gt;
+&lt;li&gt;NSURLRequest&lt;/li&gt;
+&lt;li&gt;NSURLResponse&lt;/li&gt;
+&lt;li&gt;NSURLConnecti
+    
+    </summary>
+    
+    
+  </entry>
   
   <entry>
     <title>微信开发 - access_token</title>
@@ -598,60 +668,6 @@
   </entry>
   
   <entry>
-    <title>Mac开发工具 -  SHH登录</title>
-    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
-    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
-    <published>2016-08-24T10:16:00.000Z</published>
-    <updated>2016-08-24T04:40:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
-<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
-<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
-<p>以下表示现有进程中找不到ssh对应的进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
-<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
-<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
-<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>如果提示以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
-<p>尝试以下的解决方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
-<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
-    
-    
-      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
-    
-      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
     <title>iOS生命周期 - Main函数</title>
     <link href="http://yoursite.com/2016/08/24/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%20-%20Main%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2016/08/24/iOS生命周期 - Main函数/</id>
@@ -715,6 +731,60 @@
     
     
       <category term="iOS生命周期" scheme="http://yoursite.com/tags/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac开发工具 -  SHH登录</title>
+    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
+    <published>2016-08-24T10:16:00.000Z</published>
+    <updated>2016-08-24T04:40:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
+<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
+<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
+<p>以下表示现有进程中找不到ssh对应的进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
+<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
+<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
+<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>如果提示以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
+<p>尝试以下的解决方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
+<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
+    
+    
+      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
+    
+      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -2899,67 +2969,6 @@
     
       &lt;h4 id=&quot;NSURLConnection&quot;&gt;&lt;a href=&quot;#NSURLConnection&quot; class=&quot;headerlink&quot; title=&quot;NSURLConnection&quot;&gt;&lt;/a&gt;NSURLConnection&lt;/h4&gt;&lt;p&gt;iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：&lt;/p&gt;
 &lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;let url = NSURL(string: &amp;quot;http://www.jikexueyuan.com&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let request = NSURLRequest(URL: url!)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let queue = NSOperationQueue()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;NSURLConnection.sendAsynchronousRequest(request, queue: queue) &amp;#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if error != nil &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(&amp;quot;出错了&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    else &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(resp)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(data)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="网络数据" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="闭包" scheme="http://yoursite.com/tags/%E9%97%AD%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS网络数据 - 同步加载</title>
-    <link href="http://yoursite.com/2016/08/10/iOS%20%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
-    <id>http://yoursite.com/2016/08/10/iOS 加载网络数据/</id>
-    <published>2016-08-09T18:46:00.000Z</published>
-    <updated>2016-08-21T18:12:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。</p>
-<p>下面我们使用 NSString 来接收一个网页的源代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToHTML() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line"></div><div class="line">    do &#123;</div><div class="line">        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)</div><div class="line">        print(str)</div><div class="line">    &#125;</div><div class="line">    catch &#123;</div><div class="line">        print(&quot;fail&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>而很多时候我们在读取一个 HTTP 协议的数据时，可能并不是一个字符串的数据，有可能是一个二进制类型的数据，如果说要把一个页面读取成二进制的数据的话，可以直接把它读成一个 NSData 类型，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToNSData() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let data = NSData(contentsOfURL: url!)</div><div class="line">    print(data)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在这里虽然表现的是二进制文件，实际上和用 NSString 接收一样，NSData 实际上也是这个网页的源代码，所以当我们获取到网页的数据，并希望对它做一些修改时，也可以将 NSData 转成 NSString：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToNSData() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let data = NSData(contentsOfURL: url!)</div><div class="line">    let str = NSString(data: data!, encoding: NSUTF8StringEncoding)</div><div class="line">    print(str)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但实际上很多在通信的时候，并不是使用这两种方式，如果使用以上两种方式，有两点点是必须的：</p>
-<ol>
-<li><p>这个网址必须是可以打开的。</p>
-<p>因为如果这个链接是不能打开的，那么程序会一直停留在获取这里；</p>
-</li>
-<li><p>这个通信的时间特别短，特别快；</p>
-<p>因为这两种通信方式都是同步的，这就意味着此时主线程无法对 UI 进行响应；</p>
-</li>
-</ol>
-<p>所以说实际开发过程中，一般不使用这两种方式进行通讯。这两种方式一般会用来读取本地的数据，而最常使用的API 是使用 NSURLConnection 进行网络的同步请求和异步请求。</p>
-<h4 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
-<p>sendSynchronousRequest 的两个传入参数：分别是网络请求和URL的回应信息，上面我们了解了网络请求这个传入参数，那么 URL 的回应信息 returningResponse 又是什么呢？实际上他是HTTP协议的协议头，它也可以被打印出来：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">var resp: NSURLResponse?</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: &amp;resp)</div><div class="line">if let r = resp &#123;</div><div class="line">    print(r)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p>在 iOS9 中， NSURLConnection 已经被抛弃，取而代之的是NSURLSession。 NSURLSession的使用步骤进步如下：</p>
-<ol>
-<li>通过 NSURLSession 的实例创建 NSURLSessionTask；</li>
-<li>执行 NSURLSessionTask；</li>
-</ol>
-<p>NSURLSessionTask 可以简单理解为任务，如数据请求任务，下载任务，上传任务等，它是一个抽象类，而我们使用的是它的子类:</p>
-<ul>
-<li>NSURLSessionDataTask</li>
-<li>NSURLSessionUploadTask</li>
-<li>NSURLSessionDownloadTask</li>
-</ul>
-<p>从这几个子类的名字就可以大概猜出他们的作用了，接下来我们就用一个简单的 get 请求，来使用NSURLSessionDataTask。后面的两个子类我们会在以后单独开篇再讲。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func urlSession() &#123;</div><div class="line"></div><div class="line">    let session = NSURLSession.sharedSession()</div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let task = session.dataTaskWithURL(url!) &#123; (data: NSData?, resp: NSURLResponse?, error: NSError?) in</div><div class="line">        print(data)</div><div class="line">        print(resp)</div><div class="line">        print(error)</div><div class="line">    &#125;</div><div class="line">    task.resume()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>以上就是 iOS 进行网络获取主要的几种方法。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。&lt;/p&gt;
-&lt;p&gt;下面我们使用 NSString 来接收一个网页的源代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;func loadWedDataToHTML() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    let url = NSURL(string: &amp;quot;http://www.jikexueyuan.com&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    do &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(str)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    catch &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(&amp;quot;fail&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
