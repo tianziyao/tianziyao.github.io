@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-12T06:56:38.000Z</updated>
+  <updated>2016-09-05T12:05:57.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,161 +14,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title></title>
-    <link href="http://yoursite.com/2016/09/12/iOS%E9%80%9A%E8%AE%AF%20-%20Socket%E9%80%9A%E8%AE%AF/"/>
-    <id>http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/</id>
-    <published>2016-09-12T00:05:48.000Z</published>
-    <updated>2016-09-12T06:56:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>iOS通讯 - Socket通讯</p>
-<p>————–1233333</p>
-<style type="text/css">
-table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px;border-color: #729ea5;border-collapse: collapse;}
-table.tftable th {font-size:12px;background-color:#acc8cc;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;text-align:left;}
-table.tftable tr {background-color:#d4e3e5;}
-table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
-</style>
-
-<table id="tfhover" class="tftable" border="1"><br>  <tr><br>    <th style="width:5%"></th><br>    <th style="width:22%">数据单元</th><br>    <th style="width:15%">层</th><br>    <th>功能</th><br>  </tr><br>  <tr><br>    <td rowspan="4">主机层</td><br>    <td rowspan="3">Data（数据）</td><br>    <td>7-应用层</td><br>    <td>提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3等。</td><br>  </tr><br>  <tr><br>    <td>6-表示层</td><br>    <td>把数据转换为能与接收者的系统格式兼容并适合传输的格式。</td><br>  </tr><br>  <tr><br>    <td>5-会话层</td><br>    <td>负责在数据传输中设置和维护电脑网络中两台电脑之间的通信连接。</td><br>  </tr><br>  <tr><br>    <td>Segments（数据段）</td><br>    <td>4-传输层</td><br>    <td>把传输表头(TH)加至数据以形成数据包。传输表头包含了所使用的协议等发送信息。例如:传输控制协议义(TCP) 等。</td><br>  </tr><br>  <tr><br>    <td rowspan="3">媒介层</td><br>    <td>网络分组/数据报文</td><br>    <td>3-网络层</td><br>    <td>决定数据的路径选择和转寄，将网络表头(NH)加至数据包，以形成分组。网络表头包含了网络数据。例如:互联网协议(IP) 等。</td><br>  </tr><br>  <tr><br>    <td>Bit/Frame（数据帧）</td><br>    <td>2-数据链路层</td><br>    <td>负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成了帧。数据链表头(DLH)是包含了物理地址和错误侦测及改错的方法。数据链表尾(DLT)是一串指示数据包末端的字符串。例如以太网、无线局域网(Wi-Fi)和通用分组无线服务(GPRS)等。</td><br>  </tr><br>  <tr><br>    <td>Bit（比特）</td><br>    <td>1-物理层</td><br>    <td>在局部局域网上传送帧，它负责管理电脑通信设备和网络媒体之间的互通。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机适配器等。</td><br>  </tr><br></table>
-
-
-<p>1111111111</p>
-<p>iOS网络编程层次结构</p>
-<ul>
-<li>Cocoa层<ul>
-<li>NSURL</li>
-<li>NSURLRequest</li>
-<li>NSURLResponse</li>
-<li>NSURLConnection</li>
-<li>NSURLSession</li>
-<li>GameKit</li>
-<li>WebKit</li>
-</ul>
-</li>
-<li>Core Foundation层<ul>
-<li>基于C语言的CFNetworking和CFNetServices</li>
-</ul>
-</li>
-<li>OS层<ul>
-<li>基于C语言的BSD Socket</li>
-</ul>
-</li>
-</ul>
-<p>Cocoa层是最上层的基于 Objective-C 的 API，比如 URL访问，NSStream，Bonjour，GameKit等，这是大多数情况下我们常用的 API。Cocoa 层是基于 Core Foundation 实现的。</p>
-<p>Core Foundation层：因为直接使用Socket需要更多的编程工作，所以苹果对OS层的Socket进行简单的封装以简化编程任务。该层提供了CFNetwork和CFNetServices两个类，其中CFNetwork又是基于CFStream和CFSocket。</p>
-<p>OS层：最底层的BSD Socket提供了对网络编程最大程度的控制，但是编程工作也是最多的，关于BSD Socket的介绍请查看它的维基词条，<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="external">传送门</a>。</p>
-<p>Socket的作用是提供点对点的网络通讯，比如我们平时浏览网页，访问服务器，用到的是HTTP通讯，而QQ，网络直播这样的，需要单点对单点，单点对多点这种情况下就会使用到Socket。</p>
-<p>它的内部原理是通过IP地址来标识一台主机，通过端口号来标识主机上的某一个程序，这两点就可以确定一个唯一的程序客户端。</p>
-<h2 id="TCP和UPD"><a href="#TCP和UPD" class="headerlink" title="TCP和UPD"></a>TCP和UPD</h2><p>网络通信结构是有一套标准模型的，由国际标准化组织ISO提出，被称为OSI模型，又称为七层模型。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;iOS通讯 - Socket通讯&lt;/p&gt;
-&lt;p&gt;————–1233333&lt;/p&gt;
-&lt;style type=&quot;text/css&quot;&gt;
-table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
-    
-    </summary>
-    
-    
-  </entry>
-  
-  <entry>
-    <title>微信开发 - access_token</title>
-    <link href="http://yoursite.com/2016/09/05/%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%20-%20access%20token/"/>
-    <id>http://yoursite.com/2016/09/05/微信接口 - access token/</id>
-    <published>2016-09-04T18:24:00.000Z</published>
-    <updated>2016-09-05T12:08:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
-<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
-<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
-<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
-   <a id="more"></a>
-<h2 id="access-token开发策略"><a href="#access-token开发策略" class="headerlink" title="access_token开发策略"></a>access_token开发策略</h2><p>因为access_token具有每天2000次的访问限制，而access_token又是很重要的属性，调用非常频繁，基本上所有的接口都需要使用access_token来进行访问权限的验证，当频繁调用微信API时，很有可能会超出2000次的限制。因此普遍的解决方案是将一次获取的access_token保存到数据库，在两个小时后再更新数据库，在这两个小时内，所有需要access_token的地方全部到数据库来取。 </p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/access_token%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5.gif" alt="access_token开发策略"></p>
-<h2 id="接口调用请求说明"><a href="#接口调用请求说明" class="headerlink" title="接口调用请求说明"></a>接口调用请求说明</h2><p>使用HTTP请求，请求方式为GET：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET</div></pre></td></tr></table></figure>
-<p>请求中附带的参数为：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>grant_type</td>
-<td>是</td>
-<td>获取access_token填写client_credential</td>
-</tr>
-<tr>
-<td>appid</td>
-<td>是</td>
-<td>第三方用户唯一凭证</td>
-</tr>
-<tr>
-<td>secret</td>
-<td>是</td>
-<td>第三方用户唯一凭证密钥，即appsecret</td>
-</tr>
-</tbody>
-</table>
-<h2 id="返回说明"><a href="#返回说明" class="headerlink" title="返回说明"></a>返回说明</h2><p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"access_token"</span>:<span class="string">"ACCESS_TOKEN"</span>,<span class="attr">"expires_in"</span>:<span class="number">7200</span>&#125;</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>access_token</td>
-<td>获取到的凭证</td>
-</tr>
-<tr>
-<td>expires_in</td>
-<td>凭证有效时间，单位：秒</td>
-</tr>
-</tbody>
-</table>
-<h2 id="获取粉丝头像"><a href="#获取粉丝头像" class="headerlink" title="获取粉丝头像"></a>获取粉丝头像</h2><p>下面我们用获取粉丝头像的例子来演示如何使用access_token。</p>
-<p>首先写一个PHP文件，来获取access_token：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">getaccesstoken.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'appid'</span>, <span class="string">'wx5d649f3295ce323a'</span>);</div><div class="line">define(<span class="string">'app_secret'</span>, <span class="string">'a17ecddd3fb0699814fce90fa6376b8e'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_access_token</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid="</span>.appid.<span class="string">"&amp;secret="</span>.app_secret;</div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $access_taken_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    $access_token = $access_taken_arr[<span class="string">"access_token"</span>];</div><div class="line">    <span class="comment">//print_r($access_taken_arr);</span></div><div class="line">    <span class="keyword">return</span> $access_token;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>新建另一个PHP文件，首先获取粉丝列表，提取出粉丝的openid组成数组：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_list</span><span class="params">($access_token)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/get?access_token="</span>.$access_token;</div><div class="line">    <span class="comment">//echo $access_token;</span></div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $user_list_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_list_arr[<span class="string">"data"</span>][<span class="string">"openid"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后利用openid获取粉丝的用户信息：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_info</span><span class="params">($access_token, $openid)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/info?access_token="</span>.$access_token.<span class="string">"&amp;openid="</span>.$openid.<span class="string">"&amp;lang=zh_CN"</span>;</div><div class="line"></div><div class="line">    $ch = curl_init();</div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    curl_close($ch);</div><div class="line"></div><div class="line">    $user_info_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_info_arr[<span class="string">"headimgurl"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后从用户信息中提取出用户头像的url，并传给iOS客户端：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;<span class="number">3</span>; $i++) &#123;</div><div class="line">    $openid = $openids[$i];</div><div class="line">    $use_info = get_user_info($access_token, $openid);</div><div class="line">    $user_image = substr($use_info, <span class="number">0</span>, strlen($str)<span class="number">-2</span>).<span class="string">"/132"</span>;</div><div class="line">    <span class="comment">//echo $user_image;</span></div><div class="line">    array_push($user_images, $user_image);</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> json_encode($user_images);</div></pre></td></tr></table></figure>
-<p>在Xcode中创建工程，使用NSURLSession获取PHP服务器传来的包含粉丝头像url的数组，利用url获取粉丝头像，并将其设置为工程中ImageView的Image，这里需要注意的是，<strong>UI操作要转到主线程进行</strong>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getWechatFansHeadImgs</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.pleaseWait()</div><div class="line">        </div><div class="line">        <span class="comment">//let request = NSURLRequest(URL: NSURL(string: "http://localhost:8888/i/wechat/getuserinfo.php")!)</span></div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: <span class="string">"http://123.206.27.127/wechat/getuserinfo.php"</span>)!)</div><div class="line"></div><div class="line">        <span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().dataTaskWithRequest(request) &#123; (data, resp, error) <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(error?.localizedDescription)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">var</span> imgLinks: [<span class="type">String</span>] = []</div><div class="line">                <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">                imgLinks = <span class="keyword">try</span>! <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions) <span class="keyword">as</span>! <span class="type">Array</span><span class="comment">//nil</span></div><div class="line">                <span class="built_in">print</span>(imgLinks)</div><div class="line">                </div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;imgLinks.<span class="built_in">count</span> &#123;</div><div class="line">                    <span class="keyword">if</span> imgLinks[i] != <span class="string">""</span> &#123;</div><div class="line">                        <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: <span class="type">NSURL</span>(string: imgLinks[i])!)</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.headImageViews[i].image = data != <span class="literal">nil</span> ? <span class="type">UIImage</span>(data: data!) : <span class="literal">nil</span></div><div class="line">                            <span class="built_in">print</span>(i)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="built_in">print</span>(<span class="type">NSThread</span>.currentThread())</div><div class="line">                dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                    <span class="keyword">self</span>.clearAllNotice()</div><div class="line">                    <span class="keyword">self</span>.noticeSuccess(<span class="string">"获取成功"</span>, autoClear: <span class="literal">true</span>, autoClearTime: <span class="number">2</span>)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        task.resume()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>最后使用点击事件触发这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">showHeadImageButtonDidTouch</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">    </div><div class="line">    getWechatFansHeadImgs()</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。&lt;/p&gt;
-&lt;p&gt;同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。&lt;/p&gt;
-&lt;p&gt;access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
   
   <entry>
     <title>微信开发 - 接口简介</title>
@@ -275,6 +120,100 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
 &lt;p&gt;域名：网址或主机名，如：&lt;code&gt;localhost&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;如对以上步骤陌生的同学可以先看&lt;a href=&quot;https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&quot;&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信开发 - access_token</title>
+    <link href="http://yoursite.com/2016/09/05/%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%20-%20access%20token/"/>
+    <id>http://yoursite.com/2016/09/05/微信接口 - access token/</id>
+    <published>2016-09-04T18:24:00.000Z</published>
+    <updated>2016-09-05T12:08:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
+   <a id="more"></a>
+<h2 id="access-token开发策略"><a href="#access-token开发策略" class="headerlink" title="access_token开发策略"></a>access_token开发策略</h2><p>因为access_token具有每天2000次的访问限制，而access_token又是很重要的属性，调用非常频繁，基本上所有的接口都需要使用access_token来进行访问权限的验证，当频繁调用微信API时，很有可能会超出2000次的限制。因此普遍的解决方案是将一次获取的access_token保存到数据库，在两个小时后再更新数据库，在这两个小时内，所有需要access_token的地方全部到数据库来取。 </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/access_token%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5.gif" alt="access_token开发策略"></p>
+<h2 id="接口调用请求说明"><a href="#接口调用请求说明" class="headerlink" title="接口调用请求说明"></a>接口调用请求说明</h2><p>使用HTTP请求，请求方式为GET：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET</div></pre></td></tr></table></figure>
+<p>请求中附带的参数为：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grant_type</td>
+<td>是</td>
+<td>获取access_token填写client_credential</td>
+</tr>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>第三方用户唯一凭证</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>是</td>
+<td>第三方用户唯一凭证密钥，即appsecret</td>
+</tr>
+</tbody>
+</table>
+<h2 id="返回说明"><a href="#返回说明" class="headerlink" title="返回说明"></a>返回说明</h2><p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"access_token"</span>:<span class="string">"ACCESS_TOKEN"</span>,<span class="attr">"expires_in"</span>:<span class="number">7200</span>&#125;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>获取到的凭证</td>
+</tr>
+<tr>
+<td>expires_in</td>
+<td>凭证有效时间，单位：秒</td>
+</tr>
+</tbody>
+</table>
+<h2 id="获取粉丝头像"><a href="#获取粉丝头像" class="headerlink" title="获取粉丝头像"></a>获取粉丝头像</h2><p>下面我们用获取粉丝头像的例子来演示如何使用access_token。</p>
+<p>首先写一个PHP文件，来获取access_token：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">getaccesstoken.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'appid'</span>, <span class="string">'wx5d649f3295ce323a'</span>);</div><div class="line">define(<span class="string">'app_secret'</span>, <span class="string">'a17ecddd3fb0699814fce90fa6376b8e'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_access_token</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid="</span>.appid.<span class="string">"&amp;secret="</span>.app_secret;</div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $access_taken_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    $access_token = $access_taken_arr[<span class="string">"access_token"</span>];</div><div class="line">    <span class="comment">//print_r($access_taken_arr);</span></div><div class="line">    <span class="keyword">return</span> $access_token;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>新建另一个PHP文件，首先获取粉丝列表，提取出粉丝的openid组成数组：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_list</span><span class="params">($access_token)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/get?access_token="</span>.$access_token;</div><div class="line">    <span class="comment">//echo $access_token;</span></div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $user_list_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_list_arr[<span class="string">"data"</span>][<span class="string">"openid"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后利用openid获取粉丝的用户信息：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_info</span><span class="params">($access_token, $openid)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/info?access_token="</span>.$access_token.<span class="string">"&amp;openid="</span>.$openid.<span class="string">"&amp;lang=zh_CN"</span>;</div><div class="line"></div><div class="line">    $ch = curl_init();</div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    curl_close($ch);</div><div class="line"></div><div class="line">    $user_info_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_info_arr[<span class="string">"headimgurl"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后从用户信息中提取出用户头像的url，并传给iOS客户端：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;<span class="number">3</span>; $i++) &#123;</div><div class="line">    $openid = $openids[$i];</div><div class="line">    $use_info = get_user_info($access_token, $openid);</div><div class="line">    $user_image = substr($use_info, <span class="number">0</span>, strlen($str)<span class="number">-2</span>).<span class="string">"/132"</span>;</div><div class="line">    <span class="comment">//echo $user_image;</span></div><div class="line">    array_push($user_images, $user_image);</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> json_encode($user_images);</div></pre></td></tr></table></figure>
+<p>在Xcode中创建工程，使用NSURLSession获取PHP服务器传来的包含粉丝头像url的数组，利用url获取粉丝头像，并将其设置为工程中ImageView的Image，这里需要注意的是，<strong>UI操作要转到主线程进行</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getWechatFansHeadImgs</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.pleaseWait()</div><div class="line">        </div><div class="line">        <span class="comment">//let request = NSURLRequest(URL: NSURL(string: "http://localhost:8888/i/wechat/getuserinfo.php")!)</span></div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: <span class="string">"http://123.206.27.127/wechat/getuserinfo.php"</span>)!)</div><div class="line"></div><div class="line">        <span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().dataTaskWithRequest(request) &#123; (data, resp, error) <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(error?.localizedDescription)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">var</span> imgLinks: [<span class="type">String</span>] = []</div><div class="line">                <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">                imgLinks = <span class="keyword">try</span>! <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions) <span class="keyword">as</span>! <span class="type">Array</span><span class="comment">//nil</span></div><div class="line">                <span class="built_in">print</span>(imgLinks)</div><div class="line">                </div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;imgLinks.<span class="built_in">count</span> &#123;</div><div class="line">                    <span class="keyword">if</span> imgLinks[i] != <span class="string">""</span> &#123;</div><div class="line">                        <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: <span class="type">NSURL</span>(string: imgLinks[i])!)</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.headImageViews[i].image = data != <span class="literal">nil</span> ? <span class="type">UIImage</span>(data: data!) : <span class="literal">nil</span></div><div class="line">                            <span class="built_in">print</span>(i)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="built_in">print</span>(<span class="type">NSThread</span>.currentThread())</div><div class="line">                dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                    <span class="keyword">self</span>.clearAllNotice()</div><div class="line">                    <span class="keyword">self</span>.noticeSuccess(<span class="string">"获取成功"</span>, autoClear: <span class="literal">true</span>, autoClearTime: <span class="number">2</span>)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        task.resume()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>最后使用点击事件触发这个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">showHeadImageButtonDidTouch</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">    </div><div class="line">    getWechatFansHeadImgs()</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。&lt;/p&gt;
+&lt;p&gt;同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。&lt;/p&gt;
+&lt;p&gt;access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。&lt;/strong&gt;&lt;/p&gt;
     
     </summary>
     
@@ -659,60 +598,6 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
   </entry>
   
   <entry>
-    <title>Mac开发工具 -  SHH登录</title>
-    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
-    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
-    <published>2016-08-24T10:16:00.000Z</published>
-    <updated>2016-08-24T04:40:09.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
-<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
-<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
-<p>以下表示现有进程中找不到ssh对应的进程：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
-<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
-<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
-<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
-<p>如果提示以下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
-<p>尝试以下的解决方法:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
-<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
-    
-    
-      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
-    
-      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
     <title>iOS生命周期 - Main函数</title>
     <link href="http://yoursite.com/2016/08/24/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%20-%20Main%E5%87%BD%E6%95%B0/"/>
     <id>http://yoursite.com/2016/08/24/iOS生命周期 - Main函数/</id>
@@ -776,6 +661,60 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
     
     
       <category term="iOS生命周期" scheme="http://yoursite.com/tags/iOS%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mac开发工具 -  SHH登录</title>
+    <link href="http://yoursite.com/2016/08/24/Mac%E6%8A%80%E5%B7%A7%20-%20%20SHH%E7%99%BB%E5%BD%95/"/>
+    <id>http://yoursite.com/2016/08/24/Mac技巧 -  SHH登录/</id>
+    <published>2016-08-24T10:16:00.000Z</published>
+    <updated>2016-08-24T04:40:09.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
+<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>例如：<code>ssh ubuntu@192.168.100.100</code>。</p>
+<p>其中ubuntu是要登录的主机的用户名，192.168.100.100是要登录的主机的IP地址。</p>
+<h2 id="错误排除"><a href="#错误排除" class="headerlink" title="错误排除"></a>错误排除</h2><p>如果SSH无法连接，可以先用whereis来看看：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ whereis ssh</div></pre></td></tr></table></figure>
+<p>以下表示现有进程中找不到ssh对应的进程：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple           25927   0.0  0.0  2432784    616 s000  R+    3:14下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>直接用SSH命令连接本地主机或远程主机时会遇到下列错误提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh: connect to host localhost port 22: Connection refused</div></pre></td></tr></table></figure>
+<p>在于系统设置中没有打开远程登录，参见<a href="http://stackoverflow.com/questions/6313929/how-do-i-open-port-22-in-osx-10-6-7" target="_blank" rel="external">传送门</a>。</p>
+<p>输入<code>ssh localhost</code>来测试一下，如果提示输入密码来认证就没问题了。</p>
+<p>此时再grep一下进程可以看到SSH进程在运行了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ ps aux | grep ssh</div><div class="line">apple            4656   0.0  0.0  2525056   1540   ??  S    三02下午   0:00.19 /usr/bin/ssh-agent -l</div><div class="line">apple           26009   0.0  0.0  2432784    612 s000  R+    3:19下午   0:00.00 grep ssh</div></pre></td></tr></table></figure>
+<p>如果提示以下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Host key verification failed. ssh</div><div class="line">Host key verification failed.</div></pre></td></tr></table></figure>
+<p>尝试以下的解决方法:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ~/.ssh/known_hosts</div></pre></td></tr></table></figure>
+<p>删除此目录下hostNameOrAddress的相关rsa的信息，或者直接删除这个文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">cd ~/.ssh/</div><div class="line"></div><div class="line">rm known_hosts</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;就可以连接了，如果改变了端口，使用如下命令即可登录：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -p portNumber -l root hostNameOrAddress&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;如果是Ubuntu主机，也可以这个命令进行连接：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;ssh -X userName@hostNameOrAddress&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;ssh userName@hostNameOrAddress -p portNumber&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="Other" scheme="http://yoursite.com/categories/Other/"/>
+    
+    
+      <category term="SHH" scheme="http://yoursite.com/tags/SHH/"/>
+    
+      <category term="开发工具" scheme="http://yoursite.com/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
@@ -1163,250 +1102,6 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
     
     
       <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP数据操作 - MYSQL</title>
-    <link href="http://yoursite.com/2016/08/17/PHP%E6%93%8D%E4%BD%9CMySQL/"/>
-    <id>http://yoursite.com/2016/08/17/PHP操作MySQL/</id>
-    <published>2016-08-16T20:44:00.000Z</published>
-    <updated>2016-08-24T04:42:05.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。</p>
-</blockquote>
-<h3 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h3><p><code>mysqli_connect()</code> 函数打开一个到 MySQL 服务器的新的连接，它的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_connect(host,username,password,dbname,port,socket);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>host</em></td>
-<td>可选。规定主机名或 IP 地址。</td>
-</tr>
-<tr>
-<td><em>username</em></td>
-<td>可选。规定 MySQL 用户名。</td>
-</tr>
-<tr>
-<td><em>password</em></td>
-<td>可选。规定 MySQL 密码。</td>
-</tr>
-<tr>
-<td><em>dbname</em></td>
-<td>可选。规定默认使用的数据库。</td>
-</tr>
-<tr>
-<td><em>port</em></td>
-<td>可选。规定尝试连接到 MySQL 服务器的端口号。</td>
-</tr>
-<tr>
-<td><em>socket</em></td>
-<td>可选。规定 socket 或要使用的已命名 pipe。</td>
-</tr>
-</tbody>
-</table>
-<p>它的返回值是一个代表 MySQL 服务器连接的对象。</p>
-<a id="more"></a>
-<p>示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">''</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接成功'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="连接SQL数据库"><a href="#连接SQL数据库" class="headerlink" title="连接SQL数据库"></a>连接SQL数据库</h3><p><code>mysqli_select_db()</code> 函数用于指定要获取的服务器上的某一个数据库。语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_select_db(connection,dbname);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>connection</em></td>
-<td>必需。规定要使用的 MySQL 连接。</td>
-</tr>
-<tr>
-<td><em>dbname</em></td>
-<td>必需，规定要使用的默认数据库。</td>
-</tr>
-</tbody>
-</table>
-<p>它的返回值是bool类型，如果连接数据库成功则返回 TRUE，如果失败则返回 FALSE。</p>
-<p>示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="读取SQL数据库"><a href="#读取SQL数据库" class="headerlink" title="读取SQL数据库"></a>读取SQL数据库</h3><p><code>mysqli_query()</code> 函数执行某个针对数据库的查询。语法如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_query(connection,query,resultmode);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>connection</em></td>
-<td>必需。规定要使用的 MySQL 连接。</td>
-</tr>
-<tr>
-<td><em>query</em></td>
-<td>必需，规定查询字符串。</td>
-</tr>
-<tr>
-<td><em>resultmode</em></td>
-<td>可选。MYSQLI_USE_RESULT（数据较多）MYSQLI_STORE_RESULT（默认）</td>
-</tr>
-</tbody>
-</table>
-<p>针对成功的 SELECT、SHOW、DESCRIBE 或 EXPLAIN 查询，将返回一个 mysqli_result 对象。</p>
-<p>针对其他成功的查询，将返回 TRUE。如果失败，则返回 FALSE。</p>
-<p>实例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    print_r($result);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="获取SQL条目数"><a href="#获取SQL条目数" class="headerlink" title="获取SQL条目数"></a>获取SQL条目数</h3><p><code>mysqli_num_rows()</code> 函数返回结果集中行的数量，它的语法如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_num_rows(result);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>result</em></td>
-<td>必需。由 mysqli_query()、mysqli_store_result() 或 mysqli_use_result() 返回的结果集标识符。</td>
-</tr>
-</tbody>
-</table>
-<p>示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    </div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>MySql 语句中也集成了获取条目数的函数 <code>COUNT()</code> ，它的语法如下：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(column_name) 函数返回指定列的值的数目（<span class="literal">NULL</span> 不计入）</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(*) 函数返回表中的记录数</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) 函数返回指定列的不同值的数目</div></pre></td></tr></table></figure>
-<p>示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    mysqli_select_db($sql, <span class="string">'test'</span>);</div><div class="line">    $result = mysqli_query($sql, <span class="string">'SELECT COUNT(*) FROM users'</span>);</div><div class="line">    $rows = mysqli_fetch_array($result);	</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows[<span class="number">0</span>].<span class="string">'&lt;br&gt;'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p> <code>COUNT()</code> 因为是 SQL 的原生语句，效率要比 PHP 的 <code>mysqli_num_rows()</code> 高很多，也可以配合 WHERE &amp; AND &amp; OR 进行查询。</p>
-<h3 id="SQL转数组"><a href="#SQL转数组" class="headerlink" title="SQL转数组"></a>SQL转数组</h3><p><code>mysqli_fetch_array()</code> 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有。它的语法如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_array(result,resulttype);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>result</em></td>
-<td>必需。由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
-</tr>
-<tr>
-<td><em>resulttype</em></td>
-<td>可选。规定产生哪种类型的数组。MYSQLI_ASSOC MYSQLI_NUM MYSQLI_BOTH。</td>
-</tr>
-</tbody>
-</table>
-<p>示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $result_arr = mysqli_fetch_array($result);</div><div class="line">    print_r($result_arr);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>mysqli_fetch_assoc()</code> 函数从结果集中取得一行作为关联数组。它的语法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_assoc(result);</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>result</em></td>
-<td>必需。规定由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
-</tr>
-</tbody>
-</table>
-<p>它的输出结果等同于 <code>mysqli_fetch_array($result, MYSQLI_ASSOC);</code></p>
-<p>需要注意的是，两者返回的都是单条数据，如需获得数据库全部数据，需要循环遍历，示例如下：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line"></div><div class="line">    $data_all = <span class="keyword">array</span>();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$rows; $i++) &#123;</div><div class="line">        $data = mysqli_fetch_assoc($result);</div><div class="line">        array_push($data_all, $data);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    print_r($data_all);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="查询SQL数据"><a href="#查询SQL数据" class="headerlink" title="查询SQL数据"></a>查询SQL数据</h3><p>以下示例是一个用 PHP 实现查询数据库的程序，首先设定数据库服务器链接，账户，密码的默认值：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">config.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'MYSQL_HOST'</span>, <span class="string">'localhost'</span>);</div><div class="line">define(<span class="string">'MYSQL_USER'</span>, <span class="string">'root'</span>);</div><div class="line">define(<span class="string">'MYSQL_PASSWORD'</span>, <span class="string">'root'</span>);</div></pre></td></tr></table></figure>
-<p>创建一个方法，获得并返回数据库的对象：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>.<span class="title">php</span></span></div><div class="line">  </div><div class="line">&lt;?<span class="title">php</span></div><div class="line"><span class="title">require_once</span> '<span class="title">config</span>.<span class="title">php</span>';</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectDataBase</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, <span class="string">'test'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用 HTML 创建表格，获得所有 name 列为 ZhangSan 的行，并按 id 逆序排序：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">select_data.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE name='ZhangSan' ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<h3 id="添加SQL数据"><a href="#添加SQL数据" class="headerlink" title="添加SQL数据"></a>添加SQL数据</h3><p>建立一个PHP页面，展示数据库里的所有数据，并新建一个链接，指向数据库添加页面：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>创建一个 HTML 页面，并添加输入框和提交按钮，将输入框的文本用 POST 方式传给 <code>user_add.php</code> :</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">user_add.html</div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"user_add.php"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        姓名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        年龄:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>使用 SQL 语句向数据库添加数据，如果没有添加错误，转跳到 <code>data_all.php</code> ：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">user_add.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到name的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到age的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'name的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'age的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$age = intval($age);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($coon) &#123;</div><div class="line">    mysqli_query($coon, <span class="string">"INSERT INTO users(name,age) VALUES ('$name', $age)"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'数据库未成功连接'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="SQL防注入"><a href="#SQL防注入" class="headerlink" title="SQL防注入"></a>SQL防注入</h4><p>在上面的示例中，如果 <code>$name &amp; $age</code> 没有使用 <code>&#39;&#39;</code> 和 <code>intval</code> 进行格式转换，那么当用户输入的是SQL语句时 ，它有可能会被执行，所以对用户传入的值一定要进行相应的格式处理，避免被恶意注入 SQL 语句。</p>
-<h3 id="修改SQL数据"><a href="#修改SQL数据" class="headerlink" title="修改SQL数据"></a>修改SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为修改，单元格内添加链接，指向 <code>edituser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>获取此行的所有数据，并创建输入框和提交按钮，将获取的行数据填充为输入框默认数据，创建的表单将以 POST 方式将数据传输到 <code>edituser_server.php</code> ：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">edituser.php</div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;编辑用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'没有获取到id'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = $_GET[<span class="string">'id'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"></div><div class="line">$data = mysqli_fetch_assoc($result);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;form action=<span class="string">"edituser_server.php"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;div&gt;id:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"id"</span> value=<span class="string">"&lt;?php echo $data['id']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;姓名:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span> value=<span class="string">"&lt;?php echo $data['name']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;年龄:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"age"</span> value=<span class="string">"&lt;?php echo $data['age']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">        &lt;input type=<span class="string">"submit"</span> value=<span class="string">"提交修改"</span>&gt;</div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>获取 <code>edituser.php</code> 中传输过来的数据，按 <code>id</code> 定位到目标行并进行修改，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'name没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'age没有获取'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$id = $_POST[<span class="string">'id'</span>];</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"UPDATE users SET name='$name', age=$age WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:data_all.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="删除SQL数据"><a href="#删除SQL数据" class="headerlink" title="删除SQL数据"></a>删除SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为删除，单元格内添加链接，指向 <code>deleteuser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;th&gt;删除&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a href='deleteuser.php?id=$id'&gt;删除&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
-<p>获取 <code>data_all.php</code> 中传输过来的 <code>id</code>，按 <code>id</code> 定位到目标行并删除，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">deleteuser.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = intval($_GET[<span class="string">'id'</span>]);</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"DELETE FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h3 id=&quot;连接数据库服务器&quot;&gt;&lt;a href=&quot;#连接数据库服务器&quot; class=&quot;headerlink&quot; title=&quot;连接数据库服务器&quot;&gt;&lt;/a&gt;连接数据库服务器&lt;/h3&gt;&lt;p&gt;&lt;code&gt;mysqli_connect()&lt;/code&gt; 函数打开一个到 MySQL 服务器的新的连接，它的语法如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mysqli_connect(host,username,password,dbname,port,socket);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;参数&lt;/th&gt;
-&lt;th&gt;描述&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;host&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定主机名或 IP 地址。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;username&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定 MySQL 用户名。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;password&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定 MySQL 密码。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;dbname&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定默认使用的数据库。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;port&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定尝试连接到 MySQL 服务器的端口号。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;em&gt;socket&lt;/em&gt;&lt;/td&gt;
-&lt;td&gt;可选。规定 socket 或要使用的已命名 pipe。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;p&gt;它的返回值是一个代表 MySQL 服务器连接的对象。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
-    
-    
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-      <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
     
   </entry>
   
@@ -2256,6 +1951,250 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
   </entry>
   
   <entry>
+    <title>PHP数据操作 - MYSQL</title>
+    <link href="http://yoursite.com/2016/08/17/PHP%E6%93%8D%E4%BD%9CMySQL/"/>
+    <id>http://yoursite.com/2016/08/17/PHP操作MySQL/</id>
+    <published>2016-08-16T20:44:00.000Z</published>
+    <updated>2016-08-24T04:42:05.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。</p>
+</blockquote>
+<h3 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h3><p><code>mysqli_connect()</code> 函数打开一个到 MySQL 服务器的新的连接，它的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_connect(host,username,password,dbname,port,socket);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>host</em></td>
+<td>可选。规定主机名或 IP 地址。</td>
+</tr>
+<tr>
+<td><em>username</em></td>
+<td>可选。规定 MySQL 用户名。</td>
+</tr>
+<tr>
+<td><em>password</em></td>
+<td>可选。规定 MySQL 密码。</td>
+</tr>
+<tr>
+<td><em>dbname</em></td>
+<td>可选。规定默认使用的数据库。</td>
+</tr>
+<tr>
+<td><em>port</em></td>
+<td>可选。规定尝试连接到 MySQL 服务器的端口号。</td>
+</tr>
+<tr>
+<td><em>socket</em></td>
+<td>可选。规定 socket 或要使用的已命名 pipe。</td>
+</tr>
+</tbody>
+</table>
+<p>它的返回值是一个代表 MySQL 服务器连接的对象。</p>
+<a id="more"></a>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">''</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接成功'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="连接SQL数据库"><a href="#连接SQL数据库" class="headerlink" title="连接SQL数据库"></a>连接SQL数据库</h3><p><code>mysqli_select_db()</code> 函数用于指定要获取的服务器上的某一个数据库。语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_select_db(connection,dbname);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>connection</em></td>
+<td>必需。规定要使用的 MySQL 连接。</td>
+</tr>
+<tr>
+<td><em>dbname</em></td>
+<td>必需，规定要使用的默认数据库。</td>
+</tr>
+</tbody>
+</table>
+<p>它的返回值是bool类型，如果连接数据库成功则返回 TRUE，如果失败则返回 FALSE。</p>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="读取SQL数据库"><a href="#读取SQL数据库" class="headerlink" title="读取SQL数据库"></a>读取SQL数据库</h3><p><code>mysqli_query()</code> 函数执行某个针对数据库的查询。语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_query(connection,query,resultmode);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>connection</em></td>
+<td>必需。规定要使用的 MySQL 连接。</td>
+</tr>
+<tr>
+<td><em>query</em></td>
+<td>必需，规定查询字符串。</td>
+</tr>
+<tr>
+<td><em>resultmode</em></td>
+<td>可选。MYSQLI_USE_RESULT（数据较多）MYSQLI_STORE_RESULT（默认）</td>
+</tr>
+</tbody>
+</table>
+<p>针对成功的 SELECT、SHOW、DESCRIBE 或 EXPLAIN 查询，将返回一个 mysqli_result 对象。</p>
+<p>针对其他成功的查询，将返回 TRUE。如果失败，则返回 FALSE。</p>
+<p>实例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    print_r($result);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取SQL条目数"><a href="#获取SQL条目数" class="headerlink" title="获取SQL条目数"></a>获取SQL条目数</h3><p><code>mysqli_num_rows()</code> 函数返回结果集中行的数量，它的语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_num_rows(result);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。由 mysqli_query()、mysqli_store_result() 或 mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+</tbody>
+</table>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    </div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>MySql 语句中也集成了获取条目数的函数 <code>COUNT()</code> ，它的语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(column_name) 函数返回指定列的值的数目（<span class="literal">NULL</span> 不计入）</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(*) 函数返回表中的记录数</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) 函数返回指定列的不同值的数目</div></pre></td></tr></table></figure>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    mysqli_select_db($sql, <span class="string">'test'</span>);</div><div class="line">    $result = mysqli_query($sql, <span class="string">'SELECT COUNT(*) FROM users'</span>);</div><div class="line">    $rows = mysqli_fetch_array($result);	</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows[<span class="number">0</span>].<span class="string">'&lt;br&gt;'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> <code>COUNT()</code> 因为是 SQL 的原生语句，效率要比 PHP 的 <code>mysqli_num_rows()</code> 高很多，也可以配合 WHERE &amp; AND &amp; OR 进行查询。</p>
+<h3 id="SQL转数组"><a href="#SQL转数组" class="headerlink" title="SQL转数组"></a>SQL转数组</h3><p><code>mysqli_fetch_array()</code> 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有。它的语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_array(result,resulttype);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+<tr>
+<td><em>resulttype</em></td>
+<td>可选。规定产生哪种类型的数组。MYSQLI_ASSOC MYSQLI_NUM MYSQLI_BOTH。</td>
+</tr>
+</tbody>
+</table>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $result_arr = mysqli_fetch_array($result);</div><div class="line">    print_r($result_arr);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>mysqli_fetch_assoc()</code> 函数从结果集中取得一行作为关联数组。它的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_assoc(result);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。规定由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+</tbody>
+</table>
+<p>它的输出结果等同于 <code>mysqli_fetch_array($result, MYSQLI_ASSOC);</code></p>
+<p>需要注意的是，两者返回的都是单条数据，如需获得数据库全部数据，需要循环遍历，示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line"></div><div class="line">    $data_all = <span class="keyword">array</span>();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$rows; $i++) &#123;</div><div class="line">        $data = mysqli_fetch_assoc($result);</div><div class="line">        array_push($data_all, $data);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    print_r($data_all);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="查询SQL数据"><a href="#查询SQL数据" class="headerlink" title="查询SQL数据"></a>查询SQL数据</h3><p>以下示例是一个用 PHP 实现查询数据库的程序，首先设定数据库服务器链接，账户，密码的默认值：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">config.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'MYSQL_HOST'</span>, <span class="string">'localhost'</span>);</div><div class="line">define(<span class="string">'MYSQL_USER'</span>, <span class="string">'root'</span>);</div><div class="line">define(<span class="string">'MYSQL_PASSWORD'</span>, <span class="string">'root'</span>);</div></pre></td></tr></table></figure>
+<p>创建一个方法，获得并返回数据库的对象：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>.<span class="title">php</span></span></div><div class="line">  </div><div class="line">&lt;?<span class="title">php</span></div><div class="line"><span class="title">require_once</span> '<span class="title">config</span>.<span class="title">php</span>';</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectDataBase</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, <span class="string">'test'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用 HTML 创建表格，获得所有 name 列为 ZhangSan 的行，并按 id 逆序排序：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">select_data.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE name='ZhangSan' ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="添加SQL数据"><a href="#添加SQL数据" class="headerlink" title="添加SQL数据"></a>添加SQL数据</h3><p>建立一个PHP页面，展示数据库里的所有数据，并新建一个链接，指向数据库添加页面：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>创建一个 HTML 页面，并添加输入框和提交按钮，将输入框的文本用 POST 方式传给 <code>user_add.php</code> :</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">user_add.html</div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"user_add.php"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        姓名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        年龄:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>使用 SQL 语句向数据库添加数据，如果没有添加错误，转跳到 <code>data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">user_add.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到name的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到age的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'name的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'age的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$age = intval($age);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($coon) &#123;</div><div class="line">    mysqli_query($coon, <span class="string">"INSERT INTO users(name,age) VALUES ('$name', $age)"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'数据库未成功连接'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="SQL防注入"><a href="#SQL防注入" class="headerlink" title="SQL防注入"></a>SQL防注入</h4><p>在上面的示例中，如果 <code>$name &amp; $age</code> 没有使用 <code>&#39;&#39;</code> 和 <code>intval</code> 进行格式转换，那么当用户输入的是SQL语句时 ，它有可能会被执行，所以对用户传入的值一定要进行相应的格式处理，避免被恶意注入 SQL 语句。</p>
+<h3 id="修改SQL数据"><a href="#修改SQL数据" class="headerlink" title="修改SQL数据"></a>修改SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为修改，单元格内添加链接，指向 <code>edituser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取此行的所有数据，并创建输入框和提交按钮，将获取的行数据填充为输入框默认数据，创建的表单将以 POST 方式将数据传输到 <code>edituser_server.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">edituser.php</div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;编辑用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'没有获取到id'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = $_GET[<span class="string">'id'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"></div><div class="line">$data = mysqli_fetch_assoc($result);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;form action=<span class="string">"edituser_server.php"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;div&gt;id:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"id"</span> value=<span class="string">"&lt;?php echo $data['id']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;姓名:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span> value=<span class="string">"&lt;?php echo $data['name']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;年龄:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"age"</span> value=<span class="string">"&lt;?php echo $data['age']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">        &lt;input type=<span class="string">"submit"</span> value=<span class="string">"提交修改"</span>&gt;</div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取 <code>edituser.php</code> 中传输过来的数据，按 <code>id</code> 定位到目标行并进行修改，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'name没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'age没有获取'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$id = $_POST[<span class="string">'id'</span>];</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"UPDATE users SET name='$name', age=$age WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:data_all.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="删除SQL数据"><a href="#删除SQL数据" class="headerlink" title="删除SQL数据"></a>删除SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为删除，单元格内添加链接，指向 <code>deleteuser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;th&gt;删除&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a href='deleteuser.php?id=$id'&gt;删除&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取 <code>data_all.php</code> 中传输过来的 <code>id</code>，按 <code>id</code> 定位到目标行并删除，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">deleteuser.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = intval($_GET[<span class="string">'id'</span>]);</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"DELETE FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&quot;连接数据库服务器&quot;&gt;&lt;a href=&quot;#连接数据库服务器&quot; class=&quot;headerlink&quot; title=&quot;连接数据库服务器&quot;&gt;&lt;/a&gt;连接数据库服务器&lt;/h3&gt;&lt;p&gt;&lt;code&gt;mysqli_connect()&lt;/code&gt; 函数打开一个到 MySQL 服务器的新的连接，它的语法如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;mysqli_connect(host,username,password,dbname,port,socket);&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;参数&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;host&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定主机名或 IP 地址。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;username&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定 MySQL 用户名。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;password&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定 MySQL 密码。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;dbname&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定默认使用的数据库。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;port&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定尝试连接到 MySQL 服务器的端口号。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;em&gt;socket&lt;/em&gt;&lt;/td&gt;
+&lt;td&gt;可选。规定 socket 或要使用的已命名 pipe。&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;它的返回值是一个代表 MySQL 服务器连接的对象。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
+    
+    
+      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
+    
+      <category term="SQL" scheme="http://yoursite.com/tags/SQL/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HTTP协议 - HTTP请求</title>
     <link href="http://yoursite.com/2016/08/17/HTTP%E5%8D%8F%E8%AE%AE/"/>
     <id>http://yoursite.com/2016/08/17/HTTP协议/</id>
@@ -2888,91 +2827,6 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
   </entry>
   
   <entry>
-    <title>iOS网络数据 - 异步加载</title>
-    <link href="http://yoursite.com/2016/08/10/iOS%20%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
-    <id>http://yoursite.com/2016/08/10/iOS 异步加载网络数据/</id>
-    <published>2016-08-09T18:46:00.000Z</published>
-    <updated>2016-08-21T18:11:53.000Z</updated>
-    
-    <content type="html"><![CDATA[<h4 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h4><p>iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let queue = NSOperationQueue()</div><div class="line"></div><div class="line">NSURLConnection.sendAsynchronousRequest(request, queue: queue) &#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in</div><div class="line"></div><div class="line">    if error != nil &#123;</div><div class="line">        print(&quot;出错了&quot;)</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        print(resp)</div><div class="line">        print(data)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>在这里，sendAsynchronousRequest 的几个传入值的意义如下：</p>
-<table>
-<thead>
-<tr>
-<th>形参名</th>
-<th>作用</th>
-<th>传入值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>request</td>
-<td>网络请求的具体链接</td>
-<td>NSURLRequest实例</td>
-</tr>
-<tr>
-<td>queue</td>
-<td>新建队列</td>
-<td>NSOperationQueue实例</td>
-</tr>
-<tr>
-<td>handler</td>
-<td>请求完成的通知</td>
-<td>函数</td>
-</tr>
-</tbody>
-</table>
-<p>其中 handler 是一个尾随闭包，它的使用方法如下：</p>
-<table>
-<thead>
-<tr>
-<th>形参名</th>
-<th>作用</th>
-<th>传入值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>NSURLResponse?</td>
-<td>网络请求返回的HTTP协议头</td>
-<td>和当前类型一致的属性</td>
-</tr>
-<tr>
-<td>NSData?</td>
-<td>网络请求返回的数据</td>
-<td>和当前类型一致的属性</td>
-</tr>
-<tr>
-<td>NSError?</td>
-<td>网络请求可能发生的错误</td>
-<td>和当前类型一致的属性</td>
-</tr>
-</tbody>
-</table>
-<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p>值得注意的是，iOS9 以后，NSURLConnection 通讯方式全面被 NSURLSession 取代，因此上面的方法在 iOS9 以上的版本中会有提醒，NSURLConnection 的使用方法如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let session = NSURLSession.sharedSession()</div><div class="line">let task = session.dataTaskWithRequest(request) &#123; (data: NSData?, resp: NSURLResponse?, error: NSError?) in</div><div class="line"></div><div class="line">    if error != nil &#123;</div><div class="line">        print(&quot;出错了&quot;)</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        print(resp)</div><div class="line">        print(data)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">task.resume()</div></pre></td></tr></table></figure>
-<p>它的形参和 sendAsynchronousRequest 基本一致，在此就不再赘述，NSURLSession 默认具有开线程的能力，所以也就不需要 NSOperationQueue 实例了。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;h4 id=&quot;NSURLConnection&quot;&gt;&lt;a href=&quot;#NSURLConnection&quot; class=&quot;headerlink&quot; title=&quot;NSURLConnection&quot;&gt;&lt;/a&gt;NSURLConnection&lt;/h4&gt;&lt;p&gt;iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;let url = NSURL(string: &amp;quot;http://www.jikexueyuan.com&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let request = NSURLRequest(URL: url!)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let queue = NSOperationQueue()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;NSURLConnection.sendAsynchronousRequest(request, queue: queue) &amp;#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if error != nil &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(&amp;quot;出错了&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    else &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(resp)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(data)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="网络数据" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
-    
-      <category term="闭包" scheme="http://yoursite.com/tags/%E9%97%AD%E5%8C%85/"/>
-    
-  </entry>
-  
-  <entry>
     <title>iOS 网络通讯 - HTTP通讯</title>
     <link href="http://yoursite.com/2016/08/10/iOS%20HTTP%E9%80%9A%E8%AE%AF%20-%20GET%E6%96%B9%E5%BC%8F%E5%92%8CPOST%E6%96%B9%E5%BC%8F/"/>
     <id>http://yoursite.com/2016/08/10/iOS HTTP通讯 - GET方式和POST方式/</id>
@@ -3131,6 +2985,152 @@ table.tftable {font-size:12px;color:#333333;width:100%;border-width: 1px
       <category term="GET" scheme="http://yoursite.com/tags/GET/"/>
     
       <category term="J2E服务器" scheme="http://yoursite.com/tags/J2E%E6%9C%8D%E5%8A%A1%E5%99%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS网络数据 - 同步加载</title>
+    <link href="http://yoursite.com/2016/08/10/iOS%20%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
+    <id>http://yoursite.com/2016/08/10/iOS 加载网络数据/</id>
+    <published>2016-08-09T18:46:00.000Z</published>
+    <updated>2016-08-21T18:12:00.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。</p>
+<p>下面我们使用 NSString 来接收一个网页的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToHTML() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line"></div><div class="line">    do &#123;</div><div class="line">        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)</div><div class="line">        print(str)</div><div class="line">    &#125;</div><div class="line">    catch &#123;</div><div class="line">        print(&quot;fail&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>而很多时候我们在读取一个 HTTP 协议的数据时，可能并不是一个字符串的数据，有可能是一个二进制类型的数据，如果说要把一个页面读取成二进制的数据的话，可以直接把它读成一个 NSData 类型，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToNSData() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let data = NSData(contentsOfURL: url!)</div><div class="line">    print(data)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在这里虽然表现的是二进制文件，实际上和用 NSString 接收一样，NSData 实际上也是这个网页的源代码，所以当我们获取到网页的数据，并希望对它做一些修改时，也可以将 NSData 转成 NSString：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToNSData() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let data = NSData(contentsOfURL: url!)</div><div class="line">    let str = NSString(data: data!, encoding: NSUTF8StringEncoding)</div><div class="line">    print(str)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但实际上很多在通信的时候，并不是使用这两种方式，如果使用以上两种方式，有两点点是必须的：</p>
+<ol>
+<li><p>这个网址必须是可以打开的。</p>
+<p>因为如果这个链接是不能打开的，那么程序会一直停留在获取这里；</p>
+</li>
+<li><p>这个通信的时间特别短，特别快；</p>
+<p>因为这两种通信方式都是同步的，这就意味着此时主线程无法对 UI 进行响应；</p>
+</li>
+</ol>
+<p>所以说实际开发过程中，一般不使用这两种方式进行通讯。这两种方式一般会用来读取本地的数据，而最常使用的API 是使用 NSURLConnection 进行网络的同步请求和异步请求。</p>
+<h4 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: nil)</div><div class="line">print(data)</div></pre></td></tr></table></figure>
+<p>sendSynchronousRequest 的两个传入参数：分别是网络请求和URL的回应信息，上面我们了解了网络请求这个传入参数，那么 URL 的回应信息 returningResponse 又是什么呢？实际上他是HTTP协议的协议头，它也可以被打印出来：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">var resp: NSURLResponse?</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let data = try! NSURLConnection.sendSynchronousRequest(request, returningResponse: &amp;resp)</div><div class="line">if let r = resp &#123;</div><div class="line">    print(r)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p>在 iOS9 中， NSURLConnection 已经被抛弃，取而代之的是NSURLSession。 NSURLSession的使用步骤进步如下：</p>
+<ol>
+<li>通过 NSURLSession 的实例创建 NSURLSessionTask；</li>
+<li>执行 NSURLSessionTask；</li>
+</ol>
+<p>NSURLSessionTask 可以简单理解为任务，如数据请求任务，下载任务，上传任务等，它是一个抽象类，而我们使用的是它的子类:</p>
+<ul>
+<li>NSURLSessionDataTask</li>
+<li>NSURLSessionUploadTask</li>
+<li>NSURLSessionDownloadTask</li>
+</ul>
+<p>从这几个子类的名字就可以大概猜出他们的作用了，接下来我们就用一个简单的 get 请求，来使用NSURLSessionDataTask。后面的两个子类我们会在以后单独开篇再讲。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">func urlSession() &#123;</div><div class="line"></div><div class="line">    let session = NSURLSession.sharedSession()</div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">    let task = session.dataTaskWithURL(url!) &#123; (data: NSData?, resp: NSURLResponse?, error: NSError?) in</div><div class="line">        print(data)</div><div class="line">        print(resp)</div><div class="line">        print(error)</div><div class="line">    &#125;</div><div class="line">    task.resume()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上就是 iOS 进行网络获取主要的几种方法。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。&lt;/p&gt;
+&lt;p&gt;下面我们使用 NSString 来接收一个网页的源代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;func loadWedDataToHTML() &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    let url = NSURL(string: &amp;quot;http://www.jikexueyuan.com&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    do &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(str)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    catch &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(&amp;quot;fail&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="网络数据" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="闭包" scheme="http://yoursite.com/tags/%E9%97%AD%E5%8C%85/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>iOS网络数据 - 异步加载</title>
+    <link href="http://yoursite.com/2016/08/10/iOS%20%E5%BC%82%E6%AD%A5%E5%8A%A0%E8%BD%BD%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
+    <id>http://yoursite.com/2016/08/10/iOS 异步加载网络数据/</id>
+    <published>2016-08-09T18:46:00.000Z</published>
+    <updated>2016-08-21T18:11:53.000Z</updated>
+    
+    <content type="html"><![CDATA[<h4 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h4><p>iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let queue = NSOperationQueue()</div><div class="line"></div><div class="line">NSURLConnection.sendAsynchronousRequest(request, queue: queue) &#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in</div><div class="line"></div><div class="line">    if error != nil &#123;</div><div class="line">        print(&quot;出错了&quot;)</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        print(resp)</div><div class="line">        print(data)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>在这里，sendAsynchronousRequest 的几个传入值的意义如下：</p>
+<table>
+<thead>
+<tr>
+<th>形参名</th>
+<th>作用</th>
+<th>传入值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>request</td>
+<td>网络请求的具体链接</td>
+<td>NSURLRequest实例</td>
+</tr>
+<tr>
+<td>queue</td>
+<td>新建队列</td>
+<td>NSOperationQueue实例</td>
+</tr>
+<tr>
+<td>handler</td>
+<td>请求完成的通知</td>
+<td>函数</td>
+</tr>
+</tbody>
+</table>
+<p>其中 handler 是一个尾随闭包，它的使用方法如下：</p>
+<table>
+<thead>
+<tr>
+<th>形参名</th>
+<th>作用</th>
+<th>传入值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NSURLResponse?</td>
+<td>网络请求返回的HTTP协议头</td>
+<td>和当前类型一致的属性</td>
+</tr>
+<tr>
+<td>NSData?</td>
+<td>网络请求返回的数据</td>
+<td>和当前类型一致的属性</td>
+</tr>
+<tr>
+<td>NSError?</td>
+<td>网络请求可能发生的错误</td>
+<td>和当前类型一致的属性</td>
+</tr>
+</tbody>
+</table>
+<h4 id="NSURLSession"><a href="#NSURLSession" class="headerlink" title="NSURLSession"></a>NSURLSession</h4><p>值得注意的是，iOS9 以后，NSURLConnection 通讯方式全面被 NSURLSession 取代，因此上面的方法在 iOS9 以上的版本中会有提醒，NSURLConnection 的使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let session = NSURLSession.sharedSession()</div><div class="line">let task = session.dataTaskWithRequest(request) &#123; (data: NSData?, resp: NSURLResponse?, error: NSError?) in</div><div class="line"></div><div class="line">    if error != nil &#123;</div><div class="line">        print(&quot;出错了&quot;)</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        print(resp)</div><div class="line">        print(data)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div><div class="line">task.resume()</div></pre></td></tr></table></figure>
+<p>它的形参和 sendAsynchronousRequest 基本一致，在此就不再赘述，NSURLSession 默认具有开线程的能力，所以也就不需要 NSOperationQueue 实例了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h4 id=&quot;NSURLConnection&quot;&gt;&lt;a href=&quot;#NSURLConnection&quot; class=&quot;headerlink&quot; title=&quot;NSURLConnection&quot;&gt;&lt;/a&gt;NSURLConnection&lt;/h4&gt;&lt;p&gt;iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;let url = NSURL(string: &amp;quot;http://www.jikexueyuan.com&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let request = NSURLRequest(URL: url!)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;let queue = NSOperationQueue()&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;NSURLConnection.sendAsynchronousRequest(request, queue: queue) &amp;#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    if error != nil &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(&amp;quot;出错了&amp;quot;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    else &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(resp)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        print(data)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;#125;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="网络数据" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E6%95%B0%E6%8D%AE/"/>
+    
+      <category term="闭包" scheme="http://yoursite.com/tags/%E9%97%AD%E5%8C%85/"/>
     
   </entry>
   
