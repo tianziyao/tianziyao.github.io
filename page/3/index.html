@@ -278,6 +278,130 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/10/iOS 加载网络数据/" itemprop="url">
+                  iOS网络数据 - 同步加载
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-10T02:46:00+08:00" content="2016-08-10">
+              2016-08-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/10/iOS 加载网络数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/10/iOS 加载网络数据/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。</p>
+<p>下面我们使用 NSString 来接收一个网页的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToHTML() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line"></div><div class="line">    do &#123;</div><div class="line">        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)</div><div class="line">        print(str)</div><div class="line">    &#125;</div><div class="line">    catch &#123;</div><div class="line">        print(&quot;fail&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/10/iOS 加载网络数据/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/05/Failed to import && .h file not found/" itemprop="url">
                   Failed to import && .h file not found
                 </a>
@@ -353,129 +477,6 @@
 <p>如果文件已经存在的话，进入工程的 Build Settings ，在 TARGETS 而不是 PROJECT 下，搜索 Search Paths，确保 Frameworks Search Paths 和 Header Search Paths 指向正确的文件路径。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/05/Failed to import && .h file not found/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/03/CocoaPods 安装和使用/" itemprop="url">
-                  iOS第三方库 - CocoaPods安装和使用
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T02:46:00+08:00" content="2016-08-03">
-              2016-08-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/03/CocoaPods 安装和使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/CocoaPods 安装和使用/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
-<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/03/CocoaPods 安装和使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -611,6 +612,129 @@
 </ol>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/08/03/iOS多线程下载及图片缓存/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/03/CocoaPods 安装和使用/" itemprop="url">
+                  iOS第三方库 - CocoaPods安装和使用
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-03T02:46:00+08:00" content="2016-08-03">
+              2016-08-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/03/CocoaPods 安装和使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/CocoaPods 安装和使用/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
+<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/03/CocoaPods 安装和使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1405,137 +1529,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/23/五个案例明白 GCD 死锁/" itemprop="url">
-                  iOS案例 - GCD 死锁
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-23T03:11:00+08:00" content="2016-07-23">
-              2016-07-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/23/五个案例明白 GCD 死锁/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>首先来回忆几个概念：</p>
-<ol>
-<li>任务：需要执行的操作；</li>
-<li>队列：储存任务的数据结构；</li>
-<li>同步：只能开启一个子线程执行队列；</li>
-<li>异步：可开启多个子线程执行队列；</li>
-<li>串行：同一时间只能执行一个任务；</li>
-<li>并行：同一时间可执行多个任务；</li>
-</ol>
-<p>假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/23/五个案例明白 GCD 死锁/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1581,7 +1574,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">41</span>
+              <span class="site-state-item-count">42</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
