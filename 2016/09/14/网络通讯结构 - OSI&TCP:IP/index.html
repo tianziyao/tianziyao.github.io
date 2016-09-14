@@ -104,15 +104,27 @@
 
 
 
-<meta name="description" content="不积跬步，无以至千里。不积小流，无以成江海。">
-<meta property="og:type" content="website">
+<meta name="description" content="两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。
+这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以">
+<meta property="og:type" content="article">
 <meta property="og:title" content="iSTian'notes">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta property="og:url" content="http://yoursite.com/2016/09/14/网络通讯结构 - OSI&TCP:IP/index.html">
 <meta property="og:site_name" content="iSTian'notes">
-<meta property="og:description" content="不积跬步，无以至千里。不积小流，无以成江海。">
+<meta property="og:description" content="两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。
+这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/TCP报文EN.jpg">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/TCP抓包.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/三次握手.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/三次握手流程.jpg">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第一次握手.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第二次握手.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第三次握手.png">
+<meta property="og:updated_time" content="2016-09-14T00:51:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iSTian'notes">
-<meta name="twitter:description" content="不积跬步，无以至千里。不积小流，无以成江海。">
+<meta name="twitter:description" content="两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。
+这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/TCP报文EN.jpg">
 
 
 
@@ -133,9 +145,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/14/网络通讯结构 - OSI&TCP:IP/"/>
 
-  <title> iSTian'notes </title>
+  <title>  | iSTian'notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -156,9 +168,7 @@
     
   
 
-  <div class="container one-collumn sidebar-position-left 
-   page-home 
- ">
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,9 +265,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
   
@@ -278,9 +288,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" itemprop="url">
-                  未命名
-                </a>
               
             
           </h1>
@@ -327,9 +334,7 @@
       
 
       
-        
-          
-            <p>两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。</p>
+        <p>两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。</p>
 <p>这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以标示某个主机的某个进程，于是我们采取“IP地址＋协议＋端口号”作为唯一标示的这种形式，来确定网络中的一个进程，从而进行进程之间的通讯，这种方式就是我们Socket使用的通讯方式。</p>
 <p>套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。</p>
 <p>它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。</p>
@@ -670,16 +675,20 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <p>第三次握手：客户端收到服务器发来的包后检查确认序号(Acknowledgement Number)是否正确，即第一次发送的序号加1（X+1=1）。以及标志位ACK是否为1。若正确，服务器再次发送确认包，ACK标志位为1，SYN标志位为0。确认序号（Acknowledgement Number）=Y+1=0+1=1，发送序号为X+1=1。客户端收到后确认序号值与ACK=1则连接建立成功，可以传送数据了。</p>
 <p> <img src="http://oboehz2ag.bkt.clouddn.com/第三次握手.png" alt="第三次握手"></p>
 
-          
+      
+    </div>
+
+    <div>
+      
         
+
       
     </div>
 
     <div>
       
-    </div>
+        
 
-    <div>
       
     </div>
 
@@ -687,1152 +696,51 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
       
 
       
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
+              <a href="/2016/09/05/微信接口 - access token/" rel="next" title="微信开发 - access_token">
+                <i class="fa fa-chevron-left"></i> 微信开发 - access_token
+              </a>
             
-              
-                
-                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
-                  微信开发 - access_token
-                </a>
-              
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
             
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
+          </div>
         </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
-<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
-<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
-<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </article>
 
 
-    
+
+    <div class="post-spread">
       
+        <div class="ds-share flat" data-thread-key="2016/09/14/网络通讯结构 - OSI&TCP:IP/"
+     data-title=""
+     data-content=""
+     data-url="http://yoursite.com/2016/09/14/网络通讯结构 - OSI&TCP:IP/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
 
-  
-  
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
 
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/05/微信开发 - 接口简介/" itemprop="url">
-                  微信开发 - 接口简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/微信开发 - 接口简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信开发 - 接口简介/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。</p>
-<p>开通测试账号的路径为：</p>
-<blockquote>
-<p>微信公众平台 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</p>
-</blockquote>
-<p>或点击<a href="http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index">传送门</a>，需要填写的为以下几项：</p>
-<blockquote>
-<p>URL：接口文档所在的路径，如：<code>https://localhost/filepath/wxapifile.php</code></p>
-<p>Token：接口文档中设定的Token</p>
-<p>域名：网址或主机名，如：<code>localhost</code></p>
-</blockquote>
-<p>如对以上步骤陌生的同学可以先看<a href="https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">这篇文章</a>。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/微信开发 - 接口简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
       
     </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 快速入门/" itemprop="url">
-                  微信开发 - 快速入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
-</blockquote>
-<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
-<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
-<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
-<p>下面进入正题！</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 快速入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 公众平台简介/" itemprop="url">
-                  微信开发 - 公众平台简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 公众平台简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 公众平台简介/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
-<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 公众平台简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="url">
-                  iOS网络编程 - NSURLConnection
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-25T18:16:00+08:00" content="2016-08-25">
-              2016-08-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/25/iOS网络编程 - NSURLConnection/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://pic.58pic.com/58pic/15/60/34/15Q58PICAS4_1024.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/25/iOS网络编程 - NSURLConnection/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/24/Mac技巧 -  SHH登录/" itemprop="url">
-                  Mac开发工具 -  SHH登录
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-24T18:16:00+08:00" content="2016-08-24">
-              2016-08-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/24/Mac技巧 -  SHH登录/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/Mac技巧 -  SHH登录/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Mac Terminal是自带SSH的，通过终端SSH远程连接Centos服务器非常方便，在端口为默认的22情况下，只需要在终端下输入：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>就可以连接了，如果改变了端口，使用如下命令即可登录：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh -p portNumber -l root hostNameOrAddress</div></pre></td></tr></table></figure>
-<p>如果是Ubuntu主机，也可以这个命令进行连接：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ssh -X userName@hostNameOrAddress</div><div class="line">ssh userName@hostNameOrAddress -p portNumber</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/24/Mac技巧 -  SHH登录/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/24/iOS生命周期 - Main函数/" itemprop="url">
-                  iOS生命周期 - Main函数
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-24T18:16:00+08:00" content="2016-08-24">
-              2016-08-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/24/iOS生命周期 - Main函数/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/iOS生命周期 - Main函数/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>所有基于C编写的app的<strong>入口</strong>都是main函数，但iOS应用程序有点不同。不同就是你不需要为iOS应用程序而自己编写main函数，当你使用Xcode创建工程的时候就已经提供了。除非一些特殊情况，否则你<strong>不应该</strong>修改Xcode提供的main函数实现，在下图中我们可以看到Xcode为我们生成了一个main.m文件：</p>
-<p> <img src="http://oboehz2ag.bkt.clouddn.com/ocmain.m.png" alt="ocmain.m"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/24/iOS生命周期 - Main函数/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/20/Charles从入门到精通/" itemprop="url">
-                  Mac开发工具 - 转载·Charles从入门到精通
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-20T04:44:00+08:00" content="2016-08-20">
-              2016-08-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/20/Charles从入门到精通/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/20/Charles从入门到精通/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><a href="http://www.charlesproxy.com/">Charles</a> 是在 Mac 下常用的网络封包截取工具，在做移动开发时，我们为了调试与服务器端的网络通讯协议，常常需要截取网络封包来分析。</p>
-<p>Charles 通过将自己设置成系统的网络访问代理服务器，使得所有的网络访问请求都通过它来完成，从而实现了网络封包的截取和分析。</p>
-<p>除了在做移动开发中调试端口外，Charles 也可以用于分析第三方应用的通讯协议。配合 Charles 的 SSL 功能，Charles 还可以分析 Https 协议。</p>
-<p>Charles 是收费软件，可以免费试用 30 天。试用期过后，未付费的用户仍然可以继续使用，但是每次使用时间不能超过 30 分钟，并且启动时将会有 10 秒种的延时。因此，该付费方案对广大用户还是相当友好的，即使你长期不付费，也能使用完整的软件功能。只是当你需要长时间进行封包调试时，会因为 Charles 强制关闭而遇到影响。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/20/Charles从入门到精通/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/19/DNS解析/" itemprop="url">
-                  HTTP协议 - DNS解析
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-19T04:44:00+08:00" content="2016-08-19">
-              2016-08-19
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/19/DNS解析/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/19/DNS解析/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h3 id="DNS域名系统"><a href="#DNS域名系统" class="headerlink" title="DNS域名系统"></a>DNS域名系统</h3><p>域名系统（英文：Domain Name System，缩写：DNS）是因特网的一项服务。它作为将域名和IP地址相互映射的一个分布式数据库，能够使人更方便地访问互联网。DNS使用TCP和UDP端口53。当前，对于每一级域名长度的限制是63个字符，域名总长度则不能超过253个字符。如果要了解DNS，首先要了解一下几个概念：</p>
-<h4 id="根域"><a href="#根域" class="headerlink" title="根域"></a>根域</h4><p>根域名服务器（英语：root name server）是互联网域名解析系统（DNS）中最高级别的域名服务器，负责返回顶级域名的权威域名服务器的地址。截至2014年10月，全球有504台根服务器，被编号为A到M共13个标号。编号相同的根服务器使用同一个IP，504台根服务器总共只使用13个IP。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/19/DNS解析/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-  </section>
-
-  
-  <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
-  </nav>
-
+  </div>
 
 
           </div>
@@ -1840,6 +748,14 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 
 
           
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/09/14/网络通讯结构 - OSI&TCP:IP/"
+           data-title="" data-url="http://yoursite.com/2016/09/14/网络通讯结构 - OSI&TCP:IP/">
+      </div>
+    
+  </div>
+
 
         </div>
         
@@ -1859,8 +775,17 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel  sidebar-panel-active ">
+      <section class="site-overview sidebar-panel ">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
@@ -1937,6 +862,17 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 
       </section>
 
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS网络编程层次结构"><span class="nav-number">1.</span> <span class="nav-text">iOS网络编程层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#OSI模型-七层模型"><span class="nav-number">2.</span> <span class="nav-text">OSI模型/七层模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IP-TCP模型-四层模型"><span class="nav-number">3.</span> <span class="nav-text">IP/TCP模型/四层模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#硬件层"><span class="nav-number">3.1.</span> <span class="nav-text">硬件层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#网络层"><span class="nav-number">3.2.</span> <span class="nav-text">网络层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#传输层"><span class="nav-number">3.3.</span> <span class="nav-text">传输层</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#应用层"><span class="nav-number">3.4.</span> <span class="nav-text">应用层</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP和UPD"><span class="nav-number">4.</span> <span class="nav-text">TCP和UPD</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#TCP和UDP的总结"><span class="nav-number">4.1.</span> <span class="nav-text">TCP和UDP的总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP报文"><span class="nav-number">5.</span> <span class="nav-text">TCP报文</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TCP三次握手"><span class="nav-number">6.</span> <span class="nav-text">TCP三次握手</span></a></li></ol></div>
+            
+          </div>
+        </section>
       
 
     </div>
@@ -2040,6 +976,10 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
 
   
 
