@@ -279,7 +279,7 @@
               
                 
                 <a class="post-title-link" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" itemprop="url">
-                  未命名
+                  网络通讯结构 - OSI&TCP/IP
                 </a>
               
             
@@ -292,11 +292,30 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-14T08:04:19+08:00" content="2016-09-14">
+            <time itemprop="dateCreated" datetime="2016-09-14T02:24:00+08:00" content="2016-09-14">
               2016-09-14
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通讯</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
@@ -330,43 +349,8 @@
         
           
             <p>两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。</p>
-<p>这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以标示某个主机的某个进程，于是我们采取“IP地址＋协议＋端口号”作为唯一标示的这种形式，来确定网络中的一个进程，从而进行进程之间的通讯，这种方式就是我们Socket使用的通讯方式。</p>
-<p>套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元。</p>
-<p>它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。</p>
-<p>Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户端（Client）与服务端（server）。</p>
-<p>每一个应用或者说服务，都有一个端口。比如DNS的53端口，http的80端口。我们能由DNS请求到查询信息，是因为DNS服务器时时刻刻都在监听53端口，当收到我们的查询请求以后，就能够返回我们想要的IP信息。所以，从程序设计上来讲，应该包含以下步骤：</p>
-<ol>
-<li>服务端利用Socket监听端口；</li>
-<li>客户端发起连接；</li>
-<li>服务端返回信息，建立连接，开始通信；</li>
-<li>客户端，服务端断开连接。</li>
-</ol>
+<p>这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以标示某个主机的某个进程，于是我们采取<strong>IP地址＋协议＋端口号</strong>作为唯一标示的这种形式，来确定网络中的一个进程，从而进行进程之间的通讯，这种方式就是我们Socket使用的通讯方式。</p>
 <p>在学习Socket通讯之前，首先需要了解<strong>网络通讯结构、TCP和UPD</strong>，以下是这这两个知识点的简要介绍。</p>
-<h2 id="iOS网络编程层次结构"><a href="#iOS网络编程层次结构" class="headerlink" title="iOS网络编程层次结构"></a>iOS网络编程层次结构</h2><ul>
-<li>Cocoa层<ul>
-<li>NSURL</li>
-<li>NSURLRequest</li>
-<li>NSURLResponse</li>
-<li>NSURLConnection</li>
-<li>NSURLSession</li>
-<li>GameKit</li>
-<li>WebKit</li>
-</ul>
-</li>
-<li>Core Foundation层<ul>
-<li>基于C语言的CFNetworking和CFNetServices</li>
-</ul>
-</li>
-<li>OS层<ul>
-<li>基于C语言的BSD Socket</li>
-</ul>
-</li>
-</ul>
-<p>Cocoa层是最上层的基于 Objective-C 的 API，比如 URL访问，NSStream，Bonjour，GameKit等，这是大多数情况下我们常用的 API。Cocoa 层是基于 Core Foundation 实现的。</p>
-<p>Core Foundation层：因为直接使用Socket需要更多的编程工作，所以苹果对OS层的Socket进行简单的封装以简化编程任务。该层提供了CFNetwork和CFNetServices两个类，其中CFNetwork又是基于CFStream和CFSocket。</p>
-<p>OS层：最底层的BSD Socket提供了对网络编程最大程度的控制，但是编程工作也是最多的，关于BSD Socket的介绍请查看它的维基词条，<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="external">传送门</a>。</p>
-<p>Socket的作用是提供点对点的网络通讯，比如我们平时浏览网页，访问服务器，用到的是HTTP通讯，而QQ，网络直播这样的，需要单点对单点，单点对多点这种情况下就会使用到Socket。</p>
-<p>它的内部原理是通过IP地址来标识一台主机，通过端口号来标识主机上的某一个程序，这两点就可以确定一个唯一的程序客户端。</p>
 <h2 id="OSI模型-七层模型"><a href="#OSI模型-七层模型" class="headerlink" title="OSI模型/七层模型"></a>OSI模型/七层模型</h2><p>网络通信结构是有一套标准模型的，由国际标准化组织ISO提出，被称为OSI模型，又称为七层模型。它的层次划分如下：</p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
@@ -378,42 +362,63 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <table id="tfhover" class="tftable" border="1">
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;th class=&quot;tg-031e&quot; style=&quot;width:5%&quot;&gt;&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot; style=&quot;width:12%&quot;&gt;数据单元&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot; style=&quot;width:15%&quot;&gt;层&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot;&gt;功能&lt;/th&gt;</div></pre></td></tr></table></figure>
+<th class="tg-031e" style="width:5%"></th>
+<th class="tg-yw4l" style="width:12%">数据单元</th>
+<th class="tg-yw4l" style="width:15%">层</th>
+<th class="tg-yw4l">功能</th>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-6wtj&quot; rowspan=&quot;4&quot;&gt;主机层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-7uzy&quot; rowspan=&quot;3&quot;&gt;Data&lt;br&gt;数据&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-7uzy&quot;&gt;7-应用层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-7uzy&quot;&gt;提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3等。&lt;/td&gt;</div></pre></td></tr></table></figure>
+<td class="tg-6wtj" rowspan="4">主机层</td>
+<td class="tg-7uzy" rowspan="3">Data<br>数据</td>
+<td class="tg-7uzy">7-应用层</td>
+<td class="tg-7uzy">提供为应用软件而设的界面，以设置与另一应用软件之间的通信。例如: HTTP，HTTPS，FTP，TELNET，SSH，SMTP，POP3等。</td>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;6-表示层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;把数据转换为能与接收者的系统格式兼容并适合传输的格式。&lt;/td&gt;</div></pre></td></tr></table></figure>
+<td class="tg-yw4l">6-表示层</td>
+<td class="tg-yw4l">把数据转换为能与接收者的系统格式兼容并适合传输的格式。</td>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-7uzy&quot;&gt;5-会话层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-7uzy&quot;&gt;负责在数据传输中设置和维护电脑网络中两台电脑之间的通信连接。&lt;/td&gt;</div></pre></td></tr></table></figure>
+<td class="tg-7uzy">5-会话层</td>
+<td class="tg-7uzy">负责在数据传输中设置和维护电脑网络中两台电脑之间的通信连接。</td>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;Segments&lt;br&gt;数据段&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;4-传输层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;把传输表头(TH)加至数据以形成数据包。传输表头包含了所使用的协议等发送信息。例如:传输控制协议义(TCP) 等。&lt;/td&gt;</div></pre></td></tr></table></figure>
+<td class="tg-yw4l">Segments<br>数据段</td>
+<td class="tg-yw4l">4-传输层</td>
+<td class="tg-yw4l">把传输表头(TH)加至数据以形成数据包。传输表头包含了所使用的协议等发送信息。例如:传输控制协议义(TCP) 等。</td>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-6wtj&quot; rowspan=&quot;3&quot;&gt;媒介层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;网络分组&lt;br&gt;数据报文&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;3-网络层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;决定数据的路径选择和转寄，将网络表头(NH)加至数据包，以形成分组。网络表头包含了网络数据。例如:互联网协议(IP) 等。&lt;/td&gt;</div></pre></td></tr></table></figure>
+<td class="tg-6wtj" rowspan="3">媒介层</td>
+<td class="tg-6wtj">网络分组<br>数据报文</td>
+<td class="tg-6wtj">3-网络层</td>
+<td class="tg-6wtj">决定数据的路径选择和转寄，将网络表头(NH)加至数据包，以形成分组。网络表头包含了网络数据。例如:互联网协议(IP) 等。</td>
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;Bit/Frame&lt;br&gt;数据帧&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;2-数据链路层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成了帧。数据链表头(DLH)是包含了物理地址和错误侦测及改错的方法。数据链表尾(DLT)是一串指示数据包末端的字符串。例如以太网、无线局域网(Wi-Fi)和通用分组无线服务(GPRS)等。&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">Bit/Frame<br>数据帧</td>
+<td class="tg-031e">2-数据链路层</td>
+<td class="tg-031e">负责网络寻址、错误侦测和改错。当表头和表尾被加至数据包时，会形成了帧。数据链表头(DLH)是包含了物理地址和错误侦测及改错的方法。数据链表尾(DLT)是一串指示数据包末端的字符串。例如以太网、无线局域网(Wi-Fi)和通用分组无线服务(GPRS)等。</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;Bit&lt;br&gt;比特&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;1-物理层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-6wtj&quot;&gt;在局部局域网上传送帧，它负责管理电脑通信设备和网络媒体之间的互通。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机适配器等。&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-6wtj">Bit<br>比特</td>
+<td class="tg-6wtj">1-物理层</td>
+<td class="tg-6wtj">在局部局域网上传送帧，它负责管理电脑通信设备和网络媒体之间的互通。包括了针脚、电压、线缆规范、集线器、中继器、网卡、主机适配器等。</td>
+
 
   </tr>
 </table>
@@ -437,42 +442,74 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <table id="tfhover" class="tftable" border="1">
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;th style=&quot;width:13%&quot; class=&quot;tg-yw4l&quot;&gt;层&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot;&gt;主机A&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot;&gt;主机B&lt;/th&gt;</div></pre></td></tr></table></figure>
+
+<th style="width:13%" class="tg-yw4l">层</th>
+<th class="tg-yw4l">主机A</th>
+<th class="tg-yw4l">主机B</th>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;应用层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记1，用的什么软件发送&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;用什么软件打开&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">应用层</td>
+<td class="tg-031e">标记1，用的什么软件发送</td>
+<td class="tg-031e">用什么软件打开</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;表示层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记2，是什么类型数据（文本，图片，声音）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;数据的类型&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">表示层</td>
+<td class="tg-031e">标记2，是什么类型数据（文本，图片，声音）</td>
+<td class="tg-031e">数据的类型</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;会话层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记3，传输给谁？&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;发给谁&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">会话层</td>
+<td class="tg-031e">标记3，传输给谁？</td>
+<td class="tg-031e">发给谁</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;传输层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记4，同过怎么样的传输方式（协议，端口）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;用的什么协议发送给哪个端口&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">传输层</td>
+<td class="tg-031e">标记4，同过怎么样的传输方式（协议，端口）</td>
+<td class="tg-031e">用的什么协议发送给哪个端口</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;网络层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记5，发给哪一个IP地址？&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;是否是发送给此IP地址&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">网络层</td>
+<td class="tg-031e">标记5，发给哪一个IP地址？</td>
+<td class="tg-031e">是否是发送给此IP地址</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;数据链路层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;标记6，找到IP对应的MAC地址&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;是否是发送给此MAC地址的帧&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">数据链路层</td>
+<td class="tg-031e">标记6，找到IP对应的MAC地址</td>
+<td class="tg-031e">是否是发送给此MAC地址的帧</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;物理层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;1010101010010101010&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;10100101010100101&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">物理层</td>
+<td class="tg-031e">1010101010010101010</td>
+<td class="tg-031e">10100101010100101</td>
+
 
   </tr>
 </table>
@@ -485,7 +522,10 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
   table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
   </style>
 
-<h2 id="IP-TCP模型-四层模型"><a href="#IP-TCP模型-四层模型" class="headerlink" title="IP/TCP模型/四层模型"></a>IP/TCP模型/四层模型</h2><p>而我们在开发中广泛应用的是四层模型，也就是TCP/IP参考模型，这四层分别是链路层、网络层、运输层、应用层。以下是OSI模型和IP/TCP模型的层次对比：</p>
+
+
+<p>​                  </p>
+<h2 id="TCP-IP模型-四层模型"><a href="#TCP-IP模型-四层模型" class="headerlink" title="TCP/IP模型/四层模型"></a>TCP/IP模型/四层模型</h2><p>而我们在开发中广泛应用的是四层模型，也就是TCP/IP参考模型，这四层分别是硬件层、网络层、传输层、应用层。以下是OSI模型和IP/TCP模型的层次对比：</p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
 .tg td{font-family:Arial, sans-serif;font-size:14px;padding:11px 20px;border-style:solid;border-width:0px;overflow:hidden;word-break:normal;}
@@ -496,42 +536,73 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <table id="tfhover" class="tftable" border="1">
 <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;th class=&quot;tg-031e&quot; style=&quot;width:15%&quot;&gt;OSI七层模型&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-031e&quot; style=&quot;width:18%&quot;&gt;TCP/IP四层模型&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot;&gt;对应网络协议&lt;/th&gt;</div><div class="line">&lt;th class=&quot;tg-yw4l&quot; style=&quot;width:13%&quot;&gt;数据单元&lt;/th&gt;</div></pre></td></tr></table></figure>
+
+<th class="tg-031e" style="width:15%">OSI七层模型</th>
+<th class="tg-031e" style="width:18%">TCP/IP四层模型</th>
+<th class="tg-yw4l">对应网络协议</th>
+<th class="tg-yw4l" style="width:13%">数据单元</th>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;应用层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot; rowspan=&quot;3&quot;&gt;应用层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot; rowspan=&quot;3&quot;&gt;FTP（文件传输协议）&lt;br&gt;HTTP（超文本传输协议）&lt;br&gt;DNS（域名服务器协议）&lt;br&gt;SMTP（简单邮件传输协议）&lt;br&gt;NFS（网络文件系统协议）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot; rowspan=&quot;3&quot;&gt;数据&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">应用层</td>
+<td class="tg-031e" rowspan="3">应用层</td>
+<td class="tg-yw4l" rowspan="3">FTP（文件传输协议）<br>HTTP（超文本传输协议）<br>DNS（域名服务器协议）<br>SMTP（简单邮件传输协议）<br>NFS（网络文件系统协议）</td>
+<td class="tg-yw4l" rowspan="3">数据</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;表示层&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">表示层</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;会话层&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">会话层</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;传输层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;传输层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;TCP（控制传输协议）&lt;br&gt;UDP（用户数据报协议）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;数据包&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">传输层</td>
+<td class="tg-031e">传输层</td>
+<td class="tg-yw4l">TCP（控制传输协议）<br>UDP（用户数据报协议）</td>
+<td class="tg-yw4l">数据包</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;网络层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-031e&quot;&gt;网络层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;IP（网际协议）&lt;br&gt;ICMP（网际控制消息协议）&lt;br&gt;ARP（地址解析协议）&lt;br&gt;RARP（反向地址解析协议）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;数据帧&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-031e">网络层</td>
+<td class="tg-031e">网络层</td>
+<td class="tg-yw4l">IP（网际协议）<br>ICMP（网际控制消息协议）<br>ARP（地址解析协议）<br>RARP（反向地址解析协议）</td>
+<td class="tg-yw4l">数据帧</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;数据链路层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot; rowspan=&quot;2&quot;&gt;硬件层&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot; rowspan=&quot;2&quot;&gt;HDLC（高级链路控制协议）&lt;br&gt;PPP（点对点协议）&lt;br&gt;SLIP（串行线路接口协议）&lt;/td&gt;</div><div class="line">&lt;td class=&quot;tg-yw4l&quot; rowspan=&quot;2&quot;&gt;比特&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-yw4l">数据链路层</td>
+<td class="tg-yw4l" rowspan="2">硬件层</td>
+<td class="tg-yw4l" rowspan="2">HDLC（高级链路控制协议）<br>PPP（点对点协议）<br>SLIP（串行线路接口协议）</td>
+<td class="tg-yw4l" rowspan="2">比特</td>
+
 
   </tr>
   <tr>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;td class=&quot;tg-yw4l&quot;&gt;物理层&lt;/td&gt;</div></pre></td></tr></table></figure>
+
+<td class="tg-yw4l">物理层</td>
+
 
   </tr>
 </table>
@@ -545,10 +616,8 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
   table.tftable td {font-size:12px;border-width: 1px;padding: 8px;border-style: solid;border-color: #729ea5;}
   </style>
 
-
-
 <p>TCP/IP协议被组织成四个概念层，其中有三层对应于ISO参考模型中的相应层。ICP/IP协议族并不包含物理层和数据链路层，因此它不能独立完成整个计算机网络系统的功能，必须与许多其他的协议协同工作。 TCP/IP分层模型的四个协议层分别完成以下的功能： </p>
-<h3 id="硬件层"><a href="#硬件层" class="headerlink" title="硬件层"></a>硬件层</h3><p>网络接口层与OSI参考模型中的物理层和数据链路层相对应。它负责监视数据在主机和网络之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互连的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。</p>
+<h3 id="硬件层"><a href="#硬件层" class="headerlink" title="硬件层"></a>硬件层</h3><p>硬件层与OSI参考模型中的物理层和数据链路层相对应。它负责监视数据在主机和网络之间的交换。事实上，TCP/IP本身并未定义该层的协议，而由参与互连的各网络使用自己的物理层和数据链路层协议，然后与TCP/IP的网络接入层进行连接。</p>
 <p><strong>TCP/IP参考模型只是要求能够提供给其上层-网络互连层一个访问接口，以便在其上传递IP分组。</strong></p>
 <h3 id="网络层"><a href="#网络层" class="headerlink" title="网络层"></a>网络层</h3><p>网络层是整个TCP/IP协议栈的核心。对应于OSI七层参考模型的网络层。本层包含</p>
 <ul>
@@ -556,9 +625,10 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <li>RIP协议（Routing Information Protocol，路由信息协议）</li>
 <li>ARP协议（Address Resolution Protocol，地址解析协议）</li>
 </ul>
-<p><strong>IP协议</strong>是网际互联层最重要的协议，它提供的是一个可靠、无连接的数据报传递服务。IP层接收由更低层（网络接口层例如以太网设备驱动程序）发来的数据包，并把该数据包发送到更高层—TCP或UDP层；相反，IP层也把从TCP或UDP层接收来的数据包传送到更低层。</p>
+<p><strong>IP协议</strong>是网际互联层最重要的协议，它提供的是一个可靠、无连接的数据报传递服务。IP层接收由更低层（硬件层例如以太网设备驱动程序）发来的数据包，并把该数据包发送到更高层也就是传输层，例如TCP或UDP层；</p>
+<p>相反，IP层也把从TCP或UDP层接收来的数据包传送到更低层。</p>
 <p>IP数据包是不可靠的，因为IP并没有做任何事情来确认数据包是否按顺序发送的或者有没有被破坏，IP数据包中含有发送它的主机的地址（源地址）和接收它的主机的地址（目的地址）。高层的TCP和UDP服务在接收数据包时，通常假设包中的源地址是有效的。</p>
-<p><strong>ARP协议</strong>其基本功能为透过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。</p>
+<p><strong>ARP协议</strong>其基本功能为通过目标设备的IP地址，查询目标设备的MAC地址，以保证通信的顺利进行。它是IPv4中网络层必不可少的协议，不过在IPv6中已不再适用，并被邻居发现协议（NDP）所替代。</p>
 <p>网络层负责数据的包装、寻址和路由。它的功能是把分组发往目标网络或主机。同时，为了尽快地发送分组，可能需要沿不同的路径同时进行分组传递。因此，分组到达的顺序和发送的顺序可能不同，这就需要上层必须对分组进行排序。</p>
 <p>网络层定义了分组格式和协议，即IP协议，网络互连层除了需要完成路由的功能外，也可以完成将不同类型的网络（异构网）互连的任务。除此之外，网络互连层还需要完成拥塞控制的功能。</p>
 <p>它同时还包含</p>
@@ -566,7 +636,7 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <li>Internet控制消息协议（Internet Control Message Protocol，ICMP）</li>
 </ul>
 <p><strong>ICMP协议</strong>是网络协议族的核心协议之一。它用于TCP/IP网络中发送控制消息，提供可能发生在通信环境中的各种问题反馈，通过这些信息，令管理者可以对所发生的问题作出诊断，然后采取适当的措施解决。</p>
-<p>ICMP依靠IP来完成它的任务，它是IP的主要部分。它与传输协议，如TCP和UDP显著不同：它一般不用于在两点间传输数据。它通常不由网络程序直接使用，除了ping和traceroute这两个特别的例子。 IPv4中的ICMP被称作ICMPv4，IPv6中的ICMP则被称作ICMPv6。</p>
+<p>ICMP依靠IP协议来完成它的任务，它是IP协议的主要部分。它与传输协议如TCP和UDP显著不同：它一般不用于在两点间传输数据，通常不由网络程序直接使用，除了ping和traceroute这两个特别的例子。 IPv4中的ICMP被称作ICMPv4，IPv6中的ICMP则被称作ICMPv6。</p>
 <p>网络层协议管理离散的计算机间的数据传输，如IP协议为用户和远程计算机提供了信息包的传输方法，确保信息包能正确地到达目的机器。这一过程中，IP和其他网络层的协议共同用于数据传输，如果没有使用一些监视系统进程的工具，用户是看不到在系统里的IP的。</p>
 <p>网络嗅探器Sniffers是能看到这些过程的一个装置（它可以是软件，也可以是硬件），它能读取通过网络发送的每一个包，即能读取发生在网络层协议的任何活动，因此网络嗅探器Sniffers会对安全造成威胁重要的网络层协议包括ARP、ICMP和IP协议等。</p>
 <h3 id="传输层"><a href="#传输层" class="headerlink" title="传输层"></a>传输层</h3><p>在TCP/IP模型中，传输层的功能是使源端主机和目标端主机上的对等实体可以进行会话。在传输层定义了两种服务质量不同的协议。</p>
@@ -575,14 +645,13 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <li>传输控制协议 TCP（transmission control protocol）</li>
 <li>用户数据报协议 UDP（user datagram protocol）</li>
 </ul>
-<p><strong>传输层</strong>对应Linux TCP/IP概念模型的传输层。传输层提供应用程序间的通信。其功能包括：</p>
+<p><strong>传输层</strong>对应OSI概念模型的传输层。传输层提供应用程序间的通信。其功能包括：</p>
 <ul>
 <li>格式化信息流</li>
 <li>提供可靠传输。</li>
 </ul>
 <p>为实现后者，传输层协议规定接收端必须发回确认信息，如果分组丢失，必须重新发送。</p>
-<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>TCP/IP模型将OSI参考模型中的会话层和表示层的功能合并到应用层实现。对应于OSI七层参考模型的应用层和表达层。</p>
-<p>因特网的应用层协议主要包括：</p>
+<h3 id="应用层"><a href="#应用层" class="headerlink" title="应用层"></a>应用层</h3><p>TCP/IP概念模型中的应用层对应OSI的应用层、表示层和会话层，应用层协议主要包括：</p>
 <ul>
 <li>邮局协议（Post Office Protocol，缩写：POP）</li>
 <li>域名系统（Domain Name System，缩写：DNS）</li>
@@ -594,22 +663,23 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <li>传输层安全协议（Transport Layer Security，缩写：TLS）</li>
 <li>安全套接层（Secure Sockets Layer，缩写：SSL）</li>
 </ul>
-<p>TCP/IP概念模型中的应用层对应OSI的应用层、表示层和会话层。应用层位于协议栈的顶端，它的主要任务是应用。一般是可见的，如利用FTP（文件传输协议）传输一个文件，请求一个和目标计算机的连接，在传输文件的过程中，用户和远程计算机交换的一部分是能看到的。</p>
+<p>应用层位于协议栈的顶端，它的主要任务是应用。一般是可见的，如利用FTP（文件传输协议）传输一个文件，请求一个和目标计算机的连接，在传输文件的过程中，用户和远程计算机交换的一部分是能看到的。</p>
 <p>应用层是Linux网络设定最关键的一层。Linux服务器的配置文档主要针对应用层中的协议。</p>
-<h2 id="TCP和UPD"><a href="#TCP和UPD" class="headerlink" title="TCP和UPD"></a>TCP和UPD</h2><p><strong>TCP协议</strong>是一个面向连接的、可靠的协议。它的可靠性表现在：</p>
+<h2 id="TCP和UPD"><a href="#TCP和UPD" class="headerlink" title="TCP和UPD"></a>TCP和UPD</h2><p>TCP 协议是面向连接的协议，类似于打电话，在开始传输数据之前，必须先建立明确的连接。</p>
+<p>每一条TCP连接只能有两个端点，每一条TCP连接只能是点对点的， TCP提供全双工通信。数据在两个方向上独立的进行传输。因此，连接的每一端必须保持每个方向上的传输数据序号。</p>
+<p>它将一台主机发出的字节流无差错地发往互联网上的其他主机。在发送端，它负责把上层传送下来的字节流分成报文段并传递给下层。在接收端，它负责把收到的报文进行重组后递交给上层。</p>
+<p><strong>面向字节流的含义</strong>：虽然应用程序和TCP交互是一次一个数据块，但TCP把应用程序交下来的数据仅仅是一连串的无结构的字节流。</p>
+<p><strong>面向连接的含义：</strong>面向连接是指两台主机在通讯的过程中，必须要先建立通讯关系，然后再去发送数据，也就是客户端首先向服务器发送数据，服务器给到客户端回应，具有通讯过程后再进行真正的数据传输。它是有两台固定的主机在通讯。</p>
+<p><strong>因此TCP协议是一个面向连接的、可靠的协议。</strong>它的可靠性表现在：</p>
 <ul>
 <li>保证数据正确性</li>
 <li>保证数据顺序</li>
 </ul>
 <p>它的缺点在于：</p>
 <ul>
-<li>传输速度慢，</li>
+<li>传输速度慢</li>
 <li>建立连接需要时间的系统资源较多</li>
 </ul>
-<p>TCP 协议是面向连接的协议，类似于打电话，在开始传输数据之前，必须先建立明确的连接。</p>
-<p>每一条TCP连接只能有两个端点，每一条TCP连接只能是点对点的， TCP提供全双工通信。数据在两个方向上独立的进行传输。因此，连接的每一端必须保持每个方向上的传输数据序号。</p>
-<p>它将一台主机发出的字节流无差错地发往互联网上的其他主机。在发送端，它负责把上层传送下来的字节流分成报文段并传递给下层。在接收端，它负责把收到的报文进行重组后递交给上层。</p>
-<p><strong>面向字节流的含义</strong>：虽然应用程序和TCP交互是一次一个数据块，但TCP把应用程序交下来的数据仅仅是一连串的无结构的字节流。</p>
 <p>TCP协议还要处理端到端的流量控制，以避免缓慢接收的接收方没有足够的缓冲区接收发送方发送的大量数据。</p>
 <p>TCP建立在IP之上，定义了网络上程序到程序的数据传输格式和规则，提供了IP数据包的传输确认、丢失数据包的重新请求、将收到的数据包按照它们的发送次序重新装配的机制。</p>
 <p><strong>UDP协议</strong>是一种面向非连接、不保证可靠的数据传输服务，主要适用于不需要对报文进行排序和流量控制的场合。 它的优点在于：</p>
@@ -626,7 +696,6 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 <p>也就是说，当报文发送之后，是无法得知其是否安全完整到达的。在网络质量令人十分不满意的环境下，UDP协议数据包丢失会比较严重。但是由于UDP的特性：它不属于连接型协议，因而具有资源消耗小，处理速度快的优点，所以通常音频、视频和普通数据在传送时使用UDP较多，因为它们即使偶尔丢失一两个数据包，也不会对接收结果产生太大影响。比如我们聊天用的ICQ和QQ就是使用的UDP协议。</p>
 <h3 id="TCP和UDP的总结"><a href="#TCP和UDP的总结" class="headerlink" title="TCP和UDP的总结"></a>TCP和UDP的总结</h3><p>TCP是一种流模式的协议，UDP是一种数据包模式的协议。</p>
 <p>TCP是面向连接的，也就是说在连接持续的过程中，Socket中收到的数据都是由同一台主机发出的，因此只要保证数据是有序的到达就可以了，至于每次读取多少数据可以自己决定。</p>
-<p>面向连接是两台主机在通讯的过程中，必须要先建立通讯关系，然后再去发送数据，也就是客户端首先向服务器发送数据，服务器给到客户端回应，具有通讯过程后再进行真正的数据传输。它是有两台固定的主机在通讯。</p>
 <p>UDP是无连接的协议，也就是说，只要知道接收端的IP和端口，且网络是可达的，任何主机都可以向接收端发送数据。</p>
 <p>UDP没有固定的主机，它在通讯之前不会测试这台主机是否存在，而直接发送数据。</p>
 <h2 id="TCP报文"><a href="#TCP报文" class="headerlink" title="TCP报文"></a>TCP报文</h2><p>TCP是一种面向连接连接导向的、可靠的基于字节流的传输层通信协议。TCP将用户数据打包成报文段，它发送后启动一个定时器，另一端收到的数据进行确认、对失序的数据重新排序、丢弃重复数据。</p>
@@ -1600,7 +1669,7 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
               
                 
                 <a class="post-title-link" href="/2016/08/20/Charles从入门到精通/" itemprop="url">
-                  Mac开发工具 - 转载·Charles从入门到精通
+                  Mac抓包 - 转载·Charles从入门到精通
                 </a>
               
             
@@ -1627,8 +1696,8 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通讯</span>
                   </a>
                 </span>
 
@@ -1752,8 +1821,8 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTTP/" itemprop="url" rel="index">
-                    <span itemprop="name">HTTP</span>
+                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通讯</span>
                   </a>
                 </span>
 
@@ -1879,7 +1948,7 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1888,7 +1957,7 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">59</span>
+                <span class="site-state-item-count">61</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
