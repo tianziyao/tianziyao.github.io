@@ -119,7 +119,7 @@
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第一次握手.png">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第二次握手.png">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/第三次握手.png">
-<meta property="og:updated_time" content="2016-09-14T01:26:20.000Z">
+<meta property="og:updated_time" content="2016-09-14T01:32:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络通讯结构 - OSI&TCP/IP">
 <meta name="twitter:description" content="两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。
@@ -356,6 +356,7 @@
         <p>两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。</p>
 <p>这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以标示某个主机的某个进程，于是我们采取<strong>IP地址＋协议＋端口号</strong>作为唯一标示的这种形式，来确定网络中的一个进程，从而进行进程之间的通讯，这种方式就是我们Socket使用的通讯方式。</p>
 <p>在学习Socket通讯之前，首先需要了解<strong>网络通讯结构、TCP和UPD</strong>，以下是这这两个知识点的简要介绍。</p>
+   <a id="more"></a>
 <h2 id="OSI模型-七层模型"><a href="#OSI模型-七层模型" class="headerlink" title="OSI模型/七层模型"></a>OSI模型/七层模型</h2><p>网络通信结构是有一套标准模型的，由国际标准化组织ISO提出，被称为OSI模型，又称为七层模型。它的层次划分如下：</p>
 <style type="text/css">
 .tg  {border-collapse:collapse;border-spacing:0;margin:0px auto;}
