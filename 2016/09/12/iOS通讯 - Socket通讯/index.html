@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Disqus,网络技术," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -104,21 +104,24 @@
 
 
 
-<meta name="description" content="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。">
+<meta name="description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元,包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
+它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。
+Sock">
 <meta property="og:type" content="article">
-<meta property="og:title" content="将 Disqus 社会化评论组件设置为简体中文">
-<meta property="og:url" content="http://yoursite.com/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/index.html">
+<meta property="og:title" content="iSTian'notes">
+<meta property="og:url" content="http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/index.html">
 <meta property="og:site_name" content="iSTian'notes">
-<meta property="og:description" content="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。">
-<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-2.png">
-<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-3.png">
-<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-4.png">
-<meta property="og:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-5.png">
-<meta property="og:updated_time" content="2016-08-21T18:15:11.000Z">
+<meta property="og:description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元,包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
+它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。
+Sock">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com//Socket.jpg">
+<meta property="og:updated_time" content="2016-09-14T03:19:17.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="将 Disqus 社会化评论组件设置为简体中文">
-<meta name="twitter:description" content="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。">
-<meta name="twitter:image" content="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-2.png">
+<meta name="twitter:title" content="iSTian'notes">
+<meta name="twitter:description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元,包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
+它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。
+Sock">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com//Socket.jpg">
 
 
 
@@ -139,9 +142,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/"/>
 
-  <title> 将 Disqus 社会化评论组件设置为简体中文 | iSTian'notes </title>
+  <title>  | iSTian'notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -281,7 +284,7 @@
             
             
               
-                将 Disqus 社会化评论组件设置为简体中文
+                
               
             
           </h1>
@@ -293,38 +296,19 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
-              2016-07-22
+            <time itemprop="dateCreated" datetime="2016-09-12T08:05:48+08:00" content="2016-09-12">
+              2016-09-12
             </time>
           </span>
 
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="commentsCount"></span>
+                <a href="/2016/09/12/iOS通讯 - Socket通讯/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/12/iOS通讯 - Socket通讯/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,11 +331,52 @@
       
 
       
-        <h4 id="1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。"><a href="#1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。" class="headerlink" title="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。"></a>1、首先要进入<a href="https://siluba.disqus.com/admin" target="_blank" rel="external">Disqus管理后台</a>，点击 <code>Admin</code> 进入后台设置页面。</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-2.png" alt=""></p>
-<a id="more"></a>
-<h4 id="2、点击-Settings-："><a href="#2、点击-Settings-：" class="headerlink" title="2、点击 Settings ："></a>2、点击 <code>Settings</code> ：</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-3.png" alt=""></p>
-<h4 id="3、点击-General-："><a href="#3、点击-General-：" class="headerlink" title="3、点击 General ："></a>3、点击 <code>General</code> ：</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-4.png" alt=""></p>
-<h4 id="4、找到-Language-，设置为-Chiness-就可以了。"><a href="#4、找到-Language-，设置为-Chiness-就可以了。" class="headerlink" title="4、找到 Language ，设置为 Chiness  就可以了。"></a>4、找到 <code>Language</code> ，设置为 <code>Chiness</code>  就可以了。</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-5.png" alt=""></p>
+        <p>套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元,包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。</p>
+<p>它是系统提供的用于网络通信的方法。它的实质并不是一种协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的接口，程序员使用这个接口提供的方法，发送与接收消息。</p>
+<p>Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户端（Client）与服务端（server）。</p>
+<p>每一个应用或者说服务，都有一个端口。比如DNS的53端口，http的80端口。我们能由DNS请求到查询信息，是因为DNS服务器时时刻刻都在监听53端口，当收到我们的查询请求以后，就能够返回我们想要的IP信息。所以，从程序设计上来讲，应该包含以下步骤：</p>
+<ol>
+<li>服务端利用Socket监听端口；</li>
+<li>客户端发起连接；</li>
+<li>服务端返回信息，建立连接，开始通信；</li>
+<li>客户端，服务端断开连接。</li>
+</ol>
+<p>讲了这么久，终于要开始讲socket的具体实现了，iOS提供了Socket网络编程的接口CFSocket，不过这里使用BSD Socket。iOS网络编程层次结构也分为三层：</p>
+<h2 id="iOS网络编程层次结构"><a href="#iOS网络编程层次结构" class="headerlink" title="iOS网络编程层次结构"></a>iOS网络编程层次结构</h2><p>Cocoa层是最上层的基于 Objective-C 的 API，比如 URL访问，NSStream，Bonjour，GameKit等，这是大多数情况下我们常用的 API。Cocoa 层是基于 Core Foundation 实现的。</p>
+<p>Core Foundation层：因为直接使用Socket需要更多的编程工作，所以苹果对OS层的Socket进行简单的封装以简化编程任务。该层提供了CFNetwork和CFNetServices两个类，其中CFNetwork又是基于CFStream和CFSocket。</p>
+<p>OS层：最底层的BSD Socket提供了对网络编程最大程度的控制，但是编程工作也是最多的，关于BSD Socket的介绍请查看它的维基词条，<a href="https://zh.wikipedia.org/wiki/Berkeley%E5%A5%97%E6%8E%A5%E5%AD%97" target="_blank" rel="external">传送门</a>。</p>
+<ul>
+<li>Cocoa层<ul>
+<li>NSURL</li>
+<li>NSURLRequest</li>
+<li>NSURLResponse</li>
+<li>NSURLConnection</li>
+<li>NSURLSession</li>
+<li>GameKit</li>
+<li>WebKit</li>
+</ul>
+</li>
+<li>Core Foundation层<ul>
+<li>基于C语言的CFNetworking和CFNetServices</li>
+</ul>
+</li>
+<li>OS层<ul>
+<li>基于C语言的BSD Socket</li>
+</ul>
+</li>
+</ul>
+<p>Socket的作用是提供点对点的网络通讯，比如我们平时浏览网页，访问服务器，用到的是HTTP通讯，而QQ，网络直播这样的，需要单点对单点，单点对多点这种情况下就会使用到Socket。</p>
+<p>它的内部原理是通过IP地址来标识一台主机，通过端口号来标识主机上的某一个程序，这两点就可以确定一个唯一的程序客户端。</p>
+<h2 id="Socket和HTTP的区别"><a href="#Socket和HTTP的区别" class="headerlink" title="Socket和HTTP的区别"></a>Socket和HTTP的区别</h2><p>HTTP是应用层的协议，而Socket是传输层的协议。两者建立在TCP/IP协议之上，其中TCP协议是传输层的协议，IP协议是网络层的协议。</p>
+<p>HTTP连接是短连接，客户端发送的每次请求都需要服务器回送响应，在请求结束后，会主动释放连接。从建立连接到关闭连接的过程称为“一次连接”。</p>
+<p>HTTP如果要保持客户端程序的在线状态，需要不断地向服务器发起连接请求。通常的做法是即使不需要获得任何数据，客户端也保持每隔一段固定的时间向服务器发送一次“保持连接”的请求，服务器在收到该请求后对客户端进行回复，表明知道客户端“在线”。若服务器长时间无法收到客户端的请求，则认为客户端“下线”，若客户端长时间无法收到服务器的回复，则认为网络已经断开。</p>
+<p>Socket连接时，可以指定使用的传输层协议，Socket可以支持不同的传输层协议（TCP或UDP），当使用TCP协议进行连接时，该Socket连接就是一个TCP连接。通常情况下Socket连接就是TCP连接，因此Socket连接一旦建立，通信双方即可开始相互发送数据内容，直到双方连接断开。而HTTP连接使用的是“请求—响应”的方式，不仅在请求时需要先建立连接，而且需要客户端向服务器发出请求后，服务器端才能回复数据。</p>
+<p>很多情况下，需要服务器端主动向客户端推送数据，保持客户端与服务器数据的实时与同步。此时若双方建立的是Socket连接，服务器就可以直接将数据传送给客户端；若双方建立的是HTTP连接，则服务器需要等到客户端发送一次请求后才能将数据传回给客户端。</p>
+<p>因此，客户端定时向服务器端发送连接请求，不仅可以保持在线，同时也是在“询问”服务器是否有新的数据，如果有就将数据传给客户端。</p>
+<h2 id="Socket"><a href="#Socket" class="headerlink" title="Socket"></a>Socket</h2><p>Socket（套接字）是    在应用层和传输层之间的一个抽象层，它把TCP/IP层复杂的操作抽象为几个简单的接口供应用层调用，也就是说，我们并不能直接使用运输层的东西，而是通过使用Socket提供的API去间接使用。下图是Socket所在的位置：</p>
+<p> <img src="http://oboehz2ag.bkt.clouddn.com//Socket.jpg" alt="Socket"></p>
+<p>参考链接：</p>
+<p><a href="http://www.jianshu.com/p/6b64d8ac62e3" target="_blank" rel="external">http://www.jianshu.com/p/6b64d8ac62e3</a></p>
 
       
     </div>
@@ -372,29 +397,21 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Disqus/" rel="tag">#Disqus</a>
-          
-            <a href="/tags/网络技术/" rel="tag">#网络技术</a>
-          
-        </div>
-      
 
       
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/22/实现时间轴效果/" rel="next" title="iOS自定义控件 - 时间轴">
-                <i class="fa fa-chevron-left"></i> iOS自定义控件 - 时间轴
+              <a href="/2016/09/05/微信接口 - access token/" rel="next" title="微信开发 - access_token">
+                <i class="fa fa-chevron-left"></i> 微信开发 - access_token
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/07/22/iOS多线程之 GCD线程管理（上）/" rel="prev" title="iOS多线程 - GCD线程管理">
-                iOS多线程 - GCD线程管理 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" rel="prev" title="网络通讯结构 - OSI&TCP/IP">
+                网络通讯结构 - OSI&TCP/IP <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -410,10 +427,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/07/22/将 Disqus 社会化评论组件设置为简体中文/"
-     data-title="将 Disqus 社会化评论组件设置为简体中文"
+        <div class="ds-share flat" data-thread-key="2016/09/12/iOS通讯 - Socket通讯/"
+     data-title=""
      data-content=""
-     data-url="http://yoursite.com/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/">
+     data-url="http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -440,8 +457,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/07/22/将 Disqus 社会化评论组件设置为简体中文/"
-           data-title="将 Disqus 社会化评论组件设置为简体中文" data-url="http://yoursite.com/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/">
+      <div class="ds-thread" data-thread-key="2016/09/12/iOS通讯 - Socket通讯/"
+           data-title="" data-url="http://yoursite.com/2016/09/12/iOS通讯 - Socket通讯/">
       </div>
     
   </div>
@@ -559,7 +576,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。"><span class="nav-number">1.</span> <span class="nav-text">1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2、点击-Settings-："><span class="nav-number">2.</span> <span class="nav-text">2、点击 Settings ：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3、点击-General-："><span class="nav-number">3.</span> <span class="nav-text">3、点击 General ：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4、找到-Language-，设置为-Chiness-就可以了。"><span class="nav-number">4.</span> <span class="nav-text">4、找到 Language ，设置为 Chiness  就可以了。</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#iOS网络编程层次结构"><span class="nav-number">1.</span> <span class="nav-text">iOS网络编程层次结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket和HTTP的区别"><span class="nav-number">2.</span> <span class="nav-text">Socket和HTTP的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Socket"><span class="nav-number">3.</span> <span class="nav-text">Socket</span></a></li></ol></div>
             
           </div>
         </section>

@@ -278,6 +278,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/24/iOS多线程之 同步线程/" itemprop="url">
+                  iOS多线程 - 同步线程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T05:09:00+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/24/iOS多线程之 同步线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/iOS多线程之 同步线程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>比如你去银行存10K，在用ATM存的同时，又使用网银取了10K，如果线程同步做的不好的话， 虽然取10K元的操作会有记录，但是可能不会反映在余额上。如果要解决这样的问题，就需要用到线程同步，线程同步在开发过程中是非常常见的。下面我们以12306为例，尝试解决如何保证一张票不会被不同窗口，不同客户端重复购买。</p>
+</blockquote>
+<p>首先我们来认识一下互斥锁的概念：</p>
+<blockquote>
+<p><strong>互斥锁</strong>（英语：Mutual exclusion，缩写 Mutex）是一种用于<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a><a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B">编程</a>中，防止两条<a href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程</a>同时对同一公共资源（比如<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">全局变量</a>）进行读写的机制。该目的通过将代码切片成一个一个的<a href="https://zh.wikipedia.org/wiki/%E4%B8%B4%E7%95%8C%E5%8C%BA%E5%9F%9F">临界区域</a>（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。</p>
+</blockquote>
+<p>以上是维基百科给出的解释，如需了解更多请 <a href="https://zh.wikipedia.org/wiki/%E4%BA%92%E6%96%A5%E9%94%81">点击这里</a>。</p>
+<p>简单来讲，互斥锁是为了防止多个线程访问同一个对象、方法、变量、文件等引起的数据错误。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/24/iOS多线程之 同步线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/23/五个案例明白 GCD 死锁/" itemprop="url">
                   iOS案例 - GCD 死锁
                 </a>
@@ -539,133 +669,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/" itemprop="url">
-                  iOS持久化 - NSCoding
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
-              2016-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>NSCoding 是把数据存储在 iOS 和 MacOs 上的一种及其简单和方便的方式，它可以直接将一个模型对象转变成一个文件 然后再把这个文件加载到内存中，并不需要任何的文件解析和序列化的逻辑。</p>
-</blockquote>
-<p>如果要实现利用 NSCoding 实现数据存储，首先要了解 NSoder 类和 NSCoding 协议。</p>
-<p>NSCoder不可以直接实例化，我们需要继承 NSCoding 协议实现数据存储的功能，NSCoding 只有两个方法，从 一个是从 NSCoder 中读取数据，保存到响应的变量中，即反序列化数据，另一个是读取实例变量，并把这些数据写入到 Coder 中，即序列化输入。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>: <span class="title">NSObject</span>, <span class="title">NSCoding</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"从 Coder 中读取"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encodeWithCoder</span><span class="params">(aCoder: NSCoder)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"保存到 Coder 中"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="url">
                   将 Disqus 社会化评论组件设置为简体中文
                 </a>
@@ -869,6 +872,133 @@
 <p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/" itemprop="url">
+                  iOS持久化 - NSCoding
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
+              2016-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>NSCoding 是把数据存储在 iOS 和 MacOs 上的一种及其简单和方便的方式，它可以直接将一个模型对象转变成一个文件 然后再把这个文件加载到内存中，并不需要任何的文件解析和序列化的逻辑。</p>
+</blockquote>
+<p>如果要实现利用 NSCoding 实现数据存储，首先要了解 NSoder 类和 NSCoding 协议。</p>
+<p>NSCoder不可以直接实例化，我们需要继承 NSCoding 协议实现数据存储的功能，NSCoding 只有两个方法，从 一个是从 NSCoder 中读取数据，保存到响应的变量中，即反序列化数据，另一个是读取实例变量，并把这些数据写入到 Coder 中，即序列化输入。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>: <span class="title">NSObject</span>, <span class="title">NSCoding</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"从 Coder 中读取"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encodeWithCoder</span><span class="params">(aCoder: NSCoder)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"保存到 Coder 中"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1334,140 +1464,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/Typora For Markdown 语法/" itemprop="url">
-                  Typora For Markdown 语法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/Typora For Markdown 语法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Typora For Markdown 语法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>Typora</code> 是一个功能强大的 <code>Markdown</code> 编辑器，<code>Typora</code> 可以插入数学表达式，插入表情，表格，支持标准的 Markdown 语法，可以使用标注，功能非常强悍。</p>
-<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>要启用这个功能，首先要到 <code>Preference</code> - <code>Editor</code> 中启用。然后使用<code>$</code>符号包裹<code>Tex</code>命令，例如：<code>$lim_{x \ to \infty} \ exp(-x)=0$</code>。</p>
-<blockquote>
-<p>$lim_{x \ to \infty} \ exp(-x)=0$</p>
-</blockquote>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p>下标使用<code>~</code>包裹，例如：<code>H~2~o</code>将产生水的分子式。</p>
-<blockquote>
-<p>H~2~o</p>
-</blockquote>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><p>上标使用<code>^</code>包裹，例如：<code>y^2^=4</code>将产生表达式。</p>
-<blockquote>
-<p>y^2^=4</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/Typora For Markdown 语法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/21/No Such Module 错误/" itemprop="url">
                   iOS错误处理 - No Such Module 错误处理
                 </a>
@@ -1614,7 +1610,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">42</span>
+              <span class="site-state-item-count">43</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
