@@ -86,7 +86,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Xocde错误," />
+  <meta name="keywords" content="网络通讯,Socket通讯," />
 
 
 
@@ -104,22 +104,19 @@
 
 
 
-<meta name="description" content="需要自己手动导入库：
-1#import &amp;lt;UIKit/UIKit.h&amp;gt;
-参考链接：http://stackoverflow.com/questions/26412635/ios-8-expected-a-type">
+<meta name="description" content="建议：在编写网络程序时，可以直接使用下面这段头文件代码：
+12345678910111213141516include &amp;lt;unistd.h&amp;gt;include &amp;lt;sys/types.h&amp;gt;include &amp;lt;sys/socket.h&amp;gt;include &amp;lt;netdb.h&amp;gt;include &amp;lt;stdio.h&amp;gt;include &amp;lt;stdlib.h&amp;gt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Xcode错误 - Expected a type">
-<meta property="og:url" content="http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /index.html">
+<meta property="og:title" content="iOS Socket通讯 - Socket编程头文件">
+<meta property="og:url" content="http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/index.html">
 <meta property="og:site_name" content="iSTian'notes">
-<meta property="og:description" content="需要自己手动导入库：
-1#import &amp;lt;UIKit/UIKit.h&amp;gt;
-参考链接：http://stackoverflow.com/questions/26412635/ios-8-expected-a-type">
-<meta property="og:updated_time" content="2016-09-16T06:22:44.000Z">
+<meta property="og:description" content="建议：在编写网络程序时，可以直接使用下面这段头文件代码：
+12345678910111213141516include &amp;lt;unistd.h&amp;gt;include &amp;lt;sys/types.h&amp;gt;include &amp;lt;sys/socket.h&amp;gt;include &amp;lt;netdb.h&amp;gt;include &amp;lt;stdio.h&amp;gt;include &amp;lt;stdlib.h&amp;gt">
+<meta property="og:updated_time" content="2016-09-18T07:39:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Xcode错误 - Expected a type">
-<meta name="twitter:description" content="需要自己手动导入库：
-1#import &amp;lt;UIKit/UIKit.h&amp;gt;
-参考链接：http://stackoverflow.com/questions/26412635/ios-8-expected-a-type">
+<meta name="twitter:title" content="iOS Socket通讯 - Socket编程头文件">
+<meta name="twitter:description" content="建议：在编写网络程序时，可以直接使用下面这段头文件代码：
+12345678910111213141516include &amp;lt;unistd.h&amp;gt;include &amp;lt;sys/types.h&amp;gt;include &amp;lt;sys/socket.h&amp;gt;include &amp;lt;netdb.h&amp;gt;include &amp;lt;stdio.h&amp;gt;include &amp;lt;stdlib.h&amp;gt">
 
 
 
@@ -140,9 +137,9 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/"/>
 
-  <title> Xcode错误 - Expected a type | iSTian'notes </title>
+  <title> iOS Socket通讯 - Socket编程头文件 | iSTian'notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -282,7 +279,7 @@
             
             
               
-                Xcode错误 - Expected a type
+                iOS Socket通讯 - Socket编程头文件
               
             
           </h1>
@@ -294,8 +291,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
-              2016-09-15
+            <time itemprop="dateCreated" datetime="2016-09-18T02:24:00+08:00" content="2016-09-18">
+              2016-09-18
             </time>
           </span>
 
@@ -308,8 +305,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xocde错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xocde错误</span>
+                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通讯</span>
                   </a>
                 </span>
 
@@ -324,8 +321,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/15/Xcode错误 - Expected a type /#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/Xcode错误 - Expected a type /" itemprop="commentsCount"></span>
+                <a href="/2016/09/18/iOS通讯 - Socket通讯头文件/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/iOS通讯 - Socket通讯头文件/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,9 +345,24 @@
       
 
       
-        <p>需要自己手动导入库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
-<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
+        <p>建议：在编写网络程序时，可以直接使用下面这段头文件代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">include &lt;unistd.h&gt;</div><div class="line">include &lt;sys/types.h&gt;</div><div class="line">include &lt;sys/socket.h&gt;</div><div class="line">include &lt;netdb.h&gt;</div><div class="line">include &lt;stdio.h&gt;</div><div class="line">include &lt;stdlib.h&gt;</div><div class="line">include &lt;string.h&gt;</div><div class="line">include &lt;ctype.h&gt;</div><div class="line">include &lt;errno.h&gt;</div><div class="line">include &lt;malloc.h&gt;</div><div class="line">include &lt;netinet/in.h&gt;</div><div class="line">include &lt;arpa/inet.h&gt;</div><div class="line">include &lt;sys/ioctl.h&gt;</div><div class="line">include &lt;stdarg.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div></pre></td></tr></table></figure>
+   <a id="more"></a>
+<p>在Socket编程中需要用到的头文件比较多，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sys/types.h：数据类型定义</div><div class="line">sys/socket.h：提供socket函数及数据结构</div><div class="line">netinet/in.h：定义数据结构sockaddr_in</div><div class="line">arpa/inet.h：提供IP地址转换函数</div><div class="line">netdb.h：提供设置及获取域名的函数</div><div class="line">sys/ioctl.h：提供对I/O控制的函数</div><div class="line">sys/poll.h：提供socket等待测试机制的函数</div></pre></td></tr></table></figure>
+<p>其他在网络程序中常见的头文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">unistd.h：提供通用的文件、目录、程序及进程操作的函数</div><div class="line">errno.h：提供错误号errno的定义，用于错误处理</div><div class="line">fcntl.h：提供对文件控制的函数</div><div class="line">time.h：提供有关时间的函数</div><div class="line">crypt.h：提供使用DES加密算法的加密函数</div><div class="line">pwd.h：提供对/etc/passwd文件访问的函数</div><div class="line">shadow.h：提供对/etc/shadow文件访问的函数</div><div class="line">pthread.h：提供多线程操作的函数</div><div class="line">signal.h：提供对信号操作的函数</div><div class="line">sys/wait.h、sys/ipc.h、sys/shm.h：提供进程等待、进程间通讯（IPC）及共享内存的函数</div></pre></td></tr></table></figure>
+<p>涉及到用户权限及密码验证问题时加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">include &lt;shadow.h&gt;</div><div class="line">include &lt;crypt.h&gt;</div><div class="line">include &lt;pwd.h&gt;</div></pre></td></tr></table></figure>
+<p>需要注意的是，应该在编译时链接加密算法库，即增加编译选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lcrypt</div></pre></td></tr></table></figure>
+<p>涉及到文件及时间操作加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/time.h&gt;</div><div class="line">include &lt;utime.h&gt;</div><div class="line">include &lt;time.h&gt;</div><div class="line">include &lt;sys/stat.h&gt;</div><div class="line">include &lt;sys/file.h&gt;</div></pre></td></tr></table></figure>
+<p>涉及到多进程操作时加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/wait.h&gt;</div><div class="line">include &lt;sys/ipc.h&gt;</div><div class="line">include &lt;sys/shm.h&gt;</div><div class="line">include &lt;signal.h&gt;</div><div class="line">include &lt;pthread.h&gt;</div><div class="line">include &lt;sys/poll.h&gt;</div></pre></td></tr></table></figure>
+<p>需要注意的是，应该在编译时链接线程库，即增加编译选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lthread</div></pre></td></tr></table></figure>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="http://staff.ustc.edu.cn/~mengning/np/linux_socket/new_page_4.htm" target="_blank" rel="external">Socket编程中需要用到的头文件</a> - 中国科大教工FTP</p>
 
       
     </div>
@@ -373,7 +385,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Xocde错误/" rel="tag">#Xocde错误</a>
+            <a href="/tags/网络通讯/" rel="tag">#网络通讯</a>
+          
+            <a href="/tags/Socket通讯/" rel="tag">#Socket通讯</a>
           
         </div>
       
@@ -382,16 +396,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" rel="next" title="网络通讯结构 - OSI&TCP/IP">
-                <i class="fa fa-chevron-left"></i> 网络通讯结构 - OSI&TCP/IP
+              <a href="/2016/09/15/iOS Socket通讯 - BSD Socket/" rel="next" title="iOS Socket通讯 - BSD Socket">
+                <i class="fa fa-chevron-left"></i> iOS Socket通讯 - BSD Socket
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/09/15/iOS Socket通讯 - BSD Socket/" rel="prev" title="iOS Socket通讯 - BSD Socket">
-                iOS Socket通讯 - BSD Socket <i class="fa fa-chevron-right"></i>
+              <a href="/2016/09/18/iOS通讯 - Socket CS实例/" rel="prev" title="iOS Socket通讯 - Socket C/S实例">
+                iOS Socket通讯 - Socket C/S实例 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -407,10 +421,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/09/15/Xcode错误 - Expected a type /"
-     data-title="Xcode错误 - Expected a type"
+        <div class="ds-share flat" data-thread-key="2016/09/18/iOS通讯 - Socket通讯头文件/"
+     data-title="iOS Socket通讯 - Socket编程头文件"
      data-content=""
-     data-url="http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /">
+     data-url="http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -437,8 +451,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/15/Xcode错误 - Expected a type /"
-           data-title="Xcode错误 - Expected a type" data-url="http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /">
+      <div class="ds-thread" data-thread-key="2016/09/18/iOS通讯 - Socket通讯头文件/"
+           data-title="iOS Socket通讯 - Socket编程头文件" data-url="http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/">
       </div>
     
   </div>
@@ -556,7 +570,7 @@
               
             
             
-              <p class="post-toc-empty">此文章未包含目录</p>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接："><span class="nav-number">1.</span> <span class="nav-text">参考链接：</span></a></li></ol></div>
             
           </div>
         </section>
