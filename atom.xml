@@ -46,7 +46,7 @@
     <link href="http://yoursite.com/2016/09/15/iOS%E9%80%9A%E8%AE%AF%20-%20Socket%E9%80%9A%E8%AE%AF/"/>
     <id>http://yoursite.com/2016/09/15/iOS通讯 - Socket通讯/</id>
     <published>2016-09-14T18:24:00.000Z</published>
-    <updated>2016-09-15T00:48:18.000Z</updated>
+    <updated>2016-09-18T05:12:13.000Z</updated>
     
     <content type="html"><![CDATA[<p>套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。</p>
 <p>Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户端（Client）与服务端（server）。</p>
@@ -136,8 +136,39 @@
 <p>当调用listen设置之后，服务器等待客户端请求，然后调用下面的accept来接受客户端的连接请求。</p>
 <p><strong>accept 只在服务器端使用</strong>，接受客户端连接请求并将客户端的网络地址信息保存到clientAddress中。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">accept</span><span class="params">(<span class="keyword">int</span> socketFileDescriptor, sockaddr *clientAddress, <span class="keyword">int</span> clientAddressStructLength)</span></span></div></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>sockaddr 结构体</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> sockaddr &#123;</div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> sa_family;<span class="comment">/*addressfamily,AF_xxx*/</span></div><div class="line"><span class="keyword">char</span> sa_data[<span class="number">14</span>];<span class="comment">/*14bytesofprotocoladdress*/</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>sa_family是通信类型，最常用的值是 “AF_INET”；</li>
+<li>sa_data14字节，包含套接字中的目标地址和端口信息；</li>
+<li>sockaddr的缺陷是sa_data把目标地址和端口信息混在一起了。</li>
+</ul>
+</li>
+<li><p><strong>sockaddr_in 结构体</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> sockaddr_in &#123;</div><div class="line"><span class="keyword">short</span> sin_family;<span class="comment">/*Address */</span></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">short</span> sin_port;<span class="comment">/*Port number*/</span></div><div class="line"><span class="keyword">struct</span> in_addr sin_addr;<span class="comment">/*IP address*/</span></div><div class="line"><span class="keyword">unsigned</span> <span class="keyword">char</span> sin_zero[<span class="number">8</span>];<span class="comment">/*Same size as struct sockaddr*/</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>sin_family 指代协议族，一般来说是AF_INET（地址族）PF_INET（协议族），在socket编程中只能是AF_INET；</p>
+</li>
+<li><p>sin_port 存储端口号，在linux下，端口号的范围0~65535，同时0~1024范围的端口号已经被系统使用或保留。要采用网络数据格式，普通数字可以用<code>htons()</code>函数转换成网络数据格式的数字；</p>
+</li>
+<li><p>sin_addr 是用来表示一个32位的IPv4地址的结构体；</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> in_addr &#123;</div><div class="line">    <span class="keyword">in_addr_t</span> s_addr;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>in_addr_t 一般为 32位的unsigned int，其字节顺序为网络顺序（network byte ordered)，其中每8位代表一个IP地址位中的一个数值。</li>
+<li>例如192.168.3.144记为0x9003a8c0，其中 c0=192 ，a8=168，03=3，90=144。打印的时候可以调用inet_ntoa()函数将其转换为char *类型。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>sin_zero 没有实际意义，是为了让sockaddr与sockaddr_in两个数据结构在内存中保持大小相同而保留的空字节。</li>
+</ul>
+<ul>
+<li>sockaddr_in和sockaddr是并列的结构，指向sockaddr_in的结构体的指针也可以指向sockaddr的结构体，并代替它。当客户端连接请求被服务器接受之后，客户端和服务器之间的链路就建立好了，两者就可以通信了。</li>
+</ul>
 <p><strong>注意：accept是一个阻塞函数，因此在调用时需要放在子线程中，以免主线程卡死。</strong></p>
-<p>当客户端连接请求被服务器接受之后，客户端和服务器之间的链路就建立好了，两者就可以通信了。</p>
 <p><strong>connect</strong> 客户端向特定网络地址的服务器发送连接请求，连接成功返回0，失败返回 -1。</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">connect</span><span class="params">(<span class="keyword">int</span> socketFileDescriptor, sockaddr *serverAddress, <span class="keyword">int</span> serverAddressLength)</span></span></div></pre></td></tr></table></figure>
 <p>当服务器建立好之后，客户端通过调用该接口向服务器发起建立连接请求。</p>
