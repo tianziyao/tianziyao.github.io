@@ -107,17 +107,17 @@
 <meta name="description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
 Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户">
 <meta property="og:type" content="article">
-<meta property="og:title" content="iOS通讯 - Socket通讯">
-<meta property="og:url" content="http://yoursite.com/2016/09/15/iOS通讯 - Socket通讯/index.html">
+<meta property="og:title" content="iOS Socket通讯 - BSD Socket">
+<meta property="og:url" content="http://yoursite.com/2016/09/15/iOS Socket通讯 - BSD Socket/index.html">
 <meta property="og:site_name" content="iSTian'notes">
 <meta property="og:description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
 Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com//Socket.jpg">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/%E5%B8%B8%E8%A7%81Socket%20TCP%E6%A1%86%E6%9E%B6.gif">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/%E5%B8%B8%E8%A7%81Socket%20UDP%E6%A1%86%E6%9E%B6.gif">
-<meta property="og:updated_time" content="2016-09-18T05:12:13.000Z">
+<meta property="og:updated_time" content="2016-09-18T05:15:31.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="iOS通讯 - Socket通讯">
+<meta name="twitter:title" content="iOS Socket通讯 - BSD Socket">
 <meta name="twitter:description" content="套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。
 Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户">
 <meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com//Socket.jpg">
@@ -141,9 +141,9 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2016/09/15/iOS通讯 - Socket通讯/"/>
+  <link rel="canonical" href="http://yoursite.com/2016/09/15/iOS Socket通讯 - BSD Socket/"/>
 
-  <title> iOS通讯 - Socket通讯 | iSTian'notes </title>
+  <title> iOS Socket通讯 - BSD Socket | iSTian'notes </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -283,7 +283,7 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
             
             
               
-                iOS通讯 - Socket通讯
+                iOS Socket通讯 - BSD Socket
               
             
           </h1>
@@ -325,8 +325,8 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/15/iOS通讯 - Socket通讯/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/iOS通讯 - Socket通讯/" itemprop="commentsCount"></span>
+                <a href="/2016/09/15/iOS Socket通讯 - BSD Socket/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/iOS Socket通讯 - BSD Socket/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -464,10 +464,10 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
 </li>
 </ul>
 <ul>
-<li>sin_zero 没有实际意义，是为了让sockaddr与sockaddr_in两个数据结构在内存中保持大小相同而保留的空字节。</li>
-</ul>
-<ul>
-<li>sockaddr_in和sockaddr是并列的结构，指向sockaddr_in的结构体的指针也可以指向sockaddr的结构体，并代替它。当客户端连接请求被服务器接受之后，客户端和服务器之间的链路就建立好了，两者就可以通信了。</li>
+<li><p>sin_zero 没有实际意义，是为了让sockaddr与sockaddr_in两个数据结构在内存中保持大小相同而保留的空字节。</p>
+</li>
+<li><p>sockaddr_in和sockaddr是并列的结构，指向sockaddr_in的结构体的指针也可以指向sockaddr的结构体，并代替它。当客户端连接请求被服务器接受之后，客户端和服务器之间的链路就建立好了，两者就可以通信了。</p>
+</li>
 </ul>
 <p><strong>注意：accept是一个阻塞函数，因此在调用时需要放在子线程中，以免主线程卡死。</strong></p>
 <p><strong>connect</strong> 客户端向特定网络地址的服务器发送连接请求，连接成功返回0，失败返回 -1。</p>
@@ -550,17 +550,13 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" rel="next" title="网络通讯结构 - OSI&TCP/IP">
-                <i class="fa fa-chevron-left"></i> 网络通讯结构 - OSI&TCP/IP
+              <a href="/2016/09/15/Xcode错误 - Expected a type /" rel="next" title="Xcode错误 - Expected a type">
+                <i class="fa fa-chevron-left"></i> Xcode错误 - Expected a type
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/09/15/Xcode错误 - Expected a type /" rel="prev" title="Xcode错误 - Expected a type">
-                Xcode错误 - Expected a type <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -575,10 +571,10 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/09/15/iOS通讯 - Socket通讯/"
-     data-title="iOS通讯 - Socket通讯"
+        <div class="ds-share flat" data-thread-key="2016/09/15/iOS Socket通讯 - BSD Socket/"
+     data-title="iOS Socket通讯 - BSD Socket"
      data-content=""
-     data-url="http://yoursite.com/2016/09/15/iOS通讯 - Socket通讯/">
+     data-url="http://yoursite.com/2016/09/15/iOS Socket通讯 - BSD Socket/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -605,8 +601,8 @@ Socket描述了一个IP、端口对。它简化了程序员的操作，知道对
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/09/15/iOS通讯 - Socket通讯/"
-           data-title="iOS通讯 - Socket通讯" data-url="http://yoursite.com/2016/09/15/iOS通讯 - Socket通讯/">
+      <div class="ds-thread" data-thread-key="2016/09/15/iOS Socket通讯 - BSD Socket/"
+           data-title="iOS Socket通讯 - BSD Socket" data-url="http://yoursite.com/2016/09/15/iOS Socket通讯 - BSD Socket/">
       </div>
     
   </div>
