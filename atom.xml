@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-18T07:41:20.000Z</updated>
+  <updated>2016-09-19T08:36:28.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,109 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title></title>
+    <link href="http://yoursite.com/2016/09/19/iOS%E6%A8%A1%E5%9E%8B%20-%20KVC/"/>
+    <id>http://yoursite.com/2016/09/19/iOS模型 - KVC/</id>
+    <published>2016-09-19T03:14:55.000Z</published>
+    <updated>2016-09-19T08:36:28.000Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote>
+<p>KVC（Key-value coding）键值编码，单看这个名字可能不太好理解。其实翻译一下就很简单了，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。</p>
+<p>KVC不需要调用明确的Get和Set方法。这样就可以在运行时动态在访问和修改对象的属性。而不是在编译时确定，这也是iOS开发中的黑魔法之一。</p>
+</blockquote>
+<p>无论是Swift还是Objective-C，KVC的定义都是对NSObject的扩展来实现的，Objective-c中有个显式的<code>NSKeyValueCoding</code>类别名，而Swift没有，也不需要。</p>
+<p>对于所有继承了NSObject在类型，都能使用KVC。一些纯Swift类和结构体是不支持KVC的。</p>
+<p>下面是KVC最为重要的四个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>?					<span class="comment">//获取键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKey key: String)</span></span>			<span class="comment">//设置键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKeyPath</span><span class="params">(keyPath: String)</span></span> -&gt; <span class="type">AnyObject</span>?			<span class="comment">//获取具有路径的键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKeyPath keyPath: String)</span></span>	<span class="comment">//设置具有路径的键的值</span></div></pre></td></tr></table></figure>
+<p>当然NSKeyValueCoding类别中还有其他的一些方法，下面列举一些：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span></span></div><div class="line">//默认返回<span class="title">YES</span>，表示如果没有找到<span class="title">Set</span>&lt;<span class="title">Key</span>&gt;方法的话，会按照<span class="title">_key</span>，<span class="title">_iskey</span>，<span class="title">key</span>，<span class="title">iskey</span>的顺序搜索成员，设置成<span class="title">NO</span>就不这样搜索。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">validateValue</span>(<span class="title">ioValue</span>: <span class="title">AutoreleasingUnsafeMutablePointer</span>&lt;<span class="title">AnyObject</span>?&gt;, <span class="title">forKey</span> <span class="title">inKey</span>: <span class="title">String</span>) <span class="title">throws</span></div><div class="line">//<span class="title">KVC</span>提供属性值确认的<span class="title">API</span>，它可以用来检查<span class="title">Set</span>的值是否正确、为不正确的值做一个替换值或者拒绝设置新值并返回错误原因。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">mutableArrayValueForKey</span>(<span class="title">key</span>: <span class="title">String</span>) -&gt; <span class="title">NSMutableArray</span></div><div class="line">//这是集合操作的<span class="title">API</span>，里面还有一系列这样的<span class="title">API</span>，如果属性是一个<span class="title">NSMutableArray</span>，那么可以用这个方法来返回。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">valueForUndefinedKey</span>(<span class="title">key</span>: <span class="title">String</span>) -&gt; <span class="title">AnyObject</span>?</div><div class="line">//如果<span class="title">Key</span>不存在，且没有<span class="title">KVC</span>无法搜索到任何和<span class="title">Key</span>有关的字段或者属性，则会调用这个方法，默认是抛出异常。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setValue</span>(<span class="title">value</span>: <span class="title">AnyObject</span>?, <span class="title">forUndefinedKey</span> <span class="title">key</span>: <span class="title">String</span>)</div><div class="line">//和上一个方法一样，只不过是设值。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setNilValueForKey</span>(<span class="title">key</span>: <span class="title">String</span>)</div><div class="line">//如果你在<span class="title">SetValue</span>方法时将<span class="title">Value</span>传<span class="title">nil</span>，则会调用这个方法。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">dictionaryWithValuesForKeys</span>(<span class="title">keys</span>: [<span class="title">String</span>]) -&gt; [<span class="title">String</span> : <span class="title">AnyObject</span>]</div><div class="line">//输入一组<span class="title">key</span>,返回该组<span class="title">key</span>对应的<span class="title">Value</span>，再转成字典返回，用于将<span class="title">Model</span>转到字典。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setValuesForKeysWithDictionary</span>(<span class="title">keyedValues</span>: [<span class="title">String</span> : <span class="title">AnyObject</span>])</div></pre></td></tr></table></figure>
+<p>上面的这些方法在碰到特殊情况或者有特殊需求还是会用到的，所以也是可以了解一下。后面的代码示例会有讲到其中的一些方法。</p>
+<p>同时苹果对一些容器类比如NSArray或者NSSet等，KVC有着特殊的实现。建议有基础的或者英文好的开发者直接去看苹果的官方文档，相信你会对KVC的理解更上一个台阶。</p>
+<h2 id="KVC是怎么寻找Key的"><a href="#KVC是怎么寻找Key的" class="headerlink" title="KVC是怎么寻找Key的"></a>KVC是怎么寻找Key的</h2><p>KVC是怎么使用的，我相信绝大多数的开发者都很清楚，我在这里就不再写简单的使用KVC来设值和取值的代码了，首先我们来探讨KVC在内部是按什么样的顺序来寻找key的。</p>
+<p>当调用<code>setValue：属性值 forKey：@”name“</code>的代码时，底层的执行机制如下：</p>
+<ul>
+<li><p>程序优先调用<code>set:属性值</code>方法，代码通过setter方法完成设置。<strong>注意，这里的是指成员变量名，首字母大写要符合KVC的全名规则，下同</strong>。</p>
+<ul>
+<li>如果没有找到setName：方法，KVC机制会检查<code>+ (BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认该方法会返回YES；</li>
+<li>返回YES，表示如果没有找到<code>Set&lt;Key&gt;</code>方法的话，会按照<code>_key，_iskey，key，iskey</code>的顺序搜索成员，设置成NO就不这样搜索。</li>
+<li>如果你重写了该方法让其返回NO的话，那么在这一步KVC会执行<code>setValue：forUNdefinedKey：</code>方法，不过一般开发者不会这么做。</li>
+<li>所以KVC机制会搜索该类里面有没有名为<code>_</code>的成员变量，无论该变量是在类接口部分定义，还是在类实现部分定义，也无论用了什么样的访问修饰符，只要存在以<code>_</code>命名的变量，KVC都可以对该成员变量赋值。</li>
+</ul>
+</li>
+<li><p>如果该类即没有<code>set：</code>方法，也没有<code>_</code>成员变量，KVC机制会搜索<code>_is</code>的成员变量；</p>
+</li>
+</ul>
+<ul>
+<li>和上面一样，如果该类即没有<code>set：&lt;Key&gt;</code>方法，也没有<code>_&lt;Key&gt;</code>和<code>_is&lt;Key&gt;</code>成员变量，KVC机制再会继续搜索<code>&lt;Key&gt;</code>和<code>is&lt;Key&gt;</code>的成员变量。再给它们赋值。</li>
+<li>如果上面列出的方法或者成员变量都不存在，系统将会执行该对象的<code>setValue：forUNdefinedKey：</code>方法，默认是抛出异常。</li>
+</ul>
+<p>如果开发者想让这个类禁用KVC里，那么重写<code>+ (BOOL)accessInstanceVariablesDirectly</code>方法让其返回NO即可，这样的话如果KVC没有找到<code>set:</code>属性名时，会直接用<code>setValue：forUNdefinedKey：</code>方法。</p>
+<p><strong>Swift中没有发现accessInstanceVariablesDirectly中顺序搜索成员的特性！！！</strong></p>
+<p>下面我们使用代码来测试一下上述的机制，首先是：</p>
+<h3 id="BOOL-accessInstanceVariablesDirectly"><a href="#BOOL-accessInstanceVariablesDirectly" class="headerlink" title="+ (BOOL)accessInstanceVariablesDirectly"></a>+ (BOOL)accessInstanceVariablesDirectly</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">override</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span> </span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">accessInstanceVariablesDirectly()</div><div class="line">accessInstanceVariablesDirectly()</div><div class="line">name的值无法修改为newName，因为没有找到name这个属性</div></pre></td></tr></table></figure>
+<p>这说明在<code>setValue</code>没有找到对应属性时，都会执行到<code>accessInstanceVariablesDirectly</code>。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> _name: <span class="type">String</span>!</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setName</span><span class="params">(name: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        _name = name</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getName</span><span class="params">()</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> _name</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span> </span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="built_in">print</span>(dog._name)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">setName</div><div class="line">newName</div></pre></td></tr></table></figure>
+<p>说明具有对应的<code>set&lt;Key&gt;</code>方法时，即使不存在这个属性也可以通过编译。</p>
+<h3 id="nullable-id-valueForUndefinedKey-NSString-key"><a href="#nullable-id-valueForUndefinedKey-NSString-key" class="headerlink" title="- (nullable id)valueForUndefinedKey:(NSString *)key;"></a>- (nullable id)valueForUndefinedKey:(NSString *)key;</h3><h3 id="void-setValue-nullable-id-value-forUndefinedKey-NSString-key"><a href="#void-setValue-nullable-id-value-forUndefinedKey-NSString-key" class="headerlink" title="- (void)setValue:(nullable id)value forUndefinedKey:(NSString *)key;"></a>- (void)setValue:(nullable id)value forUndefinedKey:(NSString *)key;</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="keyword">let</span> dogName = dog.valueForKey(<span class="string">"toSetName"</span>)</div><div class="line"><span class="built_in">print</span>(dogName)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">name的值无法修改为newName，因为没有找到name这个属性</div><div class="line">toSetName的值无法取出，因为没有找到toSetName这个属性</div><div class="line"><span class="literal">nil</span></div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="comment">//var toSetName: String!</span></div><div class="line">    <span class="comment">//var name: String!</span></div><div class="line">    </div><div class="line">    <span class="keyword">var</span> isName: <span class="type">String</span>!</div><div class="line">    <span class="keyword">var</span> _name: <span class="type">String</span>!</div><div class="line">    <span class="keyword">var</span> _isName: <span class="type">String</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"good boy"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="keyword">let</span> dogName = dog.valueForKey(<span class="string">"toSetName"</span>)</div><div class="line"><span class="built_in">print</span>(dogName)</div></pre></td></tr></table></figure>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.jianshu.com/p/45cbd324ea65" target="_blank" rel="external">iOS开发技巧系列—详解KVC(我告诉你KVC的一切)</a> - 黑暗中的孤影</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;KVC（Key-value coding）键值编码，单看这个名字可能不太好理解。其实翻译一下就很简单了，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。&lt;/p&gt;
+&lt;p&gt;KVC不需要调用明确的Get和Set方
+    
+    </summary>
+    
+    
+  </entry>
+  
+  <entry>
+    <title>iOS Socket通讯 - Socket编程头文件</title>
+    <link href="http://yoursite.com/2016/09/18/iOS%E9%80%9A%E8%AE%AF%20-%20Socket%E9%80%9A%E8%AE%AF%E5%A4%B4%E6%96%87%E4%BB%B6/"/>
+    <id>http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/</id>
+    <published>2016-09-17T18:24:00.000Z</published>
+    <updated>2016-09-18T07:39:16.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>建议：在编写网络程序时，可以直接使用下面这段头文件代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">include &lt;unistd.h&gt;</div><div class="line">include &lt;sys/types.h&gt;</div><div class="line">include &lt;sys/socket.h&gt;</div><div class="line">include &lt;netdb.h&gt;</div><div class="line">include &lt;stdio.h&gt;</div><div class="line">include &lt;stdlib.h&gt;</div><div class="line">include &lt;string.h&gt;</div><div class="line">include &lt;ctype.h&gt;</div><div class="line">include &lt;errno.h&gt;</div><div class="line">include &lt;malloc.h&gt;</div><div class="line">include &lt;netinet/in.h&gt;</div><div class="line">include &lt;arpa/inet.h&gt;</div><div class="line">include &lt;sys/ioctl.h&gt;</div><div class="line">include &lt;stdarg.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div></pre></td></tr></table></figure>
+   <a id="more"></a>
+<p>在Socket编程中需要用到的头文件比较多，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sys/types.h：数据类型定义</div><div class="line">sys/socket.h：提供socket函数及数据结构</div><div class="line">netinet/in.h：定义数据结构sockaddr_in</div><div class="line">arpa/inet.h：提供IP地址转换函数</div><div class="line">netdb.h：提供设置及获取域名的函数</div><div class="line">sys/ioctl.h：提供对I/O控制的函数</div><div class="line">sys/poll.h：提供socket等待测试机制的函数</div></pre></td></tr></table></figure>
+<p>其他在网络程序中常见的头文件</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">unistd.h：提供通用的文件、目录、程序及进程操作的函数</div><div class="line">errno.h：提供错误号errno的定义，用于错误处理</div><div class="line">fcntl.h：提供对文件控制的函数</div><div class="line">time.h：提供有关时间的函数</div><div class="line">crypt.h：提供使用DES加密算法的加密函数</div><div class="line">pwd.h：提供对/etc/passwd文件访问的函数</div><div class="line">shadow.h：提供对/etc/shadow文件访问的函数</div><div class="line">pthread.h：提供多线程操作的函数</div><div class="line">signal.h：提供对信号操作的函数</div><div class="line">sys/wait.h、sys/ipc.h、sys/shm.h：提供进程等待、进程间通讯（IPC）及共享内存的函数</div></pre></td></tr></table></figure>
+<p>涉及到用户权限及密码验证问题时加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">include &lt;shadow.h&gt;</div><div class="line">include &lt;crypt.h&gt;</div><div class="line">include &lt;pwd.h&gt;</div></pre></td></tr></table></figure>
+<p>需要注意的是，应该在编译时链接加密算法库，即增加编译选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lcrypt</div></pre></td></tr></table></figure>
+<p>涉及到文件及时间操作加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/time.h&gt;</div><div class="line">include &lt;utime.h&gt;</div><div class="line">include &lt;time.h&gt;</div><div class="line">include &lt;sys/stat.h&gt;</div><div class="line">include &lt;sys/file.h&gt;</div></pre></td></tr></table></figure>
+<p>涉及到多进程操作时加入如下语句：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/wait.h&gt;</div><div class="line">include &lt;sys/ipc.h&gt;</div><div class="line">include &lt;sys/shm.h&gt;</div><div class="line">include &lt;signal.h&gt;</div><div class="line">include &lt;pthread.h&gt;</div><div class="line">include &lt;sys/poll.h&gt;</div></pre></td></tr></table></figure>
+<p>需要注意的是，应该在编译时链接线程库，即增加编译选项：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lthread</div></pre></td></tr></table></figure>
+<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="http://staff.ustc.edu.cn/~mengning/np/linux_socket/new_page_4.htm" target="_blank" rel="external">Socket编程中需要用到的头文件</a> - 中国科大教工FTP</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;建议：在编写网络程序时，可以直接使用下面这段头文件代码：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;unistd.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/types.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/socket.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;netdb.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdio.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdlib.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;string.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;ctype.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;errno.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;malloc.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;netinet/in.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;arpa/inet.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/ioctl.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdarg.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;fcntl.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;fcntl.h&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="网络通讯" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
+    
+    
+      <category term="网络通讯" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
+    
+      <category term="Socket通讯" scheme="http://yoursite.com/tags/Socket%E9%80%9A%E8%AE%AF/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS Socket通讯 - Socket C/S实例</title>
@@ -92,49 +195,6 @@
 &lt;li&gt;点击联系人列表，用户和服务器进行对话；&lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;下面开始进入正题：&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="网络通讯" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
-    
-    
-      <category term="网络通讯" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
-    
-      <category term="Socket通讯" scheme="http://yoursite.com/tags/Socket%E9%80%9A%E8%AE%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS Socket通讯 - Socket编程头文件</title>
-    <link href="http://yoursite.com/2016/09/18/iOS%E9%80%9A%E8%AE%AF%20-%20Socket%E9%80%9A%E8%AE%AF%E5%A4%B4%E6%96%87%E4%BB%B6/"/>
-    <id>http://yoursite.com/2016/09/18/iOS通讯 - Socket通讯头文件/</id>
-    <published>2016-09-17T18:24:00.000Z</published>
-    <updated>2016-09-18T07:39:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>建议：在编写网络程序时，可以直接使用下面这段头文件代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">include &lt;unistd.h&gt;</div><div class="line">include &lt;sys/types.h&gt;</div><div class="line">include &lt;sys/socket.h&gt;</div><div class="line">include &lt;netdb.h&gt;</div><div class="line">include &lt;stdio.h&gt;</div><div class="line">include &lt;stdlib.h&gt;</div><div class="line">include &lt;string.h&gt;</div><div class="line">include &lt;ctype.h&gt;</div><div class="line">include &lt;errno.h&gt;</div><div class="line">include &lt;malloc.h&gt;</div><div class="line">include &lt;netinet/in.h&gt;</div><div class="line">include &lt;arpa/inet.h&gt;</div><div class="line">include &lt;sys/ioctl.h&gt;</div><div class="line">include &lt;stdarg.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div></pre></td></tr></table></figure>
-   <a id="more"></a>
-<p>在Socket编程中需要用到的头文件比较多，如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">sys/types.h：数据类型定义</div><div class="line">sys/socket.h：提供socket函数及数据结构</div><div class="line">netinet/in.h：定义数据结构sockaddr_in</div><div class="line">arpa/inet.h：提供IP地址转换函数</div><div class="line">netdb.h：提供设置及获取域名的函数</div><div class="line">sys/ioctl.h：提供对I/O控制的函数</div><div class="line">sys/poll.h：提供socket等待测试机制的函数</div></pre></td></tr></table></figure>
-<p>其他在网络程序中常见的头文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">unistd.h：提供通用的文件、目录、程序及进程操作的函数</div><div class="line">errno.h：提供错误号errno的定义，用于错误处理</div><div class="line">fcntl.h：提供对文件控制的函数</div><div class="line">time.h：提供有关时间的函数</div><div class="line">crypt.h：提供使用DES加密算法的加密函数</div><div class="line">pwd.h：提供对/etc/passwd文件访问的函数</div><div class="line">shadow.h：提供对/etc/shadow文件访问的函数</div><div class="line">pthread.h：提供多线程操作的函数</div><div class="line">signal.h：提供对信号操作的函数</div><div class="line">sys/wait.h、sys/ipc.h、sys/shm.h：提供进程等待、进程间通讯（IPC）及共享内存的函数</div></pre></td></tr></table></figure>
-<p>涉及到用户权限及密码验证问题时加入如下语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">include &lt;shadow.h&gt;</div><div class="line">include &lt;crypt.h&gt;</div><div class="line">include &lt;pwd.h&gt;</div></pre></td></tr></table></figure>
-<p>需要注意的是，应该在编译时链接加密算法库，即增加编译选项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lcrypt</div></pre></td></tr></table></figure>
-<p>涉及到文件及时间操作加入如下语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/time.h&gt;</div><div class="line">include &lt;utime.h&gt;</div><div class="line">include &lt;time.h&gt;</div><div class="line">include &lt;sys/stat.h&gt;</div><div class="line">include &lt;sys/file.h&gt;</div></pre></td></tr></table></figure>
-<p>涉及到多进程操作时加入如下语句：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">include &lt;sys/wait.h&gt;</div><div class="line">include &lt;sys/ipc.h&gt;</div><div class="line">include &lt;sys/shm.h&gt;</div><div class="line">include &lt;signal.h&gt;</div><div class="line">include &lt;pthread.h&gt;</div><div class="line">include &lt;sys/poll.h&gt;</div></pre></td></tr></table></figure>
-<p>需要注意的是，应该在编译时链接线程库，即增加编译选项：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">-lthread</div></pre></td></tr></table></figure>
-<h2 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h2><p><a href="http://staff.ustc.edu.cn/~mengning/np/linux_socket/new_page_4.htm" target="_blank" rel="external">Socket编程中需要用到的头文件</a> - 中国科大教工FTP</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;建议：在编写网络程序时，可以直接使用下面这段头文件代码：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;unistd.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/types.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/socket.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;netdb.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdio.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdlib.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;string.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;ctype.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;errno.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;malloc.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;netinet/in.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;arpa/inet.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;sys/ioctl.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;stdarg.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;fcntl.h&amp;gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;include &amp;lt;fcntl.h&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
@@ -3251,237 +3311,6 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 &lt;li&gt;数值：一系列0-9的数字组合，可以为负数或者小数。还可以用“e”或者“E”表示为指数形式。&lt;/li&gt;
 &lt;li&gt;布尔值：表示为true或者false。&lt;/li&gt;
 &lt;/ul&gt;
-    
-    </summary>
-    
-      <category term="PHP" scheme="http://yoursite.com/categories/PHP/"/>
-    
-    
-      <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>PHP入门 - 时间和日期</title>
-    <link href="http://yoursite.com/2016/08/12/PHP-%E6%97%B6%E9%97%B4%E5%92%8C%E6%97%A5%E6%9C%9F/"/>
-    <id>http://yoursite.com/2016/08/12/PHP-时间和日期/</id>
-    <published>2016-08-11T20:43:00.000Z</published>
-    <updated>2016-08-24T04:43:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>时间戳主要应用于SQL数据库当中，通过时间戳可以判断数据有没有进行过更新，如果是密钥文件可以在客户端判断密钥有没有过期，可以使用时间戳作为文件或程序的版本号。</p>
-<p>使用 <code>time()</code> 即可方便的获得当前的时间，它是从1970年开始计算的毫秒数，因此时间戳转换成当前日期要进行计算。</p>
-<p>时间戳也可以转换成当前时间：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo date(&apos;Y - m - d  A  h:i:s &apos;,time()).&apos;&lt;br&gt;&apos;;</div></pre></td></tr></table></figure>
-<p>时间戳也可以从指定的时间开始计算：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo date(&apos;Y - m - d  A  h:i:s &apos;,&apos;10000&apos;).&apos;&lt;br&gt;&apos;;</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>如果没有指定时区，当前时间可能会与客户端不同，因此需要指定时区：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo date_default_timezone_set(&apos;Asia/Hong_Kong&apos;);</div></pre></td></tr></table></figure>
-<p>通过下面的方法获得当前使用的时区：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">echo date_default_timezone_get().&apos;&lt;br&gt;&apos;;</div></pre></td></tr></table></figure>
-<p>时区的写入需要传输时区的id，点此进入<a href="http://php.net/manual/zh/timezones.asia.php" target="_blank" rel="external">时区id表</a>。</p>
-<p><code>date()</code> 不需要传入指定起始时间也可以获取当前时间，根据传入格式的不同， <code>data()</code> 返回的时间格式也不同，它的传入值如下：</p>
-<table>
-<thead>
-<tr>
-<th>日</th>
-<th>含义</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>d</em></td>
-<td>月份中的第几天</td>
-<td><em>01</em> 到 <em>31</em></td>
-</tr>
-<tr>
-<td><em>D</em></td>
-<td>星期中的第几天</td>
-<td><em>Mon</em> 到 <em>Sun</em></td>
-</tr>
-<tr>
-<td><em>j</em></td>
-<td>月份中的第几天</td>
-<td><em>1</em> 到 <em>31</em></td>
-</tr>
-<tr>
-<td><em>l</em></td>
-<td>星期中的第几天</td>
-<td><em>Sunday</em> 到 <em>Saturday</em></td>
-</tr>
-<tr>
-<td><em>N</em></td>
-<td>星期中的第几天（PHP 5.1 新增 ）</td>
-<td><em>1</em>（表示星期一）到 <em>7</em>（表示星期天）</td>
-</tr>
-<tr>
-<td><em>S</em></td>
-<td>每月天数后面的英文后缀</td>
-<td><em>st</em>，<em>nd</em>，<em>rd</em> 或者 <em>th</em>  可以和 <em>j</em> 一起用</td>
-</tr>
-<tr>
-<td><em>w</em></td>
-<td>星期中的第几天</td>
-<td><em>0</em>（表示星期天）到 <em>6</em>（表示星期六）</td>
-</tr>
-<tr>
-<td><em>z</em></td>
-<td>年份中的第几天</td>
-<td><em>0</em> 到 <em>366</em></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>星期</th>
-<th>含义</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>W</em></td>
-<td>年份中的第几周，每周从星期一开始（PHP 4.1 新增）</td>
-<td>例如：<em>42</em>（当年的第 42 周）</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>月</th>
-<th>含义</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>F</em></td>
-<td>完整的英文</td>
-<td><em>January</em> 到 <em>December</em></td>
-</tr>
-<tr>
-<td><em>m</em></td>
-<td>数字表示的月份</td>
-<td><em>01</em> 到 <em>12</em></td>
-</tr>
-<tr>
-<td><em>M</em></td>
-<td>三个字母缩写表示的月份</td>
-<td><em>Jan</em> 到 <em>Dec</em></td>
-</tr>
-<tr>
-<td><em>n</em></td>
-<td>数字表示的月份</td>
-<td><em>1</em> 到 <em>12</em></td>
-</tr>
-<tr>
-<td><em>t</em></td>
-<td>给定月份所应有的天数</td>
-<td><em>28</em> 到 <em>31</em></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>年</th>
-<th>含义</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>L</em></td>
-<td>是否为闰年  如果是闰年为 <em>1</em>  否则为 <em>0</em></td>
-<td><em>1</em> 或 <em>0</em></td>
-</tr>
-<tr>
-<td><em>o</em></td>
-<td>和 <em>Y</em> 的值相同  但按星期数（<em>W</em>）确定是哪一年（PHP 5.1 新增）</td>
-<td><em>1999</em></td>
-</tr>
-<tr>
-<td><em>Y</em></td>
-<td>4 位数字完整表示的年份</td>
-<td><em>1999</em></td>
-</tr>
-<tr>
-<td><em>y</em></td>
-<td>2 位数字表示的年份</td>
-<td><em>99</em></td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>时间</th>
-<th>含义</th>
-<th>返回值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>a</em></td>
-<td>小写的上午和下午值</td>
-<td><em>am</em> 或 <em>pm</em></td>
-</tr>
-<tr>
-<td><em>A</em></td>
-<td>大写的上午和下午值</td>
-<td><em>AM</em> 或 <em>PM</em></td>
-</tr>
-<tr>
-<td><em>B</em></td>
-<td>Swatch Internet 标准时</td>
-<td><em>000</em> 到 <em>999</em></td>
-</tr>
-<tr>
-<td><em>g</em></td>
-<td>小时  12 小时格式  没有前导零</td>
-<td><em>1</em> 到 <em>12</em></td>
-</tr>
-<tr>
-<td><em>G</em></td>
-<td>小时  24 小时格式  没有前导零</td>
-<td><em>0</em> 到 <em>23</em></td>
-</tr>
-<tr>
-<td><em>h</em></td>
-<td>小时  12 小时格式  有前导零</td>
-<td><em>01</em> 到 <em>12</em></td>
-</tr>
-<tr>
-<td><em>H</em></td>
-<td>小时  24 小时格式  有前导零</td>
-<td><em>00</em> 到 <em>23</em></td>
-</tr>
-<tr>
-<td><em>i</em></td>
-<td>有前导零的分钟数</td>
-<td><em>00</em> 到 <em>59</em>&gt;</td>
-</tr>
-<tr>
-<td><em>s</em></td>
-<td>秒数  有前导零</td>
-<td><em>00</em> 到 <em>59</em>&gt;</td>
-</tr>
-</tbody>
-</table>
-<p>​</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;时间戳主要应用于SQL数据库当中，通过时间戳可以判断数据有没有进行过更新，如果是密钥文件可以在客户端判断密钥有没有过期，可以使用时间戳作为文件或程序的版本号。&lt;/p&gt;
-&lt;p&gt;使用 &lt;code&gt;time()&lt;/code&gt; 即可方便的获得当前的时间，它是从1970年开始计算的毫秒数，因此时间戳转换成当前日期要进行计算。&lt;/p&gt;
-&lt;p&gt;时间戳也可以转换成当前时间：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;echo date(&amp;apos;Y - m - d  A  h:i:s &amp;apos;,time()).&amp;apos;&amp;lt;br&amp;gt;&amp;apos;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;时间戳也可以从指定的时间开始计算：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;echo date(&amp;apos;Y - m - d  A  h:i:s &amp;apos;,&amp;apos;10000&amp;apos;).&amp;apos;&amp;lt;br&amp;gt;&amp;apos;;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
     
     </summary>
     
