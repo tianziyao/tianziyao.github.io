@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/19/iOS模型 - KVC/" itemprop="url">
-                  未命名
+                <a class="post-title-link" href="/2016/09/18/iOS通讯 - Socket CS实例/" itemprop="url">
+                  iOS Socket通讯 - Socket C/S实例
                 </a>
               
             
@@ -292,19 +292,38 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-19T11:14:55+08:00" content="2016-09-19">
-              2016-09-19
+            <time itemprop="dateCreated" datetime="2016-09-18T02:24:00+08:00" content="2016-09-18">
+              2016-09-18
             </time>
           </span>
 
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
+                    <span itemprop="name">网络通讯</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
           
 
           
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/19/iOS模型 - KVC/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/19/iOS模型 - KVC/" itemprop="commentsCount"></span>
+                <a href="/2016/09/18/iOS通讯 - Socket CS实例/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/iOS通讯 - Socket CS实例/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -328,49 +347,27 @@
 
       
         
-          
-            <blockquote>
-<p>KVC（Key-value coding）键值编码，单看这个名字可能不太好理解。其实翻译一下就很简单了，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。</p>
-<p>KVC不需要调用明确的Get和Set方法。这样就可以在运行时动态在访问和修改对象的属性。而不是在编译时确定，这也是iOS开发中的黑魔法之一。</p>
-</blockquote>
-<p>无论是Swift还是Objective-C，KVC的定义都是对NSObject的扩展来实现的，Objective-c中有个显式的<code>NSKeyValueCoding</code>类别名，而Swift没有，也不需要。</p>
-<p>对于所有继承了NSObject在类型，都能使用KVC。一些纯Swift类和结构体是不支持KVC的。</p>
-<p>下面是KVC最为重要的四个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>?					<span class="comment">//获取键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKey key: String)</span></span>			<span class="comment">//设置键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKeyPath</span><span class="params">(keyPath: String)</span></span> -&gt; <span class="type">AnyObject</span>?			<span class="comment">//获取具有路径的键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKeyPath keyPath: String)</span></span>	<span class="comment">//设置具有路径的键的值</span></div></pre></td></tr></table></figure>
-<p>当然NSKeyValueCoding类别中还有其他的一些方法，下面列举一些：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span></span></div><div class="line">//默认返回<span class="title">YES</span>，表示如果没有找到<span class="title">Set</span>&lt;<span class="title">Key</span>&gt;方法的话，会按照<span class="title">_key</span>，<span class="title">_iskey</span>，<span class="title">key</span>，<span class="title">iskey</span>的顺序搜索成员，设置成<span class="title">NO</span>就不这样搜索。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">validateValue</span>(<span class="title">ioValue</span>: <span class="title">AutoreleasingUnsafeMutablePointer</span>&lt;<span class="title">AnyObject</span>?&gt;, <span class="title">forKey</span> <span class="title">inKey</span>: <span class="title">String</span>) <span class="title">throws</span></div><div class="line">//<span class="title">KVC</span>提供属性值确认的<span class="title">API</span>，它可以用来检查<span class="title">Set</span>的值是否正确、为不正确的值做一个替换值或者拒绝设置新值并返回错误原因。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">mutableArrayValueForKey</span>(<span class="title">key</span>: <span class="title">String</span>) -&gt; <span class="title">NSMutableArray</span></div><div class="line">//这是集合操作的<span class="title">API</span>，里面还有一系列这样的<span class="title">API</span>，如果属性是一个<span class="title">NSMutableArray</span>，那么可以用这个方法来返回。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">valueForUndefinedKey</span>(<span class="title">key</span>: <span class="title">String</span>) -&gt; <span class="title">AnyObject</span>?</div><div class="line">//如果<span class="title">Key</span>不存在，且没有<span class="title">KVC</span>无法搜索到任何和<span class="title">Key</span>有关的字段或者属性，则会调用这个方法，默认是抛出异常。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setValue</span>(<span class="title">value</span>: <span class="title">AnyObject</span>?, <span class="title">forUndefinedKey</span> <span class="title">key</span>: <span class="title">String</span>)</div><div class="line">//和上一个方法一样，只不过是设值。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setNilValueForKey</span>(<span class="title">key</span>: <span class="title">String</span>)</div><div class="line">//如果你在<span class="title">SetValue</span>方法时将<span class="title">Value</span>传<span class="title">nil</span>，则会调用这个方法。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">dictionaryWithValuesForKeys</span>(<span class="title">keys</span>: [<span class="title">String</span>]) -&gt; [<span class="title">String</span> : <span class="title">AnyObject</span>]</div><div class="line">//输入一组<span class="title">key</span>,返回该组<span class="title">key</span>对应的<span class="title">Value</span>，再转成字典返回，用于将<span class="title">Model</span>转到字典。</div><div class="line"><span class="title">public</span> <span class="title">func</span> <span class="title">setValuesForKeysWithDictionary</span>(<span class="title">keyedValues</span>: [<span class="title">String</span> : <span class="title">AnyObject</span>])</div></pre></td></tr></table></figure>
-<p>上面的这些方法在碰到特殊情况或者有特殊需求还是会用到的，所以也是可以了解一下。后面的代码示例会有讲到其中的一些方法。</p>
-<p>同时苹果对一些容器类比如NSArray或者NSSet等，KVC有着特殊的实现。建议有基础的或者英文好的开发者直接去看苹果的官方文档，相信你会对KVC的理解更上一个台阶。</p>
-<h2 id="KVC是怎么寻找Key的"><a href="#KVC是怎么寻找Key的" class="headerlink" title="KVC是怎么寻找Key的"></a>KVC是怎么寻找Key的</h2><p>KVC是怎么使用的，我相信绝大多数的开发者都很清楚，我在这里就不再写简单的使用KVC来设值和取值的代码了，首先我们来探讨KVC在内部是按什么样的顺序来寻找key的。</p>
-<p>当调用<code>setValue：属性值 forKey：@”name“</code>的代码时，底层的执行机制如下：</p>
+          <p>iOS提供的Socket网络编程的接口有CFSocket，BSD Socket，比较著名的第三方库是AsyncSocket。</p>
 <ul>
-<li><p>程序优先调用<code>set:属性值</code>方法，代码通过setter方法完成设置。<strong>注意，这里的是指成员变量名，首字母大写要符合KVC的全名规则，下同</strong>。</p>
-<ul>
-<li>如果没有找到setName：方法，KVC机制会检查<code>+ (BOOL)accessInstanceVariablesDirectly</code>方法有没有返回YES，默认该方法会返回YES；</li>
-<li>返回YES，表示如果没有找到<code>Set&lt;Key&gt;</code>方法的话，会按照<code>_key，_iskey，key，iskey</code>的顺序搜索成员，设置成NO就不这样搜索。</li>
-<li>如果你重写了该方法让其返回NO的话，那么在这一步KVC会执行<code>setValue：forUNdefinedKey：</code>方法，不过一般开发者不会这么做。</li>
-<li>所以KVC机制会搜索该类里面有没有名为<code>_</code>的成员变量，无论该变量是在类接口部分定义，还是在类实现部分定义，也无论用了什么样的访问修饰符，只要存在以<code>_</code>命名的变量，KVC都可以对该成员变量赋值。</li>
+<li><strong>BSD Socket</strong> 是UNIX系统中通用的网络接口，它不仅支持各种不同的网络类型，而且也是一种内部进程之间的通信机制。而iOS系统其实本质就是UNIX，所以可以用，但是比较复杂。</li>
+<li><strong>CFSocket</strong> 是苹果提供给我们的使用Socket的方式。</li>
+<li><strong>AsyncSocket</strong> 是一个应用比较广泛的开源库。</li>
 </ul>
-</li>
-<li><p>如果该类即没有<code>set：</code>方法，也没有<code>_</code>成员变量，KVC机制会搜索<code>_is</code>的成员变量；</p>
-</li>
-</ul>
-<ul>
-<li>和上面一样，如果该类即没有<code>set：&lt;Key&gt;</code>方法，也没有<code>_&lt;Key&gt;</code>和<code>_is&lt;Key&gt;</code>成员变量，KVC机制再会继续搜索<code>&lt;Key&gt;</code>和<code>is&lt;Key&gt;</code>的成员变量。再给它们赋值。</li>
-<li>如果上面列出的方法或者成员变量都不存在，系统将会执行该对象的<code>setValue：forUNdefinedKey：</code>方法，默认是抛出异常。</li>
-</ul>
-<p>如果开发者想让这个类禁用KVC里，那么重写<code>+ (BOOL)accessInstanceVariablesDirectly</code>方法让其返回NO即可，这样的话如果KVC没有找到<code>set:</code>属性名时，会直接用<code>setValue：forUNdefinedKey：</code>方法。</p>
-<p><strong>Swift中没有发现accessInstanceVariablesDirectly中顺序搜索成员的特性！！！</strong></p>
-<p>下面我们使用代码来测试一下上述的机制，首先是：</p>
-<h3 id="BOOL-accessInstanceVariablesDirectly"><a href="#BOOL-accessInstanceVariablesDirectly" class="headerlink" title="+ (BOOL)accessInstanceVariablesDirectly"></a>+ (BOOL)accessInstanceVariablesDirectly</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    <span class="keyword">override</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span> </span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">accessInstanceVariablesDirectly()</div><div class="line">accessInstanceVariablesDirectly()</div><div class="line">name的值无法修改为newName，因为没有找到name这个属性</div></pre></td></tr></table></figure>
-<p>这说明在<code>setValue</code>没有找到对应属性时，都会执行到<code>accessInstanceVariablesDirectly</code>。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> _name: <span class="type">String</span>!</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setName</span><span class="params">(name: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        _name = name</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">getName</span><span class="params">()</span></span> -&gt; <span class="type">String</span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> _name</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">accessInstanceVariablesDirectly</span>() -&gt; <span class="title">Bool</span> </span>&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(#function)</span>"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="built_in">print</span>(dog._name)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">setName</div><div class="line">newName</div></pre></td></tr></table></figure>
-<p>说明具有对应的<code>set&lt;Key&gt;</code>方法时，即使不存在这个属性也可以通过编译。</p>
-<h3 id="nullable-id-valueForUndefinedKey-NSString-key"><a href="#nullable-id-valueForUndefinedKey-NSString-key" class="headerlink" title="- (nullable id)valueForUndefinedKey:(NSString *)key;"></a>- (nullable id)valueForUndefinedKey:(NSString *)key;</h3><h3 id="void-setValue-nullable-id-value-forUndefinedKey-NSString-key"><a href="#void-setValue-nullable-id-value-forUndefinedKey-NSString-key" class="headerlink" title="- (void)setValue:(nullable id)value forUndefinedKey:(NSString *)key;"></a>- (void)setValue:(nullable id)value forUndefinedKey:(NSString *)key;</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"newName"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="keyword">let</span> dogName = dog.valueForKey(<span class="string">"toSetName"</span>)</div><div class="line"><span class="built_in">print</span>(dogName)</div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">name的值无法修改为newName，因为没有找到name这个属性</div><div class="line">toSetName的值无法取出，因为没有找到toSetName这个属性</div><div class="line"><span class="literal">nil</span></div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="comment">//var toSetName: String!</span></div><div class="line">    <span class="comment">//var name: String!</span></div><div class="line">    </div><div class="line">    <span class="keyword">var</span> isName: <span class="type">String</span>!</div><div class="line">    <span class="keyword">var</span> _name: <span class="type">String</span>!</div><div class="line">    <span class="keyword">var</span> _isName: <span class="type">String</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法取出，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"<span class="subst">\(key)</span>的值无法修改为<span class="subst">\(value!)</span>，因为没有找到<span class="subst">\(key)</span>这个属性"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> dog = <span class="type">Dog</span>()</div><div class="line">dog.setValue(<span class="string">"good boy"</span>, forKey: <span class="string">"name"</span>)</div><div class="line"><span class="keyword">let</span> dogName = dog.valueForKey(<span class="string">"toSetName"</span>)</div><div class="line"><span class="built_in">print</span>(dogName)</div></pre></td></tr></table></figure>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://www.jianshu.com/p/45cbd324ea65" target="_blank" rel="external">iOS开发技巧系列—详解KVC(我告诉你KVC的一切)</a> - 黑暗中的孤影</p>
-
-          
+<p>下面我们用代码来演示如何使用AsyncSocket来创建一个服务器和客户端。</p>
+<p>AsyncSocket全名是<strong>CocoaAsyncSocket</strong>，它的GitHub地址<a href="https://github.com/robbiehanson/CocoaAsyncSocket">点此访问</a>。AsyncSocket使用CocoaPods安装和拖放安装有所不同。CocoaPods上的版本只有GCDAsyncSocket，GItHub上多了RunloopAsyncSocket，而后者现在已经弃用，建议直接使用CocoaPods安装。</p>
+<p><strong>缺点是<code>onsocketWillDisconnect</code>这个代理方法在GCD的版本里暂时没有，也没有找到替代方法。</strong></p>
+<p>下面开始使用AsyncSocket编写服务器端的程序，首先说一下要实现的目的：</p>
+<ol>
+<li>用户输入昵称，将昵称发送给服务器，服务器返回在线名单；</li>
+<li>客户端收到在线名单，利用在线名单生成联系人列表；</li>
+<li>点击联系人列表，用户和服务器进行对话；</li>
+</ol>
+<p>下面开始进入正题：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/18/iOS通讯 - Socket CS实例/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -541,8 +538,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/18/iOS通讯 - Socket CS实例/" itemprop="url">
-                  iOS Socket通讯 - Socket C/S实例
+                <a class="post-title-link" href="/2016/09/15/Xcode错误 - Expected a type /" itemprop="url">
+                  Xcode错误 - Expected a type
                 </a>
               
             
@@ -555,8 +552,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-18T02:24:00+08:00" content="2016-09-18">
-              2016-09-18
+            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
+              2016-09-15
             </time>
           </span>
 
@@ -569,8 +566,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通讯</span>
+                  <a href="/categories/Xocde错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xocde错误</span>
                   </a>
                 </span>
 
@@ -585,8 +582,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/18/iOS通讯 - Socket CS实例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/iOS通讯 - Socket CS实例/" itemprop="commentsCount"></span>
+                <a href="/2016/09/15/Xcode错误 - Expected a type /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/Xcode错误 - Expected a type /" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -610,27 +607,12 @@
 
       
         
-          <p>iOS提供的Socket网络编程的接口有CFSocket，BSD Socket，比较著名的第三方库是AsyncSocket。</p>
-<ul>
-<li><strong>BSD Socket</strong> 是UNIX系统中通用的网络接口，它不仅支持各种不同的网络类型，而且也是一种内部进程之间的通信机制。而iOS系统其实本质就是UNIX，所以可以用，但是比较复杂。</li>
-<li><strong>CFSocket</strong> 是苹果提供给我们的使用Socket的方式。</li>
-<li><strong>AsyncSocket</strong> 是一个应用比较广泛的开源库。</li>
-</ul>
-<p>下面我们用代码来演示如何使用AsyncSocket来创建一个服务器和客户端。</p>
-<p>AsyncSocket全名是<strong>CocoaAsyncSocket</strong>，它的GitHub地址<a href="https://github.com/robbiehanson/CocoaAsyncSocket">点此访问</a>。AsyncSocket使用CocoaPods安装和拖放安装有所不同。CocoaPods上的版本只有GCDAsyncSocket，GItHub上多了RunloopAsyncSocket，而后者现在已经弃用，建议直接使用CocoaPods安装。</p>
-<p><strong>缺点是<code>onsocketWillDisconnect</code>这个代理方法在GCD的版本里暂时没有，也没有找到替代方法。</strong></p>
-<p>下面开始使用AsyncSocket编写服务器端的程序，首先说一下要实现的目的：</p>
-<ol>
-<li>用户输入昵称，将昵称发送给服务器，服务器返回在线名单；</li>
-<li>客户端收到在线名单，利用在线名单生成联系人列表；</li>
-<li>点击联系人列表，用户和服务器进行对话；</li>
-</ol>
-<p>下面开始进入正题：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/18/iOS通讯 - Socket CS实例/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
+          
+            <p>需要自己手动导入库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
+<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
+
+          
         
       
     </div>
@@ -814,128 +796,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/15/Xcode错误 - Expected a type /" itemprop="url">
-                  Xcode错误 - Expected a type
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
-              2016-09-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xocde错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xocde错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/15/Xcode错误 - Expected a type /#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/Xcode错误 - Expected a type /" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>需要自己手动导入库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
-<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" itemprop="url">
                   网络通讯结构 - OSI&TCP/IP
                 </a>
@@ -1010,131 +870,6 @@
 <p>在学习Socket通讯之前，首先需要了解<strong>网络通讯结构、TCP和UPD</strong>，以下是这这两个知识点的简要介绍。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
-                  微信开发 - access_token
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
-<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
-<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
-<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1318,8 +1053,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 快速入门/" itemprop="url">
-                  微信开发 - 快速入门
+                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
+                  微信开发 - access_token
                 </a>
               
             
@@ -1332,8 +1067,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
             </time>
           </span>
 
@@ -1362,8 +1097,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
+                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1387,15 +1122,12 @@
 
       
         
-          <blockquote>
-<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
-</blockquote>
-<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
-<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
-<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
-<p>下面进入正题！</p>
+          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 快速入门/#more" rel="contents">
+            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1548,6 +1280,256 @@
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/02/微信开发 - 快速入门/" itemprop="url">
+                  微信开发 - 快速入门
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
+              2016-09-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
+</blockquote>
+<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
+<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
+<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
+<p>下面进入正题！</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/02/微信开发 - 快速入门/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="url">
+                  iOS网络编程 - NSURLConnection
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-25T18:16:00+08:00" content="2016-08-25">
+              2016-08-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/25/iOS网络编程 - NSURLConnection/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/25/iOS网络编程 - NSURLConnection/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><img src="http://pic.58pic.com/58pic/15/60/34/15Q58PICAS4_1024.png" alt=""></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/25/iOS网络编程 - NSURLConnection/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
@@ -1610,7 +1592,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">63</span>
+                <span class="site-state-item-count">64</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
