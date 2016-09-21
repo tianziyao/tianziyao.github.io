@@ -122,7 +122,7 @@
 
 因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，
 对于setValue:forKey: ，在setter存在的情况，KVC 会直接发">
-<meta property="og:updated_time" content="2016-09-21T09:21:45.000Z">
+<meta property="og:updated_time" content="2016-09-21T09:27:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS设计模式 - KVC内部机制&使用场景">
 <meta name="twitter:description" content="前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。
@@ -383,9 +383,9 @@
 <blockquote>
 <p><code>validateValue: forKey:</code></p>
 </blockquote>
-<p>这个方法来验证，那么KVC就会直接调用这个方法来返回。需要注意的是即使重写了该方法，如果我们没有主动进行调用，KVC也不会主动去做验证，所以这个方法需要手动调用。</p>
-<h2 id="KVC的应用场景"><a href="#KVC的应用场景" class="headerlink" title="KVC的应用场景"></a>KVC的应用场景</h2><p>作为iOS平台的知名黑魔法，KVC有很多奇特的作用，KVC在iOS开发中是绝不可少的利器，这种基于运行时的编程方式极大地提高了灵活性，简化了代码，它的常见左右有以下几点：</p>
-<h2 id="动态的存值和取值"><a href="#动态的存值和取值" class="headerlink" title="动态的存值和取值"></a>动态的存值和取值</h2><p>🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃🙃</p>
+<p>这个方法来验证，那么KVC就会直接调用这个方法来返回。<strong>需要注意的是即使重写了该方法，如果我们没有主动进行调用，KVC也不会主动去做验证，所以这个方法需要手动调用。</strong></p>
+<h2 id="KVC的应用场景"><a href="#KVC的应用场景" class="headerlink" title="KVC的应用场景"></a>KVC的应用场景</h2><p>作为iOS平台的知名黑魔法，KVC有很多奇特的作用，KVC在iOS开发中是绝不可少的利器，这种基于运行时的编程方式极大地提高了灵活性，简化了代码，它的常见作用有以下几点：</p>
+<h2 id="动态的存值和取值"><a href="#动态的存值和取值" class="headerlink" title="动态的存值和取值"></a>动态的存值和取值</h2><p>🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 </p>
 <h2 id="访问和修改私有的成员"><a href="#访问和修改私有的成员" class="headerlink" title="访问和修改私有的成员"></a>访问和修改私有的成员</h2><p>对于类里的私有属性，无论Swift还是Objective-C都是无法直接访问的，但是KVC是可以的。</p>
 <h2 id="Model和字典的互相转换"><a href="#Model和字典的互相转换" class="headerlink" title="Model和字典的互相转换"></a>Model和字典的互相转换</h2><p>这是KVC又一个强大之处，只需要很少的代码量即可完成很多功能。</p>
 <h2 id="修改控件的内部属性"><a href="#修改控件的内部属性" class="headerlink" title="修改控件的内部属性"></a>修改控件的内部属性</h2><p>这也是iOS开发中必不可少的小技巧。众所周知很多UI控件都由很多内部UI控件组合而成的，但是Apple没有提供这访问这些控件的API，这样我们就无法正常地访问和修改这些控件的样式。</p>
