@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-22T16:18:39.000Z</updated>
+  <updated>2016-09-22T16:28:04.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/09/23/KVO/"/>
     <id>http://yoursite.com/2016/09/23/KVO/</id>
     <published>2016-09-22T18:24:00.000Z</published>
-    <updated>2016-09-22T16:18:39.000Z</updated>
+    <updated>2016-09-22T16:28:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>KVO/KVC是观察者模式在Objective-C中的实现，以非正式协议（Category）的形式被定义在NSObject中。从协议的角度看，是定义了一套让开发者遵守的规范和使用的方法。</p>
 <p>在Cocoa的MVC框架中，KVO架起ViewController和Model沟通的桥梁，例如：</p>
@@ -81,8 +81,6 @@
 <p><code>addObserver</code>方法用于添加观察者，监听属性的变化，它的几个参数作用如下：</p>
 <ul>
 <li>object：是被观察者的实例；</li>
-</ul>
-<ul>
 <li>observer：是观察者的实例，这个对象要实现下面的<code>observeValue</code>方法；</li>
 <li>forKeyPath：是观察者实例要监听的键，如UIView的frame、center等；</li>
 <li>options：有4个值，5种情况，具体请看下文；</li>
