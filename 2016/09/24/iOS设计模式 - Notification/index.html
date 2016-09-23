@@ -104,28 +104,28 @@
 
 
 
-<meta name="description" content="iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：
+<meta name="description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
 
 Delegate、Block、KVO、Notification；
 
-其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和">
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS设计模式 - Notification">
 <meta property="og:url" content="http://yoursite.com/2016/09/24/iOS设计模式 - Notification/index.html">
 <meta property="og:site_name" content="iSTian'notes">
-<meta property="og:description" content="iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：
+<meta property="og:description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
 
 Delegate、Block、KVO、Notification；
 
-其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和">
-<meta property="og:updated_time" content="2016-09-23T17:47:25.000Z">
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
+<meta property="og:updated_time" content="2016-09-23T18:12:26.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS设计模式 - Notification">
-<meta name="twitter:description" content="iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：
+<meta name="twitter:description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
 
 Delegate、Block、KVO、Notification；
 
-其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和">
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
 
 
 
@@ -354,12 +354,11 @@ Delegate、Block、KVO、Notification；
       
 
       
-        <p>iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：</p>
+        <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
 <blockquote>
 <p>Delegate、Block、KVO、Notification；</p>
 </blockquote>
-<p>其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类。</p>
-<p>我们知道说起通知来，有以下几个名词：</p>
+<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
 <blockquote>
 <p>本地通知、推送通知、广播通知；</p>
 </blockquote>
@@ -367,48 +366,48 @@ Delegate、Block、KVO、Notification；
 <p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
    <a id="more"></a>
 <h2 id="Notification的概念"><a href="#Notification的概念" class="headerlink" title="Notification的概念"></a>Notification的概念</h2><p>Notification 是 iOS 提供的一种同步的消息通知机制，观察者只要向消息中心注册，即可接受其他对象发送来的消息，消息发送者和接收者两者可以互相一无所知，完全解耦。</p>
-<p>它是 Foundation 框架的一个子系统，它向应用程序中注册为某个事件观察者的所有对象广播消息，也就是通知。该事件可以是发生在应用程序中的任何事情，例如进入后台状态，或者用户开始在文本栏中键入。</p>
-<p>Notification 告诉观察者，事件已经发生或即将发生，因此让观察者有机会以合适的方式响应。通过通知中心来传播通知，是增加应用程序对象间合作和内聚力的一种途径。</p>
-<p>虽然任何对象都可以观察通知，但要做到这一点，该对象必须注册，以接收通知。在注册时，它必须指定选择器，以确定由通知传送所调用的方法，方法签名必须只有一个参数，也就是通知对象；注册后，观察者也可以指定发布对象。</p>
-<p>Notification 可以应用于任何对象，观察者可以有多个，所以消息具有广播的性质。需要注意的是，观察者向消息中心注册以后，在不需要接收消息时需要从消息中心移除，这种消息传递机制是典型的观察者模式。</p>
+<p>它是 Foundation 框架的一个子系统，它向应用程序中注册为某个事件观察者的所有对象广播消息，也就是通知。该事件可以是发生在应用程序中的任何事情，例如进入后台状态，或者用户开始在文本栏中键入。Notification 告诉观察者，事件已经发生或即将发生，因此让观察者有机会以合适的方式响应。通过通知中心来传播通知，是增加应用程序对象间合作和内聚力的一种途径。</p>
+<p>虽然任何对象都可以观察通知，但要做到这一点，该对象必须注册，以接收通知。在注册时，它必须指定选择器，以确定由通知传送所调用的方法，方法签名必须只有一个参数，也就是通知对象；注册后，观察者也可以指定发布对象。Notification 可以应用于任何对象，观察者可以有多个，所以消息具有广播的性质。</p>
+<p>需要注意的是，观察者向消息中心注册以后，在不需要接收消息时需要从消息中心移除，这种消息传递机制是典型的观察者模式。</p>
 <p>每一个应用都有一个通知中心（Notification）实例。当应用发生某一事件时，任何对象都可以向通知中心发布通知；同时，通知的监听者监听到该通知的发布后，根据通知传入的信息（UserInfo），进行对应的操作或处理。</p>
-<h2 id="NotificationCenter的使用"><a href="#NotificationCenter的使用" class="headerlink" title="NotificationCenter的使用"></a>NotificationCenter的使用</h2><p>通知中心的实现主要是以下三个步骤：</p>
+<h2 id="NotificationCenter的使用"><a href="#NotificationCenter的使用" class="headerlink" title="NotificationCenter的使用"></a>NotificationCenter的使用</h2><p>使用通知模式主要是以下三个步骤：</p>
 <ol>
 <li>获取通知中心的实例并指定发布者；</li>
 <li>注册成为观察者以接收发布者通知的信息；</li>
-<li>接收者不再关注该通知的信息时，可以给通知中心发生解除注册的信息，之后都不再接收到通知了。</li>
+<li>当观察者不再关注该通知的信息时，可以向通知中心发送解除注册的信息，之后都不再接收到通知。</li>
 </ol>
 <p>通知机制常常用于在向服务器端请求数据或者提交数据的场景，在和服务器端成功交互后，需要处理服务器端返回的数据，或发送响应消息等，就需要用到通知机制。</p>
 <h3 id="获取通知中心"><a href="#获取通知中心" class="headerlink" title="获取通知中心"></a>获取通知中心</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span></div></pre></td></tr></table></figure>
-<p>NotificationCenter 的原理是一个观察者模式，只有通过调用静态方法 <code>default</code> 才可以获取这个通知中心的对象。NotificationCenter 是一个单例模式，而这个通知中心的对象会一直存在于一个应用的生命周期。发布、注册、解除通知都需要使用<strong>通知中心</strong>，它负责协助不同对象、不同类之间的消息通信。</p>
-<p>NotificationCenter 提供了一个中心化的枢纽，通过它，应用的任何部分都可以向其他部分发送通知，或者接收来自别人的通知。观察者通过通知中心进行注册，对特定的事件注册特定的响应动作。每次这个事件发生时，通知经过分发表分发之后，会通知所有注册这个事件的观察者。</p>
+<p>NotificationCenter 的原理是一个观察者模式，只有通过调用静态方法 <code>default</code> 才可以获取这个通知中心的对象。它同时也是一个单例，这个对象会一直存在于一个应用的生命周期。</p>
+<p>发布、注册、解除通知都需要使用<strong>通知中心</strong>，它负责协助不同对象、不同类之间的消息通信。</p>
+<p>NotificationCenter 提供了一个中心化的枢纽，通过它，应用的任何部分都可以向其他部分发送通知，或者接收来自别人的通知。</p>
+<p>观察者通过在通知中心进行注册，并对特定的事件注册特定的响应动作。每次这个事件发生时，如果有必要，通知中心将通知进行分发之后，所有注册这个事件的观察者都会获得通知。</p>
 <h3 id="指定发布者"><a href="#指定发布者" class="headerlink" title="指定发布者"></a>指定发布者</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(<span class="number">_</span> notification: Notification)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(name aName: NSNotification.Name, object anObject: Any?)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(name aName: NSNotification.Name, object anObject: Any?, userInfo aUserInfo: [AnyHashable : Any]? = <span class="literal">nil</span>)</span></span></div></pre></td></tr></table></figure>
-<p>我们可以看到，这个3个方法实际并无区别，传入的都是一个 <code>NSNotification</code> 类型，它是消息携带的载体，通过它，我们才可以把消息内容传递给观察者。：</p>
+<p>我们可以看到，这个3个方法实际并无区别，传入的都是一个 <code>NSNotification</code> 类型，它是消息携带的载体，通过它，我们才可以把消息内容传递给观察者，它的结构如下：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">NSNotification</span> : <span class="title">NSObject</span>, <span class="title">NSCopying</span>, <span class="title">NSCoding</span> </span>&#123;</div><div class="line">    open <span class="keyword">var</span> name: <span class="type">NSNotification</span>.<span class="type">Name</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line">    open <span class="keyword">var</span> object: <span class="type">Any</span>? &#123; <span class="keyword">get</span> &#125;</div><div class="line">    open <span class="keyword">var</span> userInfo: [<span class="type">AnyHashable</span> : <span class="type">Any</span>]? &#123; <span class="keyword">get</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <ul>
 <li>name：指定消息名称；</li>
 <li>object：指定发消息者；</li>
-<li>userInfo：通知中用于传递参数的载体，传递的方法是把参数放在NSDictionary类型的userInfo中。</li>
+<li>userInfo：通知中用于传递参数的载体；</li>
 </ul>
-<p>userInfo 里的键值应该定义成字符串常量。应该在文档中清晰地注明哪个键对应哪种类型的值，因为编译器不能像针对对象那样对字典类型中的值类型进行限制。</p>
-<p>name 和 object 用来控制通知分发的作用域。开发者们应当在对象发送通知和接收通知的方式上保持一致，而且把通知的行为在公共接口文档中进行清晰的说明。</p>
-<p>由于通知分发是在发送通知的线程上进行的，可能需要使用：</p>
+<p>userInfo 里的键值应该定义成字符串常量，在文档中应该清晰地注明哪个键对应哪种类型的值，因为编译器不能像针对对象那样对字典类型中的值类型进行限制。name 和 object 用来控制通知分发的作用域，开发者们应当在对象发送通知和接收通知的方式上保持一致，而且把通知的行为在公共接口文档中进行清晰的说明。</p>
+<p>由于通知分发是在发送通知的线程上进行的，所以可能会需要使用：</p>
 <blockquote>
 <p>dispatch_async     &amp;     dispatch_get_main_queue() </p>
 </blockquote>
-<p>来保证通知的处理是在主线程进行。大部分情况下不需要考虑，不过还是要把这一点记在心里。</p>
-<h3 id="注册观察者"><a href="#注册观察者" class="headerlink" title="注册观察者"></a>注册观察者</h3><p>各种各样的通知车水马龙地通过 NotificationCenter。然而一个通知本身不会有任何实际作用，除非有人在监听着它。传统的添加观察者的方式是使用：</p>
+<p>来保证通知的处理是在主线程进行，大部分情况下我们不需要考虑这点，不过还是要把这一点记在心里。</p>
+<h3 id="注册观察者"><a href="#注册观察者" class="headerlink" title="注册观察者"></a>注册观察者</h3><p>各种各样的通知车水马龙地通过 NotificationCenter，然而一个通知本身不会有任何实际作用，除非有人在监听着它，传统的添加观察者的方式是使用：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div></pre></td></tr></table></figure>
-<p>进行注册，一个对象（通常是 self）把自己添加进去，当某个通知发出时，通知中心就会把发布者发送的通知信息，广播给注册过该通知的观察者，执行自己特定的 selector。观察者只能接收到通知中心的信息，但无法知道通知是谁投送的，这也是通知的解耦性的体现之一。</p>
+<p>进行注册，一个对象（通常是 self）把自己添加进去，当某个通知发出时，通知中心就会把发布者发送的通知信息，广播给注册过该通知的观察者，执行自己特定的 selector，观察者只能接收到通知中心的信息，但无法知道通知是谁投送的，这也是通知的解耦性的体现之一，它的几个参数作用如下：</p>
 <ul>
-<li><p>selector：</p>
-<p>回调方法，在本类中对通知进行相应的处理；它只有一个参数, 参数就是消息对象本身, 通过这个参数回调方法可以取得消息对象的成员变量(userinfo) 用于传值注册、取消通知的代码放在哪里等操作。</p>
+<li>observer：观察者的实例，通常是 self；</li>
+</ul>
+<ul>
+<li><p>selector：回调方法，在本类中对通知进行相应的处理；它只有一个参数, 参数就是消息对象本身, 通过这个参数回调方法可以取得消息对象的成员变量(userinfo) 用于传值注册、取消通知的代码放在哪里等操作。</p>
 </li>
-<li><p>object：</p>
-<p>相对于发布者的 object，如果同时设置了 name 和 object 那么只有来自特定对象的对应名称的通知才会响应。如果为 nil，那么观察者将收到任何对象发出的通知消息；</p>
+<li><p>object：相对于发布者的 object，如果同时设置了 name 和 object 那么只有来自特定对象的对应名称的通知才会响应。如果为 nil，那么观察者将收到任何对象发出的通知消息；</p>
 </li>
-<li><p>name：</p>
-<p>相对于发布者的 name，如果设置了 name，那么只有对应名称的通知会触发。如果为 nil，那么观察者将接收到 object 对象的所有消息，但是无法确定接收这些消息的顺序；</p>
+<li><p>name：相对于发布者的 name，如果设置了 name，那么只有对应名称的通知会触发。如果为 nil，那么观察者将接收到 object 对象的所有消息，但是无法确定接收这些消息的顺序；</p>
 </li>
 <li><p>如果 name 和 object 都为 nil，那么该观察者将收到所有对象的所有消息。</p>
 </li>
@@ -426,16 +425,16 @@ Delegate、Block、KVO、Notification；
 </ol>
 <h4 id="Notification-Block"><a href="#Notification-Block" class="headerlink" title="Notification Block"></a>Notification Block</h4><p>现代的基于 block 的用于添加通知观察者的 API 是：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(forName name: NSNotification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping <span class="params">(Notification)</span></span></span> -&gt; <span class="type">Swift</span>.<span class="type">Void</span>) -&gt; <span class="type">NSObjectProtocol</span></div></pre></td></tr></table></figure>
-<p>它是 iOS 4.0之后，Apple 又提供了一个以 block 方式实现的添加观察者的方法，与前面提到的把一个已有的对象注册成观察者不同，这个方法创建一个匿名对象作为观察者，当收到对应的通知时，它在指定的队列（如果队列参数为 nil 的话就在调用者的线程）里执行一个 block。另外一点和基于 selector 的方法不同的是，这个方法会返回构造出的观察者对象。</p>
-<p>此方法需要考虑 block 的循环引用问题，并不经常用到。</p>
+<p>它是 iOS 4.0之后，Apple 又提供了一个以 block 方式实现的添加观察者的方法，与前面提到的把一个已有的对象注册成观察者不同，这个方法创建一个匿名对象作为观察者。</p>
+<p>当收到对应的通知时，它在指定的队列（如果队列参数为 nil 的话就在调用者的线程）里执行一个 block。另外一点和基于 selector 的方法不同的是，这个方法会返回构造出的观察者对象，此方法需要考虑 block 的循环引用问题，并不经常用到。</p>
 <h3 id="移除观察者"><a href="#移除观察者" class="headerlink" title="移除观察者"></a>移除观察者</h3><p>由于通知中心不会 retain 观察者对象，因此注册过的对象必须在释放之前注销掉，如果不这样的话，当该通知再次出现时，通知中心会向已释放的观察者对象发送消息，从而导致应用崩溃。</p>
-<p>在 ARC 下，系统会自动回收无用的通知对象内存，但是由于系统回收机制 ARC 有一定的延迟性，所以即使不会出错，也建议养成习惯，对通知进行手动释放无用的通知。</p>
+<p>在 ARC 下，系统会自动回收无用的通知对象内存，但是由于系统回收机制 ARC 有一定的延迟性，所以即使不会出错，也建议养成习惯，对无用的通知进行手动释放。</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">removeObserver</span><span class="params">(<span class="number">_</span> observer: Any)</span></span>	</div><div class="line"><span class="comment">//释放所有的通知</span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">removeObserver</span><span class="params">(<span class="number">_</span> observer: Any, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div><div class="line"><span class="comment">//释放指定 name 或 object 的通知</span></div></pre></td></tr></table></figure>
-<p>一般我们在对象的析构函数中将通知移除，我们可以选择将这个对象中的所有通知移除，也可以选择一个一个按照通知的 name 来移除。移除的时机和事件有关，如果是和视图相关的，比如键盘、UI事件等，就选：</p>
+<p>一般我们在对象的析构函数中将通知移除，我们可以选择将这个对象中的所有通知移除，也可以选择一个一个按照通知的 name 来移除，移除的时机和事件有关，如果是和视图相关的，比如键盘、UI事件等，可以使用：</p>
 <blockquote>
 <p>viewWillAppear    &amp;    viewWillDisappear</p>
 </blockquote>
-<p>这些事件来释放观察者。否则可能会有几个 ViewController 同时触发通知的回调函数。如果是和 ViewController 相关的，比如和网络、异步IO等相关的通知，就使用：</p>
+<p>如果是和 ViewController 相关的，比如和网络、异步IO等相关的通知，可以使用：</p>
 <blockquote>
 <p>viewDidLoad        &amp;    dealloc</p>
 </blockquote>
@@ -443,18 +442,18 @@ Delegate、Block、KVO、Notification；
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions = [], context: UnsafeMutableRawPointer?)</span></span></div></pre></td></tr></table></figure>
 <p><strong>Key-Value Observing 是在 keypaths 上添加观察者，而 NotificationCenter 是在通知上添加观察者。</strong>牢记这个区别，就可以自信地去使用这两套 API 了。</p>
 <h2 id="Notification的栗子"><a href="#Notification的栗子" class="headerlink" title="Notification的栗子"></a>Notification的栗子</h2><blockquote>
-<p><em>Talk is cheap</em>. <em>Show me the code</em>.</p>
+<p>Talk is cheap. Show me the code.</p>
 </blockquote>
 <p>上面我们撸完概念，下面开始撸代码了，我们要做两个页面，在第二个页面中输入文字，在第一个页面中展示输入的文字。首先我们创建一个视图 FirstVC，添加一个 Label 属性：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> observerLabel: <span class="type">UILabel</span>!</div></pre></td></tr></table></figure>
-<p>然后创建一个方法，在我们获得更新时，更新 Label 的文字：</p>
+<p>然后创建一个方法，在我们获得通知时，更新 Label 的文字：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">upDataForLabel</span><span class="params">(notification: NSNotification)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> dict = notification.userInfo!</div><div class="line">    <span class="keyword">let</span> str = dict[<span class="string">"toFirstVCLabel"</span>]</div><div class="line">    observerLabel.text = str <span class="keyword">as</span>? <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在 viewDidLoad 方法中，将自己注册为观察者：</p>
+<p>在 viewDidLoad 方法中，我们将 FirstVC 自己注册为观察者：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    <span class="keyword">let</span> selector = <span class="type">NSSelectorFromString</span>(<span class="string">"upDataForLabelWithNotification:"</span>)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.responds(to: selector) &#123;</div><div class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>,</div><div class="line">                                               selector: selector,</div><div class="line">                                               name: <span class="type">NSNotification</span>.<span class="type">Name</span>(rawValue: <span class="string">"upDataForLabel"</span>),</div><div class="line">                                               object: <span class="literal">nil</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>然后我们创建第二个页面：SecondVC，添加一个 UITextField 用于用户输入：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> posterTextField: <span class="type">UITextField</span>!</div></pre></td></tr></table></figure>
 <p>添加一个 Button，点击时返回到 FirstVC，并且发送消息：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">saveAndJumpButtonDidTouch</span><span class="params">(<span class="number">_</span> sender: AnyObject)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>) &#123; </div><div class="line">        <span class="keyword">let</span> str = <span class="keyword">self</span>.posterTextField.text</div><div class="line">        <span class="keyword">let</span> notification = <span class="type">Notification</span>(name: <span class="type">NSNotification</span>.<span class="type">Name</span>(rawValue: <span class="string">"upDataForLabel"</span>),</div><div class="line">                                          object: <span class="literal">nil</span>,</div><div class="line">                                          userInfo: [<span class="string">"toFirstVCLabel"</span>:str])</div><div class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.post(notification)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">saveAndJumpButtonDidTouch</span><span class="params">(<span class="number">_</span> sender: AnyObject)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>) &#123; </div><div class="line">        <span class="keyword">let</span> str = <span class="keyword">self</span>.posterTextField.text</div><div class="line">        <span class="keyword">let</span> notification = <span class="type">Notification</span>(name: <span class="type">NSNotification</span>.<span class="type">Name</span>(rawValue: <span class="string">"upDataForLabel"</span>),</div><div class="line">                                        object: <span class="literal">nil</span>,</div><div class="line">                                        userInfo: [<span class="string">"toFirstVCLabel"</span>:str])</div><div class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.post(notification)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样前面的目标就完成了。从 FirstVC 跳转到 SecondVC，在 SecondVC 中输入文字，点击 Button 后跳转回 FirstVC，并显示之前输入的文字。</p>
 <h3 id="NSNotification-Name"><a href="#NSNotification-Name" class="headerlink" title="NSNotification.Name"></a>NSNotification.Name</h3><p>NSNotification.Name 并不仅仅可以为我们自己的通知进行标识，它还具有很多 API，可以监控 APP 的运行状态，我们接着完善这个小程序，这次我们的目标是当程序进入非活动状态时，更改 FirstVC 的 Label 的背景颜色。我们在 FirstVC 的 viewDidLoad 中再注册一个观察者：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>,</div><div class="line">                                           selector: #selector(<span class="type">FirstVC</span>.colorChangeForAppState),</div><div class="line">                                           name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIApplicationWillResignActive</span>,</div><div class="line">                                           object: <span class="literal">nil</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -471,15 +470,7 @@ Delegate、Block、KVO、Notification；
 <li>一个 object 对象，它表示是谁发布的通知；</li>
 <li>userInfo，一个字典类型，包含发布者要传递给通知接收者的一些额外内容；</li>
 </ul>
-<p>举个例子，UITextField 在每次文本发生变化时，都会发出一个名为：</p>
-<blockquote>
-<p>UITextFieldTextDidChangeNotification 的 NSNotification，</p>
-</blockquote>
-<p>这个通知关联的对象就是文本框本身。对于:</p>
-<blockquote>
-<p>UIKeyboardWillShowNotification</p>
-</blockquote>
-<p> 这个通知来说，userInfo 中存入了 frame 的位置和动画时间，关联的 object 是 nil。</p>
+<p>举个例子，UITextField 在每次文本发生变化时，都会发出一个名为 <code>UITextFieldTextDidChangeNotification</code> 的 NSNotification，这个通知关联的对象就是文本框本身，对于 <code>UIKeyboardWillShowNotification</code> 这个通知来说，<code>userInfo</code> 中存入了 frame 的位置和动画时间，关联的 <code>object</code> 是 nil。</p>
 <h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/MyNotification" target="_blank" rel="external">点击这里</a></h2>
       
     </div>

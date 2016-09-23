@@ -347,12 +347,11 @@
 
       
         
-          <p>iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：</p>
+          <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
 <blockquote>
 <p>Delegate、Block、KVO、Notification；</p>
 </blockquote>
-<p>其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类。</p>
-<p>我们知道说起通知来，有以下几个名词：</p>
+<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
 <blockquote>
 <p>本地通知、推送通知、广播通知；</p>
 </blockquote>
