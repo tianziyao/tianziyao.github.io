@@ -278,6 +278,144 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/24/iOS设计模式 - Notification/" itemprop="url">
+                  iOS设计模式 - Notification
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-24T02:24:00+08:00" content="2016-09-24">
+              2016-09-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/24/iOS设计模式 - Notification/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/iOS设计模式 - Notification/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>iOS 中的观察者 Observer 模式（也叫发布/订阅，即Publich/Subscribe模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制。我们知道对象之间的通讯有以下几种常见的方式：</p>
+<blockquote>
+<p>Delegate、Block、KVO、Notification；</p>
+</blockquote>
+<p>其中 Delegate 使用的是委托机制，是代理一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类。</p>
+<p>我们知道说起通知来，有以下几个名词：</p>
+<blockquote>
+<p>本地通知、推送通知、广播通知；</p>
+</blockquote>
+<p>这三种通知是不同的，本地通知使用的是 <code>UILocalNotification</code> 实现，是我们的 APP 运行时，给用户的通知；推送通知是使用 <code>UIUserNotification</code> 实现，是用户同意推送后，由我们的服务器提交给 APNS，再由 APNS 转发给用户的。</p>
+<p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
+<h2 id="Notification的概念"><a href="#Notification的概念" class="headerlink" title="Notification的概念"></a>Notification的概念</h2><p>Notification 是 iOS 提供的一种同步的消息通知机制，观察者只要向消息中心注册，即可接受其他对象发送来的消息，消息发送者和接收者两者可以互相一无所知，完全解耦。</p>
+<p>它是 Foundation 框架的一个子系统，它向应用程序中注册为某个事件观察者的所有对象广播消息，也就是通知。该事件可以是发生在应用程序中的任何事情，例如进入后台状态，或者用户开始在文本栏中键入。</p>
+<p>Notification 告诉观察者，事件已经发生或即将发生，因此让观察者有机会以合适的方式响应。通过通知中心来传播通知，是增加应用程序对象间合作和内聚力的一种途径。</p>
+<p>虽然任何对象都可以观察通知，但要做到这一点，该对象必须注册，以接收通知。在注册时，它必须指定选择器，以确定由通知传送所调用的方法，方法签名必须只有一个参数，也就是通知对象；注册后，观察者也可以指定发布对象。</p>
+<p>Notification 可以应用于任何对象，观察者可以有多个，所以消息具有广播的性质。需要注意的是，观察者向消息中心注册以后，在不需要接收消息时需要从消息中心移除，这种消息传递机制是典型的观察者模式。</p>
+<p>每一个应用都有一个通知中心（Notification）实例。当应用发生某一事件时，任何对象都可以向通知中心发布通知；同时，通知的监听者监听到该通知的发布后，根据通知传入的信息（UserInfo），进行对应的操作或处理。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/24/iOS设计模式 - Notification/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/23/KVO/" itemprop="url">
                   iOS设计模式 - KVO原理和使用
                 </a>
@@ -1415,134 +1553,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 快速入门/" itemprop="url">
-                  微信开发 - 快速入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
-</blockquote>
-<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
-<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
-<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
-<p>下面进入正题！</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 快速入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1588,7 +1598,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">49</span>
+              <span class="site-state-item-count">50</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1605,7 +1615,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">65</span>
+                <span class="site-state-item-count">66</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
