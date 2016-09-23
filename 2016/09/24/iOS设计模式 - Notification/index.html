@@ -118,7 +118,7 @@ Delegate、Block、KVO、Notification；
 Delegate、Block、KVO、Notification；
 
 其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
-<meta property="og:updated_time" content="2016-09-23T18:12:26.000Z">
+<meta property="og:updated_time" content="2016-09-23T18:14:23.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS设计模式 - Notification">
 <meta name="twitter:description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
@@ -461,13 +461,13 @@ Delegate、Block、KVO、Notification；
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">colorChangeForAppState</span><span class="params">()</span></span> &#123;</div><div class="line">    observerLabel.backgroundColor = <span class="type">UIColor</span>.<span class="keyword">init</span>(red: <span class="number">168</span>/<span class="number">255</span>, green: <span class="number">21</span>/<span class="number">255</span>, blue: <span class="number">42</span>/<span class="number">255</span>, alpha: <span class="number">1</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>现在我们按两次 Home 键，在任务管理中可以看到，Label 的颜色已经发生改变。最后，不要忘记移除观察者：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.removeObserver(<span class="keyword">self</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一个运行的 Cocoa 程序都有一个自己管理的默认通知中心，因此通常不会再单独实例化一个新的通知中心；</p>
-<p>程序中唯一的一个 NotificationCenter 可以有许多的通知消息发送者 NSNotification；</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一个运行的 Cocoa 程序都有一个自己管理的默认通知中心 NotificationCenter；</p>
+<p>NotificationCenter 可以有许多的通知消息发送者 NSNotification；</p>
 <p>每一个发送者 NSNotification 可以有很多的观察者 Observer 来接收通知。</p>
-<p>每一个 Notification 对象都有</p>
+<p>每一个 Notification 对象都必须具有有：</p>
 <ul>
-<li>一个 name，它描述的是通知的名称；</li>
-<li>一个 object 对象，它表示是谁发布的通知；</li>
+<li>name，它描述的是通知的名称；</li>
+<li>object 对象，它表示是谁发布的通知；</li>
 <li>userInfo，一个字典类型，包含发布者要传递给通知接收者的一些额外内容；</li>
 </ul>
 <p>举个例子，UITextField 在每次文本发生变化时，都会发出一个名为 <code>UITextFieldTextDidChangeNotification</code> 的 NSNotification，这个通知关联的对象就是文本框本身，对于 <code>UIKeyboardWillShowNotification</code> 这个通知来说，<code>userInfo</code> 中存入了 frame 的位置和动画时间，关联的 <code>object</code> 是 nil。</p>
