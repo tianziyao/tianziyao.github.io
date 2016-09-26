@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-26T10:44:12.000Z</updated>
+  <updated>2016-09-26T10:45:31.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,11 +20,11 @@
     <link href="http://yoursite.com/2016/09/26/Xcode%E9%94%99%E8%AF%AF%20-%20Pch%20file%20not%20found/"/>
     <id>http://yoursite.com/2016/09/26/Xcode错误 - Pch file not found/</id>
     <published>2016-09-25T21:46:00.000Z</published>
-    <updated>2016-09-26T10:44:12.000Z</updated>
+    <updated>2016-09-26T10:45:31.000Z</updated>
     
     <content type="html"><![CDATA[<p>这种问题出现的原因大多是路径问题，当 Mac 拷贝了工程或是工程的位置发生了变化，导致 Pch 文件的路径出错，解决方法如下：</p>
 <ol>
-<li><code>Targets -&gt; Build Settings -&gt; Apple llvm - Language</code> ，将项目里的的 Pch 文件直接拖到这边，设置为YES；</li>
+<li><code>Targets -&gt; Build Settings -&gt; Apple llvm - Language</code> ，将项目里的的 Pch 文件直接拖到这边，设置为 YES；</li>
 <li><code>⌘ + ⇧ + K</code> 清除工程；</li>
 <li><code>⌘ + B</code> 编译工程；</li>
 </ol>
