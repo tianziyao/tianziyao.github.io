@@ -278,6 +278,139 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/08/iOS模型 - KVC/" itemprop="url">
+                  iOS设计模式 - KVC模式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-08T02:24:00+08:00" content="2016-08-08">
+              2016-08-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/08/iOS模型 - KVC/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/08/iOS模型 - KVC/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>KVC（Key-value coding）键值编码，单看这个名字可能不太好理解。其实翻译一下就很简单了，就是指iOS的开发中，可以允许开发者通过Key名直接访问对象的属性，或者给对象的属性赋值。</p>
+<p>KVC不需要调用明确的Get和Set方法。这样就可以在运行时动态在访问和修改对象的属性。而不是在编译时确定，这也是iOS开发中的黑魔法之一。</p>
+</blockquote>
+<p>无论是Swift还是Objective-C，KVC的定义都是对NSObject的扩展来实现的，Objective-c中有个显式的<code>NSKeyValueCoding</code>类别名，而Swift没有，也不需要。</p>
+<p>对于所有继承了NSObject在类型，都能使用KVC。一些纯Swift类和结构体是不支持KVC的。</p>
+<p>下面是KVC最为重要的四个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>?					<span class="comment">//获取键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKey key: String)</span></span>			<span class="comment">//设置键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">valueForKeyPath</span><span class="params">(keyPath: String)</span></span> -&gt; <span class="type">AnyObject</span>?			<span class="comment">//获取具有路径的键的值</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(value: AnyObject?, forKeyPath keyPath: String)</span></span>	<span class="comment">//设置具有路径的键的值</span></div></pre></td></tr></table></figure>
+<p>当然NSKeyValueCoding类别中还有其他的一些方法，下面列举一些：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">public class func accessInstanceVariablesDirectly() -&gt; Bool</div><div class="line">/**默认返回YES，表示如果没有找到Set&lt;Key&gt;方法的话，会按照_key，_iskey，key，iskey的顺序搜索成员，设置成NO就不这样搜索。*/</div><div class="line">public func validateValue(ioValue: AutoreleasingUnsafeMutablePointer&lt;AnyObject?&gt;, forKey inKey: String) throws</div><div class="line">/**KVC提供属性值确认的API，它可以用来检查Set的值是否正确、为不正确的值做一个替换值或者拒绝设置新值并返回错误原因。*/</div><div class="line">public func mutableArrayValueForKey(key: String) -&gt; NSMutableArray</div><div class="line">/**这是集合操作的API，里面还有一系列这样的API，如果属性是一个NSMutableArray，那么可以用这个方法来返回。*/</div><div class="line">public func valueForUndefinedKey(key: String) -&gt; AnyObject?</div><div class="line">/**如果Key不存在，且没有KVC无法搜索到任何和Key有关的字段或者属性，则会调用这个方法，默认是抛出异常。*/</div><div class="line">public func setValue(value: AnyObject?, forUndefinedKey key: String)</div><div class="line">/**和上一个方法一样，只不过是设值。*/</div><div class="line">public func setNilValueForKey(key: String)</div><div class="line">/**如果你在SetValue方法时将Value传nil，则会调用这个方法。*/</div><div class="line">public func dictionaryWithValuesForKeys(keys: [String]) -&gt; [String : AnyObject]</div><div class="line">/**输入一组key,返回该组key对应的Value，再转成字典返回，用于将Model转到字典。*/</div><div class="line">public func setValuesForKeysWithDictionary(keyedValues: [String : AnyObject])</div><div class="line">/**通过这个方法直接可以将字典映射到对象。*/</div></pre></td></tr></table></figure>
+<p>上面的这些方法在碰到特殊情况或者有特殊需求还是会用到的，所以也是可以了解一下。后面的代码示例会有讲到其中的一些方法。</p>
+<p>同时苹果对一些容器类比如NSArray或者NSSet等，KVC有着特殊的实现。建议有基础的或者英文好的开发者直接去看苹果的官方文档，相信你会对KVC的理解更上一个台阶。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/08/iOS模型 - KVC/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/" itemprop="url">
                   Xcode错误 - Failed to import && .h file not found
                 </a>
@@ -403,8 +536,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/03/CocoaPods 安装和使用/" itemprop="url">
-                  iOS第三方库 - CocoaPods安装和使用
+                <a class="post-title-link" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="url">
+                  iOS数据处理 - 转载·字符串MD5加密
                 </a>
               
             
@@ -447,8 +580,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/03/CocoaPods 安装和使用/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/CocoaPods 安装和使用/" itemprop="commentsCount"></span>
+                <a href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -472,10 +605,13 @@
 
       
         
-          <p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
-<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
+          <blockquote>
+<p>MD5 即 Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。 其作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。</p>
+</blockquote>
+<p>首先，创建桥接头文件 <code>bridge.h</code> 来包含需要引用的 <code>Objective-C</code> 头文件，并在项目中配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;CommonCrypto/CommonDigest.h&gt;</div></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/03/CocoaPods 安装和使用/#more" rel="contents">
+            <a class="btn" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -661,8 +797,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="url">
-                  iOS数据处理 - 转载·字符串MD5加密
+                <a class="post-title-link" href="/2016/08/03/CocoaPods 安装和使用/" itemprop="url">
+                  iOS第三方库 - CocoaPods安装和使用
                 </a>
               
             
@@ -705,8 +841,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="commentsCount"></span>
+                <a href="/2016/08/03/CocoaPods 安装和使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/CocoaPods 安装和使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -730,13 +866,10 @@
 
       
         
-          <blockquote>
-<p>MD5 即 Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。 其作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。</p>
-</blockquote>
-<p>首先，创建桥接头文件 <code>bridge.h</code> 来包含需要引用的 <code>Objective-C</code> 头文件，并在项目中配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;CommonCrypto/CommonDigest.h&gt;</div></pre></td></tr></table></figure>
+          <p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
+<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#more" rel="contents">
+            <a class="btn" href="/2016/08/03/CocoaPods 安装和使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1405,137 +1538,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/23/五个案例明白 GCD 死锁/" itemprop="url">
-                  iOS案例 - GCD 死锁
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-23T03:11:00+08:00" content="2016-07-23">
-              2016-07-23
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/23/五个案例明白 GCD 死锁/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/23/五个案例明白 GCD 死锁/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>首先来回忆几个概念：</p>
-<ol>
-<li>任务：需要执行的操作；</li>
-<li>队列：储存任务的数据结构；</li>
-<li>同步：只能开启一个子线程执行队列；</li>
-<li>异步：可开启多个子线程执行队列；</li>
-<li>串行：同一时间只能执行一个任务；</li>
-<li>并行：同一时间可执行多个任务；</li>
-</ol>
-<p>假设你已经了解上面几个概念，那么我们开始通过几个案例来了解一下死锁：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/23/五个案例明白 GCD 死锁/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1581,7 +1583,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">51</span>
+              <span class="site-state-item-count">52</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
