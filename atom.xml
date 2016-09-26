@@ -1235,12 +1235,13 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
     <link href="http://yoursite.com/2016/09/12/iOS%E8%B0%83%E8%AF%95%20-%20%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/"/>
     <id>http://yoursite.com/2016/09/12/iOS调试 - 单元测试/</id>
     <published>2016-09-11T18:24:00.000Z</published>
-    <updated>2016-09-26T09:50:55.000Z</updated>
+    <updated>2016-09-26T09:52:57.000Z</updated>
     
     <content type="html"><![CDATA[<p>每个 iOS 程序员都要时不时的为他们的 APP 做 Debug。除非你是那种超级大牛，否则你肯定体验过查了无数个小时的 Bug 最后才发现那仅仅是个简单的语法错误时那种油然而生的绝望感。或者更糟：你根本就没发现那些 Bug。无论你是编程新手，还是开发过很多 APP 的老司机，例行的写写单元测试会让你的代码更可靠，更安全，更容易 Debug！</p>
 <p>你很走运，Xcode 7 和 Swift 支持单元测试。尽管单元测试不保证（有了它你就会写出）绝对没有 Bug 的 APP，它还是一种能让你验证每段代码是否如期工作，并让 debug 过程更加便利。</p>
 <p>正如其名，在单元测试中你要为某段代码单元创建一些小规模的、针对其某个特性的测试，然后确保每个代码单元都能通过这些测试。如果通过的话，它的旁边会出现一个绿色小标志，而如果因故测试不通过， Xcode 会把该测试标记为 “failed”。这就提示你去查看代码，找出失败原因。</p>
 <p>这篇教程将简要介绍如何在 Swift 项目中使用<code>XCTest.framework</code>进行代码单元测试。那么我们为什么需要做单元测试呢？单元测试对于我们有以下几点帮助：</p>
+   <a id="more"></a>
 <ul>
 <li><p>帮助理解需求，单元测试应该反映 Use Case，把被测单元当成黑盒测试其外部行为。</p>
 </li>
@@ -1292,7 +1293,10 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
     
     <summary type="html">
     
-      &lt;p&gt;每个 iOS 程序员都要时不时的为他们的 APP 做 Debug。除非你是那种超级大牛，否则你肯定体验过查了无数个小时的 Bug 最后才发现那仅仅是个简单的语法错误时那种油然而生的绝望感。或者更糟：你根本就没发现那些 Bug。无论你是编程新手，还是开发过很多 APP 的老司
+      &lt;p&gt;每个 iOS 程序员都要时不时的为他们的 APP 做 Debug。除非你是那种超级大牛，否则你肯定体验过查了无数个小时的 Bug 最后才发现那仅仅是个简单的语法错误时那种油然而生的绝望感。或者更糟：你根本就没发现那些 Bug。无论你是编程新手，还是开发过很多 APP 的老司机，例行的写写单元测试会让你的代码更可靠，更安全，更容易 Debug！&lt;/p&gt;
+&lt;p&gt;你很走运，Xcode 7 和 Swift 支持单元测试。尽管单元测试不保证（有了它你就会写出）绝对没有 Bug 的 APP，它还是一种能让你验证每段代码是否如期工作，并让 debug 过程更加便利。&lt;/p&gt;
+&lt;p&gt;正如其名，在单元测试中你要为某段代码单元创建一些小规模的、针对其某个特性的测试，然后确保每个代码单元都能通过这些测试。如果通过的话，它的旁边会出现一个绿色小标志，而如果因故测试不通过， Xcode 会把该测试标记为 “failed”。这就提示你去查看代码，找出失败原因。&lt;/p&gt;
+&lt;p&gt;这篇教程将简要介绍如何在 Swift 项目中使用&lt;code&gt;XCTest.framework&lt;/code&gt;进行代码单元测试。那么我们为什么需要做单元测试呢？单元测试对于我们有以下几点帮助：&lt;/p&gt;
     
     </summary>
     
