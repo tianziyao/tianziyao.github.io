@@ -113,7 +113,7 @@
 <meta property="og:description" content="每个 iOS 程序员都要时不时的为他们的 APP 做 Debug。除非你是那种超级大牛，否则你肯定体验过查了无数个小时的 Bug 最后才发现那仅仅是个简单的语法错误时那种油然而生的绝望感。或者更糟：你根本就没发现那些 Bug。无论你是编程新手，还是开发过很多 APP 的老司机，例行的写写单元测试会让你的代码更可靠，更安全，更容易 Debug！
 你很走运，Xcode 7 和 Swift 支持单元测试">
 <meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/test.png">
-<meta property="og:updated_time" content="2016-09-26T07:57:08.000Z">
+<meta property="og:updated_time" content="2016-09-26T09:50:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS调试 - 单元测试">
 <meta name="twitter:description" content="每个 iOS 程序员都要时不时的为他们的 APP 做 Debug。除非你是那种超级大牛，否则你肯定体验过查了无数个小时的 Bug 最后才发现那仅仅是个简单的语法错误时那种油然而生的绝望感。或者更糟：你根本就没发现那些 Bug。无论你是编程新手，还是开发过很多 APP 的老司机，例行的写写单元测试会让你的代码更可靠，更安全，更容易 Debug！
@@ -352,15 +352,23 @@
 <p>正如其名，在单元测试中你要为某段代码单元创建一些小规模的、针对其某个特性的测试，然后确保每个代码单元都能通过这些测试。如果通过的话，它的旁边会出现一个绿色小标志，而如果因故测试不通过， Xcode 会把该测试标记为 “failed”。这就提示你去查看代码，找出失败原因。</p>
 <p>这篇教程将简要介绍如何在 Swift 项目中使用<code>XCTest.framework</code>进行代码单元测试。那么我们为什么需要做单元测试呢？单元测试对于我们有以下几点帮助：</p>
 <ul>
-<li>帮助理解需求，单元测试应该反映 Use Case，把被测单元当成黑盒测试其外部行为。</li>
-<li>提高实现质量，单元测试不保证程序做正确的事，但能帮助保证程序正确地做事，从而提高实现质量。</li>
-<li>测试成本低，相比集成测试、验收测试，单元测试所依赖的外部环境少，自动化程度高，时间短，节约了测试成本。</li>
-<li>反馈速度快，单元测试提供快速反馈，把 Bug 消灭在开发阶段，减少问题流到集成测试、验收测试和用户，降低了软件质量控制的成本。</li>
-<li>利于重构，由于有单元测试作为回归测试用例，有助于预防在重构过程中引入 Bug。</li>
-<li>文档作用，单元测试提供了被测单元的使用场景，起到了使用文档的作用。</li>
-<li>对设计的反馈，一个模块很难进行单元测试通常是不良设计的信号，单元测试可以反过来指导设计出高内聚、低耦合的模块。</li>
+<li><p>帮助理解需求，单元测试应该反映 Use Case，把被测单元当成黑盒测试其外部行为。</p>
+</li>
+<li><p>提高实现质量，单元测试不保证程序做正确的事，但能帮助保证程序正确地做事，从而提高实现质量。</p>
+</li>
+<li><p>测试成本低，相比集成测试、验收测试，单元测试所依赖的外部环境少，自动化程度高，时间短，节约了测试成本。</p>
+</li>
+<li><p>反馈速度快，单元测试提供快速反馈，把 Bug 消灭在开发阶段，减少问题流到集成测试、验收测试和用户，降低了软件质量控制的成本。</p>
+</li>
+<li><p>利于重构，由于有单元测试作为回归测试用例，有助于预防在重构过程中引入 Bug。</p>
+</li>
+<li><p>文档作用，单元测试提供了被测单元的使用场景，起到了使用文档的作用。</p>
+</li>
+<li><p>对设计的反馈，一个模块很难进行单元测试通常是不良设计的信号，单元测试可以反过来指导设计出高内聚、低耦合的模块。</p>
+</li>
 </ul>
-<h3 id="默认测试类"><a href="#默认测试类" class="headerlink" title="默认测试类"></a>默认测试类</h3><p>首先我们新建一个项目<code>SwiftUnitTest</code>，它将在<code>SwiftUnitTestTests</code>目录下自动创建出一个默认测试类（文件）<code>SwiftUnitTestTests.swift</code>：</p>
+<p>  ​</p>
+<h2 id="默认测试类"><a href="#默认测试类" class="headerlink" title="默认测试类"></a>默认测试类</h2><p>首先我们新建一个项目<code>SwiftUnitTest</code>，它将在<code>SwiftUnitTestTests</code>目录下自动创建出一个默认测试类（文件）<code>SwiftUnitTestTests.swift</code>：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> XCTest</div><div class="line"><span class="meta">@testable</span> <span class="keyword">import</span> SwiftUnitTest</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">SwiftUnitTestTests</span>: <span class="title">XCTestCase</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setUp</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.setUp()</div><div class="line">        <span class="comment">// Put setup code here. This method is called before the invocation of each test method in the class.</span></div><div class="line">        <span class="comment">//在此可以定义测试中用到的属性</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tearDown</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// Put teardown code here. This method is called after the invocation of each test method in the class.</span></div><div class="line">        <span class="comment">//在此添加准备代码。此方法在每个测试用例执行前执行</span></div><div class="line">        <span class="keyword">super</span>.tearDown()</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">testExample</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// This is an example of a functional test case.</span></div><div class="line">        <span class="comment">//这是一个测试用例</span></div><div class="line">        <span class="comment">// Use XCTAssert and related functions to verify your tests produce the correct results.</span></div><div class="line">        <span class="comment">//使用XCTAssert和相关方法测试结果是否正确</span></div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">testPerformanceExample</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// This is an example of a performance test case.</span></div><div class="line">        <span class="comment">//这是一个测试用例</span></div><div class="line">        <span class="keyword">self</span>.measure &#123;</div><div class="line">            <span class="comment">// Put the code you want to measure the time of here.</span></div><div class="line">            <span class="comment">//在此填写需要测量运行时间的代码</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>在这个文件中定义了一个测试类<code>SwiftUnitTestTests</code>，它里面包含了一个<code>setUp()</code>方法和<code>tearDown()</code>方法，分别用来在每个测试方法运行之前做初始化准备，和在测试方法运行之后做清理工作。此外，它还包含了以<code>test</code>开头命名的2个测试方法：<code>testExample()</code>和<code>testPerformanceExample()</code>。</p>
 <p>我们需要注意：</p>
@@ -370,7 +378,7 @@
 <li>测试方法执行的顺序跟测试方法名有关，比如<code>test01()</code>会优先于<code>test02()</code>执行</li>
 </ul>
 <p>通过快捷键<code>CMD+U</code>即可运行当前的单元测试。可以看到所有测试方法已通过。同样，使用<code>CMD+SHIFT+Y</code>打开<code>Console</code>也能看到相应测试方法的运行提示。</p>
-<h3 id="定制测试类"><a href="#定制测试类" class="headerlink" title="定制测试类"></a>定制测试类</h3><p>为了更好的管理测试用例，我们建议为某个需要测试的类单独创建一个测试类（文件），在这之前，我们先创建一个简单的类用来测试：</p>
+<h2 id="定制测试类"><a href="#定制测试类" class="headerlink" title="定制测试类"></a>定制测试类</h2><p>为了更好的管理测试用例，我们建议为某个需要测试的类单独创建一个测试类（文件），在这之前，我们先创建一个简单的类用来测试：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> name: <span class="type">String</span>!</div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="keyword">init</span>() &#123;</div><div class="line">        name = <span class="string">"Children"</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">transfrom</span><span class="params">()</span></span> &#123;</div><div class="line">        name = <span class="string">"GrownMan"</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这个类定义了一种<code>Person</code>类型，它有一个属性叫<code>name</code>，其初始状态为Children。我们可以对其调用<code>transform</code>方法，之后它就变成了GrownMan。</p>
 <p>然后我们新建一个针对<code>Person</code>类做测试的测试类：新建文件，选择<code>Test Case Class</code>, 为此类取名为<code>PersonTest</code>（建议使用<code>&lt;待测试类名&gt;Tests</code>的形式）：</p>
@@ -597,7 +605,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#默认测试类"><span class="nav-number">1.</span> <span class="nav-text">默认测试类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定制测试类"><span class="nav-number">2.</span> <span class="nav-text">定制测试类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行单元测试"><span class="nav-number"></span> <span class="nav-text">运行单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言测试API列表"><span class="nav-number"></span> <span class="nav-text">断言测试API列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo下载请点击这里"><span class="nav-number"></span> <span class="nav-text">Demo下载请点击这里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原文链接"><span class="nav-number"></span> <span class="nav-text">原文链接</span></a></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#默认测试类"><span class="nav-number">1.</span> <span class="nav-text">默认测试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#定制测试类"><span class="nav-number">2.</span> <span class="nav-text">定制测试类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运行单元测试"><span class="nav-number">3.</span> <span class="nav-text">运行单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#断言测试API列表"><span class="nav-number">4.</span> <span class="nav-text">断言测试API列表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo下载请点击这里"><span class="nav-number">5.</span> <span class="nav-text">Demo下载请点击这里</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#原文链接"><span class="nav-number">6.</span> <span class="nav-text">原文链接</span></a></li></ol></div>
             
           </div>
         </section>
