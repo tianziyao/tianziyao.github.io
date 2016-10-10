@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-09-26T10:45:31.000Z</updated>
+  <updated>2016-10-10T16:49:13.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,57 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>iOS开发 - 在一个工程中开发多个APP</title>
+    <link href="http://yoursite.com/2016/10/11/iOS%E5%BC%80%E5%8F%91%20-%20%E5%9C%A8%E4%B8%80%E4%B8%AA%E5%B7%A5%E7%A8%8B%E4%B8%AD%E5%BC%80%E5%8F%91%E5%A4%9A%E4%B8%AAAPP/"/>
+    <id>http://yoursite.com/2016/10/11/iOS开发 - 在一个工程中开发多个APP/</id>
+    <published>2016-10-10T18:24:00.000Z</published>
+    <updated>2016-10-10T16:49:13.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>一般情况下，我们是一个 App 应用对应一个<code>Xcode Project</code>，但是如果你需要同时开发多个产品，而这些产品 90% 的数据结构以及交互方式都一样，呈现在用户面前的这两个产品，最大的不一样就是UI元素以及某些配色时，如果这个时候还是一个 App 一个<code>Xcode Project</code>，普遍的做法是：</p>
+<p>你会先开发完成一个产品，然后在复制到其他的产品中，非常的麻烦而且效率很低，你需要一个一个文件去比对。如果你使用模块的方式，开发完一个模块，然后再利用<code>Pod</code>的方式导入到其他产品中，虽然这样可行，但是涉及到产品的迭代开发以及产品的随时会变的交互，模块的细化分很难实现。</p>
+<p>如果你也面临这样的问题，不放考虑一下下面讲的<code>一个工程来开发多个App</code>：</p>
+   <a id="more"></a>
+<h2 id="创建新的Target"><a href="#创建新的Target" class="headerlink" title="创建新的Target"></a>创建新的Target</h2><p> 如果现在你已经有个一个产品叫<code>ProjectOfApps</code>，如下图所示：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161010-0.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161010-0"></p>
+<p>这时你想添加一个叫<code>ProjectOfApps_B</code>的产品，你需要做的是按如下的步奏进行创建： 选择<code>Project -&gt; Targets -&gt; 右击ProjectOfApps -&gt; 选择Duplicate</code>，这时我们就按照<code>ProjectOfApps</code>复制了一个产品<code>ProjectOfApps copy</code>，并且你会看到多出了一个文件<code>ProjectOfApps copy-Info.plist</code>，如下图所示： </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161010-1.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161010-1"></p>
+<p>双击<code>ProjectOfApps copy</code>或选中回车，将 Target 名改为 <code>ProjectOfApps_B</code>。</p>
+<h2 id="编辑Plist文件"><a href="#编辑Plist文件" class="headerlink" title="编辑Plist文件"></a>编辑Plist文件</h2><p>当我们创建新的<code>Target</code>后会多出一个<code>ProjectOfApps copy-Info.plist</code>文件，这个<code>plist</code>文件就是控制<code>ProjectOfApps_B</code>的名称，版本等信息的文件，我们为了统一将他改为<code>ProjectOfApps_B-Info.plist</code>，在修改名字之前你需要在<code>ProjectOfApps_B</code>的<code>Build Settings</code>中找到<code>ProjectOfApps copy-Info.plist</code>一项，待会儿我们修改完这个<code>plist</code>文件以后，还需要在这里填入它正切的位置信息。这样程序执行时才能找到它，不然程序是不能通过编译的：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161010-2.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161010-2"></p>
+<p>我们的原项目<code>ProjectOfApps</code>也可以这样修改，来达到命名的统一。如果有必要，我们也可以修改<code>plist</code>文件里面的选项以符合我们的预期，和<code>Info.plist</code>的使用并无不同。</p>
+<h2 id="判断当前编译的-Target"><a href="#判断当前编译的-Target" class="headerlink" title="判断当前编译的 Target"></a>判断当前编译的 Target</h2><p>现在我们的工程里面同时包含了两个<code>Target</code>，现在工程里面的类是这两个<code>Target</code>公用的，如果你想在一个类里面区分是<code>ProjectOfApps_A</code>还是<code>ProjectOfApps_B</code>，根据开发语言的不同有两种方案：</p>
+<h3 id="Objective-C"><a href="#Objective-C" class="headerlink" title="Objective - C"></a>Objective - C</h3><p>Objective - C 需要设置<code>Preprocessor Macros</code>，它的定义很简单，选中一个<code>Target</code>，然后在<code>Build Settings</code>里面搜索<code>Preprocessor Macros</code>一项，然后在里面添加表明是<code>ProjectOfApps_A</code>的宏： </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161010-3.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161010-3"></p>
+<p>然后就可以判断当前编译的 Target 是哪一个了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (void)someFunction </div><div class="line">&#123;</div><div class="line">#ifdef ProjectOfApps_A</div><div class="line">    NSLog(@&quot;Build For Target ProjectOfApps_A!&quot;);</div><div class="line">#else</div><div class="line">    NSLog(@&quot;Build For Target ProjectOfApps_B!&quot;);</div><div class="line">#endif</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="Swift"><a href="#Swift" class="headerlink" title="Swift"></a>Swift</h3><p>Swift 下的处理和 Objective - C 有所不同，需要设置<code>Custom Flags</code>，选中一个<code>Target</code>，然后在<code>Build Settings</code>里面搜索<code>Custom Flags</code>一项，然后在里面添加表明是<code>ProjectOfApps_A</code>的宏：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161011-0.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161011-0"></p>
+<p>需要注意的是，这里要使用<code>－D</code>的格式。对应的代码如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span><span class="params">()</span></span> &#123;</div><div class="line">    #<span class="keyword">if</span> <span class="type">ProjectOfApps_A</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"Build For Target ProjectOfApps_A!"</span>)</div><div class="line">    #elseif <span class="type">ProjectOfApps_B</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"Build For Target ProjectOfApps_B!"</span>)</div><div class="line">    #<span class="keyword">else</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"Other"</span>)</div><div class="line">    #endif</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="修改Scheme"><a href="#修改Scheme" class="headerlink" title="修改Scheme"></a>修改Scheme</h2><p>现在的 Scheme 还是<code>ProjectOfApps copy</code>和<code>ProjectOfApps</code>，我们可以通过<code>Manage Schemes</code>将两个 Scheme 修改一下： </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161011-1.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161011-1"></p>
+<h2 id="资源文件和类文件"><a href="#资源文件和类文件" class="headerlink" title="资源文件和类文件"></a>资源文件和类文件</h2><p>如果需要为不同的 Target 区别不同的资源文件和类文件，可以使用 Xcode 的<code>Target Membership</code>功能，来选择该类属于哪个<code>Target</code>。Assets、控件也是如此。 </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/QQ20161011-2.png" alt="http://oboehz2ag.bkt.clouddn.com/QQ20161011-2"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://summertreee.github.io/blog/2016/01/23/ioszhong-ru-he-zai-%5B%3F%5D-ge-gong-cheng-chuang-jian-duo-ge-app/" target="_blank" rel="external">iOS中如何在一个工程创建多个App</a> - 夏树正茂</p>
+<p><a href="http://stackoverflow.com/questions/24003291/ifdef-replacement-in-swift-language" target="_blank" rel="external">#ifdef replacement in swift language</a> - stackoverflow</p>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/ProjectOfApps" target="_blank" rel="external">点击这里</a></h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;一般情况下，我们是一个 App 应用对应一个&lt;code&gt;Xcode Project&lt;/code&gt;，但是如果你需要同时开发多个产品，而这些产品 90% 的数据结构以及交互方式都一样，呈现在用户面前的这两个产品，最大的不一样就是UI元素以及某些配色时，如果这个时候还是一个 App 一个&lt;code&gt;Xcode Project&lt;/code&gt;，普遍的做法是：&lt;/p&gt;
+&lt;p&gt;你会先开发完成一个产品，然后在复制到其他的产品中，非常的麻烦而且效率很低，你需要一个一个文件去比对。如果你使用模块的方式，开发完一个模块，然后再利用&lt;code&gt;Pod&lt;/code&gt;的方式导入到其他产品中，虽然这样可行，但是涉及到产品的迭代开发以及产品的随时会变的交互，模块的细化分很难实现。&lt;/p&gt;
+&lt;p&gt;如果你也面临这样的问题，不放考虑一下下面讲的&lt;code&gt;一个工程来开发多个App&lt;/code&gt;：&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
+    
+    
+      <category term="Custom Flags" scheme="http://yoursite.com/tags/Custom-Flags/"/>
+    
+  </entry>
   
   <entry>
     <title>Xcode错误 - Pch file not found</title>
@@ -2242,196 +2293,6 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
       <category term="HTTP" scheme="http://yoursite.com/tags/HTTP/"/>
     
       <category term="DNS" scheme="http://yoursite.com/tags/DNS/"/>
-    
-      <category term="网络通讯" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HTTP请求 - 请求方法</title>
-    <link href="http://yoursite.com/2016/08/18/HTTP%E8%AF%B7%E6%B1%82%E6%96%B9%E6%B3%95/"/>
-    <id>http://yoursite.com/2016/08/18/HTTP请求方法/</id>
-    <published>2016-08-17T20:44:00.000Z</published>
-    <updated>2016-09-14T01:28:56.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>根据HTTP标准，HTTP请求可以使用多种请求方法。</p>
-<p>HTTP1.0定义了三种请求方法： GET, POST和HEAD方法。</p>
-<p>HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE和CONNECT方法。</p>
-<table>
-<thead>
-<tr>
-<th>方法</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>GET</td>
-<td>请求指定的页面信息，并返回实体主体。</td>
-</tr>
-<tr>
-<td>HEAD</td>
-<td>类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头。</td>
-</tr>
-<tr>
-<td>POST</td>
-<td>向指定资源提交数据进行处理请求，如提交表单或者上传文件。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。</td>
-</tr>
-<tr>
-<td>PUT</td>
-<td>从客户端向服务器传送的数据取代指定的文档的内容。</td>
-</tr>
-<tr>
-<td>DELETE</td>
-<td>请求服务器删除指定的页面。</td>
-</tr>
-<tr>
-<td>CONNECT</td>
-<td>HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。</td>
-</tr>
-<tr>
-<td>OPTIONS</td>
-<td>允许客户端查看服务器的性能。</td>
-</tr>
-<tr>
-<td>TRACE</td>
-<td>请求服务器回显其收到的请求信息，该方法主要用于HTTP请求的测试或诊断。</td>
-</tr>
-</tbody>
-</table>
-<a id="more"></a>
-<p>在客户机和服务器之间进行请求-响应时，两种最常被用到的方法是：GET 和 POST。</p>
-<ul>
-<li><em>GET</em> - 从指定的资源请求数据；</li>
-<li><em>POST</em> - 向指定的资源提交要被处理的数据；</li>
-</ul>
-<h4 id="get请求方法"><a href="#get请求方法" class="headerlink" title="get请求方法"></a>get请求方法</h4><p>查询字符串（名称/值对）是在 GET 请求的 URL 中发送的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/test/demo_form.asp?name1=value1&amp;name2=value2</div></pre></td></tr></table></figure>
-<p>有关 GET 请求的其他一些注释：</p>
-<ul>
-<li>GET 请求可被缓存</li>
-<li>GET 请求保留在浏览器历史记录中</li>
-<li>GET 请求可被收藏为书签</li>
-<li>GET 请求不应在处理敏感数据时使用</li>
-<li>GET 请求有长度限制</li>
-<li>GET 请求只应当用于取回数据</li>
-</ul>
-<h4 id="post请求方法"><a href="#post请求方法" class="headerlink" title="post请求方法"></a>post请求方法</h4><p>请注意，查询字符串（名称/值对）是在 POST 请求的 HTTP 消息主体中发送的：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">POST /test/demo_form.asp HTTP/1.1</div><div class="line">Host: w3schools.com</div><div class="line">name1=value1&amp;name2=value2</div></pre></td></tr></table></figure>
-<p>有关 POST 请求的其他一些注释：</p>
-<ul>
-<li>POST 请求不会被缓存</li>
-<li>POST 请求不会保留在浏览器历史记录中</li>
-<li>POST 不能被收藏为书签</li>
-<li>POST 请求对数据长度没有要求</li>
-</ul>
-<h4 id="post和get的区别"><a href="#post和get的区别" class="headerlink" title="post和get的区别"></a>post和get的区别</h4><table>
-<thead>
-<tr>
-<th></th>
-<th>GET</th>
-<th>POST</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>刷新</td>
-<td>无影响。</td>
-<td>数据会被重新提交。</td>
-</tr>
-<tr>
-<td>书签</td>
-<td>可收藏为书签。</td>
-<td>不可收藏为书签。</td>
-</tr>
-<tr>
-<td>缓存</td>
-<td>能被缓存。</td>
-<td>不能缓存。</td>
-</tr>
-<tr>
-<td>传输</td>
-<td>通过网址字符串。</td>
-<td>通过二进制数据。</td>
-</tr>
-<tr>
-<td>历史</td>
-<td>参数保留在浏览器历史中。</td>
-<td>参数不会保存在浏览器历史中。</td>
-</tr>
-<tr>
-<td>长度</td>
-<td>URL 的最大长度是 2048 个字符。</td>
-<td>理论上无限制。</td>
-</tr>
-<tr>
-<td>类型</td>
-<td>只允许 ASCII 字符。</td>
-<td>没有限制。也允许二进制数据。</td>
-</tr>
-<tr>
-<td>安全性</td>
-<td>较差，明文可见。</td>
-<td>较好，参数不会被保存在浏览器历史或web服务器日志中。</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;根据HTTP标准，HTTP请求可以使用多种请求方法。&lt;/p&gt;
-&lt;p&gt;HTTP1.0定义了三种请求方法： GET, POST和HEAD方法。&lt;/p&gt;
-&lt;p&gt;HTTP1.1新增了五种请求方法：OPTIONS, PUT, DELETE, TRACE和CONNECT方法。&lt;/p&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th&gt;方法&lt;/th&gt;
-&lt;th&gt;描述&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;GET&lt;/td&gt;
-&lt;td&gt;请求指定的页面信息，并返回实体主体。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;HEAD&lt;/td&gt;
-&lt;td&gt;类似于get请求，只不过返回的响应中没有具体的内容，用于获取报头。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;POST&lt;/td&gt;
-&lt;td&gt;向指定资源提交数据进行处理请求，如提交表单或者上传文件。数据被包含在请求体中。POST请求可能会导致新的资源的建立和/或已有资源的修改。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;PUT&lt;/td&gt;
-&lt;td&gt;从客户端向服务器传送的数据取代指定的文档的内容。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;DELETE&lt;/td&gt;
-&lt;td&gt;请求服务器删除指定的页面。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;CONNECT&lt;/td&gt;
-&lt;td&gt;HTTP/1.1协议中预留给能够将连接改为管道方式的代理服务器。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;OPTIONS&lt;/td&gt;
-&lt;td&gt;允许客户端查看服务器的性能。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;TRACE&lt;/td&gt;
-&lt;td&gt;请求服务器回显其收到的请求信息，该方法主要用于HTTP请求的测试或诊断。&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-    
-    </summary>
-    
-      <category term="网络通讯" scheme="http://yoursite.com/categories/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
-    
-    
-      <category term="HTTP请求" scheme="http://yoursite.com/tags/HTTP%E8%AF%B7%E6%B1%82/"/>
     
       <category term="网络通讯" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
     

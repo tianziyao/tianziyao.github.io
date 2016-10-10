@@ -278,6 +278,136 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/24/iOS多线程之 同步线程/" itemprop="url">
+                  iOS多线程 - 同步线程
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-24T05:09:00+08:00" content="2016-07-24">
+              2016-07-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/24/iOS多线程之 同步线程/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/24/iOS多线程之 同步线程/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>比如你去银行存10K，在用ATM存的同时，又使用网银取了10K，如果线程同步做的不好的话， 虽然取10K元的操作会有记录，但是可能不会反映在余额上。如果要解决这样的问题，就需要用到线程同步，线程同步在开发过程中是非常常见的。下面我们以12306为例，尝试解决如何保证一张票不会被不同窗口，不同客户端重复购买。</p>
+</blockquote>
+<p>首先我们来认识一下互斥锁的概念：</p>
+<blockquote>
+<p><strong>互斥锁</strong>（英语：Mutual exclusion，缩写 Mutex）是一种用于<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a><a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B">编程</a>中，防止两条<a href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程</a>同时对同一公共资源（比如<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">全局变量</a>）进行读写的机制。该目的通过将代码切片成一个一个的<a href="https://zh.wikipedia.org/wiki/%E4%B8%B4%E7%95%8C%E5%8C%BA%E5%9F%9F">临界区域</a>（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。</p>
+</blockquote>
+<p>以上是维基百科给出的解释，如需了解更多请 <a href="https://zh.wikipedia.org/wiki/%E4%BA%92%E6%96%A5%E9%94%81">点击这里</a>。</p>
+<p>简单来讲，互斥锁是为了防止多个线程访问同一个对象、方法、变量、文件等引起的数据错误。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/24/iOS多线程之 同步线程/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/23/五个案例明白 GCD 死锁/" itemprop="url">
                   iOS案例 - GCD 死锁
                 </a>
@@ -539,8 +669,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
-                  iOS自定义控件 - 时间轴
+                <a class="post-title-link" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="url">
+                  将 Disqus 社会化评论组件设置为简体中文
                 </a>
               
             
@@ -567,8 +697,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
                   </a>
                 </span>
 
@@ -583,8 +713,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
+                <a href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -608,18 +738,9 @@
 
       
         
-          <blockquote>
-<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
-</blockquote>
-<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
-<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
-<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
-<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
-<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
-<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
-<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
+          <h4 id="1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。"><a href="#1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。" class="headerlink" title="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。"></a>1、首先要进入<a href="https://siluba.disqus.com/admin">Disqus管理后台</a>，点击 <code>Admin</code> 进入后台设置页面。</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-2.png" alt=""></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
+            <a class="btn" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -797,8 +918,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="url">
-                  将 Disqus 社会化评论组件设置为简体中文
+                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
+                  iOS自定义控件 - 时间轴
                 </a>
               
             
@@ -825,8 +946,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -841,8 +962,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="commentsCount"></span>
+                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -866,9 +987,18 @@
 
       
         
-          <h4 id="1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。"><a href="#1、首先要进入Disqus管理后台，点击-Admin-进入后台设置页面。" class="headerlink" title="1、首先要进入Disqus管理后台，点击 Admin 进入后台设置页面。"></a>1、首先要进入<a href="https://siluba.disqus.com/admin">Disqus管理后台</a>，点击 <code>Admin</code> 进入后台设置页面。</h4><p><img src="http://oal3qtwiu.bkt.clouddn.com/QQ20160722-2.png" alt=""></p>
+          <blockquote>
+<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
+</blockquote>
+<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
+<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
+<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
+<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
+<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
+<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
+<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/#more" rel="contents">
+            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1334,140 +1464,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/Typora For Markdown 语法/" itemprop="url">
-                  Typora For Markdown 语法
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/Typora For Markdown 语法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Typora For Markdown 语法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>Typora</code> 是一个功能强大的 <code>Markdown</code> 编辑器，<code>Typora</code> 可以插入数学表达式，插入表情，表格，支持标准的 Markdown 语法，可以使用标注，功能非常强悍。</p>
-<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>要启用这个功能，首先要到 <code>Preference</code> - <code>Editor</code> 中启用。然后使用<code>$</code>符号包裹<code>Tex</code>命令，例如：<code>$lim_{x \ to \infty} \ exp(-x)=0$</code>。</p>
-<blockquote>
-<p>$lim_{x \ to \infty} \ exp(-x)=0$</p>
-</blockquote>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p>下标使用<code>~</code>包裹，例如：<code>H~2~o</code>将产生水的分子式。</p>
-<blockquote>
-<p>H~2~o</p>
-</blockquote>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><p>上标使用<code>^</code>包裹，例如：<code>y^2^=4</code>将产生表达式。</p>
-<blockquote>
-<p>y^2^=4</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/Typora For Markdown 语法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/07/21/Xocde错误 - No Such Module/" itemprop="url">
                   Xocde错误 - No Such Module
                 </a>
@@ -1614,7 +1610,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">52</span>
+              <span class="site-state-item-count">53</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1631,7 +1627,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">69</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
