@@ -1,0 +1,784 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【转载】Swift算法 - 基本语法与技巧">
+<meta property="og:url" content="http://yoursite.com/2016/10/14/【转载】Swift算法 - 基本语法与技巧/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中">
+<meta property="og:updated_time" content="2016-10-13T17:13:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="【转载】Swift算法 - 基本语法与技巧">
+<meta name="twitter:description" content="Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/10/14/【转载】Swift算法 - 基本语法与技巧/"/>
+
+  <title> 【转载】Swift算法 - 基本语法与技巧 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                【转载】Swift算法 - 基本语法与技巧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/【转载】Swift算法 - 基本语法与技巧/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中使用。</p>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars:[Character],  p: Int, q: Int)</span></span> &#123;</div><div class="line">  <span class="keyword">var</span> temp = chars[p]</div><div class="line">  chars[p] = chars[q]</div><div class="line">  chars[q] = temp</div><div class="line">&#125;</div><div class="line"><span class="comment">// Assume array is a character array and it has enough elements</span></div><div class="line"><span class="built_in">swap</span>(array, p: <span class="number">0</span>, q: <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>上面代码实现了一个非常简单的功能，就是交换一个数组中的两个值。乍一看非常正确，实际上存在以下几个问题。</p>
+<ol>
+<li>在第一个参数前应该加上 <strong>inout </strong>关键字。因为在 Swift 中，struct 都是按值传递，class 是按引用传递；数组和字典都是 struct。所以要改变原来的 chars 数组，在其前部加入 inout 关键字，表示是按引用传递。</li>
+<li>p 和 q 之前应该加入下划线。Swift 默认函数的第一个参数是局部（local）变量，而后续参数都是外部（external）变量，外部变量必须声明。如果在 p 和 q 前加上下划线，则在调用函数时无需声明外部变量，这样调用起来更简便。</li>
+<li>temp 前的 var 应该改为 <strong>let</strong>。let 用于声明常量（constant），var 用于声明变量（variable）。swap 函数中，temp 并未进行修改，所以应当视为常量，用let来声明。</li>
+</ol>
+<blockquote>
+<p>除原作者以上写出的 3 点问题之外，在我编译时，也有几个方面值得记录下来：</p>
+<ul>
+<li><p>swap 是自带的方法，API 文档描述如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="comment">/// Exchange the values of `a` and `b`.</span></div><div class="line">&gt;   <span class="comment">///</span></div><div class="line">&gt;   <span class="comment">/// - Precondition: `a` and `b` do not alias each other.</span></div><div class="line">&gt;   <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">swap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<ul>
+<li><p>在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，<strong>强制要求我们使用 inout 关键字</strong>，当然我们也可以在方法内部创建一个新的变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</div><div class="line">&gt;       <span class="keyword">var</span> chars = chars</div><div class="line">&gt;       <span class="keyword">let</span> temp = chars[p]</div><div class="line">&gt;       chars[p] = chars[q]</div><div class="line">&gt;       chars[q] = temp</div><div class="line">&gt;       <span class="keyword">return</span> chars</div><div class="line">&gt;   &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>  但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。</p>
+</blockquote>
+   <a id="more"></a>
+<p>修改后的代码为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: <span class="keyword">inout</span> [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> temp = chars[p]</div><div class="line">    chars[p] = chars[q]</div><div class="line">    chars[q] = temp</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> chars = [<span class="string">"a"</span>,<span class="string">"b"</span>]</div><div class="line"><span class="comment">//我们创建的方法</span></div><div class="line"><span class="built_in">swap</span>(chars: &amp;chars, <span class="number">0</span>, <span class="number">1</span>)</div><div class="line">chars   <span class="comment">//["b", "a"]</span></div><div class="line"><span class="comment">//系统提供的方法</span></div><div class="line"><span class="built_in">swap</span>(&amp;chars[<span class="number">0</span>], &amp;chars[<span class="number">1</span>])</div><div class="line">chars   <span class="comment">//["a", "b"]</span></div></pre></td></tr></table></figure>
+<p>再来看一段代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">toZero</span><span class="params">(x: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">  <span class="keyword">while</span> x &gt; <span class="number">0</span> &#123;</div><div class="line">    x -= <span class="number">1</span></div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> x</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里在 <code>x -= 1</code> 处会报错。原因是函数中所有的参数是常量（let），是不可以修改的。解决的方法是在函数中写上 <code>var x = x</code>，之后就可以对 x 进行修改了。</p>
+<blockquote>
+<p>这里所犯的错误和上面类似，同样，如果我们需要对原值进行修改，使用 inout，如果需要得到一份拷贝，就使用 var。</p>
+</blockquote>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">toZero</span><span class="params">(x: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">var</span> x = x</div><div class="line">    <span class="keyword">while</span> x &gt; <span class="number">0</span> &#123;</div><div class="line">        x -= <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> x</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">toZero</span><span class="params">(x: <span class="keyword">inout</span> Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">while</span> x &gt; <span class="number">0</span> &#123;</div><div class="line">        x -= <span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> x</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> num = <span class="number">10</span></div><div class="line"><span class="keyword">var</span> x = toZero(x: num)  <span class="comment">//0</span></div><div class="line">num                     <span class="comment">//10</span></div><div class="line">x = toZero(x: &amp;num)     <span class="comment">//0</span></div><div class="line">num                     <span class="comment">//0</span></div></pre></td></tr></table></figure>
+<h2 id="循环"><a href="#循环" class="headerlink" title="循环"></a>循环</h2><p>Swift 循环分为 for 和 while 两种，注意他们的结构跟传统的 Java, C / C++ 有很大区别，笔者将其总结如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Assume names is an array holds enough Strings</span></div><div class="line"><span class="comment">// for loop</span></div><div class="line"><span class="keyword">for</span> name <span class="keyword">in</span> names &#123; &#125;</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ... names.<span class="built_in">count</span> - <span class="number">1</span> &#123; &#125;</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ..&lt; names.<span class="built_in">count</span> &#123; &#125;</div><div class="line"><span class="keyword">for</span> <span class="number">_</span> <span class="keyword">in</span> <span class="number">0</span> ..&lt; names.<span class="built_in">count</span> &#123; &#125;</div><div class="line"><span class="keyword">for</span> name <span class="keyword">in</span> names.<span class="built_in">reverse</span>() &#123; &#125;</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>.<span class="built_in">stride</span>(through: names.<span class="built_in">count</span> - <span class="number">1</span>, by <span class="number">2</span>) &#123; &#125;</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>.<span class="built_in">stride</span>(to: names.<span class="built_in">count</span>, by: <span class="number">2</span>) &#123; &#125;</div><div class="line"></div><div class="line"><span class="comment">// while loop</span></div><div class="line"><span class="keyword">var</span> i = <span class="number">0</span></div><div class="line"><span class="keyword">while</span> i &lt; names.<span class="built_in">count</span> &#123; &#125;</div><div class="line"><span class="keyword">repeat</span> &#123; &#125; <span class="keyword">while</span> i &lt; names.<span class="built_in">count</span></div></pre></td></tr></table></figure>
+<p>以上代码非常简单。需要说明的有两个，一个是 <code>for _ in 0 ..&lt; names.count { }</code> 。当我们不需要数组中每一个具体的元素值时，我们就可以用下划线来代表序号。<br>另一个是是 <code>repeat { } while i &lt; names.count</code> 。这个相当于我们熟悉（java）的 <code>do { } while (i &lt; names.length)</code>。<br>注意，在循环中，i是let变量，是不可以修改的。</p>
+<blockquote>
+<p>在这里，因为 stride 方法语法变更的问题，在 Swift 3 下的写法应为：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&gt;<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">0</span>, to: names.<span class="built_in">count</span>, by: <span class="number">2</span>) &#123;&#125;</div><div class="line">&gt;<span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">stride</span>(from: <span class="number">0</span>, through: names.<span class="built_in">count</span> - <span class="number">1</span>, by: <span class="number">2</span>) &#123;&#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p>Swift 排序效率很高，写法也很简洁。笔者将其总结如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Sort an Int array，ascending</span></div><div class="line">nums.sortInPlace(&#123;$<span class="number">0</span> &lt; $<span class="number">1</span>&#125;)</div><div class="line"></div><div class="line"><span class="comment">// Sort an Int array without mutating the original one, ascending</span></div><div class="line"><span class="keyword">var</span> sortedNums = nums.<span class="built_in">sort</span>(&#123;$<span class="number">0</span> &lt; $<span class="number">1</span>&#125;)</div><div class="line"></div><div class="line"><span class="comment">// Sort an array with custom-defined objects, ascending</span></div><div class="line">timeIntervals.sortInPlace(&#123;$<span class="number">0</span>.startTime &lt; $<span class="number">1</span>.startTime&#125;)</div><div class="line"></div><div class="line"><span class="comment">// Sort keys in a dictionary according to its value, ascending</span></div><div class="line"><span class="keyword">let</span> keys = <span class="type">Array</span>(dict.keys)</div><div class="line"><span class="keyword">var</span> sortedKeys = keys.<span class="built_in">sort</span>() &#123;</div><div class="line">  <span class="keyword">let</span> value0 = dict[$<span class="number">0</span>]</div><div class="line">  <span class="keyword">let</span> value1 = dict[$<span class="number">1</span>]</div><div class="line">  <span class="keyword">return</span> value0 &lt; value1</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>同样由于版本问题，我将原作者的代码重新写了一遍，并添加了一部分代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">var</span> nums = [<span class="number">8</span>,<span class="number">7</span>,<span class="number">9</span>,<span class="number">2</span>,<span class="number">10</span>]</div><div class="line">&gt; <span class="comment">// Sort an Int array，ascending</span></div><div class="line">&gt; nums.<span class="built_in">sort</span>(by: &#123;$<span class="number">0</span> &lt; $<span class="number">1</span>&#125;)</div><div class="line">&gt; <span class="comment">// Sort an Int array without mutating the original one, ascending</span></div><div class="line">&gt; <span class="keyword">var</span> sortedNums = nums.sorted(by: &#123;$<span class="number">0</span> &lt; $<span class="number">1</span>&#125;)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>上面是对原数组进行排序和创建原数组的 Copy 并进行排序，下面是对象数组的排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment">// Sort an array with custom-defined objects, ascending</span></div><div class="line">&gt; <span class="class"><span class="keyword">struct</span> <span class="title">model</span> </span>&#123;</div><div class="line">&gt;     <span class="keyword">var</span> startTime: <span class="type">Float</span></div><div class="line">&gt;     <span class="keyword">let</span> productName: <span class="type">String</span></div><div class="line">&gt;     <span class="keyword">var</span> timestamp: <span class="type">Date</span></div><div class="line">&gt; &#125;</div><div class="line">&gt;</div><div class="line">&gt; <span class="keyword">var</span> a = model(startTime: <span class="number">1</span>, productName: <span class="string">"a"</span>, timestamp: <span class="type">Date</span>.<span class="keyword">init</span>(timeIntervalSince1970: <span class="number">5000</span>))</div><div class="line">&gt; <span class="keyword">var</span> b = model(startTime: <span class="number">2</span>, productName: <span class="string">"b"</span>, timestamp: <span class="type">Date</span>.<span class="keyword">init</span>(timeIntervalSince1970: <span class="number">2000</span>))</div><div class="line">&gt;</div><div class="line">&gt; <span class="keyword">var</span> models = [a, b]</div><div class="line">&gt;</div><div class="line">&gt; models.<span class="built_in">sort</span>(by: &#123;$<span class="number">0</span>.startTime &lt; $<span class="number">1</span>.startTime&#125;)</div><div class="line">&gt; models.<span class="built_in">sort</span>(by: &#123;$<span class="number">0</span>.timestamp &lt; $<span class="number">1</span>.timestamp&#125;)</div><div class="line">&gt; models.<span class="built_in">sort</span>(by: &#123;$<span class="number">0</span>.productName &lt; $<span class="number">1</span>.productName&#125;)</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>可以看出 Swift 提供的排序还是很强大的，提供了多种数据类型的支持。除此之外，我们可以对字典的 key 进行排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">var</span> dict = [<span class="string">"3"</span>:<span class="string">"3"</span>, <span class="string">"2"</span>:<span class="string">"2"</span>, <span class="string">"1"</span>:<span class="string">"1"</span>]</div><div class="line">&gt; <span class="keyword">let</span> keys = <span class="type">Array</span>(dict.keys)</div><div class="line">&gt;</div><div class="line">&gt; <span class="keyword">var</span> sortedKeys = keys.sorted() &#123;</div><div class="line">&gt;     <span class="keyword">let</span> value0 = dict[$<span class="number">0</span>]</div><div class="line">&gt;     <span class="keyword">let</span> value1 = dict[$<span class="number">1</span>]</div><div class="line">&gt;     <span class="keyword">return</span> value0! &lt; value1!</div><div class="line">&gt; &#125;</div><div class="line">&gt; <span class="built_in">print</span>(sortedKeys)	<span class="comment">//["1", "2", "3"]</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>为什么没有对字典的排序呢？我想是因为字典并不是按位置取值，而是按 key 来取值的。当然，如果要实现的话，也并不困难，我们可以这样将字典的 value 进行排序：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">var</span> dict = [<span class="string">"3"</span>:<span class="string">"3"</span>, <span class="string">"2"</span>:<span class="string">"2"</span>, <span class="string">"1"</span>:<span class="string">"1"</span>]</div><div class="line">&gt; <span class="keyword">let</span> values = <span class="type">Array</span>(dict.values)</div><div class="line">&gt; <span class="keyword">var</span> sortedValues = values.sorted(by: &#123;$<span class="number">0</span> &lt; $<span class="number">1</span>&#125;)</div><div class="line">&gt; <span class="built_in">print</span>(sortedValues)		<span class="comment">//["1", "2", "3"]</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>也可以像下面这样，将整个字典进行排序，得到一个字典数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">var</span> dict = [<span class="string">"4"</span>:<span class="string">"4"</span>, <span class="string">"3"</span>:<span class="string">"3"</span>, <span class="string">"2"</span>:<span class="string">"2"</span>, <span class="string">"1"</span>:<span class="string">"1"</span>]</div><div class="line">&gt;</div><div class="line">&gt; <span class="class"><span class="keyword">enum</span> <span class="title">SortOption</span> </span>&#123;</div><div class="line">&gt;     <span class="keyword">case</span> <span class="type">KEY</span></div><div class="line">&gt;     <span class="keyword">case</span> <span class="type">VALUE</span></div><div class="line">&gt; &#125;</div><div class="line">&gt; <span class="function"><span class="keyword">func</span> <span class="title">DictWithOption</span><span class="params">(dict : [String : String],option : SortOption)</span></span> -&gt;[(<span class="type">String</span>, <span class="type">String</span>)] &#123;</div><div class="line">&gt;     <span class="keyword">var</span> sortResult = [(<span class="type">String</span>,<span class="type">String</span>)]()</div><div class="line">&gt;     <span class="keyword">switch</span> option &#123;</div><div class="line">&gt;     <span class="keyword">case</span> .<span class="type">KEY</span>:</div><div class="line">&gt;         sortResult = dict.sorted &#123; $<span class="number">0.0</span> &lt; $<span class="number">1.0</span> &#125;</div><div class="line">&gt;     <span class="keyword">case</span> .<span class="type">VALUE</span>:</div><div class="line">&gt;         sortResult = dict.sorted &#123; $<span class="number">0.1</span> &lt; $<span class="number">1.1</span> &#125;</div><div class="line">&gt;     &#125;</div><div class="line">&gt;     <span class="keyword">return</span> sortResult</div><div class="line">&gt; &#125;</div><div class="line">&gt; <span class="keyword">var</span> sortedDict = <span class="type">DictWithOption</span>(dict: dict, option: .<span class="type">VALUE</span>)</div><div class="line">&gt; <span class="comment">//[("1", "1"), ("2", "2"), ("3", "3"), ("4", "4")]</span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<h1 id="活用Guard语句"><a href="#活用Guard语句" class="headerlink" title="活用Guard语句"></a>活用Guard语句</h1><p>使用 Guard 语句可以让逻辑变得非常清楚，尤其是在处理算法问题的时候，请看下面的代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">strStr</span><span class="params">(haystack: String, <span class="number">_</span> needle: String)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="comment">//字符串转为字符数组</span></div><div class="line">    <span class="keyword">var</span> hChars = [<span class="type">Character</span>](haystack.characters)</div><div class="line">    <span class="keyword">var</span> nChars = [<span class="type">Character</span>](needle.characters)</div><div class="line">    <span class="comment">//如果haystack的长度小于needle，说明haystack不包含needle。</span></div><div class="line">    <span class="keyword">if</span> hChars.<span class="built_in">count</span> &lt; nChars.<span class="built_in">count</span> &#123;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//如果haystack的长度等于0，说明haystack不包含needle。</span></div><div class="line">    <span class="keyword">if</span> hChars.<span class="built_in">count</span> == <span class="number">0</span> &#123;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ... hChars.<span class="built_in">count</span> - nChars.<span class="built_in">count</span> &#123;</div><div class="line">        <span class="comment">//如果从hChars中找到nChars的首字母</span></div><div class="line">        <span class="keyword">if</span> hChars[i] == nChars[<span class="number">0</span>] &#123;</div><div class="line">            <span class="comment">//进入nChars循环</span></div><div class="line">            <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; nChars.<span class="built_in">count</span> &#123;</div><div class="line">                <span class="comment">//如果hChars的下一位不等于nChars的下一位，中断nChars循环，再次进入hChars循环查找首字母。</span></div><div class="line">                <span class="keyword">if</span> hChars[i + j] != nChars[j] &#123;</div><div class="line">                    <span class="keyword">break</span></div><div class="line">                &#125;</div><div class="line">                <span class="comment">//如果nChars循环一直相等，且到达nChars尾节点，说明已全部匹配，输出i。</span></div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">//如果达到尾节点，输出最后一次首字母相等时的i</span></div><div class="line">                    <span class="keyword">if</span> j == nChars.<span class="built_in">count</span> - <span class="number">1</span> &#123;</div><div class="line">                        <span class="keyword">return</span> i</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> -<span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上面这段代码是求字符串 needle 在字符串 haystack 里首次出现的位置。我们发现 for 循环中的嵌套非常繁琐，但是如果使用 guard 语句代码会变得清晰很多：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">strStr</span><span class="params">(haystack: String, <span class="number">_</span> needle: String)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line"></div><div class="line">    <span class="comment">//字符串转为字符数组</span></div><div class="line">    <span class="keyword">var</span> hChars = [<span class="type">Character</span>](haystack.characters)</div><div class="line">    <span class="keyword">var</span> nChars = [<span class="type">Character</span>](needle.characters)</div><div class="line">    </div><div class="line">    <span class="comment">//保证hChars的长度大于nChars的长度，如不满足则说hChars不包含nChars。</span></div><div class="line">    <span class="keyword">guard</span> hChars.<span class="built_in">count</span> &gt;= nChars.<span class="built_in">count</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//如果nChars的长度等于0，说明nChars是空字符串。</span></div><div class="line">    <span class="keyword">if</span> nChars.<span class="built_in">count</span> == <span class="number">0</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span> ... hChars.<span class="built_in">count</span> - nChars.<span class="built_in">count</span> &#123;</div><div class="line">        <span class="comment">//保证找到nChars的首字母时，才能进入nChars的循环，如不满足则继续查找首字母。</span></div><div class="line">        <span class="keyword">guard</span> hChars[i] == nChars[<span class="number">0</span>] <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">continue</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> <span class="number">0</span> ..&lt; nChars.<span class="built_in">count</span> &#123;</div><div class="line">            <span class="comment">//保证hChars的下一位等于nChars的下一位，如不满足则中断nChars循环，再次进入hChars循环查找首字母。</span></div><div class="line">            <span class="keyword">guard</span> hChars[i+j] == nChars[j] <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">break</span></div><div class="line">            &#125;</div><div class="line">            <span class="comment">//如果nChars循环一直相等，且到达nChars尾节点，说明已全部匹配，输出i。</span></div><div class="line">            <span class="keyword">if</span> j == nChars.<span class="built_in">count</span> - <span class="number">1</span> &#123;</div><div class="line">                <span class="keyword">return</span> <span class="number">1</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> -<span class="number">1</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>guard 语句的好处是判断条件永远是我们希望的条件而不是特殊情况，且成功避免了大量的 if 嵌套。</p>
+<p>另外在上面代码中，为何要将字符串转化成数组进行处理？因为 Swift 中没有方法能够以 O(1) 的时间复杂度取得字符串中的字符，我们常用的<code>string.startIndex.advancedBy(n)</code>方法，其时间复杂度为O(n)。所以笔者在这里以空间换时间的方法进行了优化。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>Swift 是一门独特的语言，本文对其基本知识和语法进行了适当归纳，文中提到的都是基本细节。下期我们会讨论更加进阶的内容。</p>
+<h2 id="原文链接"><a href="#原文链接" class="headerlink" title="原文链接"></a>原文链接</h2><p><a href="http://www.jianshu.com/p/ee16bcf50a59" target="_blank" rel="external">Swift 算法实战之路：基本语法与技巧</a> - 故胤道长</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag">#算法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/" rel="next" title="iOS开发 - 在一个工程中开发多个APP">
+                <i class="fa fa-chevron-left"></i> iOS开发 - 在一个工程中开发多个APP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/10/14/【转载】Swift算法 - 基本语法与技巧/"
+     data-title="【转载】Swift算法 - 基本语法与技巧"
+     data-content=""
+     data-url="http://yoursite.com/2016/10/14/【转载】Swift算法 - 基本语法与技巧/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/10/14/【转载】Swift算法 - 基本语法与技巧/"
+           data-title="【转载】Swift算法 - 基本语法与技巧" data-url="http://yoursite.com/2016/10/14/【转载】Swift算法 - 基本语法与技巧/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本语法"><span class="nav-number">1.</span> <span class="nav-text">基本语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环"><span class="nav-number">2.</span> <span class="nav-text">循环</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">3.</span> <span class="nav-text">排序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#活用Guard语句"><span class="nav-number"></span> <span class="nav-text">活用Guard语句</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number"></span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#原文链接"><span class="nav-number">1.</span> <span class="nav-text">原文链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

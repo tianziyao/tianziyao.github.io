@@ -278,6 +278,155 @@
             
               
                 
+                <a class="post-title-link" href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/" itemprop="url">
+                  【转载】Swift算法 - 基本语法与技巧
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/算法/" itemprop="url" rel="index">
+                    <span itemprop="name">算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/【转载】Swift算法 - 基本语法与技巧/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中使用。</p>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars:[Character],  p: Int, q: Int)</span></span> &#123;</div><div class="line">  <span class="keyword">var</span> temp = chars[p]</div><div class="line">  chars[p] = chars[q]</div><div class="line">  chars[q] = temp</div><div class="line">&#125;</div><div class="line"><span class="comment">// Assume array is a character array and it has enough elements</span></div><div class="line"><span class="built_in">swap</span>(array, p: <span class="number">0</span>, q: <span class="number">1</span>)</div></pre></td></tr></table></figure>
+<p>上面代码实现了一个非常简单的功能，就是交换一个数组中的两个值。乍一看非常正确，实际上存在以下几个问题。</p>
+<ol>
+<li>在第一个参数前应该加上 <strong>inout </strong>关键字。因为在 Swift 中，struct 都是按值传递，class 是按引用传递；数组和字典都是 struct。所以要改变原来的 chars 数组，在其前部加入 inout 关键字，表示是按引用传递。</li>
+<li>p 和 q 之前应该加入下划线。Swift 默认函数的第一个参数是局部（local）变量，而后续参数都是外部（external）变量，外部变量必须声明。如果在 p 和 q 前加上下划线，则在调用函数时无需声明外部变量，这样调用起来更简便。</li>
+<li>temp 前的 var 应该改为 <strong>let</strong>。let 用于声明常量（constant），var 用于声明变量（variable）。swap 函数中，temp 并未进行修改，所以应当视为常量，用let来声明。</li>
+</ol>
+<blockquote>
+<p>除原作者以上写出的 3 点问题之外，在我编译时，也有几个方面值得记录下来：</p>
+<ul>
+<li><p>swap 是自带的方法，API 文档描述如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="comment">/// Exchange the values of `a` and `b`.</span></div><div class="line">&gt;   <span class="comment">///</span></div><div class="line">&gt;   <span class="comment">/// - Precondition: `a` and `b` do not alias each other.</span></div><div class="line">&gt;   <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">swap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<ul>
+<li><p>在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，<strong>强制要求我们使用 inout 关键字</strong>，当然我们也可以在方法内部创建一个新的变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</div><div class="line">&gt;       <span class="keyword">var</span> chars = chars</div><div class="line">&gt;       <span class="keyword">let</span> temp = chars[p]</div><div class="line">&gt;       chars[p] = chars[q]</div><div class="line">&gt;       chars[q] = temp</div><div class="line">&gt;       <span class="keyword">return</span> chars</div><div class="line">&gt;   &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>  但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/" itemprop="url">
                   iOS开发 - 在一个工程中开发多个APP
                 </a>
@@ -1415,130 +1564,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/" itemprop="url">
-                  网络通讯结构 - OSI&TCP/IP
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-14T02:24:00+08:00" content="2016-09-14">
-              2016-09-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通讯</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/14/网络通讯结构 - OSI&TCP:IP/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>两个应用程序之间的通信，我们可以理解为进程之间的通信，而进程之间进行通信的前提是我们能够找到某个进程，因此，我们需要给进程添加唯一的标示，在本地进程通信中我们可以使用PID来标示一个进程，但PID只在本地唯一，网络中的多个计算机之间的进程标示并不能保证唯一性，冲突的几率很大。</p>
-<p>这时候我们需要另辟蹊径，TCP/IP协议族已为我们解决了这个问题，IP层的IP地址可以标示主机，而TCP层协议和端口号可以标示某个主机的某个进程，于是我们采取<strong>IP地址＋协议＋端口号</strong>作为唯一标示的这种形式，来确定网络中的一个进程，从而进行进程之间的通讯，这种方式就是我们Socket使用的通讯方式。</p>
-<p>在学习Socket通讯之前，首先需要了解<strong>网络通讯结构、TCP和UPD</strong>，以下是这这两个知识点的简要介绍。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/14/网络通讯结构 - OSI&TCP:IP/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1584,7 +1609,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">53</span>
+              <span class="site-state-item-count">54</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1592,7 +1617,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1601,7 +1626,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">71</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
