@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-10-13T17:13:22.000Z</updated>
+  <updated>2016-10-13T17:16:33.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/10/14/%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91Swift%E7%AE%97%E6%B3%95%20-%20%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95%E4%B8%8E%E6%8A%80%E5%B7%A7/"/>
     <id>http://yoursite.com/2016/10/14/【转载】Swift算法 - 基本语法与技巧/</id>
     <published>2016-10-13T18:24:00.000Z</published>
-    <updated>2016-10-13T17:13:22.000Z</updated>
+    <updated>2016-10-13T17:16:33.000Z</updated>
     
     <content type="html"><![CDATA[<p>Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中使用。</p>
 <h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars:[Character],  p: Int, q: Int)</span></span> &#123;</div><div class="line">  <span class="keyword">var</span> temp = chars[p]</div><div class="line">  chars[p] = chars[q]</div><div class="line">  chars[q] = temp</div><div class="line">&#125;</div><div class="line"><span class="comment">// Assume array is a character array and it has enough elements</span></div><div class="line"><span class="built_in">swap</span>(array, p: <span class="number">0</span>, q: <span class="number">1</span>)</div></pre></td></tr></table></figure>
@@ -32,23 +32,14 @@
 </ol>
 <blockquote>
 <p>除原作者以上写出的 3 点问题之外，在我编译时，也有几个方面值得记录下来：</p>
-<ul>
-<li><p>swap 是自带的方法，API 文档描述如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="comment">/// Exchange the values of `a` and `b`.</span></div><div class="line">&gt;   <span class="comment">///</span></div><div class="line">&gt;   <span class="comment">/// - Precondition: `a` and `b` do not alias each other.</span></div><div class="line">&gt;   <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">swap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<p>swap 是自带的方法，API 文档描述如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="comment">/// Exchange the values of `a` and `b`.</span></div><div class="line">&gt; <span class="comment">///</span></div><div class="line">&gt; <span class="comment">/// - Precondition: `a` and `b` do not alias each other.</span></div><div class="line">&gt; <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">swap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span></div><div class="line">&gt;</div></pre></td></tr></table></figure>
+<p>在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，<strong>强制要求我们使用 inout 关键字</strong>，当然我们也可以在方法内部创建一个新的变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</div><div class="line">&gt;     <span class="keyword">var</span> chars = chars</div><div class="line">&gt;     <span class="keyword">let</span> temp = chars[p]</div><div class="line">&gt;     chars[p] = chars[q]</div><div class="line">&gt;     chars[q] = temp</div><div class="line">&gt;     <span class="keyword">return</span> chars</div><div class="line">&gt; &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
 </blockquote>
 <p>&gt;</p>
 <blockquote>
-<ul>
-<li><p>在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，<strong>强制要求我们使用 inout 关键字</strong>，当然我们也可以在方法内部创建一个新的变量：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</div><div class="line">&gt;       <span class="keyword">var</span> chars = chars</div><div class="line">&gt;       <span class="keyword">let</span> temp = chars[p]</div><div class="line">&gt;       chars[p] = chars[q]</div><div class="line">&gt;       chars[q] = temp</div><div class="line">&gt;       <span class="keyword">return</span> chars</div><div class="line">&gt;   &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-<p>&gt;</p>
-<blockquote>
-<p>  但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。</p>
+<p>但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。</p>
 </blockquote>
    <a id="more"></a>
 <p>修改后的代码为：</p>
@@ -115,23 +106,14 @@
 &lt;/ol&gt;
 &lt;blockquote&gt;
 &lt;p&gt;除原作者以上写出的 3 点问题之外，在我编译时，也有几个方面值得记录下来：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;swap 是自带的方法，API 文档描述如下：&lt;/p&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &lt;span class=&quot;comment&quot;&gt;/// Exchange the values of `a` and `b`.&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &lt;span class=&quot;comment&quot;&gt;///&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &lt;span class=&quot;comment&quot;&gt;/// - Precondition: `a` and `b` do not alias each other.&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;swap&lt;/span&gt;&amp;lt;T&amp;gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; a: &lt;span class=&quot;keyword&quot;&gt;inout&lt;/span&gt; T, &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; b: &lt;span class=&quot;keyword&quot;&gt;inout&lt;/span&gt; T)&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;swap 是自带的方法，API 文档描述如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;comment&quot;&gt;/// Exchange the values of `a` and `b`.&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;comment&quot;&gt;///&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;comment&quot;&gt;/// - Precondition: `a` and `b` do not alias each other.&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;swap&lt;/span&gt;&amp;lt;T&amp;gt;&lt;span class=&quot;params&quot;&gt;(&lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; a: &lt;span class=&quot;keyword&quot;&gt;inout&lt;/span&gt; T, &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; b: &lt;span class=&quot;keyword&quot;&gt;inout&lt;/span&gt; T)&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，&lt;strong&gt;强制要求我们使用 inout 关键字&lt;/strong&gt;，当然我们也可以在方法内部创建一个新的变量：&lt;/p&gt;
+&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(chars: [String], &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; p: Int, &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; q: Int)&lt;/span&gt;&lt;/span&gt; -&amp;gt; [&lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;] &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;     &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; chars = chars&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;     &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; temp = chars[p]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;     chars[p] = chars[q]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;     chars[q] = temp&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;     &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; chars&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt; &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;&amp;gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;在我看到这个方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，&lt;strong&gt;强制要求我们使用 inout 关键字&lt;/strong&gt;，当然我们也可以在方法内部创建一个新的变量：&lt;/p&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;swap&lt;/span&gt;&lt;span class=&quot;params&quot;&gt;(chars: [String], &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; p: Int, &lt;span class=&quot;number&quot;&gt;_&lt;/span&gt; q: Int)&lt;/span&gt;&lt;/span&gt; -&amp;gt; [&lt;span class=&quot;type&quot;&gt;String&lt;/span&gt;] &amp;#123;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;       &lt;span class=&quot;keyword&quot;&gt;var&lt;/span&gt; chars = chars&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;       &lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; temp = chars[p]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;       chars[p] = chars[q]&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;       chars[q] = temp&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;       &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; chars&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;   &amp;#125;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&amp;gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;&amp;gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;  但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。&lt;/p&gt;
+&lt;p&gt;但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。&lt;/p&gt;
 &lt;/blockquote&gt;
     
     </summary>
