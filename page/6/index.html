@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/Typora For Markdown 语法/" itemprop="url">
-                  Typora For Markdown 语法
+                <a class="post-title-link" href="/2016/07/21/iOS多线程之 NSThread/" itemprop="url">
+                  iOS多线程 - NSThread
                 </a>
               
             
@@ -292,7 +292,7 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
+            <time itemprop="dateCreated" datetime="2016-07-21T04:44:00+08:00" content="2016-07-21">
               2016-07-21
             </time>
           </span>
@@ -306,8 +306,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -322,8 +322,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/21/Typora For Markdown 语法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Typora For Markdown 语法/" itemprop="commentsCount"></span>
+                <a href="/2016/07/21/iOS多线程之 NSThread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 NSThread/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,21 +347,43 @@
 
       
         
-          <p><code>Typora</code> 是一个功能强大的 <code>Markdown</code> 编辑器，<code>Typora</code> 可以插入数学表达式，插入表情，表格，支持标准的 Markdown 语法，可以使用标注，功能非常强悍。</p>
-<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>要启用这个功能，首先要到 <code>Preference</code> - <code>Editor</code> 中启用。然后使用<code>$</code>符号包裹<code>Tex</code>命令，例如：<code>$lim_{x \ to \infty} \ exp(-x)=0$</code>。</p>
-<blockquote>
-<p>$lim_{x \ to \infty} \ exp(-x)=0$</p>
-</blockquote>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p>下标使用<code>~</code>包裹，例如：<code>H~2~o</code>将产生水的分子式。</p>
-<blockquote>
-<p>H~2~o</p>
-</blockquote>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><p>上标使用<code>^</code>包裹，例如：<code>y^2^=4</code>将产生表达式。</p>
-<blockquote>
-<p>y^2^=4</p>
-</blockquote>
+          <p>首先介绍 <code>NSThread</code> 创建线程的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
+<p><code>public class NSThread : NSObject</code>  从这里可以看出，<code>NSThread</code> 是继承自 <code>NSObject</code> 的类，它的创建是一个构造器 <code>init</code>  ，所以使用实例化对象的方式就可以调用了。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: &lt;<span class="type">AnyObject</span>&gt;, selector: &lt;<span class="type">Selector</span>&gt;, object: &lt;<span class="type">AnyObject</span>&gt;)</div></pre></td></tr></table></figure>
+<p>现在我们来看一下，这个方法的几个参数，分别代表的含义。</p>
+<table>
+<thead>
+<tr>
+<th>形参名</th>
+<th>形参类型</th>
+<th>作用</th>
+<th>方法填写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>target</td>
+<td>AnyObject</td>
+<td>当前类的一个对象。是selector消息发送的对象。</td>
+<td>一般是 self</td>
+</tr>
+<tr>
+<td>selector</td>
+<td>Selector</td>
+<td>线程要执行的方法。只能接收一个参数。</td>
+<td>创建方法传入</td>
+</tr>
+<tr>
+<td>object</td>
+<td>AnyObject?</td>
+<td>selector线程函数的唯一传入值，可以是 nil 。</td>
+<td>nil</td>
+</tr>
+</tbody>
+</table>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/Typora For Markdown 语法/#more" rel="contents">
+            <a class="btn" href="/2016/07/21/iOS多线程之 NSThread/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -487,6 +509,140 @@
 <p>No.3 点击 <code>Build Phases</code> 页面左上角加号，点击 <code>New Copy Files Phase</code> ，名字改为 <code>Copy FrameWorks</code> ，<code>Destination</code> 设置为 <code>FrameWorks</code>，将这个库添加进来即可。</p>
 
           
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/07/21/Typora For Markdown 语法/" itemprop="url">
+                  Typora For Markdown 语法
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
+              2016-07-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Other/" itemprop="url" rel="index">
+                    <span itemprop="name">Other</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/21/Typora For Markdown 语法/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Typora For Markdown 语法/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p><code>Typora</code> 是一个功能强大的 <code>Markdown</code> 编辑器，<code>Typora</code> 可以插入数学表达式，插入表情，表格，支持标准的 Markdown 语法，可以使用标注，功能非常强悍。</p>
+<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>要启用这个功能，首先要到 <code>Preference</code> - <code>Editor</code> 中启用。然后使用<code>$</code>符号包裹<code>Tex</code>命令，例如：<code>$lim_{x \ to \infty} \ exp(-x)=0$</code>。</p>
+<blockquote>
+<p>$lim_{x \ to \infty} \ exp(-x)=0$</p>
+</blockquote>
+<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p>下标使用<code>~</code>包裹，例如：<code>H~2~o</code>将产生水的分子式。</p>
+<blockquote>
+<p>H~2~o</p>
+</blockquote>
+<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><p>上标使用<code>^</code>包裹，例如：<code>y^2^=4</code>将产生表达式。</p>
+<blockquote>
+<p>y^2^=4</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/21/Typora For Markdown 语法/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -817,7 +973,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -825,7 +981,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -834,7 +990,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

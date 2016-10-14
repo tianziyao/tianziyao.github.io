@@ -278,6 +278,132 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/26/iOS页面传值之 闭包传值/" itemprop="url">
+                  iOS页面传值 - 闭包传值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-26T09:01:00+08:00" content="2016-07-26">
+              2016-07-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/26/iOS页面传值之 闭包传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/26/iOS页面传值之 闭包传值/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>页面传值是开发中必不可少的业务需求，经常会有在 <code>B</code> 页面干完一些事情之后告诉 <code>A</code> 页面或者传值到 <code>A</code> 页面。这种需求通常使用属性、闭包、代理、单例、通知几种方式进行实现，下面我们来了解 iOS 页面传值中的闭包传值。</p>
+</blockquote>
+<p>闭包传值的实现思路如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>. 在<span class="type">B</span>中声明一个block</div><div class="line"> 	<span class="keyword">typealias</span> <span class="type">TestBlock</span> = (<span class="type">String</span>)-&gt;()</div><div class="line"><span class="number">2</span>. 持有一个block变量</div><div class="line"> 	<span class="keyword">var</span> blo: <span class="type">TestBlock</span>?  </div><div class="line"><span class="number">3</span>. 调用</div><div class="line"> 	<span class="keyword">self</span>.blo?(<span class="string">"It is block test"</span>)</div><div class="line"><span class="number">4</span>. 在<span class="type">A</span>中需要接受值的地方</div><div class="line">	<span class="keyword">let</span> b = <span class="type">B</span>()</div><div class="line">	b.blo = &#123;str <span class="keyword">in</span></div><div class="line">   <span class="built_in">print</span>(<span class="string">"test block---\\(str)"</span>)</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/26/iOS页面传值之 闭包传值/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/26/iOS页面传值之 属性传值/" itemprop="url">
                   iOS页面传值 - 属性传值
                 </a>
@@ -797,6 +923,137 @@
             
               
                 
+                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
+                  iOS自定义控件 - 时间轴
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
+              2016-07-22
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <blockquote>
+<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
+</blockquote>
+<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
+<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
+<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
+<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
+<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
+<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
+<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/07/22/将 Disqus 社会化评论组件设置为简体中文/" itemprop="url">
                   将 Disqus 社会化评论组件设置为简体中文
                 </a>
@@ -996,137 +1253,6 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Book</span>: <span class="title">NSObject</span>, <span class="title">NSCoding</span>  </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">required</span> <span class="keyword">init</span>?(coder aDecoder: <span class="type">NSCoder</span>) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"从 Coder 中读取"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">encodeWithCoder</span><span class="params">(aCoder: NSCoder)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"保存到 Coder 中"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/07/22/利用NSCoding和NSKeyedArchiver实现类对象的持久化/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
-                  iOS自定义控件 - 时间轴
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
-              2016-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
-</blockquote>
-<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
-<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
-<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
-<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
-<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
-<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
-<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1415,162 +1541,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/21/iOS多线程之 NSThread/" itemprop="url">
-                  iOS多线程 - NSThread
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:44:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/iOS多线程之 NSThread/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 NSThread/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>首先介绍 <code>NSThread</code> 创建线程的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
-<p><code>public class NSThread : NSObject</code>  从这里可以看出，<code>NSThread</code> 是继承自 <code>NSObject</code> 的类，它的创建是一个构造器 <code>init</code>  ，所以使用实例化对象的方式就可以调用了。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: &lt;<span class="type">AnyObject</span>&gt;, selector: &lt;<span class="type">Selector</span>&gt;, object: &lt;<span class="type">AnyObject</span>&gt;)</div></pre></td></tr></table></figure>
-<p>现在我们来看一下，这个方法的几个参数，分别代表的含义。</p>
-<table>
-<thead>
-<tr>
-<th>形参名</th>
-<th>形参类型</th>
-<th>作用</th>
-<th>方法填写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>target</td>
-<td>AnyObject</td>
-<td>当前类的一个对象。是selector消息发送的对象。</td>
-<td>一般是 self</td>
-</tr>
-<tr>
-<td>selector</td>
-<td>Selector</td>
-<td>线程要执行的方法。只能接收一个参数。</td>
-<td>创建方法传入</td>
-</tr>
-<tr>
-<td>object</td>
-<td>AnyObject?</td>
-<td>selector线程函数的唯一传入值，可以是 nil 。</td>
-<td>nil</td>
-</tr>
-</tbody>
-</table>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/iOS多线程之 NSThread/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1616,7 +1586,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">54</span>
+              <span class="site-state-item-count">55</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1624,7 +1594,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1633,7 +1603,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">71</span>
+                <span class="site-state-item-count">72</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
