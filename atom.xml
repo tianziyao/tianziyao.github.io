@@ -858,6 +858,32 @@
   </entry>
   
   <entry>
+    <title>Xcode错误 - Expected a type</title>
+    <link href="http://yoursite.com/2016/09/15/Xcode%E9%94%99%E8%AF%AF%20-%20Expected%20a%20type%20/"/>
+    <id>http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /</id>
+    <published>2016-09-14T18:24:00.000Z</published>
+    <updated>2016-11-26T01:15:39.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>需要自己手动导入库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
+<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;需要自己手动导入库：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;p
+    
+    </summary>
+    
+      <category term="Xcode错误" scheme="http://yoursite.com/categories/Xcode%E9%94%99%E8%AF%AF/"/>
+    
+    
+      <category term="Xcode错误" scheme="http://yoursite.com/tags/Xcode%E9%94%99%E8%AF%AF/"/>
+    
+  </entry>
+  
+  <entry>
     <title>iOS Socket通讯 - BSD Socket</title>
     <link href="http://yoursite.com/2016/09/15/iOS%20Socket%E9%80%9A%E8%AE%AF%20-%20BSD%20Socket/"/>
     <id>http://yoursite.com/2016/09/15/iOS Socket通讯 - BSD Socket/</id>
@@ -1060,32 +1086,6 @@
       <category term="网络通讯" scheme="http://yoursite.com/tags/%E7%BD%91%E7%BB%9C%E9%80%9A%E8%AE%AF/"/>
     
       <category term="Socket通讯" scheme="http://yoursite.com/tags/Socket%E9%80%9A%E8%AE%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode错误 - Expected a type</title>
-    <link href="http://yoursite.com/2016/09/15/Xcode%E9%94%99%E8%AF%AF%20-%20Expected%20a%20type%20/"/>
-    <id>http://yoursite.com/2016/09/15/Xcode错误 - Expected a type /</id>
-    <published>2016-09-14T18:24:00.000Z</published>
-    <updated>2016-09-16T06:22:44.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>需要自己手动导入库：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
-<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;需要自己手动导入库：&lt;/p&gt;
-&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;p
-    
-    </summary>
-    
-      <category term="Xocde错误" scheme="http://yoursite.com/categories/Xocde%E9%94%99%E8%AF%AF/"/>
-    
-    
-      <category term="Xocde错误" scheme="http://yoursite.com/tags/Xocde%E9%94%99%E8%AF%AF/"/>
     
   </entry>
   
@@ -1589,100 +1589,6 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
   </entry>
   
   <entry>
-    <title>微信开发 - access_token</title>
-    <link href="http://yoursite.com/2016/09/05/%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%20-%20access%20token/"/>
-    <id>http://yoursite.com/2016/09/05/微信接口 - access token/</id>
-    <published>2016-09-04T18:24:00.000Z</published>
-    <updated>2016-09-05T12:08:19.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
-<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
-<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
-<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
-   <a id="more"></a>
-<h2 id="access-token开发策略"><a href="#access-token开发策略" class="headerlink" title="access_token开发策略"></a>access_token开发策略</h2><p>因为access_token具有每天2000次的访问限制，而access_token又是很重要的属性，调用非常频繁，基本上所有的接口都需要使用access_token来进行访问权限的验证，当频繁调用微信API时，很有可能会超出2000次的限制。因此普遍的解决方案是将一次获取的access_token保存到数据库，在两个小时后再更新数据库，在这两个小时内，所有需要access_token的地方全部到数据库来取。 </p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/access_token%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5.gif" alt="access_token开发策略"></p>
-<h2 id="接口调用请求说明"><a href="#接口调用请求说明" class="headerlink" title="接口调用请求说明"></a>接口调用请求说明</h2><p>使用HTTP请求，请求方式为GET：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET</div></pre></td></tr></table></figure>
-<p>请求中附带的参数为：</p>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>是否必须</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>grant_type</td>
-<td>是</td>
-<td>获取access_token填写client_credential</td>
-</tr>
-<tr>
-<td>appid</td>
-<td>是</td>
-<td>第三方用户唯一凭证</td>
-</tr>
-<tr>
-<td>secret</td>
-<td>是</td>
-<td>第三方用户唯一凭证密钥，即appsecret</td>
-</tr>
-</tbody>
-</table>
-<h2 id="返回说明"><a href="#返回说明" class="headerlink" title="返回说明"></a>返回说明</h2><p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"access_token"</span>:<span class="string">"ACCESS_TOKEN"</span>,<span class="attr">"expires_in"</span>:<span class="number">7200</span>&#125;</div></pre></td></tr></table></figure>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>access_token</td>
-<td>获取到的凭证</td>
-</tr>
-<tr>
-<td>expires_in</td>
-<td>凭证有效时间，单位：秒</td>
-</tr>
-</tbody>
-</table>
-<h2 id="获取粉丝头像"><a href="#获取粉丝头像" class="headerlink" title="获取粉丝头像"></a>获取粉丝头像</h2><p>下面我们用获取粉丝头像的例子来演示如何使用access_token。</p>
-<p>首先写一个PHP文件，来获取access_token：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">getaccesstoken.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'appid'</span>, <span class="string">'wx5d649f3295ce323a'</span>);</div><div class="line">define(<span class="string">'app_secret'</span>, <span class="string">'a17ecddd3fb0699814fce90fa6376b8e'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_access_token</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid="</span>.appid.<span class="string">"&amp;secret="</span>.app_secret;</div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $access_taken_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    $access_token = $access_taken_arr[<span class="string">"access_token"</span>];</div><div class="line">    <span class="comment">//print_r($access_taken_arr);</span></div><div class="line">    <span class="keyword">return</span> $access_token;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>新建另一个PHP文件，首先获取粉丝列表，提取出粉丝的openid组成数组：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_list</span><span class="params">($access_token)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/get?access_token="</span>.$access_token;</div><div class="line">    <span class="comment">//echo $access_token;</span></div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $user_list_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_list_arr[<span class="string">"data"</span>][<span class="string">"openid"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>然后利用openid获取粉丝的用户信息：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_info</span><span class="params">($access_token, $openid)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/info?access_token="</span>.$access_token.<span class="string">"&amp;openid="</span>.$openid.<span class="string">"&amp;lang=zh_CN"</span>;</div><div class="line"></div><div class="line">    $ch = curl_init();</div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    curl_close($ch);</div><div class="line"></div><div class="line">    $user_info_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_info_arr[<span class="string">"headimgurl"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后从用户信息中提取出用户头像的url，并传给iOS客户端：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;<span class="number">3</span>; $i++) &#123;</div><div class="line">    $openid = $openids[$i];</div><div class="line">    $use_info = get_user_info($access_token, $openid);</div><div class="line">    $user_image = substr($use_info, <span class="number">0</span>, strlen($str)<span class="number">-2</span>).<span class="string">"/132"</span>;</div><div class="line">    <span class="comment">//echo $user_image;</span></div><div class="line">    array_push($user_images, $user_image);</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> json_encode($user_images);</div></pre></td></tr></table></figure>
-<p>在Xcode中创建工程，使用NSURLSession获取PHP服务器传来的包含粉丝头像url的数组，利用url获取粉丝头像，并将其设置为工程中ImageView的Image，这里需要注意的是，<strong>UI操作要转到主线程进行</strong>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getWechatFansHeadImgs</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.pleaseWait()</div><div class="line">        </div><div class="line">        <span class="comment">//let request = NSURLRequest(URL: NSURL(string: "http://localhost:8888/i/wechat/getuserinfo.php")!)</span></div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: <span class="string">"http://123.206.27.127/wechat/getuserinfo.php"</span>)!)</div><div class="line"></div><div class="line">        <span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().dataTaskWithRequest(request) &#123; (data, resp, error) <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(error?.localizedDescription)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">var</span> imgLinks: [<span class="type">String</span>] = []</div><div class="line">                <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">                imgLinks = <span class="keyword">try</span>! <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions) <span class="keyword">as</span>! <span class="type">Array</span><span class="comment">//nil</span></div><div class="line">                <span class="built_in">print</span>(imgLinks)</div><div class="line">                </div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;imgLinks.<span class="built_in">count</span> &#123;</div><div class="line">                    <span class="keyword">if</span> imgLinks[i] != <span class="string">""</span> &#123;</div><div class="line">                        <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: <span class="type">NSURL</span>(string: imgLinks[i])!)</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.headImageViews[i].image = data != <span class="literal">nil</span> ? <span class="type">UIImage</span>(data: data!) : <span class="literal">nil</span></div><div class="line">                            <span class="built_in">print</span>(i)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="built_in">print</span>(<span class="type">NSThread</span>.currentThread())</div><div class="line">                dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                    <span class="keyword">self</span>.clearAllNotice()</div><div class="line">                    <span class="keyword">self</span>.noticeSuccess(<span class="string">"获取成功"</span>, autoClear: <span class="literal">true</span>, autoClearTime: <span class="number">2</span>)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        task.resume()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>最后使用点击事件触发这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">showHeadImageButtonDidTouch</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">    </div><div class="line">    getWechatFansHeadImgs()</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。&lt;/p&gt;
-&lt;p&gt;同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。&lt;/p&gt;
-&lt;p&gt;access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。&lt;/strong&gt;&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-    
-      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
     <title>微信开发 - 接口简介</title>
     <link href="http://yoursite.com/2016/09/05/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E6%8E%A5%E5%8F%A3%E7%AE%80%E4%BB%8B/"/>
     <id>http://yoursite.com/2016/09/05/微信开发 - 接口简介/</id>
@@ -1787,6 +1693,168 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
 &lt;p&gt;域名：网址或主机名，如：&lt;code&gt;localhost&lt;/code&gt;&lt;/p&gt;
 &lt;/blockquote&gt;
 &lt;p&gt;如对以上步骤陌生的同学可以先看&lt;a href=&quot;https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/&quot;&gt;这篇文章&lt;/a&gt;。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信开发 - access_token</title>
+    <link href="http://yoursite.com/2016/09/05/%E5%BE%AE%E4%BF%A1%E6%8E%A5%E5%8F%A3%20-%20access%20token/"/>
+    <id>http://yoursite.com/2016/09/05/微信接口 - access token/</id>
+    <published>2016-09-04T18:24:00.000Z</published>
+    <updated>2016-09-05T12:08:19.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
+   <a id="more"></a>
+<h2 id="access-token开发策略"><a href="#access-token开发策略" class="headerlink" title="access_token开发策略"></a>access_token开发策略</h2><p>因为access_token具有每天2000次的访问限制，而access_token又是很重要的属性，调用非常频繁，基本上所有的接口都需要使用access_token来进行访问权限的验证，当频繁调用微信API时，很有可能会超出2000次的限制。因此普遍的解决方案是将一次获取的access_token保存到数据库，在两个小时后再更新数据库，在这两个小时内，所有需要access_token的地方全部到数据库来取。 </p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/access_token%E5%BC%80%E5%8F%91%E7%AD%96%E7%95%A5.gif" alt="access_token开发策略"></p>
+<h2 id="接口调用请求说明"><a href="#接口调用请求说明" class="headerlink" title="接口调用请求说明"></a>接口调用请求说明</h2><p>使用HTTP请求，请求方式为GET：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid=APPID&amp;secret=APPSECRET</div></pre></td></tr></table></figure>
+<p>请求中附带的参数为：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>是否必须</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>grant_type</td>
+<td>是</td>
+<td>获取access_token填写client_credential</td>
+</tr>
+<tr>
+<td>appid</td>
+<td>是</td>
+<td>第三方用户唯一凭证</td>
+</tr>
+<tr>
+<td>secret</td>
+<td>是</td>
+<td>第三方用户唯一凭证密钥，即appsecret</td>
+</tr>
+</tbody>
+</table>
+<h2 id="返回说明"><a href="#返回说明" class="headerlink" title="返回说明"></a>返回说明</h2><p>正常情况下，微信会返回下述JSON数据包给公众号：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"access_token"</span>:<span class="string">"ACCESS_TOKEN"</span>,<span class="attr">"expires_in"</span>:<span class="number">7200</span>&#125;</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>access_token</td>
+<td>获取到的凭证</td>
+</tr>
+<tr>
+<td>expires_in</td>
+<td>凭证有效时间，单位：秒</td>
+</tr>
+</tbody>
+</table>
+<h2 id="获取粉丝头像"><a href="#获取粉丝头像" class="headerlink" title="获取粉丝头像"></a>获取粉丝头像</h2><p>下面我们用获取粉丝头像的例子来演示如何使用access_token。</p>
+<p>首先写一个PHP文件，来获取access_token：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">getaccesstoken.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'appid'</span>, <span class="string">'wx5d649f3295ce323a'</span>);</div><div class="line">define(<span class="string">'app_secret'</span>, <span class="string">'a17ecddd3fb0699814fce90fa6376b8e'</span>);</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_access_token</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&amp;appid="</span>.appid.<span class="string">"&amp;secret="</span>.app_secret;</div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $access_taken_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    $access_token = $access_taken_arr[<span class="string">"access_token"</span>];</div><div class="line">    <span class="comment">//print_r($access_taken_arr);</span></div><div class="line">    <span class="keyword">return</span> $access_token;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>新建另一个PHP文件，首先获取粉丝列表，提取出粉丝的openid组成数组：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_list</span><span class="params">($access_token)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/get?access_token="</span>.$access_token;</div><div class="line">    <span class="comment">//echo $access_token;</span></div><div class="line">    <span class="comment">//初始化</span></div><div class="line">    $ch = curl_init();</div><div class="line">    <span class="comment">//设置选项，包括URL</span></div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    <span class="comment">//执行并获取HTML文档内容</span></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    <span class="comment">//释放curl句柄</span></div><div class="line">    curl_close($ch);</div><div class="line">    <span class="comment">//打印获得的数据</span></div><div class="line">    <span class="comment">//print_r($output);</span></div><div class="line">    $user_list_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_list_arr[<span class="string">"data"</span>][<span class="string">"openid"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后利用openid获取粉丝的用户信息：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">get_user_info</span><span class="params">($access_token, $openid)</span> </span>&#123;</div><div class="line"></div><div class="line">    $url = <span class="string">"https://api.weixin.qq.com/cgi-bin/user/info?access_token="</span>.$access_token.<span class="string">"&amp;openid="</span>.$openid.<span class="string">"&amp;lang=zh_CN"</span>;</div><div class="line"></div><div class="line">    $ch = curl_init();</div><div class="line">    curl_setopt($ch, CURLOPT_URL, $url);</div><div class="line">    curl_setopt($ch, CURLOPT_RETURNTRANSFER, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_HEADER, <span class="number">0</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_USERAGENT, <span class="number">1</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_ENCODING, <span class="string">"gzip"</span>);</div><div class="line">    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    $output = curl_exec($ch);</div><div class="line">    curl_close($ch);</div><div class="line"></div><div class="line">    $user_info_arr = json_decode($output, <span class="keyword">true</span>);</div><div class="line">    <span class="keyword">return</span> ($user_info_arr[<span class="string">"headimgurl"</span>]);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后从用户信息中提取出用户头像的url，并传给iOS客户端：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;<span class="number">3</span>; $i++) &#123;</div><div class="line">    $openid = $openids[$i];</div><div class="line">    $use_info = get_user_info($access_token, $openid);</div><div class="line">    $user_image = substr($use_info, <span class="number">0</span>, strlen($str)<span class="number">-2</span>).<span class="string">"/132"</span>;</div><div class="line">    <span class="comment">//echo $user_image;</span></div><div class="line">    array_push($user_images, $user_image);</div><div class="line">&#125;</div><div class="line"><span class="keyword">echo</span> json_encode($user_images);</div></pre></td></tr></table></figure>
+<p>在Xcode中创建工程，使用NSURLSession获取PHP服务器传来的包含粉丝头像url的数组，利用url获取粉丝头像，并将其设置为工程中ImageView的Image，这里需要注意的是，<strong>UI操作要转到主线程进行</strong>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">getWechatFansHeadImgs</span><span class="params">()</span></span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">self</span>.pleaseWait()</div><div class="line">        </div><div class="line">        <span class="comment">//let request = NSURLRequest(URL: NSURL(string: "http://localhost:8888/i/wechat/getuserinfo.php")!)</span></div><div class="line">        <span class="keyword">let</span> request = <span class="type">NSURLRequest</span>(<span class="type">URL</span>: <span class="type">NSURL</span>(string: <span class="string">"http://123.206.27.127/wechat/getuserinfo.php"</span>)!)</div><div class="line"></div><div class="line">        <span class="keyword">let</span> task = <span class="type">NSURLSession</span>.sharedSession().dataTaskWithRequest(request) &#123; (data, resp, error) <span class="keyword">in</span></div><div class="line">            </div><div class="line">            <span class="keyword">if</span> error != <span class="literal">nil</span> &#123;</div><div class="line">                <span class="built_in">print</span>(error?.localizedDescription)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">var</span> imgLinks: [<span class="type">String</span>] = []</div><div class="line">                <span class="keyword">let</span> readingOprions = <span class="type">NSJSONReadingOptions</span>.<span class="type">MutableContainers</span></div><div class="line">                imgLinks = <span class="keyword">try</span>! <span class="type">NSJSONSerialization</span>.<span class="type">JSONObjectWithData</span>(data!, options: readingOprions) <span class="keyword">as</span>! <span class="type">Array</span><span class="comment">//nil</span></div><div class="line">                <span class="built_in">print</span>(imgLinks)</div><div class="line">                </div><div class="line">                <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;imgLinks.<span class="built_in">count</span> &#123;</div><div class="line">                    <span class="keyword">if</span> imgLinks[i] != <span class="string">""</span> &#123;</div><div class="line">                        <span class="keyword">let</span> data = <span class="type">NSData</span>(contentsOfURL: <span class="type">NSURL</span>(string: imgLinks[i])!)</div><div class="line">                        dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                            <span class="keyword">self</span>.headImageViews[i].image = data != <span class="literal">nil</span> ? <span class="type">UIImage</span>(data: data!) : <span class="literal">nil</span></div><div class="line">                            <span class="built_in">print</span>(i)</div><div class="line">                        &#125;)</div><div class="line">                    &#125;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="built_in">print</span>(<span class="type">NSThread</span>.currentThread())</div><div class="line">                dispatch_async(dispatch_get_main_queue(), &#123;</div><div class="line">                    <span class="keyword">self</span>.clearAllNotice()</div><div class="line">                    <span class="keyword">self</span>.noticeSuccess(<span class="string">"获取成功"</span>, autoClear: <span class="literal">true</span>, autoClearTime: <span class="number">2</span>)</div><div class="line">                &#125;)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        task.resume()</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p>最后使用点击事件触发这个方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">showHeadImageButtonDidTouch</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">    </div><div class="line">    getWechatFansHeadImgs()</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/demo" target="_blank" rel="external">点击这里</a></h2>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。&lt;/p&gt;
+&lt;p&gt;同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。&lt;/p&gt;
+&lt;p&gt;access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。&lt;/strong&gt;&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+    
+      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>微信开发 - 公众平台简介</title>
+    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E7%AE%80%E4%BB%8B/"/>
+    <id>http://yoursite.com/2016/09/02/微信开发 - 公众平台简介/</id>
+    <published>2016-09-01T18:24:00.000Z</published>
+    <updated>2016-09-02T11:50:47.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
+<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
+   <a id="more"></a>
+<h2 id="主要模板"><a href="#主要模板" class="headerlink" title="主要模板"></a>主要模板</h2><p>微信公众账号不会做太多深度的开放，为了把微信做得更“轻”。在2013年6月份的合作伙伴大会上，微信产品部助理曾鸣提出，微信公众账号不是一个纯粹的营销工具，让公众账号提供最体现企业价值的东西。</p>
+<ul>
+<li>在线营销：向终端客户推荐新品、促销策略等；</li>
+<li>售后服务：通过微信平台，自动与客户进行交互，展示企业产品、售后支持；</li>
+<li>电子商务：将企业网站或购物平台与微信对接，推荐到朋友圈获取免费宣传；</li>
+<li>会员管理：企业会员可通过微信平台进行线下活动预约、积分管理等操作。</li>
+</ul>
+<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>公众平台是企业在OTT产品基础上新增的功能模块，基于“再小的个体也有自己品牌”这一理念。通过这一平台，个人和企业都可以打造一个公众号，并实现和特定群体的文字、图片、语音的全方位沟通、互动。同时，企业也可以利用公众平台进行CRM式管理，个人可以进行自媒体创作。</p>
+<h3 id="微信官网"><a href="#微信官网" class="headerlink" title="微信官网"></a>微信官网</h3><ol>
+<li>公司介绍：支持多级分类；</li>
+<li>产品展示：产品支持多图显示，手指滑动浏览图片；</li>
+<li>新闻资讯：对接微信公众平台消息推送；</li>
+<li>联系方式：LBS地图位置标注，点击电话号码直接拨打；</li>
+<li>信息推送：以微信官方规定的消息推送为标准。</li>
+</ol>
+<h3 id="微信客服"><a href="#微信客服" class="headerlink" title="微信客服"></a>微信客服</h3><ol>
+<li>多人工客服：实现多个人工客服在线与微信公众平台客户沟通；</li>
+<li>LBS位置服务：用户经过微信提供位置，公众平台自动应答离用户最近的门店、经销商；</li>
+<li>建议/投诉/售后：微信平台内嵌售后服务表单。</li>
+</ol>
+<h3 id="微信商城"><a href="#微信商城" class="headerlink" title="微信商城"></a>微信商城</h3><ol>
+<li>在线订购：支持现有商城系统进行对接；</li>
+<li>会员系统：支持现有会员系统进行对接；</li>
+<li>在线支付：支持在线支付功能，若无需在线支付，则只记录订单信息与流程。</li>
+</ol>
+<h3 id="活动与促销"><a href="#活动与促销" class="headerlink" title="活动与促销"></a>活动与促销</h3><ol>
+<li>活动发布：软商系统直接对接微信平台发布；</li>
+<li>抽奖刮刮卡：支持系统自定义奖品。</li>
+<li>抽奖转盘：支持系统自定义奖品。</li>
+</ol>
+<h2 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h2><p>公众平台推出新的认证体系，微信将免费开放地理位置、客服、语音等九大高级技术接口 。针对服务号领域，微信还将推出一些垂直领域定制。微信产品部模式识别中心总监陈波透露，图像识别还将与微信支付结合，提供购买流程。这两个技术主要为公众平台提供服务，后续将向App开放。</p>
+<ol>
+<li>语音识别接口</li>
+<li>客服接口</li>
+<li>OAuth2.0 网页授权接口</li>
+<li>生成带参数的二维码接口</li>
+<li>获取用户地理位置接口</li>
+<li>获取用户基本信息接口</li>
+<li>获取关注者列表接口</li>
+<li>用户分组接口</li>
+<li>上传下载多媒体文件接口</li>
+</ol>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。&lt;/p&gt;
+&lt;p&gt;通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。&lt;br&gt;微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。&lt;/p&gt;
     
     </summary>
     
@@ -1995,74 +2063,6 @@ th.tg-sort-header::-moz-selection { background:transparent; }th.tg-sort-header::
     
     
       <category term="PHP" scheme="http://yoursite.com/tags/PHP/"/>
-    
-      <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>微信开发 - 公众平台简介</title>
-    <link href="http://yoursite.com/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%85%AC%E4%BC%97%E5%B9%B3%E5%8F%B0%E7%AE%80%E4%BB%8B/"/>
-    <id>http://yoursite.com/2016/09/02/微信开发 - 公众平台简介/</id>
-    <published>2016-09-01T18:24:00.000Z</published>
-    <updated>2016-09-02T11:50:47.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
-<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
-   <a id="more"></a>
-<h2 id="主要模板"><a href="#主要模板" class="headerlink" title="主要模板"></a>主要模板</h2><p>微信公众账号不会做太多深度的开放，为了把微信做得更“轻”。在2013年6月份的合作伙伴大会上，微信产品部助理曾鸣提出，微信公众账号不是一个纯粹的营销工具，让公众账号提供最体现企业价值的东西。</p>
-<ul>
-<li>在线营销：向终端客户推荐新品、促销策略等；</li>
-<li>售后服务：通过微信平台，自动与客户进行交互，展示企业产品、售后支持；</li>
-<li>电子商务：将企业网站或购物平台与微信对接，推荐到朋友圈获取免费宣传；</li>
-<li>会员管理：企业会员可通过微信平台进行线下活动预约、积分管理等操作。</li>
-</ul>
-<h2 id="主要功能"><a href="#主要功能" class="headerlink" title="主要功能"></a>主要功能</h2><p>公众平台是企业在OTT产品基础上新增的功能模块，基于“再小的个体也有自己品牌”这一理念。通过这一平台，个人和企业都可以打造一个公众号，并实现和特定群体的文字、图片、语音的全方位沟通、互动。同时，企业也可以利用公众平台进行CRM式管理，个人可以进行自媒体创作。</p>
-<h3 id="微信官网"><a href="#微信官网" class="headerlink" title="微信官网"></a>微信官网</h3><ol>
-<li>公司介绍：支持多级分类；</li>
-<li>产品展示：产品支持多图显示，手指滑动浏览图片；</li>
-<li>新闻资讯：对接微信公众平台消息推送；</li>
-<li>联系方式：LBS地图位置标注，点击电话号码直接拨打；</li>
-<li>信息推送：以微信官方规定的消息推送为标准。</li>
-</ol>
-<h3 id="微信客服"><a href="#微信客服" class="headerlink" title="微信客服"></a>微信客服</h3><ol>
-<li>多人工客服：实现多个人工客服在线与微信公众平台客户沟通；</li>
-<li>LBS位置服务：用户经过微信提供位置，公众平台自动应答离用户最近的门店、经销商；</li>
-<li>建议/投诉/售后：微信平台内嵌售后服务表单。</li>
-</ol>
-<h3 id="微信商城"><a href="#微信商城" class="headerlink" title="微信商城"></a>微信商城</h3><ol>
-<li>在线订购：支持现有商城系统进行对接；</li>
-<li>会员系统：支持现有会员系统进行对接；</li>
-<li>在线支付：支持在线支付功能，若无需在线支付，则只记录订单信息与流程。</li>
-</ol>
-<h3 id="活动与促销"><a href="#活动与促销" class="headerlink" title="活动与促销"></a>活动与促销</h3><ol>
-<li>活动发布：软商系统直接对接微信平台发布；</li>
-<li>抽奖刮刮卡：支持系统自定义奖品。</li>
-<li>抽奖转盘：支持系统自定义奖品。</li>
-</ol>
-<h2 id="开放接口"><a href="#开放接口" class="headerlink" title="开放接口"></a>开放接口</h2><p>公众平台推出新的认证体系，微信将免费开放地理位置、客服、语音等九大高级技术接口 。针对服务号领域，微信还将推出一些垂直领域定制。微信产品部模式识别中心总监陈波透露，图像识别还将与微信支付结合，提供购买流程。这两个技术主要为公众平台提供服务，后续将向App开放。</p>
-<ol>
-<li>语音识别接口</li>
-<li>客服接口</li>
-<li>OAuth2.0 网页授权接口</li>
-<li>生成带参数的二维码接口</li>
-<li>获取用户地理位置接口</li>
-<li>获取用户基本信息接口</li>
-<li>获取关注者列表接口</li>
-<li>用户分组接口</li>
-<li>上传下载多媒体文件接口</li>
-</ol>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。&lt;/p&gt;
-&lt;p&gt;通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。&lt;br&gt;微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="微信开发" scheme="http://yoursite.com/categories/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
-    
     
       <category term="微信开发" scheme="http://yoursite.com/tags/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91/"/>
     
