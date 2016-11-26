@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-26T01:10:19.000Z</updated>
+  <updated>2016-11-26T01:11:52.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2016/11/26/Plist%20%E5%92%8C%E8%BD%AC%E4%B9%89%E7%AC%A6/"/>
     <id>http://yoursite.com/2016/11/26/Plist 和转义符/</id>
     <published>2016-11-25T18:24:00.000Z</published>
-    <updated>2016-11-26T01:10:19.000Z</updated>
+    <updated>2016-11-26T01:11:52.000Z</updated>
     
     <content type="html"><![CDATA[<p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
 <p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
@@ -32,7 +32,7 @@
 <p>当我写到设置页面时，决定用 Plist 作为本地化存储的方案，因此我创建了一个 Plist 文件，然后每个 Item 包含以下 4 个属性：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 设置项名称</span></div><div class="line"><span class="keyword">var</span> name: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 设置项图标</span></div><div class="line"><span class="keyword">var</span> iconCode: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 是否显示 Switch 控件</span></div><div class="line"><span class="keyword">var</span> switchHide: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 设置项状态</span></div><div class="line"><span class="keyword">var</span> state: <span class="type">String</span>!</div></pre></td></tr></table></figure>
 <p>讲道理这时我已经可以转模型然后在 Cell 里面使用了，但是在我使用上面写的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">image(withIconCode iconCode: <span class="type">String</span>, fontName: <span class="type">String</span>, size: <span class="type">CGFloat</span>, color: <span class="type">UIColor</span>?) -&gt; <span class="type">UIImage</span>?</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">image</span>(<span class="title">withIconCode</span> <span class="title">iconCode</span>: <span class="title">String</span>, <span class="title">fontName</span>: <span class="title">String</span>, <span class="title">size</span>: <span class="title">CGFloat</span>, <span class="title">color</span>: <span class="title">UIColor</span>?) -&gt; <span class="title">UIImage</span>?</span></div></pre></td></tr></table></figure>
 <p>发现这个方法失效了，返回的是 <code>…</code> 图片，而不是应该获取的字体图标，这个省略号自然是因为超出 <code>UILabel</code> 的显示范围形成的，下面为了叙述方便，我用 <code>\u{e702}</code> 来代入。</p>
 <p>之前我的全局变量 <code>settingIconCode</code> ，传入到 <code>imageWithIconCode</code> 方法时没有问题，但是将 <code>\u{e702}</code> 写在 Plist 中赋值给 <code>iconCode</code>，再转为模型后出错，于是我打印了 <code>iconCode</code> 参数，结果和我预期是一样的 <code>\u{e702}</code>，然后我将 <code>iconCode</code> 和 <code>\u{e702}</code> 一起打印，输出结果如下：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"\u&#123;e702&#125;"</span>, iconCode)		<span class="comment">//？ \u&#123;e702&#125;</span></div></pre></td></tr></table></figure>
