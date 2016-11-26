@@ -1,0 +1,737 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Xcode错误," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。
+当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！
+如果不想看过程，可以直接翻到最下面看验证的结果。
+问题是这样的，我创建了一个 Plist 文件，希">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Xcode错误 - Plisth和转义符「/」">
+<meta property="og:url" content="http://yoursite.com/2016/11/26/Plist 和转义符/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。
+当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！
+如果不想看过程，可以直接翻到最下面看验证的结果。
+问题是这样的，我创建了一个 Plist 文件，希">
+<meta property="og:updated_time" content="2016-11-26T01:02:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xcode错误 - Plisth和转义符「/」">
+<meta name="twitter:description" content="前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。
+当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！
+如果不想看过程，可以直接翻到最下面看验证的结果。
+问题是这样的，我创建了一个 Plist 文件，希">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/26/Plist 和转义符/"/>
+
+  <title> Xcode错误 - Plisth和转义符「/」 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Xcode错误 - Plisth和转义符「/」
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T02:24:00+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/26/Plist 和转义符/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/Plist 和转义符/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
+<p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
+<p><strong>如果不想看过程，可以直接翻到最下面看验证的结果</strong>。</p>
+<p>问题是这样的，我创建了一个 Plist 文件，希望用来存储用户的设置选项，遇到的第一个坑是 KVC 不支持 Bool 类型，这个是我没想起了，使用 0 和 1 来替代解决了，现在要讲的是第二个坑。</p>
+<p>因为我在项目中使用了字体图标，它类似 Emoji 表情：使用 Unicode 编码，获取特定的图标。在其他的页面中，我使用了全局变量 + UILabel 转 UIImage 的方式，获取并使用字体图标，代码如下：</p>
+   <a id="more"></a>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> settingIconCode = <span class="string">"\u&#123;e702&#125;"</span></div><div class="line">   <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">image</span>(<span class="title">withIconCode</span> <span class="title">iconCode</span>: <span class="title">String</span>, <span class="title">fontName</span>: <span class="title">String</span>, <span class="title">size</span>: <span class="title">CGFloat</span>, <span class="title">color</span>: <span class="title">UIColor</span>?) -&gt; <span class="title">UIImage</span>? </span>&#123;</div><div class="line">               </div><div class="line">       <span class="keyword">let</span> imageSize = <span class="type">CGSize</span>(width: size, height: size)</div><div class="line">       <span class="type">UIGraphicsBeginImageContextWithOptions</span>(imageSize, <span class="literal">false</span>, <span class="type">UIScreen</span>.main.scale)</div><div class="line">       <span class="keyword">let</span> label = <span class="type">UILabel</span>(frame: <span class="type">CGRect</span>(x: <span class="number">0</span>, y: <span class="number">0</span>, width: size, height: size))</div><div class="line">       label.font = <span class="type">UIFont</span>(name: fontName, size: size)</div><div class="line">       label.text = iconCode</div><div class="line">       </div><div class="line">       <span class="keyword">if</span> (color != <span class="literal">nil</span>) &#123;</div><div class="line">           label.textColor = color</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">else</span> &#123;</div><div class="line">           label.textColor = <span class="type">UIColor</span>.white</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       label.layer.render(<span class="keyword">in</span>: <span class="type">UIGraphicsGetCurrentContext</span>()!)</div><div class="line">       </div><div class="line">       <span class="keyword">if</span> <span class="keyword">let</span> image = <span class="type">UIGraphicsGetImageFromCurrentImageContext</span>() &#123;</div><div class="line">           <span class="keyword">return</span> image</div><div class="line">       &#125;</div><div class="line">       <span class="keyword">else</span> &#123;</div><div class="line">           <span class="built_in">print</span>(<span class="string">"绘制失败"</span>)</div><div class="line">       &#125;</div><div class="line">       </div><div class="line">       <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">   &#125;</div></pre></td></tr></table></figure>
+<p>当我写到设置页面时，决定用 Plist 作为本地化存储的方案，因此我创建了一个 Plist 文件，然后每个 Item 包含以下 4 个属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 设置项名称</span></div><div class="line"><span class="keyword">var</span> name: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 设置项图标</span></div><div class="line"><span class="keyword">var</span> iconCode: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 是否显示 Switch 控件</span></div><div class="line"><span class="keyword">var</span> switchHide: <span class="type">String</span>!</div><div class="line"><span class="comment">/// 设置项状态</span></div><div class="line"><span class="keyword">var</span> state: <span class="type">String</span>!</div></pre></td></tr></table></figure>
+<p>讲道理这时我已经可以转模型然后在 Cell 里面使用了，但是在我使用上面写的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">image(withIconCode iconCode: <span class="type">String</span>, fontName: <span class="type">String</span>, size: <span class="type">CGFloat</span>, color: <span class="type">UIColor</span>?) -&gt; <span class="type">UIImage</span>?</div></pre></td></tr></table></figure>
+<p>发现这个方法失效了，返回的是 <code>…</code> 图片，而不是应该获取的字体图标，这个省略号自然是因为超出 <code>UILabel</code> 的显示范围形成的，下面为了叙述方便，我用 <code>\u{e702}</code> 来代入。</p>
+<p>之前我的全局变量 <code>settingIconCode</code> ，传入到 <code>imageWithIconCode</code> 方法时没有问题，但是将 <code>\u{e702}</code> 写在 Plist 中赋值给 <code>iconCode</code>，再转为模型后出错，于是我打印了 <code>iconCode</code> 参数，结果和我预期是一样的 <code>\u{e702}</code>，然后我将 <code>iconCode</code> 和 <code>\u{e702}</code> 一起打印，输出结果如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(<span class="string">"\u&#123;e702&#125;"</span>, iconCode)		<span class="comment">//？ \u&#123;e702&#125;</span></div></pre></td></tr></table></figure>
+<p>这说明两者虽然都是 String 类型，Value 看起来也一样，但是并不是同一个东西，于是我想到<strong>会不会是因为 <code>\u{e702}</code> 是经过转换的 String，而 <code>iconCode</code> 是单纯的 String？</strong></p>
+<p>我们知道，<code>\u{e702}</code> 等同于 <code>U+\e702</code> ，也就是 16 进制的 <code>e702</code> ，因此我在 Plist 中，将 <code>iconCode</code> 修改为 16 进制的 <code>0x1E702</code> ，然后我通过 <code>\u{\(iconCode)}</code> 进行转换，但是出错了， <strong>这里的<code>{}</code> 中不允许使用 <code>\()</code>，因此不能使用字符串拼接</strong>。</p>
+<p>于是我放弃了这个方法，回想是不是<strong>对象是不是被修改了</strong>，因此我找到最初读取到 Plist 的地方，打印获取的 Plist 数组：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> settingDicts = <span class="type">NSArray</span>(contentsOfFile: <span class="type">Bundle</span>.main.path(forResource: <span class="string">"Setting.plist"</span>, ofType: <span class="literal">nil</span>)!)</div><div class="line"><span class="built_in">print</span>(settingDicts?.firstObject)</div></pre></td></tr></table></figure>
+<p>我得到的结果是：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="type">Optional</span>(&#123;</div><div class="line">    iconCode = <span class="string">"\\u&#123;e702&#125;"</span>;</div><div class="line">    name = <span class="string">"\U81ea\U52a8\U5b9a\U4f4d\U5230\U6700\U8fd1\U7ad9\U70b9"</span>;</div><div class="line">    state = <span class="number">0</span>;</div><div class="line">    switchHide = <span class="number">1</span>;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>从这里可以看到，打印结果多出了一个  <code>\</code>，因此我猜想，Plist 并不能理解转义符，因此将 <code>\</code> 当做字符来处理，所以  <code>\ = \\</code>，为了验证这个猜想，我又修改了 Value 并打印，得到的结果如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">iconCode = \(iconCode)		<span class="comment">//iconCode = "\\(iconCode)";</span></div><div class="line">iconCode = (iconCode)		<span class="comment">//iconCode = "(iconCode)";</span></div><div class="line">iconCode = \\(iconCode)		<span class="comment">//iconCode = "\\\\(iconCode)";</span></div></pre></td></tr></table></figure>
+<p> <strong>因此我们可以得出结论，Plist 并不能理解转义符，因此会将 <code>\</code> 当做字符来处理，而不是当做转义符来处理</strong>。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Xcode错误/" rel="tag">#Xcode错误</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/" rel="next" title="【转载】Swift算法 - 基本语法与技巧">
+                <i class="fa fa-chevron-left"></i> 【转载】Swift算法 - 基本语法与技巧
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/26/Plist 和转义符/"
+     data-title="Xcode错误 - Plisth和转义符「/」"
+     data-content=""
+     data-url="http://yoursite.com/2016/11/26/Plist 和转义符/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/26/Plist 和转义符/"
+           data-title="Xcode错误 - Plisth和转义符「/」" data-url="http://yoursite.com/2016/11/26/Plist 和转义符/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <p class="post-toc-empty">此文章未包含目录</p>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
-                  CocoaPods错误 - googlesource timed out
+                <a class="post-title-link" href="/2016/11/26/Plist 和转义符/" itemprop="url">
+                  Xcode错误 - Plisth和转义符「/」
                 </a>
               
             
@@ -292,8 +292,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
-              2016-10-14
+            <time itemprop="dateCreated" datetime="2016-11-26T02:24:00+08:00" content="2016-11-26">
+              2016-11-26
             </time>
           </span>
 
@@ -306,8 +306,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
-                    <span itemprop="name">CocoaPods错误</span>
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
                   </a>
                 </span>
 
@@ -322,8 +322,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
+                <a href="/2016/11/26/Plist 和转义符/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/Plist 和转义符/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -347,14 +347,16 @@
 
       
         
-          
-            <p>安装 libwebp 时提示如下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
-<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
-<p>我使用的 host 是下面这个：</p>
-<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
-
-          
+          <p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
+<p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
+<p><strong>如果不想看过程，可以直接翻到最下面看验证的结果</strong>。</p>
+<p>问题是这样的，我创建了一个 Plist 文件，希望用来存储用户的设置选项，遇到的第一个坑是 KVC 不支持 Bool 类型，这个是我没想起了，使用 0 和 1 来替代解决了，现在要讲的是第二个坑。</p>
+<p>因为我在项目中使用了字体图标，它类似 Emoji 表情：使用 Unicode 编码，获取特定的图标。在其他的页面中，我使用了全局变量 + UILabel 转 UIImage 的方式，获取并使用字体图标，代码如下：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/26/Plist 和转义符/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
         
       
     </div>
@@ -500,6 +502,130 @@
               阅读全文 &raquo;
             </a>
           </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
+                  CocoaPods错误 - googlesource timed out
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
+                    <span itemprop="name">CocoaPods错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装 libwebp 时提示如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
+<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
+<p>我使用的 host 是下面这个：</p>
+<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
+
+          
         
       
     </div>
@@ -1426,142 +1552,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/15/iOS Socket通讯 - BSD Socket/" itemprop="url">
-                  iOS Socket通讯 - BSD Socket
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
-              2016-09-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通讯</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/15/iOS Socket通讯 - BSD Socket/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/iOS Socket通讯 - BSD Socket/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>套接字（Socket）是通信的基石，是支持TCP/IP协议的网络通信的基本操作单元，包含进行网络通信必须的五种信息：连接使用的协议，本地主机的IP地址，本地进程的协议端口，远地主机的IP地址，远地进程的协议端口。</p>
-<p>Socket描述了一个IP、端口对。它简化了程序员的操作，知道对方的IP以及PORT就可以给对方发送消息，再由服务器端来处理发送的这些消息。所以，Socket一定包含了通信的双发，即客户端（Client）与服务端（server）。</p>
-<p>每一个应用或者说服务，都有一个端口。比如DNS的53端口，http的80端口。我们能由DNS请求到查询信息，是因为DNS服务器时时刻刻都在监听53端口，当收到我们的查询请求以后，就能够返回我们想要的IP信息。所以，从程序设计上来讲，应该包含以下步骤：</p>
-<ol>
-<li><p>服务端利用Socket监听端口；</p>
-<p>服务器端套接字并不定位具体的客户端套接字，而是处于等待连接的状态，实时监控网络状态，等待客户端的连接请求。</p>
-</li>
-<li><p>客户端发起连接；</p>
-<p>指客户端的套接字提出连接请求，要连接的目标是服务器端的套接字。为此，客户端的套接字必须首先描述它要连接的服务器的套接字，指出服务器端套接字的地址和端口号，然后就向服务器端套接字提出连接请求。</p>
-</li>
-<li><p>服务端返回信息，建立连接，开始通信；</p>
-<p>当服务器端套接字监听到或者说接收到客户端套接字的连接请求时，就响应客户端套接字的请求，建立一个新的线程，把服务器端套接字的描述发给客户端，一旦客户端确认了此描述，双方就正式建立连接。而服务器端套接字继续处于监听状态，继续接收其他客户端套接字的连接请求。</p>
-</li>
-</ol>
-<p>总结如下：Socket是对TCP/IP协议的封装，Socket本身并不是协议，没有规定计算机应当怎么样传递消息，只是给程序员提供了一个发送消息的调用接口（API），程序员使用这个接口提供的方法，发送与接收消息。通过Socket我们才能使用TCP/IP协议。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/15/iOS Socket通讯 - BSD Socket/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1607,7 +1597,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">55</span>
+              <span class="site-state-item-count">56</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
