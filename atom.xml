@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2016-11-26T01:11:52.000Z</updated>
+  <updated>2016-11-26T01:13:27.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Xcode错误 - Plisth和转义符「/」</title>
+    <title>Xcode错误 - Plist和转义符「/」</title>
     <link href="http://yoursite.com/2016/11/26/Plist%20%E5%92%8C%E8%BD%AC%E4%B9%89%E7%AC%A6/"/>
     <id>http://yoursite.com/2016/11/26/Plist 和转义符/</id>
     <published>2016-11-25T18:24:00.000Z</published>
-    <updated>2016-11-26T01:11:52.000Z</updated>
+    <updated>2016-11-26T01:13:27.000Z</updated>
     
     <content type="html"><![CDATA[<p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
 <p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
