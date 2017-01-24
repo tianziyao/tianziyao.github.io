@@ -278,6 +278,133 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="url">
+                  iOS开发 - 利用Runtime优化归解档 
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-24T04:43:00+08:00" content="2017-01-24">
+              2017-01-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Runtime 是 iOS 开发中的知名黑魔法，充分体现了 Objective - C 的动态运行时特性，Swift 是一门静态语言，这意味着代码编译时即确定了其实际调用的方法和类型，所以纯粹的 Swift 类和对象没有办法使用 Runtime，更不存在 Method swizzling，但是呢，Swift 是兼容 Objective - C 的，继承自 NSObject 的类，也就具有了运行时的消息机制。</p>
+<p>纯粹的 Swift 类，也可以通过添加 <code>@objc</code> 修饰符， <code>@objc</code> 关键字只需要对那些不是继承自 <code>NSObject</code> 的类型进行，如果 class 是继承自 <code>NSObject</code> 的话，Swift 会默认自动为所有的非 private 的类和成员加上 <code>@objc</code>。</p>
+<p> <code>@objc</code> 修饰符主要用于需要暴露给 Objective-C 使用的任何地方 (包括类，属性和方法等) ，以支持其动态派发和运行时机制。</p>
+<p>添加 <code>@objc</code> 修饰符并不意味着这个方法或者属性会变成动态派发，Swift 依然可能会将其优化为静态调用。如果需要施展一些像 Method swizzling 或者运行时再决定实现这样的 “黑魔法” 的时候，我们就必须用到 <code>dynamic</code> 修饰符了。 <code>dynamic</code> 修饰符会隐式的添加 <code>@objc</code> 进行修饰。</p>
+<p>也就是说，需要 Swift 和 Objective 混合开发时，使用 <code>@objc</code> 就可以了，需要 Swift 完全实现运行时机制时，那么必须要添加 <code>dynamic</code> 修饰符。</p>
+<p>下面我们通过优化归解档，来了解 Runtime 在 Swift 中的应用：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/26/Plist 和转义符/" itemprop="url">
                   Xcode错误 - Plist和转义符「/」
                 </a>
@@ -357,6 +484,130 @@
               阅读全文 &raquo;
             </a>
           </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
+                  CocoaPods错误 - googlesource timed out
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
+              2016-10-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
+                    <span itemprop="name">CocoaPods错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装 libwebp 时提示如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
+<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
+<p>我使用的 host 是下面这个：</p>
+<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
+
+          
         
       
     </div>
@@ -502,130 +753,6 @@
               阅读全文 &raquo;
             </a>
           </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
-                  CocoaPods错误 - googlesource timed out
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
-              2016-10-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
-                    <span itemprop="name">CocoaPods错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>安装 libwebp 时提示如下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
-<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
-<p>我使用的 host 是下面这个：</p>
-<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
-
-          
         
       
     </div>
@@ -1313,143 +1440,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/18/iOS通讯 - Socket CS实例/" itemprop="url">
-                  iOS Socket通讯 - Socket C/S实例
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-18T02:24:00+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通讯</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/18/iOS通讯 - Socket CS实例/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/iOS通讯 - Socket CS实例/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>iOS提供的Socket网络编程的接口有CFSocket，BSD Socket，比较著名的第三方库是AsyncSocket。</p>
-<ul>
-<li><strong>BSD Socket</strong> 是UNIX系统中通用的网络接口，它不仅支持各种不同的网络类型，而且也是一种内部进程之间的通信机制。而iOS系统其实本质就是UNIX，所以可以用，但是比较复杂。</li>
-<li><strong>CFSocket</strong> 是苹果提供给我们的使用Socket的方式。</li>
-<li><strong>AsyncSocket</strong> 是一个应用比较广泛的开源库。</li>
-</ul>
-<p>下面我们用代码来演示如何使用AsyncSocket来创建一个服务器和客户端。</p>
-<p>AsyncSocket全名是<strong>CocoaAsyncSocket</strong>，它的GitHub地址<a href="https://github.com/robbiehanson/CocoaAsyncSocket">点此访问</a>。AsyncSocket使用CocoaPods安装和拖放安装有所不同。CocoaPods上的版本只有GCDAsyncSocket，GItHub上多了RunloopAsyncSocket，而后者现在已经弃用，建议直接使用CocoaPods安装。</p>
-<p><strong>缺点是<code>onsocketWillDisconnect</code>这个代理方法在GCD的版本里暂时没有，也没有找到替代方法。</strong></p>
-<p>下面开始使用AsyncSocket编写服务器端的程序，首先说一下要实现的目的：</p>
-<ol>
-<li>用户输入昵称，将昵称发送给服务器，服务器返回在线名单；</li>
-<li>客户端收到在线名单，利用在线名单生成联系人列表；</li>
-<li>点击联系人列表，用户和服务器进行对话；</li>
-</ol>
-<p>下面开始进入正题：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/18/iOS通讯 - Socket CS实例/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/18/iOS通讯 - Socket通讯头文件/" itemprop="url">
                   iOS Socket通讯 - Socket编程头文件
                 </a>
@@ -1597,7 +1587,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">56</span>
+              <span class="site-state-item-count">57</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1605,7 +1595,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1614,7 +1604,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">72</span>
+                <span class="site-state-item-count">70</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -1678,7 +1668,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2016</span>
+  <span itemprop="copyrightYear">2017</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
