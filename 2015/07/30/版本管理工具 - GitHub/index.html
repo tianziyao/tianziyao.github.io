@@ -1,0 +1,870 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="GitHub,GitHub分支,GithubFlow,版本管理工具," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="版本管理工具的作用
+1. 备份文件
+   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 BOSS ，如果不提前存档，那么打输了，之前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="版本管理工具 - GitHub">
+<meta property="og:url" content="http://yoursite.com/2015/07/30/版本管理工具 - GitHub/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="版本管理工具的作用
+1. 备份文件
+   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 BOSS ，如果不提前存档，那么打输了，之前">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/add.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/create.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/clone.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/clone%E5%8E%9F%E7%90%86.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/change.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/remove.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/History.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/Undo.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/RevertCommit.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/Publish.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/Sync.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/sync.png">
+<meta property="og:image" content="http://Gitbeijing.com/images/simple_branching/master_branch.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/Branch.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/new_branch.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/new_branch_commit.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com//webGitHub.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com//after_merge.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/p_merge.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/Collaborators.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/add-home-page.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/commit.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/talk.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/pullRequest.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/pullrequest2.png">
+<meta property="og:image" content="http://ob2q6r0fn.bkt.clouddn.com/pullRequest3.png">
+<meta property="og:updated_time" content="2017-01-24T15:49:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="版本管理工具 - GitHub">
+<meta name="twitter:description" content="版本管理工具的作用
+1. 备份文件
+   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 BOSS ，如果不提前存档，那么打输了，之前">
+<meta name="twitter:image" content="http://ob2q6r0fn.bkt.clouddn.com/add.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/07/30/版本管理工具 - GitHub/"/>
+
+  <title> 版本管理工具 - GitHub | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                版本管理工具 - GitHub
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-07-30T02:24:00+08:00" content="2015-07-30">
+              2015-07-30
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Git/" itemprop="url" rel="index">
+                    <span itemprop="name">Git</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/30/版本管理工具 - GitHub/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/30/版本管理工具 - GitHub/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="版本管理工具的作用"><a href="#版本管理工具的作用" class="headerlink" title="版本管理工具的作用"></a>版本管理工具的作用</h3><hr>
+<p><strong>1. 备份文件</strong></p>
+<p>   就像我们使用U盘网盘备份电影、文档一样，写代码的时候也需要有个东西帮我们备份，每当代码有修改的时候，提交我们的修改给版本管理工具进行保管，万一电脑坏了还能从备份里恢复回来，其实备份是我们项目管理中最基本的一个事情，因为每天的工作结果都保存在这个文件当中，如果某天因为一些不可预料的因素导致文件丢失，就像玩游戏时打 <code>BOSS</code> ，如果不提前存档，那么打输了，之前的游戏记录就全消失了，还得重新打。</p>
+<hr>
+<p><strong>2. 记录历史</strong></p>
+<p>   版本管理工具会帮助我们保管文件，但是版本管理工具的保管和网盘，U盘的保管不尽相同，网盘和U盘帮我们保存的是一个最新的文件状态，而历史的版本是找不回来的，比如说网盘里有一个文件，是用来记录每天的日记，有一天我们想知道某一天的某一行是哪天，几点钟加上去的，这个信息网盘或者U盘是没有办法告诉我们的，除非我们自己在这个地方加一条改动记录。</p>
+<p>   而版本管理工具是在我们每一次修改完，提交给版本管理工具后，它都会留一份备份，它会记录着当时这个修改是几点几分，是谁进行的修改，那么这样的话，当我们需要去回溯，去查找这些信息的时候，版本管理工具是可以告诉我们的。</p>
+   <a id="more"></a>
+<hr>
+<p><strong>3. 回到过去</strong></p>
+<p>   版本管理工具会将我们每一次的修改做一个备份，如果我们不小心删除了某一个日记，并将这个删除也提交给了版本管理工具，通过版本管理工具，我们是可以通过历史备份把它恢复过来的，就好像是一个机器猫的时光机，我们可以让我们的文件恢复到任意过去的一个时间的的状态。</p>
+<hr>
+<p><strong>4. 多端共享</strong></p>
+<p>   版本管理工具的另一个特性是我们托管的文件可以在多端进行同步，类似于苹果的 <code>iCould</code> 服务，我们可以在不同的设备上拿到最新的文件。比如说某天我在公司的电脑上提交了一个文件，可能是我们正在进行的一个工作，而我们没有做完就提交到了版本管理工具。那么我们可以回到家之后，通过版本管理工具，把我们之前提交的做到一半的的文件拿回来继续写，这就是多端共享。</p>
+<hr>
+<p><strong>5. 团队协作</strong></p>
+<p>   软件开发项目和复仇者联盟团伙作案其实很相似，在我们的团队中，虽然各个都可以独挡一面，但是如果配合不好的话，也会相互扯后腿。版本管理工具就是帮我们解决这种冲突的，即使我们发生了一些冲突，版本管理工具也可以帮我们迅速的解决我们的一些冲突，将负面影响降低到最小。</p>
+<hr>
+<h3 id="版本管理工具区别"><a href="#版本管理工具区别" class="headerlink" title="版本管理工具区别"></a>版本管理工具区别</h3><p>版本管理工具分为两种，集中式和分布式，集中式的版本管理工具代表如 <code>CVS</code> 和 <code>SVN</code> ，是比较老的版本工具，分布式的如 <code>Git</code> 和 <code>GitHub</code> ，是新型的版本管理工具。</p>
+<p>所谓集中式，就是说它必须要有一个中心服务器来放置最新的文件，如果不联网就没有办法提交和查看。</p>
+<p>而分布式的版本管理工具，每一个拥有版本库的人都可以在不联网的情况下快速完成文件的提交、查看记录、删除等操作，在效率上比集中式要高很多。</p>
+<p>其中 <code>Git</code> 和 <code>GitHub</code> 经常出现在一起，导致很多人认为它们是一个东西，其实不然，<code>GitHub</code> 实际上是一个程序员社区网站，在这个网站上程序员可以托管他自己的代码库，当然托管这件事是基于 <code>Git</code> 完成的。</p>
+<h3 id="GitHub客户端下载和使用"><a href="#GitHub客户端下载和使用" class="headerlink" title="GitHub客户端下载和使用"></a>GitHub客户端下载和使用</h3><p>点击进入 <a href="https://desktop.GitHub.com/" target="_blank" rel="external">GitHub桌面版</a> 下载对应的版本，以 <code>Mac</code> 为例，将 <code>GitHub</code> 拖进 <code>Applications</code> ，打开后点击<code>Continue</code> ，输入 <code>GitHub</code> 的用户名和密码 。</p>
+<p>往客户端里面添加项目仓库有三种方式。点击上图箭头所指的 <code>+</code> 号，就可以看到了，也就是下面图中的<code>Add</code>，<code>Create</code>，<code>Clone</code> 这三种形式。</p>
+<p><code>add</code> ：来源是你本地机器上已经存在的项目，填写它的文件夹位置，然后点击 <code>Create&amp;Add Repository</code>，如果这个项目本身就是一个 <code>Git仓库</code> 了，就直接添加进来，如果不是，就把它变成一个 <code>Git仓库</code>（<strong>其实也就是在项目内创建一个 .git 文件夹</strong>）然后再添加进客户端。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/add.png" alt="add"></p>
+<hr>
+<p><code>create</code> ：就是自己新建项目。填写项目名，选择项目存放位置，然后点 <code>Create Repository</code> 按钮，仓库就创建好了。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/create.png" alt="create"></p>
+<hr>
+<p><code>clone</code>：就是从 <code>GitHub.com</code> 上往本地 <code>clone</code> 。选中一个项目，在本地硬盘上找一个位置存放起来就可以了。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/clone.png" alt="create"></p>
+<h4 id="Clone的工作原理"><a href="#Clone的工作原理" class="headerlink" title="Clone的工作原理"></a>Clone的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/clone%E5%8E%9F%E7%90%86.png" alt=""></p>
+<hr>
+<h4 id="项目修改"><a href="#项目修改" class="headerlink" title="项目修改"></a>项目修改</h4><p>在你对项目中的文件进行修改后，要特别留意以下几点：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1. 项目修改数量的提醒；</div><div class="line"></div><div class="line">2. 文件修改数量的提醒；</div><div class="line"></div><div class="line">3. 是否只需要修改部分内容，蓝色标识代表将要修改；</div><div class="line"></div><div class="line">4. 你对此次修改的留言；</div><div class="line"></div><div class="line">5. 你对此次修改的详细描述；</div></pre></td></tr></table></figure>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/change.png" alt=""></p>
+<hr>
+<h4 id="删除项目"><a href="#删除项目" class="headerlink" title="删除项目"></a>删除项目</h4><p>要删除一个仓库，就到下图左侧列表的项目名字上，右击，然后点 <code>Remove</code> 就行了。简单说说另外几项，<a href="https://atom.io/" target="_blank" rel="external">Atom</a> 是 <code>GitHub</code> 公司开发的开源免费的代码编辑器，<code>Terminal</code> 是命令行终端，<code>Finder</code> 是文件浏览器。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/remove.png" alt=""></p>
+<hr>
+<h4 id="查看修改历史"><a href="#查看修改历史" class="headerlink" title="查看修改历史"></a>查看修改历史</h4><p>进入 <code>History</code> ，红框内依次是修改留言、修改人、上个版本号、修改时间。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/History.png" alt=""></p>
+<hr>
+<h4 id="撤销最近一次的修改"><a href="#撤销最近一次的修改" class="headerlink" title="撤销最近一次的修改"></a>撤销最近一次的修改</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/Undo.png" alt=""></p>
+<p><strong>值得注意的是 <code>Undo</code> 适用于未同步到 <code>GitHub</code> 之前的操作</strong>，如果已经进行过同步，需要进入 <code>History</code> ，点击<code>Revert This Commit</code> 进行撤销：</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/RevertCommit.png" alt=""></p>
+<hr>
+<h4 id="发布项目到-GitHub"><a href="#发布项目到-GitHub" class="headerlink" title="发布项目到 GitHub"></a>发布项目到 GitHub</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/Publish.png" alt=""></p>
+<hr>
+<h4 id="同步项目到GitHub"><a href="#同步项目到GitHub" class="headerlink" title="同步项目到GitHub"></a>同步项目到GitHub</h4><p>当项目发布以后，<code>Publish</code> 就会变成 <code>Sync</code> 了，以后这个项目的下的文件改变以后，可以点击 <code>Sync</code> 同步到 <code>GitHub</code> 。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/Sync.png" alt=""></p>
+<h4 id="Sync-的工作原理"><a href="#Sync-的工作原理" class="headerlink" title="Sync 的工作原理"></a>Sync 的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com/sync.png" alt=""></p>
+<hr>
+<h3 id="GitHub-分支"><a href="#GitHub-分支" class="headerlink" title="GitHub 分支"></a>GitHub 分支</h3><p><code>Git</code> 最核心的操作对象是<code>版本（ commit ）</code> ，版本最核心的操作技巧就是<code>分支（branch）</code> 。</p>
+<p>仓库创建后，一旦有了新 <code>commit</code> ，默认就会放到一个分支上，名字叫 <code>master</code> 。前面看到的多个版本组成的一条历史线，就是 <code>master</code> 分支。但是一个仓库内，用户可以自己创建其他的分支，可以有多条历史线。</p>
+<p><code>master</code> 这个名字，一般中文叫【主分支】，其实从技术底层来讲它跟其他我们自己要创建的分支没有区别，只不过它是天生的默认分支。实际工程项目中会人为的给它一个重要的使命，存放稳定代码。就像 <code>GitHub</code> 公司<a href="http://scottchacon.com/2011/08/31/GitHub-flow.html" target="_blank" rel="external">倡导</a>的。</p>
+<p><strong>master 分支上的所有代码都应该是可以部署的</strong>。</p>
+<p>意思就是 <code>master</code> 分支上的代码是随时可以放到产品服务器上跑的代码。这样，如果想开发一个新功能，可以新开分支。 想象一下历史线上有很多节，每个版本就是一节。一个分支相当于一跟竹子，一节节的往上长。</p>
+<p>但是实际上在底层并不是每个分支都拷贝出自己独立的一条历史线。其实 <code>master</code> 本身只是一个指针，指向 <code>master</code> 分支上最新的一个版本。这样由于每个 <code>commit</code> 都可以顺藤摸瓜找到自己的前一个 <code>commit</code>，那么这条历史线就可以确定了。</p>
+<h4 id="master-的原理"><a href="#master-的原理" class="headerlink" title="master 的原理"></a>master 的原理</h4><p><img src="http://Gitbeijing.com/images/simple_branching/master_branch.png" alt="img"></p>
+<hr>
+<h4 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h4><p>点击所示按钮，就会弹出对话框。<code>Create new branch</code> 就是来创建一个分支。所谓 <code>from master</code> 意思是<strong>基于 <code>master</code> 分支，拥有和 <code>master</code> 一样的历史</strong>。</p>
+<p> <img src="http://ob2q6r0fn.bkt.clouddn.com/Branch.png" alt="Branch"></p>
+<h4 id="分支的原理"><a href="#分支的原理" class="headerlink" title="分支的原理"></a>分支的原理</h4><p>就是就是创建一个新的指针，跟 <code>master</code> 指针指向同一个版本，根本没有拷贝历史线。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/new_branch.png" alt=""></p>
+<p>如果现在我们对项目做一下修改，然后 <code>commit</code> 了。那么移动的只是 <code>idea</code> 指针，<code>master</code> 不变。就成了这样：</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/new_branch_commit.png" alt="img"></p>
+<p>现在 <code>master</code> 分支包含两个版本 <code>C1 和 C2</code> ，<code>idea</code> 分支包含三个版本 <code>C1，C2，C3</code> 。</p>
+<p>默认情况下这个 <code>idea</code> 分支只是存在于本地，如果想在远端仓库上发布这个分支，就点一下 <code>idea</code> 分支右侧的<code>Publish</code> 按钮。现在这个项目就有了两个分支。</p>
+<p> <img src="http://ob2q6r0fn.bkt.clouddn.com//webGitHub.png" alt="webGitHub"></p>
+<hr>
+<h4 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h4><p>删除分支不在图形界面中，在顶部的控制栏 <code>Branch - Delete</code> 。如果只删除 <code>GitHub.com</code> 的分支，而不删除本地的分支，使用 <code>Branch - Unpublish</code>。</p>
+<hr>
+<h4 id="分支合并"><a href="#分支合并" class="headerlink" title="分支合并"></a>分支合并</h4><p>分支合并在顶部的控制栏 <code>Branch - Merge</code> ，他会新成了一个 <code>C5</code> ，这是一个 <code>融合版本（ Merge Commit ）</code> ，这个合并比较特殊，里面一般没有修改内容，它的作用主要是把两个分支合并起来。怎么合并的呢？融合版本包含两个版本，一个指向 <code>C2</code> ，一个指向 <code>C3</code> 。</p>
+<p><code>master</code> 分支指针指向了 <code>merge commit</code> ，也就自动拥有了 <code>idea</code> 分支上的 <code>C3</code> 这个版本了。<code>idea</code> 分支一般现在就可以删除了。</p>
+<h4 id="分支融合的工作原理"><a href="#分支融合的工作原理" class="headerlink" title="分支融合的工作原理"></a>分支融合的工作原理</h4><p><img src="http://ob2q6r0fn.bkt.clouddn.com//after_merge.png" alt="img"></p>
+<hr>
+<h4 id="代码冲突"><a href="#代码冲突" class="headerlink" title="代码冲突"></a>代码冲突</h4><p>实际中经常有这样的情况，我们正在 <code>idea</code> 分支上开发一个功能。但是这个时候突然发现了一个紧急的问题需要修复，所以会直接到 <code>master</code> 分支上，做一个 <code>commit</code> 来解决这个紧急的问题。然后会来继续到 <code>idea</code> 上开发。</p>
+<p>其他的情形也有，总之这样就会出现，两个不同分支上并行开发，同时都有新的 <code>commit</code> ，这个一般没有问题，一样可以直接 <code>merge</code> ，如下图：</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/p_merge.png" alt="img"></p>
+<p><strong>但是如果在两个分支上改动了同一个地方，合并的就会出现代码冲突。 因为 Git 不知道该听哪个分支的，所以只能报出冲突的位置，让开发者手动解决。</strong></p>
+<hr>
+<h4 id="合并远端分支"><a href="#合并远端分支" class="headerlink" title="合并远端分支"></a>合并远端分支</h4><p>现在我们的本地仓库叫 <code>TestRepository</code> ，<code>GitHub.com</code> 上也托管了这个仓库。那么自然就有一个<code>本地master</code>  分支，和一个 <code>远端master</code> 分支 ，这两个分支虽然名字都叫 <code>master</code> ，但是本质上也是两个分支，也存在分支合并的问题。</p>
+<p><strong>举例来说，我们在 <code>GitHub.com</code> 网页上，修改一下项目，把修改内容 <code>commit</code> 到 <code>master</code> 分支之上。这样，<code>远端master</code> 分支就比 <code>本地master</code> 分支多了一个 <code>commit</code> 。此时在我们的客户端点 <code>sync</code> 按钮执行同步，这个 <code>commit</code> 就会直接被 <code>pull</code> 到本地。</strong></p>
+<p><strong>另外一种情况，在没有 <code>sync</code> 之前，我们在本地也做了一个 <code>commit</code> ，也就是 <code>本地master</code> 和 <code>远端master</code> 出现了并行开发的情况，这种情况是非常常见的。这个时候我们执行 <code>sync</code> ，跟本地两个分支合并是一样的，一般也会生成一个 <code>merge commit</code> ，在本地客户端和 <code>GitHub.com</code> 上的历史线都可以看到。</strong></p>
+<p>在特定条件下，点击 <code>sync</code> 按钮两个分支合并会不使用 <code>融合（ merge ）</code> 方式，而采用 <code>变基（ rebase ）</code> 方式，这样最终不会生成一个 <code>merge commit</code> 。但是达成的效果是一样的，也是实现了两个分支代码的合并，处理冲突的方式也一样，所以暂时不必深究。</p>
+<h3 id="团队合作"><a href="#团队合作" class="headerlink" title="团队合作"></a>团队合作</h3><p>前面讲的都是开发者唱独角戏，但是尽管如此也可以看出 <code>Git</code> 带来的便利了，比如代码写错了可以回滚，为了新功能开发可以开新分支等等。但是 <code>Git 和 GitHub</code> 更大的威力在于<strong>协作</strong>。</p>
+<blockquote>
+<p>GitHub 是 Git 仓库的托管平台，让我们的项目仓库可以方便的备份同步。但是其实也许比这个还要重要的是，GitHub 是一个大家一起协作做项目的平台，是一种开发者的工作方式，引导一种看着不像流程的一种真正健康轻便的开发流程。</p>
+</blockquote>
+<p><code>Github</code> 的核心叫做 <a href="https://guides.Github.com/introduction/flow/index.html" target="_blank" rel="external">Github Flow</a> ，网站上的各个功能都是围绕着这个核心来开发的。<code>GitHub Flow</code> 就是一套团队协作流程，它是一个非常轻便的，基于分支的工作流。非常适合代码部署非常频繁的团队和项目。概况来讲，它就是给一个项目开发新功能要走的几步，整个过程的核心是“拉取请求” 。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">1. 创建新的分支。</div><div class="line"></div><div class="line">2. 不断实现功能，做成一个新版本。</div><div class="line"></div><div class="line">3. 发起拉取请求 Pull Request ；</div><div class="line"></div><div class="line">4. 代码审核；</div><div class="line"></div><div class="line">5. 把分支的内容合并到 master ；</div></pre></td></tr></table></figure>
+<p><strong>使用 <code>GitHub Flow</code> 进行代码开发分为两种情况，第一种是团队成员之间互相熟知，另外一种是在开源项目当中，与互不相识的开源贡献者合作。</strong></p>
+<p>下面我们用一个实际例子先来了解团队中的协作：</p>
+<blockquote>
+<p>我要和 Team 合作开发一个新项目，于是我先创建这个项目，然后让 Team 具有写的权限，创建项目前面已经介绍过，下面我们让 Team 成为这个项目的协作者。</p>
+</blockquote>
+<p>首先到项目页面，点击 <code>Settings</code> 一项，到项目的 <code>Settings</code> 页面，可以看到如下图所示的 <code>Collaborator</code> 选项，输入框中输入协作者的用户名，此时这个协作者就具有对这个项目的写权限了。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/Collaborators.png" alt="Collaborators"></p>
+<p>对于非常有把握的代码，可以直接在 <code>本地master</code> 开发然后 <code>sync</code> 到 <code>远端master</code> 分支上面。但是如果是比较重要的功能，就需要走完整的 <code>GitHub Flow</code> 流程了。</p>
+<p><strong>整个 <code>GitHub Flow</code> 的核心就是 <code>Pull Request</code> ，而 <code>Pull Request</code> 的目的就是用来引发讨论和代码审核的</strong>。</p>
+<hr>
+<p><strong>NO.1 我们来开一个新的分支，这是后面进行 <code>Pull Request</code> 的前提。</strong></p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/add-home-page.png" alt="add-home-page"></p>
+<hr>
+<p><strong>NO.2 现在 <code>Team</code> 登录以后，就会收到提醒，也就是我们所做的修改。</strong></p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/commit.png" alt="commit"></p>
+<hr>
+<p><strong>NO.3 <code>Team</code> 可以进入这个分支的版本中，进入我们所做的修改，对它留言进行讨论。发布的讨论对方会收到通知和提醒。</strong></p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/talk.png" alt="talk"></p>
+<hr>
+<p><strong>NO.4 当我和 <code>Team</code> 不断完善这个分支，并完成它时，就可以发起 <code>Pull Request</code> 了。</strong></p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/pullRequest.png" alt="pullRequest"></p>
+<hr>
+<p><strong>NO.5 这时就相当于告诉项目的发起者，可以将这个分支合并到 <code>master</code> 了</strong>。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/pullrequest2.png" alt="pullrequest2"></p>
+<hr>
+<p><strong>NO.6 在大家都讨论完毕后，就可以将这个分支和 <code>master</code> 进行合并了：</strong></p>
+<p> <img src="http://ob2q6r0fn.bkt.clouddn.com/pullRequest3.png" alt="pullRequest3"></p>
+<hr>
+<p>至此，团队协作进行一个项目就完成了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/GitHub/" rel="tag">#GitHub</a>
+          
+            <a href="/tags/GitHub分支/" rel="tag">#GitHub分支</a>
+          
+            <a href="/tags/GithubFlow/" rel="tag">#GithubFlow</a>
+          
+            <a href="/tags/版本管理工具/" rel="tag">#版本管理工具</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/07/26/iOS页面传值之 属性传值/" rel="next" title="iOS页面传值 - 属性传值">
+                <i class="fa fa-chevron-left"></i> iOS页面传值 - 属性传值
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/11/PHP-基础语法/" rel="prev" title="PHP入门 - 基础语法">
+                PHP入门 - 基础语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/07/30/版本管理工具 - GitHub/"
+     data-title="版本管理工具 - GitHub"
+     data-content=""
+     data-url="http://yoursite.com/2015/07/30/版本管理工具 - GitHub/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/07/30/版本管理工具 - GitHub/"
+           data-title="版本管理工具 - GitHub" data-url="http://yoursite.com/2015/07/30/版本管理工具 - GitHub/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#版本管理工具的作用"><span class="nav-number">1.</span> <span class="nav-text">版本管理工具的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#版本管理工具区别"><span class="nav-number">2.</span> <span class="nav-text">版本管理工具区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub客户端下载和使用"><span class="nav-number">3.</span> <span class="nav-text">GitHub客户端下载和使用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Clone的工作原理"><span class="nav-number">3.1.</span> <span class="nav-text">Clone的工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目修改"><span class="nav-number">3.2.</span> <span class="nav-text">项目修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除项目"><span class="nav-number">3.3.</span> <span class="nav-text">删除项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看修改历史"><span class="nav-number">3.4.</span> <span class="nav-text">查看修改历史</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#撤销最近一次的修改"><span class="nav-number">3.5.</span> <span class="nav-text">撤销最近一次的修改</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#发布项目到-GitHub"><span class="nav-number">3.6.</span> <span class="nav-text">发布项目到 GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#同步项目到GitHub"><span class="nav-number">3.7.</span> <span class="nav-text">同步项目到GitHub</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Sync-的工作原理"><span class="nav-number">3.8.</span> <span class="nav-text">Sync 的工作原理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GitHub-分支"><span class="nav-number">4.</span> <span class="nav-text">GitHub 分支</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#master-的原理"><span class="nav-number">4.1.</span> <span class="nav-text">master 的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建新分支"><span class="nav-number">4.2.</span> <span class="nav-text">创建新分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支的原理"><span class="nav-number">4.3.</span> <span class="nav-text">分支的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#删除分支"><span class="nav-number">4.4.</span> <span class="nav-text">删除分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支合并"><span class="nav-number">4.5.</span> <span class="nav-text">分支合并</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支融合的工作原理"><span class="nav-number">4.6.</span> <span class="nav-text">分支融合的工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#代码冲突"><span class="nav-number">4.7.</span> <span class="nav-text">代码冲突</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并远端分支"><span class="nav-number">4.8.</span> <span class="nav-text">合并远端分支</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#团队合作"><span class="nav-number">5.</span> <span class="nav-text">团队合作</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

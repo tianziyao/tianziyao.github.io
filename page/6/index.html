@@ -278,8 +278,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/iOS多线程之 线程间的通信/" itemprop="url">
-                  iOS多线程 - 线程间的通信
+                <a class="post-title-link" href="/2015/07/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
+                  CocoaPods错误 - googlesource timed out
                 </a>
               
             
@@ -292,8 +292,132 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T15:54:00+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2015-07-14T02:24:00+08:00" content="2015-07-14">
+              2015-07-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
+                    <span itemprop="name">CocoaPods错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/07/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>安装 libwebp 时提示如下错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
+<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
+<p>我使用的 host 是下面这个：</p>
+<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/06/26/iOS页面传值之 闭包传值/" itemprop="url">
+                  iOS页面传值 - 闭包传值
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-06-26T09:01:00+08:00" content="2015-06-26">
+              2015-06-26
             </time>
           </span>
 
@@ -322,8 +446,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/21/iOS多线程之 线程间的通信/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 线程间的通信/" itemprop="commentsCount"></span>
+                <a href="/2015/06/26/iOS页面传值之 闭包传值/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/26/iOS页面传值之 闭包传值/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -348,16 +472,12 @@
       
         
           <blockquote>
-<p>因为线程是串行的，这意味着如果我们要下载一个图片，使它呈现在一个<code>UIImageView</code> 里，那么这个线程必须要等待图片下载完成后，才能显示出来。为了解决这样的问题，我们需要用到多线程的技术，将下载图片交给子线程完成，将加载图片到 <code>UIImageView</code> 交给主线程，这就涉及到一个问题，就是线程之间的通信。</p>
+<p>页面传值是开发中必不可少的业务需求，经常会有在 <code>B</code> 页面干完一些事情之后告诉 <code>A</code> 页面或者传值到 <code>A</code> 页面。这种需求通常使用属性、闭包、代理、单例、通知几种方式进行实现，下面我们来了解 iOS 页面传值中的闭包传值。</p>
 </blockquote>
-<h4 id="线程通讯的两种方式"><a href="#线程通讯的两种方式" class="headerlink" title="线程通讯的两种方式"></a>线程通讯的两种方式</h4><ol>
-<li>从一个线程给另一个线程传递数据。</li>
-<li>在一个线程中执行完特定任务后，转到另一个线程继续执行。</li>
-</ol>
-<p>以上面的问题举例，我们要在一个线程中下载图片，然后要另一个线程展示图片，<strong>苹果官方推荐，刷新界面的操作最好在主线程中完成</strong>，那么我们来实验一下，如果将展示图片的操作交给子线程，会发生什么。<strong>首先我们创建一个 <code>UIImageView</code> 并将它添加到 <code>UIViewController</code></strong>，然后我们创建一个子线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subThread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"我是传入参数"</span>)</div><div class="line">    subThread.start()</div></pre></td></tr></table></figure>
+<p>闭包传值的实现思路如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="number">1</span>. 在<span class="type">B</span>中声明一个block</div><div class="line"> 	<span class="keyword">typealias</span> <span class="type">TestBlock</span> = (<span class="type">String</span>)-&gt;()</div><div class="line"><span class="number">2</span>. 持有一个block变量</div><div class="line"> 	<span class="keyword">var</span> blo: <span class="type">TestBlock</span>?  </div><div class="line"><span class="number">3</span>. 调用</div><div class="line"> 	<span class="keyword">self</span>.blo?(<span class="string">"It is block test"</span>)</div><div class="line"><span class="number">4</span>. 在<span class="type">A</span>中需要接受值的地方</div><div class="line">	<span class="keyword">let</span> b = <span class="type">B</span>()</div><div class="line">	b.blo = &#123;str <span class="keyword">in</span></div><div class="line">   <span class="built_in">print</span>(<span class="string">"test block---\\(str)"</span>)</div><div class="line">	&#125;</div></pre></td></tr></table></figure>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/iOS多线程之 线程间的通信/#more" rel="contents">
+            <a class="btn" href="/2015/06/26/iOS页面传值之 闭包传值/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -408,8 +528,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/iOS多线程之 3种方式创建线程/" itemprop="url">
-                  iOS多线程 - 3种方式创建线程
+                <a class="post-title-link" href="/2015/06/03/CocoaPods 安装和使用/" itemprop="url">
+                  iOS第三方库 - CocoaPods安装和使用
                 </a>
               
             
@@ -422,8 +542,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T09:33:00+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2015-06-03T02:46:00+08:00" content="2015-06-03">
+              2015-06-03
             </time>
           </span>
 
@@ -452,8 +572,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/21/iOS多线程之 3种方式创建线程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 3种方式创建线程/" itemprop="commentsCount"></span>
+                <a href="/2015/06/03/CocoaPods 安装和使用/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/03/CocoaPods 安装和使用/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -477,16 +597,10 @@
 
       
         
-          <p>首先来看这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">detachNewThreadSelector</span>(<span class="title">selector</span>: <span class="title">Selector</span>, <span class="title">toTarget</span> <span class="title">target</span>: <span class="title">AnyObject</span>, <span class="title">withObject</span> <span class="title">argument</span>: <span class="title">AnyObject</span>?)</span></div></pre></td></tr></table></figure>
-<p>下面这个是常见的 <code>init</code> 创建线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
-<p>这两种创建方式有哪些不同呢？我们对比来看下：</p>
-<blockquote>
-<p><code>init</code> 是一个构造器，<code>detachNewThreadSelector</code> 是一个类型方法。<code>detachNewThreadSelector</code> 返回值是 <code>void</code>，也就是说没有返回值。<code>detachNewThreadSelector</code> 在调用后立即启动，不需要 <code>start</code> 方法。</p>
-</blockquote>
+          <p>在安装 CocoaPods 过程中提示需要 Ruby 的版本在 2.3 以上，而目前使用的 Ruby 版本是 Mac 系统自带的 2.0，所以需要对 Ruby 进行升级。</p>
+<p>这里使用 RVM 对 Ruby 进行升级，RVM 是 Ruby Version Manager 的缩写，Ruby 版本管理器，包括 Ruby 的版本管理和 Gem 库管理，升级过程如下：</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/iOS多线程之 3种方式创建线程/#more" rel="contents">
+            <a class="btn" href="/2015/06/03/CocoaPods 安装和使用/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -537,8 +651,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/iOS多线程之 NSThread/" itemprop="url">
-                  iOS多线程 - NSThread
+                <a class="post-title-link" href="/2015/05/10/iOS 加载网络数据/" itemprop="url">
+                  iOS网络数据 - 同步加载
                 </a>
               
             
@@ -551,8 +665,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:44:00+08:00" content="2016-07-21">
-              2016-07-21
+            <time itemprop="dateCreated" datetime="2015-05-10T02:46:00+08:00" content="2015-05-10">
+              2015-05-10
             </time>
           </span>
 
@@ -581,8 +695,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/21/iOS多线程之 NSThread/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 NSThread/" itemprop="commentsCount"></span>
+                <a href="/2015/05/10/iOS 加载网络数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/10/iOS 加载网络数据/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -606,43 +720,288 @@
 
       
         
-          <p>首先介绍 <code>NSThread</code> 创建线程的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
-<p><code>public class NSThread : NSObject</code>  从这里可以看出，<code>NSThread</code> 是继承自 <code>NSObject</code> 的类，它的创建是一个构造器 <code>init</code>  ，所以使用实例化对象的方式就可以调用了。</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> thread = <span class="type">NSThread</span>(target: &lt;<span class="type">AnyObject</span>&gt;, selector: &lt;<span class="type">Selector</span>&gt;, object: &lt;<span class="type">AnyObject</span>&gt;)</div></pre></td></tr></table></figure>
-<p>现在我们来看一下，这个方法的几个参数，分别代表的含义。</p>
+          <p>读取网络数据是 iOS 开发中很重要的部分，下面我们用获取一个网页的方式来了解获取网络数据。</p>
+<p>下面我们使用 NSString 来接收一个网页的源代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">func loadWedDataToHTML() &#123;</div><div class="line"></div><div class="line">    let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line"></div><div class="line">    do &#123;</div><div class="line">        let str = try NSString(contentsOfURL: url!, encoding: NSUTF8StringEncoding)</div><div class="line">        print(str)</div><div class="line">    &#125;</div><div class="line">    catch &#123;</div><div class="line">        print(&quot;fail&quot;)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/05/10/iOS 加载网络数据/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/04/10/iOS 异步加载网络数据/" itemprop="url">
+                  iOS网络数据 - 异步加载
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-04-10T02:46:00+08:00" content="2015-04-10">
+              2015-04-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/04/10/iOS 异步加载网络数据/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/04/10/iOS 异步加载网络数据/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h4 id="NSURLConnection"><a href="#NSURLConnection" class="headerlink" title="NSURLConnection"></a>NSURLConnection</h4><p>iOS 异步加载网络数据主要使用的 API 是 sendAsynchronousRequest，它是一个类型方法，使用方法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">let url = NSURL(string: &quot;http://www.jikexueyuan.com&quot;)</div><div class="line">let request = NSURLRequest(URL: url!)</div><div class="line">let queue = NSOperationQueue()</div><div class="line"></div><div class="line">NSURLConnection.sendAsynchronousRequest(request, queue: queue) &#123; (resp: NSURLResponse?, data: NSData?, error: NSError?) in</div><div class="line"></div><div class="line">    if error != nil &#123;</div><div class="line">        print(&quot;出错了&quot;)</div><div class="line">    &#125;</div><div class="line">    else &#123;</div><div class="line">        print(resp)</div><div class="line">        print(data)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2015/04/10/iOS 异步加载网络数据/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2015/03/10/iOS HTTP通讯 - GET方式和POST方式/" itemprop="url">
+                  iOS 网络通讯 - HTTP通讯
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-03-10T02:46:00+08:00" content="2015-03-10">
+              2015-03-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/03/10/iOS HTTP通讯 - GET方式和POST方式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/10/iOS HTTP通讯 - GET方式和POST方式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>与服务器进行通讯是每个程序员必备的技能，下面我们将搭建一个服务器，并通过这个服务器了解 Swift 语言是如何与服务器进行通讯的。</p>
+<h4 id="搭建J2E开发环境"><a href="#搭建J2E开发环境" class="headerlink" title="搭建J2E开发环境"></a>搭建J2E开发环境</h4><p>搭建服务器之前首先确认已经具有以下开发环境：</p>
 <table>
 <thead>
 <tr>
-<th>形参名</th>
-<th>形参类型</th>
-<th>作用</th>
-<th>方法填写</th>
+<th style="text-align:center">Eclipse IDE</th>
+<th style="text-align:center">Apache Tomcat</th>
+<th style="text-align:center">JDK</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>target</td>
-<td>AnyObject</td>
-<td>当前类的一个对象。是selector消息发送的对象。</td>
-<td>一般是 self</td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/eclipse.png?imageView2/2/h/50/interlace/0/q/100" alt=""></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/tomcat.png?imageView2/2/h/50/interlace/0/q/100" alt=""></td>
+<td style="text-align:center"><img src="http://oboehz2ag.bkt.clouddn.com/oracle.GIF?imageView2/2/h/50/interlace/0/q/100" alt=""></td>
 </tr>
 <tr>
-<td>selector</td>
-<td>Selector</td>
-<td>线程要执行的方法。只能接收一个参数。</td>
-<td>创建方法传入</td>
+<td style="text-align:center">必须</td>
+<td style="text-align:center">必须</td>
+<td style="text-align:center">可选</td>
 </tr>
 <tr>
-<td>object</td>
-<td>AnyObject?</td>
-<td>selector线程函数的唯一传入值，可以是 nil 。</td>
-<td>nil</td>
+<td style="text-align:center">Java 编译器</td>
+<td style="text-align:center">基于 Java 的 Web 服务器</td>
+<td style="text-align:center">Java 的运行环境</td>
+</tr>
+<tr>
+<td style="text-align:center"><a href="https://eclipse.org/downloads/">下载地址</a></td>
+<td style="text-align:center"><a href="http://tomcat.apache.org/">下载地址</a></td>
+<td style="text-align:center"><a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">下载地址</a></td>
 </tr>
 </tbody>
 </table>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/iOS多线程之 NSThread/#more" rel="contents">
+            <a class="btn" href="/2015/03/10/iOS HTTP通讯 - GET方式和POST方式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -693,8 +1052,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/07/21/Typora For Markdown 语法/" itemprop="url">
-                  Typora For Markdown 语法
+                <a class="post-title-link" href="/2015/01/26/iOS设计模式之 代理模式/" itemprop="url">
+                  iOS设计模式 - 代理模式
                 </a>
               
             
@@ -707,398 +1066,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/Typora For Markdown 语法/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Typora For Markdown 语法/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>Typora</code> 是一个功能强大的 <code>Markdown</code> 编辑器，<code>Typora</code> 可以插入数学表达式，插入表情，表格，支持标准的 Markdown 语法，可以使用标注，功能非常强悍。</p>
-<h4 id="数学表达式"><a href="#数学表达式" class="headerlink" title="数学表达式"></a>数学表达式</h4><p>要启用这个功能，首先要到 <code>Preference</code> - <code>Editor</code> 中启用。然后使用<code>$</code>符号包裹<code>Tex</code>命令，例如：<code>$lim_{x \ to \infty} \ exp(-x)=0$</code>。</p>
-<blockquote>
-<p>$lim_{x \ to \infty} \ exp(-x)=0$</p>
-</blockquote>
-<h4 id="下标"><a href="#下标" class="headerlink" title="下标"></a>下标</h4><p>下标使用<code>~</code>包裹，例如：<code>H~2~o</code>将产生水的分子式。</p>
-<blockquote>
-<p>H~2~o</p>
-</blockquote>
-<h4 id="上标"><a href="#上标" class="headerlink" title="上标"></a>上标</h4><p>上标使用<code>^</code>包裹，例如：<code>y^2^=4</code>将产生表达式。</p>
-<blockquote>
-<p>y^2^=4</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/Typora For Markdown 语法/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/21/Xcode错误 - No Such Module/" itemprop="url">
-                  Xcode错误 - No Such Module
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xcode错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/Xcode错误 - No Such Module/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Xcode错误 - No Such Module/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>No.1 首先确保工程中有这个库；</p>
-<p>No.2 进入 <code>Build Phases</code> 找到 <code>Link Binary With Libraries</code> ，添加这个库；</p>
-<p>No.3 点击 <code>Build Phases</code> 页面左上角加号，点击 <code>New Copy Files Phase</code> ，名字改为 <code>Copy FrameWorks</code> ，<code>Destination</code> 设置为 <code>FrameWorks</code>，将这个库添加进来即可。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/20/Markdown 语法的简要规则/" itemprop="url">
-                  Markdown 语法的简要规则
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T18:16:00+08:00" content="2016-07-20">
-              2016-07-20
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Other/" itemprop="url" rel="index">
-                    <span itemprop="name">Other</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/20/Markdown 语法的简要规则/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/20/Markdown 语法的简要规则/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h4 id="标题"><a href="#标题" class="headerlink" title="标题"></a>标题</h4><p>在 <code>Markdown</code> 中，如果要定义一段文字为标题，只要在这段文字前加 <code>#</code> 号即可，标题一共有 6 级，建议在 <code>#</code> 号后加写一个空格，这是 <code>Markdown</code> 最标准的写法。</p>
-<h4 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h4><p><code>Markdown</code> 的列表与 <code>HTML</code> 相同，分为有序列表和无序列表，在 <code>Markdown</code> 下，列表的显示只需要在文字前加上 - 即可变为无序列表，有序列表直接在文字前加<code>1. 2. 3.</code></p>
-<p>符号和文字之前要加上一个字符的空格。</p>
-<h4 id="这是一个无序列表"><a href="#这是一个无序列表" class="headerlink" title="这是一个无序列表"></a>这是一个无序列表</h4><ul>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ul>
-<h4 id="这是一个有序列表"><a href="#这是一个有序列表" class="headerlink" title="这是一个有序列表"></a>这是一个有序列表</h4><ol>
-<li>第一点</li>
-<li>第二点</li>
-<li>第三点</li>
-</ol>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/Markdown 语法的简要规则/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/20/iOS多线程之 Pthread/" itemprop="url">
-                  iOS多线程 - Pthread
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-20T18:13:00+08:00" content="2016-07-20">
-              2016-07-20
+            <time itemprop="dateCreated" datetime="2015-01-26T13:14:00+08:00" content="2015-01-26">
+              2015-01-26
             </time>
           </span>
 
@@ -1127,8 +1096,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/07/20/iOS多线程之 Pthread/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/20/iOS多线程之 Pthread/" itemprop="commentsCount"></span>
+                <a href="/2015/01/26/iOS设计模式之 代理模式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/26/iOS设计模式之 代理模式/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1152,12 +1121,14 @@
 
       
         
-          <h4 id="1-多线程的原理"><a href="#1-多线程的原理" class="headerlink" title="1. 多线程的原理"></a>1. 多线程的原理</h4><p>线程是可并发执行的，拥有最小系统资源，共享进程资源的基本调度单位。</p>
-<p><strong>共有堆，自有栈</strong> ,  iOS  主线程栈和其他线程均默认为  512K。</p>
-<p>堆可以理解为操作系统提供的一块内存，可以随意使用，在我们使用 <code>new , alloc</code>时，分配的内存就是系统用堆提供的。</p>
-<p>栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的，它主要是用来定义一些函数内部的成员变量，栈里的数据其他程序不能访问。</p>
+          <blockquote>
+<p>代理是一种简单而功能强大的设计模式，这种模式用于一个对象“代表”另外一个对象和程序中其他的对象进行交互。 主对象（这里指的是delegating object）中维护一个代理（delegate）的引用并且在合适的时候向这个代理发送消息。这个消息通知“代理”主对象即将处理或是已经处理完了某一个事件。</p>
+<p>这个代理可以通过更新自己或是其它对象的UI界面或是其它状态来响应主对象所发送过来的这个事件的消息。或是在某些情况下能返回一个值来影响其它即将发生的事件该如何来处理。</p>
+<p>代理的主要价值是它可以让你容易的定制各种对象的行为。注意这里的代理是个名词，它本身是一个对象，这个对象是专门代表被代理对象来和程序中其他对象打交道的。</p>
+</blockquote>
+<p>以上是苹果的官方文档给出的解释，代理模式的应用非常广泛，在系统的 API 中几乎随处可见，<strong>代理模式并不是 Swift 或者 Objectvice-C 独有的，它是一种软件设计的思想</strong>。代理模式在 <code>WiKiPedia</code> 中的解释如下：</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/20/iOS多线程之 Pthread/#more" rel="contents">
+            <a class="btn" href="/2015/01/26/iOS设计模式之 代理模式/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="多线程," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="1. 多线程的原理线程是可并发执行的，拥有最小系统资源，共享进程资源的基本调度单位。
+共有堆，自有栈 ,  iOS  主线程栈和其他线程均默认为  512K。
+堆可以理解为操作系统提供的一块内存，可以随意使用，在我们使用 new , alloc时，分配的内存就是系统用堆提供的。
+栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS多线程 - Pthread">
+<meta property="og:url" content="http://yoursite.com/2016/03/20/iOS多线程之 Pthread/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="1. 多线程的原理线程是可并发执行的，拥有最小系统资源，共享进程资源的基本调度单位。
+共有堆，自有栈 ,  iOS  主线程栈和其他线程均默认为  512K。
+堆可以理解为操作系统提供的一块内存，可以随意使用，在我们使用 new , alloc时，分配的内存就是系统用堆提供的。
+栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的">
+<meta property="og:updated_time" content="2017-01-24T15:47:53.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS多线程 - Pthread">
+<meta name="twitter:description" content="1. 多线程的原理线程是可并发执行的，拥有最小系统资源，共享进程资源的基本调度单位。
+共有堆，自有栈 ,  iOS  主线程栈和其他线程均默认为  512K。
+堆可以理解为操作系统提供的一块内存，可以随意使用，在我们使用 new , alloc时，分配的内存就是系统用堆提供的。
+栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/03/20/iOS多线程之 Pthread/"/>
+
+  <title> iOS多线程 - Pthread | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS多线程 - Pthread
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-03-20T18:13:00+08:00" content="2016-03-20">
+              2016-03-20
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/03/20/iOS多线程之 Pthread/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/20/iOS多线程之 Pthread/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="1-多线程的原理"><a href="#1-多线程的原理" class="headerlink" title="1. 多线程的原理"></a>1. 多线程的原理</h4><p>线程是可并发执行的，拥有最小系统资源，共享进程资源的基本调度单位。</p>
+<p><strong>共有堆，自有栈</strong> ,  iOS  主线程栈和其他线程均默认为  512K。</p>
+<p>堆可以理解为操作系统提供的一块内存，可以随意使用，在我们使用 <code>new , alloc</code>时，分配的内存就是系统用堆提供的。</p>
+<p>栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的，它主要是用来定义一些函数内部的成员变量，栈里的数据其他程序不能访问。</p>
+<a id="more"></a>
+<p>这也就是说，不要定义很大的局部变量，如果一个函数的成员变量，是一个数组，这个数组大于  512K，那么很可能程序根本不能运行。</p>
+<p>在实际开发中，<strong>线程最好保持在  3-5 条</strong>，过多的线程会消耗大量  CPU  资源，单个线程被调度的执行频次会降低，因此线程并不是越多越好。</p>
+<p><strong>并发执行进度不可控</strong>，我们创建的线程何时执行是由操作系统调度，比如说我们有5个线程，每个线程打印一句话，那么在每次运行程序时，这5句话的打印顺序可能都不一样，这导致了两个潜在的风险。</p>
+<p><strong>对非原子操作容易造成状态不一致</strong></p>
+<ul>
+<li>这是说在我们使用多线程时，加入同一个变量进行访问，有的读，有的写，如果没有很好的控制机制的话，读到的值可能并不是需要的值。那么为了处理这种情况，我们会使用加锁控制，但这又会引起另一个风险。</li>
+</ul>
+<p><strong>加锁控制有死锁的风险</strong></p>
+<ul>
+<li><p>加锁控制是在读或写之前，通常是在写之前，首先给这个变量加一把锁，加锁以后其他进程无法读到，在写的操作完成之后，再把锁解开，其他的进程才可以进行读的操作。</p>
+<p>这个风险在于，当其他进程也有锁时，当前进程需要读一个变量，读到之后才能进行写的操作，但是这个变量的锁需要等当前进程的锁打开，两个进程都在等对方解锁，这就触发了死锁的问题。</p>
+</li>
+</ul>
+<hr>
+<h4 id="2-iOS中主要的多线程技术"><a href="#2-iOS中主要的多线程技术" class="headerlink" title="2. iOS中主要的多线程技术"></a>2. iOS中主要的多线程技术</h4><table>
+<thead>
+<tr>
+<th>技术方案</th>
+<th style="text-align:left">简介</th>
+<th>语言</th>
+<th>线程声明周期</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pthread</td>
+<td style="text-align:left">一套通用的多线程API，跨平台可移植，使用难度大。</td>
+<td>C</td>
+<td>程序员管理</td>
+</tr>
+<tr>
+<td>NSThread</td>
+<td style="text-align:left">使用更加向对象，简单易用可直接操作线程对象。</td>
+<td>OC</td>
+<td>程序员管理</td>
+</tr>
+<tr>
+<td>GCD</td>
+<td style="text-align:left">旨在替代NSThread等线程技术，充分理由设备多核。</td>
+<td>C</td>
+<td>自动管理</td>
+</tr>
+<tr>
+<td>NSOperation</td>
+<td style="text-align:left">基于GCD，多了一些实用功能，使用更加面向对象。</td>
+<td>OC</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h4 id="3-多线程的使用"><a href="#3-多线程的使用" class="headerlink" title="3. 多线程的使用"></a>3. 多线程的使用</h4><p>当我们在 UI 线程，也就是主线程中，执行一个耗时操作时，因为线程是串行的，所以会导致 UI 界面有无法刷新，无法响应等问题，例如我们使用一个 <code>Button</code>，响应函数执行一个<code>for</code> 循环，那么在循环完成之前，<code>Button</code> 是灰色的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">#pragma mark 所以要使用多线程技术</div><div class="line">- (IBAction)BtnClick:(id)sender &#123;</div><div class="line"></div><div class="line">   //耗时操作 在这个循环执行完以前 button 始终处于灰色不可用的状态</div><div class="line">   //如果我们在 UI线程 也就是主线程中执行耗时操作 会导致 UI界面 不能刷新 或者说无法响应</div><div class="line">   for (int i=0; i&lt;5000; i++) &#123;</div><div class="line">       //格式化字符串</div><div class="line">       NSString *str = [NSString stringWithFormat:@&quot;i = %d&quot;,i];</div><div class="line">       NSLog(str,nil);</div><div class="line">   &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个例子告诉我们，<strong>不要把耗时操作放在主线程/UI线程中</strong>。</p>
+<p>那么，如何解决这个问题呢？这就用到了我们的多线程技术。</p>
+<ul>
+<li>引入 <code>#import &lt;pthread.h&gt;</code> 头文件，因为是系统文件，所以要使用尖括号引入。</li>
+</ul>
+<ul>
+<li>在<code>BtnClick</code>方法里创建线程。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pthread_t threadId;</div><div class="line">pthread_create(&amp;threadId, NULL, ThreadFunc, NULL);</div></pre></td></tr></table></figure>
+<ul>
+<li>创建线程的<code>pthread_create()</code>方法的四个参数意义如下：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>功能</th>
+<th>填写</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>pthread_t *</td>
+<td>线程的id，线程创建后，可通过id操作线程。</td>
+<td>传入自己声明的属性</td>
+</tr>
+<tr>
+<td>const pthread_attr_t *</td>
+<td>返回线程的属性 ，一般不需要。</td>
+<td>填NULL</td>
+</tr>
+<tr>
+<td>void <em>(</em>)(void *)</td>
+<td>函数指针， 这是线程需要执行的方法。</td>
+<td>自己写一个方法</td>
+</tr>
+<tr>
+<td>void *</td>
+<td>上一个参数线程方法的传入值</td>
+<td>可以是NULL</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>创建要线程的执行的方法，也就是<code>pthread_create()</code>的第三个参数：</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">void *<span class="type">ThreadFunc</span> (void *pParam) &#123;    </div><div class="line">   <span class="comment">//把这个循环从原来的 BtnClick 剪切到这个方法里 使用子线程执行</span></div><div class="line">   <span class="keyword">for</span> (int i=<span class="number">0</span>; i&lt;<span class="number">5000</span>; i++) &#123;</div><div class="line">       <span class="comment">//格式化字符串</span></div><div class="line">       <span class="type">NSString</span> *str = [<span class="type">NSString</span> stringWithFormat:@<span class="string">"i = %d"</span>,i];</div><div class="line">       <span class="type">NSLog</span>(str,<span class="literal">nil</span>);</div><div class="line">   &#125;</div><div class="line">   <span class="keyword">return</span> <span class="type">NULL</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>验证是否有两个线程在运行：</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取当前的线程</span></div><div class="line"><span class="type">NSThread</span> *thread = [<span class="type">NSThread</span> currentThread];</div><div class="line"><span class="type">NSLog</span>(@<span class="string">"主线程 %@"</span>,thread);</div><div class="line"><span class="comment">//将这段代码放在 BtnClick 方法里</span></div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="type">NSThread</span> *thread = [<span class="type">NSThread</span> currentThread];</div><div class="line">thread.name = @<span class="string">"我的线程"</span>;</div><div class="line"><span class="type">NSLog</span>(@<span class="string">"子线程 %@"</span>,thread);</div><div class="line"><span class="comment">//将这段代码放在 ThreadFunc 方法里</span></div></pre></td></tr></table></figure>
+<ul>
+<li>打印结果：</li>
+</ul>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">主线程 &lt;<span class="type">NSThread</span>: <span class="number">0x7bf6a9a0</span>&gt;&#123;number = <span class="number">1</span>, name = main&#125;</div><div class="line">子线程 &lt;<span class="type">NSThread</span>: <span class="number">0x7e073750</span>&gt;&#123;number = <span class="number">3</span>, name = 我的线程&#125;</div></pre></td></tr></table></figure>
+<p>可以看出，有两个线程，而且主线程的 <code>number=1 , name=main</code>。</p>
+<p>并且点击 <code>Button</code> ，<code>for</code> 循环进行的同时，<code>Button</code> 的状态并不受影响。</p>
+<p>到这里我们就实现了一个简单的 <code>pthread</code> 线程。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/多线程/" rel="tag">#多线程</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/02/25/iOS网络编程 - NSURLConnection/" rel="next" title="iOS网络编程 - NSURLConnection">
+                <i class="fa fa-chevron-left"></i> iOS网络编程 - NSURLConnection
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/03/24/iOS生命周期 - Main函数/" rel="prev" title="iOS生命周期 - Main函数">
+                iOS生命周期 - Main函数 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/03/20/iOS多线程之 Pthread/"
+     data-title="iOS多线程 - Pthread"
+     data-content=""
+     data-url="http://yoursite.com/2016/03/20/iOS多线程之 Pthread/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/03/20/iOS多线程之 Pthread/"
+           data-title="iOS多线程 - Pthread" data-url="http://yoursite.com/2016/03/20/iOS多线程之 Pthread/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-多线程的原理"><span class="nav-number">1.</span> <span class="nav-text">1. 多线程的原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-iOS中主要的多线程技术"><span class="nav-number">2.</span> <span class="nav-text">2. iOS中主要的多线程技术</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-多线程的使用"><span class="nav-number">3.</span> <span class="nav-text">3. 多线程的使用</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

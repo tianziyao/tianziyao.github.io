@@ -405,6 +405,138 @@
             
               
                 
+                <a class="post-title-link" href="/2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="url">
+                  iOS设计模式 - KVC内部机制&使用场景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-21T02:24:00+08:00" content="2016-12-21">
+              2016-12-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/21/iOS设计模式 - KVC内部机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。</p>
+<p>关于Apple是如何实现KVC这个问题：</p>
+<blockquote>
+<p>🙃 🙃 我也不知道…… </p>
+</blockquote>
+<p>因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，</p>
+<p>对于<code>setValue:forKey:</code> ，在setter存在的情况，KVC 会直接发送<code>set&lt;Key&gt;:</code> 消息赋值；</p>
+<p>在setter不在的情况下，且<code>accessInstanceVariablesDirectly</code>方法是true的情况下，会按<code>（_&lt;key&gt;, _&lt;isKey&gt;, &lt;key&gt;, is&lt;Key&gt;）</code>的顺序去查找实例变量，检查其是否存在之后通过<code>object_setIvar</code>给它赋值。</p>
+<p>如果都没有就调用<code>setValue:forUNdefinedKey:</code>抛出错误。</p>
+<p>对于<code>setValue:forKeyPath:</code>，递归地检查keyPath中的属性是否存在，到达目标路径时再调用<code>setValue:forKey:</code> 完成赋值。</p>
+<p>大致上我准备按上面的执行顺序进行实现，由于集合、字典和模型、KeyPath的情况比较复杂，所以我只实现了最普通的存值和取值，下面进入正题：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/21/iOS设计模式 - KVC内部机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/11/26/Plist 和转义符/" itemprop="url">
                   Xcode错误 - Plist和转义符「/」
                 </a>
@@ -531,8 +663,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="url">
-                  CocoaPods错误 - googlesource timed out
+                <a class="post-title-link" href="/2016/11/24/iOS设计模式 - Notification/" itemprop="url">
+                  iOS设计模式 - Notification
                 </a>
               
             
@@ -545,8 +677,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
-              2016-10-14
+            <time itemprop="dateCreated" datetime="2016-11-24T02:24:00+08:00" content="2016-11-24">
+              2016-11-24
             </time>
           </span>
 
@@ -559,8 +691,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CocoaPods错误/" itemprop="url" rel="index">
-                    <span itemprop="name">CocoaPods错误</span>
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
                   </a>
                 </span>
 
@@ -575,8 +707,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/10/14/CocoaPods错误 - googlesource timed out/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/CocoaPods错误 - googlesource timed out/" itemprop="commentsCount"></span>
+                <a href="/2016/11/24/iOS设计模式 - Notification/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/iOS设计模式 - Notification/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -600,156 +732,18 @@
 
       
         
-          
-            <p>安装 libwebp 时提示如下错误：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Failed to connect to chromium.googlesource.com port 443: Operation timed out</div></pre></td></tr></table></figure>
-<p>虽然已经科学上网，直接打开网页无碍，但是 CocoaPods 谷歌源还是超时，请教老司机答曰：可能出在 hosts 上。于是找了一下 host 翻墙的方法，成功解决。</p>
-<p>我使用的 host 是下面这个：</p>
-<p><a href="https://raw.githubusercontent.com/racaljk/hosts/master/hosts" target="_blank" rel="external">https://raw.githubusercontent.com/racaljk/hosts/master/hosts</a></p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/" itemprop="url">
-                  【转载】Swift算法 - 基本语法与技巧
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-14T02:24:00+08:00" content="2016-10-14">
-              2016-10-14
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/算法/" itemprop="url" rel="index">
-                    <span itemprop="name">算法</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/14/【转载】Swift算法 - 基本语法与技巧/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Swift 是苹果新推出的编程语言，也是苹果首个开源语言。相比于原来的 Objective-C，Swift 要更轻便和灵活。笔者最近使用 Swift 实践了大量的算法（绝大部分是硅谷各大公司的面试题），将心得体会总结于下。此文并不是纯粹讨论 Swift 如何实现某一个具体的算法或者数据结构，如冒泡排序、深度优先遍历，或是树和栈，而是总结归纳一些 Swift 常用的语法和技巧，以便大家在解决面试题中使用。</p>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars:[Character],  p: Int, q: Int)</span></span> &#123;</div><div class="line">  <span class="keyword">var</span> temp = chars[p]</div><div class="line">  chars[p] = chars[q]</div><div class="line">  chars[q] = temp</div><div class="line">&#125;</div><div class="line"><span class="comment">// Assume array is a character array and it has enough elements</span></div><div class="line"><span class="built_in">swap</span>(array, p: <span class="number">0</span>, q: <span class="number">1</span>)</div></pre></td></tr></table></figure>
-<p>上面代码实现了一个非常简单的功能，就是交换一个数组中的两个值。乍一看非常正确，实际上存在以下几个问题。</p>
-<ol>
-<li>在第一个参数前应该加上 <strong>inout </strong>关键字。因为在 Swift 中，struct 都是按值传递，class 是按引用传递；数组和字典都是 struct。所以要改变原来的 chars 数组，在其前部加入 inout 关键字，表示是按引用传递。</li>
-<li>p 和 q 之前应该加入下划线。Swift 默认函数的第一个参数是局部（local）变量，而后续参数都是外部（external）变量，外部变量必须声明。如果在 p 和 q 前加上下划线，则在调用函数时无需声明外部变量，这样调用起来更简便。</li>
-<li>temp 前的 var 应该改为 <strong>let</strong>。let 用于声明常量（constant），var 用于声明变量（variable）。swap 函数中，temp 并未进行修改，所以应当视为常量，用let来声明。</li>
-</ol>
+          <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
 <blockquote>
-<p>除原作者以上写出的 3 点问题之外，在我编译时，也有几个方面值得记录下来：</p>
-<p>swap 是自带的方法，API 文档描述如下：</p>
+<p>Delegate、Block、KVO、Notification；</p>
 </blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**我的笔记*/</span></div><div class="line"><span class="comment">/// Exchange the values of `a` and `b`.</span></div><div class="line"><span class="comment">///</span></div><div class="line"><span class="comment">/// - Precondition: `a` and `b` do not alias each other.</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">swap</span>&lt;T&gt;<span class="params">(<span class="number">_</span> a: <span class="keyword">inout</span> T, <span class="number">_</span> b: <span class="keyword">inout</span> T)</span></span></div></pre></td></tr></table></figure>
+<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
 <blockquote>
-<p>系统提供的 swap 方法和我们自定义的方法使用略有不同，可以说更加简洁一些：</p>
+<p>本地通知、推送通知、广播通知；</p>
 </blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**我的笔记*/</span></div><div class="line"><span class="built_in">swap</span>(&amp;chars[<span class="number">0</span>], &amp;chars[<span class="number">1</span>])</div></pre></td></tr></table></figure>
-<blockquote>
-<p>在我看到自定义 swap 方法时，最先想到的是在方法内部修改传入参数，需要使用 var 进行描述，而在 Swift 3 中，var 关键字被取消，<strong>强制要求我们使用 inout 关键字</strong>，当然我们也可以在方法内部创建一个新的变量：</p>
-</blockquote>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**我的笔记*/</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">swap</span><span class="params">(chars: [String], <span class="number">_</span> p: Int, <span class="number">_</span> q: Int)</span></span> -&gt; [<span class="type">String</span>] &#123;</div><div class="line">    <span class="keyword">var</span> chars = chars</div><div class="line">    <span class="keyword">let</span> temp = chars[p]</div><div class="line">    chars[p] = chars[q]</div><div class="line">    chars[q] = temp</div><div class="line">    <span class="keyword">return</span> chars</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>但这样处理是交换新的变量，而传入的 chars 是不会被修改的，因此在我们需要一份新的拷贝时，也可以使用这种方式。</p>
-</blockquote>
+<p>这三种通知是不同的，本地通知使用的是 <code>UILocalNotification</code> 实现，是我们的 APP 运行时，给用户的通知；推送通知是使用 <code>UIUserNotification</code> 实现，是用户同意推送后，由我们的服务器提交给 APNS，再由 APNS 转发给用户的。</p>
+<p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/10/14/【转载】Swift算法 - 基本语法与技巧/#more" rel="contents">
+            <a class="btn" href="/2016/11/24/iOS设计模式 - Notification/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1051,8 +1045,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/24/iOS设计模式 - Notification/" itemprop="url">
-                  iOS设计模式 - Notification
+                <a class="post-title-link" href="/2016/09/15/Xcode错误 - Expected a type /" itemprop="url">
+                  Xcode错误 - Expected a type
                 </a>
               
             
@@ -1065,8 +1059,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-24T02:24:00+08:00" content="2016-09-24">
-              2016-09-24
+            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
+              2016-09-15
             </time>
           </span>
 
@@ -1079,8 +1073,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
                   </a>
                 </span>
 
@@ -1095,8 +1089,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/24/iOS设计模式 - Notification/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/24/iOS设计模式 - Notification/" itemprop="commentsCount"></span>
+                <a href="/2016/09/15/Xcode错误 - Expected a type /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/Xcode错误 - Expected a type /" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1120,18 +1114,134 @@
 
       
         
-          <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
-<blockquote>
-<p>Delegate、Block、KVO、Notification；</p>
-</blockquote>
-<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
-<blockquote>
-<p>本地通知、推送通知、广播通知；</p>
-</blockquote>
-<p>这三种通知是不同的，本地通知使用的是 <code>UILocalNotification</code> 实现，是我们的 APP 运行时，给用户的通知；推送通知是使用 <code>UIUserNotification</code> 实现，是用户同意推送后，由我们的服务器提交给 APNS，再由 APNS 转发给用户的。</p>
-<p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
+          
+            <p>需要自己手动导入库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
+<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
+                  微信开发 - access_token
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/24/iOS设计模式 - Notification/#more" rel="contents">
+            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1182,8 +1292,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/23/KVO/" itemprop="url">
-                  iOS设计模式 - KVO原理和使用
+                <a class="post-title-link" href="/2016/09/05/微信开发 - 接口简介/" itemprop="url">
+                  微信开发 - 接口简介
                 </a>
               
             
@@ -1196,8 +1306,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-23T02:24:00+08:00" content="2016-09-23">
-              2016-09-23
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
             </time>
           </span>
 
@@ -1210,8 +1320,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
                   </a>
                 </span>
 
@@ -1226,8 +1336,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/23/KVO/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/23/KVO/" itemprop="commentsCount"></span>
+                <a href="/2016/09/05/微信开发 - 接口简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信开发 - 接口简介/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1251,13 +1361,20 @@
 
       
         
-          <p>KVO/KVC是观察者模式在Objective-C中的实现，以非正式协议（Category）的形式被定义在NSObject中。从协议的角度看，是定义了一套让开发者遵守的规范和使用的方法。</p>
-<p>在Cocoa的MVC框架中，KVO架起ViewController和Model沟通的桥梁，例如：</p>
+          <p>由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。</p>
+<p>开通测试账号的路径为：</p>
 <blockquote>
-<p>代码中，在模型类A创建属性数据，在控制器中创建观察者，一旦属性数据发生改变就收到观察者收到通知，通过KVO再在控制器使用回调方法处理实现视图B的更新。</p>
+<p>微信公众平台 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</p>
 </blockquote>
+<p>或点击<a href="http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index">传送门</a>，需要填写的为以下几项：</p>
+<blockquote>
+<p>URL：接口文档所在的路径，如：<code>https://localhost/filepath/wxapifile.php</code></p>
+<p>Token：接口文档中设定的Token</p>
+<p>域名：网址或主机名，如：<code>localhost</code></p>
+</blockquote>
+<p>如对以上步骤陌生的同学可以先看<a href="https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">这篇文章</a>。</p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/23/KVO/#more" rel="contents">
+            <a class="btn" href="/2016/09/05/微信开发 - 接口简介/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1308,8 +1425,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/21/iOS设计模式 - KVC内部机制/" itemprop="url">
-                  iOS设计模式 - KVC内部机制&使用场景
+                <a class="post-title-link" href="/2016/09/03/iOS多线程下载及图片缓存/" itemprop="url">
+                  iOS多线程 - 下载及图片缓存
                 </a>
               
             
@@ -1322,8 +1439,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-21T02:24:00+08:00" content="2016-09-21">
-              2016-09-21
+            <time itemprop="dateCreated" datetime="2016-09-03T02:46:00+08:00" content="2016-09-03">
+              2016-09-03
             </time>
           </span>
 
@@ -1352,8 +1469,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/21/iOS设计模式 - KVC内部机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/21/iOS设计模式 - KVC内部机制/" itemprop="commentsCount"></span>
+                <a href="/2016/09/03/iOS多线程下载及图片缓存/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/iOS多线程下载及图片缓存/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1377,142 +1494,22 @@
 
       
         
-          <p>前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。</p>
-<p>关于Apple是如何实现KVC这个问题：</p>
-<blockquote>
-<p>🙃 🙃 我也不知道…… </p>
+          <blockquote>
+<p>线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。</p>
 </blockquote>
-<p>因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，</p>
-<p>对于<code>setValue:forKey:</code> ，在setter存在的情况，KVC 会直接发送<code>set&lt;Key&gt;:</code> 消息赋值；</p>
-<p>在setter不在的情况下，且<code>accessInstanceVariablesDirectly</code>方法是true的情况下，会按<code>（_&lt;key&gt;, _&lt;isKey&gt;, &lt;key&gt;, is&lt;Key&gt;）</code>的顺序去查找实例变量，检查其是否存在之后通过<code>object_setIvar</code>给它赋值。</p>
-<p>如果都没有就调用<code>setValue:forUNdefinedKey:</code>抛出错误。</p>
-<p>对于<code>setValue:forKeyPath:</code>，递归地检查keyPath中的属性是否存在，到达目标路径时再调用<code>setValue:forKey:</code> 完成赋值。</p>
-<p>大致上我准备按上面的执行顺序进行实现，由于集合、字典和模型、KeyPath的情况比较复杂，所以我只实现了最普通的存值和取值，下面进入正题：</p>
+<p>下面我们通过代码来了解以下几个知识点：</p>
+<ol>
+<li>多线程下载；</li>
+<li>自定义 NSOperation ；</li>
+<li>NSCache 增删改查；</li>
+<li>NSFileManager 增删改查；</li>
+<li>代理模式；</li>
+<li>闭包反向传值；</li>
+<li>扩展方法；</li>
+<li>Plist 文件解析；</li>
+</ol>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/21/iOS设计模式 - KVC内部机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/18/iOS通讯 - Socket通讯头文件/" itemprop="url">
-                  iOS Socket通讯 - Socket编程头文件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-18T02:24:00+08:00" content="2016-09-18">
-              2016-09-18
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/网络通讯/" itemprop="url" rel="index">
-                    <span itemprop="name">网络通讯</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/18/iOS通讯 - Socket通讯头文件/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/18/iOS通讯 - Socket通讯头文件/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>建议：在编写网络程序时，可以直接使用下面这段头文件代码：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">include &lt;unistd.h&gt;</div><div class="line">include &lt;sys/types.h&gt;</div><div class="line">include &lt;sys/socket.h&gt;</div><div class="line">include &lt;netdb.h&gt;</div><div class="line">include &lt;stdio.h&gt;</div><div class="line">include &lt;stdlib.h&gt;</div><div class="line">include &lt;string.h&gt;</div><div class="line">include &lt;ctype.h&gt;</div><div class="line">include &lt;errno.h&gt;</div><div class="line">include &lt;malloc.h&gt;</div><div class="line">include &lt;netinet/in.h&gt;</div><div class="line">include &lt;arpa/inet.h&gt;</div><div class="line">include &lt;sys/ioctl.h&gt;</div><div class="line">include &lt;stdarg.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div><div class="line">include &lt;fcntl.h&gt;</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/18/iOS通讯 - Socket通讯头文件/#more" rel="contents">
+            <a class="btn" href="/2016/09/03/iOS多线程下载及图片缓存/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>

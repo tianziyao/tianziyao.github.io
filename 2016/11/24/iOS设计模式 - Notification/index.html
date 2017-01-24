@@ -1,0 +1,840 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="设计模式,Notification," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
+
+Delegate、Block、KVO、Notification；
+
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS设计模式 - Notification">
+<meta property="og:url" content="http://yoursite.com/2016/11/24/iOS设计模式 - Notification/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
+
+Delegate、Block、KVO、Notification；
+
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
+<meta property="og:updated_time" content="2017-01-24T15:46:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS设计模式 - Notification">
+<meta name="twitter:description" content="iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：
+
+Delegate、Block、KVO、Notification；
+
+其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/11/24/iOS设计模式 - Notification/"/>
+
+  <title> iOS设计模式 - Notification | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS设计模式 - Notification
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-24T02:24:00+08:00" content="2016-11-24">
+              2016-11-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/24/iOS设计模式 - Notification/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/iOS设计模式 - Notification/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
+<blockquote>
+<p>Delegate、Block、KVO、Notification；</p>
+</blockquote>
+<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
+<blockquote>
+<p>本地通知、推送通知、广播通知；</p>
+</blockquote>
+<p>这三种通知是不同的，本地通知使用的是 <code>UILocalNotification</code> 实现，是我们的 APP 运行时，给用户的通知；推送通知是使用 <code>UIUserNotification</code> 实现，是用户同意推送后，由我们的服务器提交给 APNS，再由 APNS 转发给用户的。</p>
+<p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
+   <a id="more"></a>
+<h2 id="Notification的概念"><a href="#Notification的概念" class="headerlink" title="Notification的概念"></a>Notification的概念</h2><p>Notification 是 iOS 提供的一种同步的消息通知机制，观察者只要向消息中心注册，即可接受其他对象发送来的消息，消息发送者和接收者两者可以互相一无所知，完全解耦。</p>
+<p>它是 Foundation 框架的一个子系统，它向应用程序中注册为某个事件观察者的所有对象广播消息，也就是通知。该事件可以是发生在应用程序中的任何事情，例如进入后台状态，或者用户开始在文本栏中键入。Notification 告诉观察者，事件已经发生或即将发生，因此让观察者有机会以合适的方式响应。通过通知中心来传播通知，是增加应用程序对象间合作和内聚力的一种途径。</p>
+<p>虽然任何对象都可以观察通知，但要做到这一点，该对象必须注册，以接收通知。在注册时，它必须指定选择器，以确定由通知传送所调用的方法，方法签名必须只有一个参数，也就是通知对象；注册后，观察者也可以指定发布对象。Notification 可以应用于任何对象，观察者可以有多个，所以消息具有广播的性质。</p>
+<p>需要注意的是，观察者向消息中心注册以后，在不需要接收消息时需要从消息中心移除，这种消息传递机制是典型的观察者模式。</p>
+<p>每一个应用都有一个通知中心（Notification）实例。当应用发生某一事件时，任何对象都可以向通知中心发布通知；同时，通知的监听者监听到该通知的发布后，根据通知传入的信息（UserInfo），进行对应的操作或处理。</p>
+<h2 id="NotificationCenter的使用"><a href="#NotificationCenter的使用" class="headerlink" title="NotificationCenter的使用"></a>NotificationCenter的使用</h2><p>使用通知模式主要是以下三个步骤：</p>
+<ol>
+<li>获取通知中心的实例并指定发布者；</li>
+<li>注册成为观察者以接收发布者通知的信息；</li>
+<li>当观察者不再关注该通知的信息时，可以向通知中心发送解除注册的信息，之后都不再接收到通知。</li>
+</ol>
+<p>通知机制常常用于在向服务器端请求数据或者提交数据的场景，在和服务器端成功交互后，需要处理服务器端返回的数据，或发送响应消息等，就需要用到通知机制。</p>
+<h3 id="获取通知中心"><a href="#获取通知中心" class="headerlink" title="获取通知中心"></a>获取通知中心</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NotificationCenter</span>.<span class="keyword">default</span></div></pre></td></tr></table></figure>
+<p>NotificationCenter 的原理是一个观察者模式，只有通过调用静态方法 <code>default</code> 才可以获取这个通知中心的对象。它同时也是一个单例，这个对象会一直存在于一个应用的生命周期。</p>
+<p>发布、注册、解除通知都需要使用<strong>通知中心</strong>，它负责协助不同对象、不同类之间的消息通信。</p>
+<p>NotificationCenter 提供了一个中心化的枢纽，通过它，应用的任何部分都可以向其他部分发送通知，或者接收来自别人的通知。</p>
+<p>观察者通过在通知中心进行注册，并对特定的事件注册特定的响应动作。每次这个事件发生时，如果有必要，通知中心将通知进行分发之后，所有注册这个事件的观察者都会获得通知。</p>
+<h3 id="指定发布者"><a href="#指定发布者" class="headerlink" title="指定发布者"></a>指定发布者</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(<span class="number">_</span> notification: Notification)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(name aName: NSNotification.Name, object anObject: Any?)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">post</span><span class="params">(name aName: NSNotification.Name, object anObject: Any?, userInfo aUserInfo: [AnyHashable : Any]? = <span class="literal">nil</span>)</span></span></div></pre></td></tr></table></figure>
+<p>我们可以看到，这个3个方法实际并无区别，传入的都是一个 <code>NSNotification</code> 类型，它是消息携带的载体，通过它，我们才可以把消息内容传递给观察者，它的结构如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">NSNotification</span> : <span class="title">NSObject</span>, <span class="title">NSCopying</span>, <span class="title">NSCoding</span> </span>&#123;</div><div class="line">    open <span class="keyword">var</span> name: <span class="type">NSNotification</span>.<span class="type">Name</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line">    open <span class="keyword">var</span> object: <span class="type">Any</span>? &#123; <span class="keyword">get</span> &#125;</div><div class="line">    open <span class="keyword">var</span> userInfo: [<span class="type">AnyHashable</span> : <span class="type">Any</span>]? &#123; <span class="keyword">get</span> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>name：指定消息名称；</li>
+<li>object：指定发消息者；</li>
+<li>userInfo：通知中用于传递参数的载体；</li>
+</ul>
+<p>userInfo 里的键值应该定义成字符串常量，在文档中应该清晰地注明哪个键对应哪种类型的值，因为编译器不能像针对对象那样对字典类型中的值类型进行限制。name 和 object 用来控制通知分发的作用域，开发者们应当在对象发送通知和接收通知的方式上保持一致，而且把通知的行为在公共接口文档中进行清晰的说明。</p>
+<p>由于通知分发是在发送通知的线程上进行的，所以可能会需要使用：</p>
+<blockquote>
+<p>dispatch_async     &amp;     dispatch_get_main_queue() </p>
+</blockquote>
+<p>来保证通知的处理是在主线程进行，大部分情况下我们不需要考虑这点，不过还是要把这一点记在心里。</p>
+<h3 id="注册观察者"><a href="#注册观察者" class="headerlink" title="注册观察者"></a>注册观察者</h3><p>各种各样的通知车水马龙地通过 NotificationCenter，然而一个通知本身不会有任何实际作用，除非有人在监听着它，传统的添加观察者的方式是使用：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div></pre></td></tr></table></figure>
+<p>进行注册，一个对象（通常是 self）把自己添加进去，当某个通知发出时，通知中心就会把发布者发送的通知信息，广播给注册过该通知的观察者，执行自己特定的 selector，观察者只能接收到通知中心的信息，但无法知道通知是谁投送的，这也是通知的解耦性的体现之一，它的几个参数作用如下：</p>
+<ul>
+<li>observer：观察者的实例，通常是 self；</li>
+</ul>
+<ul>
+<li><p>selector：回调方法，在本类中对通知进行相应的处理；它只有一个参数, 参数就是消息对象本身, 通过这个参数回调方法可以取得消息对象的成员变量(userinfo) 用于传值注册、取消通知的代码放在哪里等操作。</p>
+</li>
+<li><p>object：相对于发布者的 object，如果同时设置了 name 和 object 那么只有来自特定对象的对应名称的通知才会响应。如果为 nil，那么观察者将收到任何对象发出的通知消息；</p>
+</li>
+<li><p>name：相对于发布者的 name，如果设置了 name，那么只有对应名称的通知会触发。如果为 nil，那么观察者将接收到 object 对象的所有消息，但是无法确定接收这些消息的顺序；</p>
+</li>
+<li><p>如果 name 和 object 都为 nil，那么该观察者将收到所有对象的所有消息。</p>
+</li>
+</ul>
+<p>需要注意的有两点：</p>
+<ol>
+<li><p>对于一个任意的观察者observer，如果不能保证其对应的selector有本类自定义的方法，可采用：</p>
+<blockquote>
+<p>observer.responds(to: NSSelectorFromString(“myFunc:”)) </p>
+</blockquote>
+<p>进行检查，判断其方法确实存在后再进行注册。</p>
+</li>
+<li><p>控制好我们的代码！一个普通的 iOS 应用在启动之后的几秒钟内就会发出几十个通知，其中的大部分我们可能都没有听说过，也不需要去关心。</p>
+</li>
+</ol>
+<h4 id="Notification-Block"><a href="#Notification-Block" class="headerlink" title="Notification Block"></a>Notification Block</h4><p>现代的基于 block 的用于添加通知观察者的 API 是：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(forName name: NSNotification.Name?, object obj: Any?, queue: OperationQueue?, using block: @escaping <span class="params">(Notification)</span></span></span> -&gt; <span class="type">Swift</span>.<span class="type">Void</span>) -&gt; <span class="type">NSObjectProtocol</span></div></pre></td></tr></table></figure>
+<p>它是 iOS 4.0之后，Apple 又提供了一个以 block 方式实现的添加观察者的方法，与前面提到的把一个已有的对象注册成观察者不同，这个方法创建一个匿名对象作为观察者。</p>
+<p>当收到对应的通知时，它在指定的队列（如果队列参数为 nil 的话就在调用者的线程）里执行一个 block。另外一点和基于 selector 的方法不同的是，这个方法会返回构造出的观察者对象，此方法需要考虑 block 的循环引用问题，并不经常用到。</p>
+<h3 id="移除观察者"><a href="#移除观察者" class="headerlink" title="移除观察者"></a>移除观察者</h3><p>由于通知中心不会 retain 观察者对象，因此注册过的对象必须在释放之前注销掉，如果不这样的话，当该通知再次出现时，通知中心会向已释放的观察者对象发送消息，从而导致应用崩溃。</p>
+<p>在 ARC 下，系统会自动回收无用的通知对象内存，但是由于系统回收机制 ARC 有一定的延迟性，所以即使不会出错，也建议养成习惯，对无用的通知进行手动释放。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">removeObserver</span><span class="params">(<span class="number">_</span> observer: Any)</span></span>	</div><div class="line"><span class="comment">//释放所有的通知</span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">removeObserver</span><span class="params">(<span class="number">_</span> observer: Any, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div><div class="line"><span class="comment">//释放指定 name 或 object 的通知</span></div></pre></td></tr></table></figure>
+<p>一般我们在对象的析构函数中将通知移除，我们可以选择将这个对象中的所有通知移除，也可以选择一个一个按照通知的 name 来移除，移除的时机和事件有关，如果是和视图相关的，比如键盘、UI事件等，可以使用：</p>
+<blockquote>
+<p>viewWillAppear    &amp;    viewWillDisappear</p>
+</blockquote>
+<p>如果是和 ViewController 相关的，比如和网络、异步IO等相关的通知，可以使用：</p>
+<blockquote>
+<p>viewDidLoad        &amp;    dealloc</p>
+</blockquote>
+<h2 id="KVO-NotificationCenter"><a href="#KVO-NotificationCenter" class="headerlink" title="KVO != NotificationCenter"></a>KVO != NotificationCenter</h2><p>有一点经常让我们犯糊涂，NotificationCenter 的方法签名和 Key-Value Observing 非常相似。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: Any, selector aSelector: Selector, name aName: NSNotification.Name?, object anObject: Any?)</span></span></div><div class="line">open <span class="function"><span class="keyword">func</span> <span class="title">addObserver</span><span class="params">(<span class="number">_</span> observer: NSObject, forKeyPath keyPath: String, options: NSKeyValueObservingOptions = [], context: UnsafeMutableRawPointer?)</span></span></div></pre></td></tr></table></figure>
+<p><strong>Key-Value Observing 是在 keypaths 上添加观察者，而 NotificationCenter 是在通知上添加观察者。</strong>牢记这个区别，就可以自信地去使用这两套 API 了。</p>
+<h2 id="Notification的栗子"><a href="#Notification的栗子" class="headerlink" title="Notification的栗子"></a>Notification的栗子</h2><blockquote>
+<p>Talk is cheap. Show me the code.</p>
+</blockquote>
+<p>上面我们撸完概念，下面开始撸代码了，我们要做两个页面，在第二个页面中输入文字，在第一个页面中展示输入的文字。首先我们创建一个视图 FirstVC，添加一个 Label 属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> observerLabel: <span class="type">UILabel</span>!</div></pre></td></tr></table></figure>
+<p>然后创建一个方法，在我们获得通知时，更新 Label 的文字：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">upDataForLabel</span><span class="params">(notification: NSNotification)</span></span> &#123;</div><div class="line">    <span class="keyword">let</span> dict = notification.userInfo!</div><div class="line">    <span class="keyword">let</span> str = dict[<span class="string">"toFirstVCLabel"</span>]</div><div class="line">    observerLabel.text = str <span class="keyword">as</span>? <span class="type">String</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在 viewDidLoad 方法中，我们将 FirstVC 自己注册为观察者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    <span class="keyword">let</span> selector = <span class="type">NSSelectorFromString</span>(<span class="string">"upDataForLabelWithNotification:"</span>)</div><div class="line">    <span class="keyword">if</span> <span class="keyword">self</span>.responds(to: selector) &#123;</div><div class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>,</div><div class="line">                                               selector: selector,</div><div class="line">                                               name: <span class="type">NSNotification</span>.<span class="type">Name</span>(rawValue: <span class="string">"upDataForLabel"</span>),</div><div class="line">                                               object: <span class="literal">nil</span>)</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们创建第二个页面：SecondVC，添加一个 UITextField 用于用户输入：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> posterTextField: <span class="type">UITextField</span>!</div></pre></td></tr></table></figure>
+<p>添加一个 Button，点击时返回到 FirstVC，并且发送消息：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">saveAndJumpButtonDidTouch</span><span class="params">(<span class="number">_</span> sender: AnyObject)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.dismiss(animated: <span class="literal">true</span>) &#123; </div><div class="line">        <span class="keyword">let</span> str = <span class="keyword">self</span>.posterTextField.text</div><div class="line">        <span class="keyword">let</span> notification = <span class="type">Notification</span>(name: <span class="type">NSNotification</span>.<span class="type">Name</span>(rawValue: <span class="string">"upDataForLabel"</span>),</div><div class="line">                                        object: <span class="literal">nil</span>,</div><div class="line">                                        userInfo: [<span class="string">"toFirstVCLabel"</span>:str])</div><div class="line">        <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.post(notification)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样前面的目标就完成了。从 FirstVC 跳转到 SecondVC，在 SecondVC 中输入文字，点击 Button 后跳转回 FirstVC，并显示之前输入的文字。</p>
+<h3 id="NSNotification-Name"><a href="#NSNotification-Name" class="headerlink" title="NSNotification.Name"></a>NSNotification.Name</h3><p>NSNotification.Name 并不仅仅可以为我们自己的通知进行标识，它还具有很多 API，可以监控 APP 的运行状态，我们接着完善这个小程序，这次我们的目标是当程序进入非活动状态时，更改 FirstVC 的 Label 的背景颜色。我们在 FirstVC 的 viewDidLoad 中再注册一个观察者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.addObserver(<span class="keyword">self</span>,</div><div class="line">                                           selector: #selector(<span class="type">FirstVC</span>.colorChangeForAppState),</div><div class="line">                                           name: <span class="type">NSNotification</span>.<span class="type">Name</span>.<span class="type">UIApplicationWillResignActive</span>,</div><div class="line">                                           object: <span class="literal">nil</span>)</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>NSNotification.Name.UIApplicationWillResignActive 代表的是一个程序进入后台运行的通知，然后实现对应通知的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">colorChangeForAppState</span><span class="params">()</span></span> &#123;</div><div class="line">    observerLabel.backgroundColor = <span class="type">UIColor</span>.<span class="keyword">init</span>(red: <span class="number">168</span>/<span class="number">255</span>, green: <span class="number">21</span>/<span class="number">255</span>, blue: <span class="number">42</span>/<span class="number">255</span>, alpha: <span class="number">1</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在我们按两次 Home 键，在任务管理中可以看到，Label 的颜色已经发生改变。最后，不要忘记移除观察者：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">didReceiveMemoryWarning</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">super</span>.didReceiveMemoryWarning()</div><div class="line">    <span class="type">NotificationCenter</span>.<span class="keyword">default</span>.removeObserver(<span class="keyword">self</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>每一个运行的 Cocoa 程序都有一个自己管理的默认通知中心 NotificationCenter；</p>
+<p>NotificationCenter 可以有许多的通知消息发送者 NSNotification；</p>
+<p>每一个发送者 NSNotification 可以有很多的观察者 Observer 来接收通知。</p>
+<p>每一个 Notification 对象都必须具有有：</p>
+<ul>
+<li>name，它描述的是通知的名称；</li>
+<li>object 对象，它表示是谁发布的通知；</li>
+<li>userInfo，一个字典类型，包含发布者要传递给通知接收者的一些额外内容；</li>
+</ul>
+<p>举个例子，UITextField 在每次文本发生变化时，都会发出一个名为 <code>UITextFieldTextDidChangeNotification</code> 的 NSNotification，这个通知关联的对象就是文本框本身，对于 <code>UIKeyboardWillShowNotification</code> 这个通知来说，<code>userInfo</code> 中存入了 frame 的位置和动画时间，关联的 <code>object</code> 是 nil。</p>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/MyNotification" target="_blank" rel="external">点击这里</a></h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+            <a href="/tags/Notification/" rel="tag">#Notification</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/" rel="next" title="iOS开发 - 在一个工程中开发多个APP">
+                <i class="fa fa-chevron-left"></i> iOS开发 - 在一个工程中开发多个APP
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/26/Plist 和转义符/" rel="prev" title="Xcode错误 - Plist和转义符「/」">
+                Xcode错误 - Plist和转义符「/」 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/11/24/iOS设计模式 - Notification/"
+     data-title="iOS设计模式 - Notification"
+     data-content=""
+     data-url="http://yoursite.com/2016/11/24/iOS设计模式 - Notification/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/11/24/iOS设计模式 - Notification/"
+           data-title="iOS设计模式 - Notification" data-url="http://yoursite.com/2016/11/24/iOS设计模式 - Notification/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Notification的概念"><span class="nav-number">1.</span> <span class="nav-text">Notification的概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#NotificationCenter的使用"><span class="nav-number">2.</span> <span class="nav-text">NotificationCenter的使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#获取通知中心"><span class="nav-number">2.1.</span> <span class="nav-text">获取通知中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#指定发布者"><span class="nav-number">2.2.</span> <span class="nav-text">指定发布者</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#注册观察者"><span class="nav-number">2.3.</span> <span class="nav-text">注册观察者</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Notification-Block"><span class="nav-number">2.3.1.</span> <span class="nav-text">Notification Block</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#移除观察者"><span class="nav-number">2.4.</span> <span class="nav-text">移除观察者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO-NotificationCenter"><span class="nav-number">3.</span> <span class="nav-text">KVO != NotificationCenter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Notification的栗子"><span class="nav-number">4.</span> <span class="nav-text">Notification的栗子</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#NSNotification-Name"><span class="nav-number">4.1.</span> <span class="nav-text">NSNotification.Name</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo下载请点击这里"><span class="nav-number">6.</span> <span class="nav-text">Demo下载请点击这里</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

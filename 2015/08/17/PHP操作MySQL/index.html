@@ -1,0 +1,898 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="PHP,SQL," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。
+
+连接数据库服务器mysqli_connect() 函数打开一个到 MyS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="PHP数据操作 - MYSQL">
+<meta property="og:url" content="http://yoursite.com/2015/08/17/PHP操作MySQL/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。
+
+连接数据库服务器mysqli_connect() 函数打开一个到 MyS">
+<meta property="og:updated_time" content="2017-01-24T15:44:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PHP数据操作 - MYSQL">
+<meta name="twitter:description" content="MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。
+
+连接数据库服务器mysqli_connect() 函数打开一个到 MyS">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/08/17/PHP操作MySQL/"/>
+
+  <title> PHP数据操作 - MYSQL | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                PHP数据操作 - MYSQL
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2015-08-17T04:44:00+08:00" content="2015-08-17">
+              2015-08-17
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/PHP/" itemprop="url" rel="index">
+                    <span itemprop="name">PHP</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2015/08/17/PHP操作MySQL/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/08/17/PHP操作MySQL/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>MYSQL 是一个开源的、跨平台关系型数据库管理系统，PHP 是一个开源的、跨平台的脚本语言，PHP 扩展包对MYSQL 支持比较完善，也有比较多开源包供参考， 很多开源项目与 MYSQL 搭配也比较多，因此 PHP+MYSQL 是一套应用极为广泛的方案，下面我们通过代码来了解如何使用 PHP 操作 MYSQL 数据库。</p>
+</blockquote>
+<h3 id="连接数据库服务器"><a href="#连接数据库服务器" class="headerlink" title="连接数据库服务器"></a>连接数据库服务器</h3><p><code>mysqli_connect()</code> 函数打开一个到 MySQL 服务器的新的连接，它的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_connect(host,username,password,dbname,port,socket);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>host</em></td>
+<td>可选。规定主机名或 IP 地址。</td>
+</tr>
+<tr>
+<td><em>username</em></td>
+<td>可选。规定 MySQL 用户名。</td>
+</tr>
+<tr>
+<td><em>password</em></td>
+<td>可选。规定 MySQL 密码。</td>
+</tr>
+<tr>
+<td><em>dbname</em></td>
+<td>可选。规定默认使用的数据库。</td>
+</tr>
+<tr>
+<td><em>port</em></td>
+<td>可选。规定尝试连接到 MySQL 服务器的端口号。</td>
+</tr>
+<tr>
+<td><em>socket</em></td>
+<td>可选。规定 socket 或要使用的已命名 pipe。</td>
+</tr>
+</tbody>
+</table>
+<p>它的返回值是一个代表 MySQL 服务器连接的对象。</p>
+<a id="more"></a>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">''</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接成功'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="连接SQL数据库"><a href="#连接SQL数据库" class="headerlink" title="连接SQL数据库"></a>连接SQL数据库</h3><p><code>mysqli_select_db()</code> 函数用于指定要获取的服务器上的某一个数据库。语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_select_db(connection,dbname);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>connection</em></td>
+<td>必需。规定要使用的 MySQL 连接。</td>
+</tr>
+<tr>
+<td><em>dbname</em></td>
+<td>必需，规定要使用的默认数据库。</td>
+</tr>
+</tbody>
+</table>
+<p>它的返回值是bool类型，如果连接数据库成功则返回 TRUE，如果失败则返回 FALSE。</p>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="读取SQL数据库"><a href="#读取SQL数据库" class="headerlink" title="读取SQL数据库"></a>读取SQL数据库</h3><p><code>mysqli_query()</code> 函数执行某个针对数据库的查询。语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_query(connection,query,resultmode);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>connection</em></td>
+<td>必需。规定要使用的 MySQL 连接。</td>
+</tr>
+<tr>
+<td><em>query</em></td>
+<td>必需，规定查询字符串。</td>
+</tr>
+<tr>
+<td><em>resultmode</em></td>
+<td>可选。MYSQLI_USE_RESULT（数据较多）MYSQLI_STORE_RESULT（默认）</td>
+</tr>
+</tbody>
+</table>
+<p>针对成功的 SELECT、SHOW、DESCRIBE 或 EXPLAIN 查询，将返回一个 mysqli_result 对象。</p>
+<p>针对其他成功的查询，将返回 TRUE。如果失败，则返回 FALSE。</p>
+<p>实例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    <span class="keyword">if</span> (mysqli_select_db($sql, <span class="string">'test'</span>);) &#123;</div><div class="line">        <span class="keyword">echo</span> <span class="string">'连接数据库test成功'</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    print_r($result);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="获取SQL条目数"><a href="#获取SQL条目数" class="headerlink" title="获取SQL条目数"></a>获取SQL条目数</h3><p><code>mysqli_num_rows()</code> 函数返回结果集中行的数量，它的语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_num_rows(result);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。由 mysqli_query()、mysqli_store_result() 或 mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+</tbody>
+</table>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'连接服务器成功'</span>;</div><div class="line">    </div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>MySql 语句中也集成了获取条目数的函数 <code>COUNT()</code> ，它的语法如下：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(column_name) 函数返回指定列的值的数目（<span class="literal">NULL</span> 不计入）</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(*) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(*) 函数返回表中的记录数</div><div class="line"></div><div class="line"><span class="keyword">SELECT</span> <span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) <span class="keyword">FROM</span> table_name</div><div class="line"><span class="keyword">COUNT</span>(<span class="keyword">DISTINCT</span> column_name) 函数返回指定列的不同值的数目</div></pre></td></tr></table></figure>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    mysqli_select_db($sql, <span class="string">'test'</span>);</div><div class="line">    $result = mysqli_query($sql, <span class="string">'SELECT COUNT(*) FROM users'</span>);</div><div class="line">    $rows = mysqli_fetch_array($result);	</div><div class="line">    <span class="keyword">echo</span> <span class="string">'现在数据库条数是'</span>.$rows[<span class="number">0</span>].<span class="string">'&lt;br&gt;'</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> <code>COUNT()</code> 因为是 SQL 的原生语句，效率要比 PHP 的 <code>mysqli_num_rows()</code> 高很多，也可以配合 WHERE &amp; AND &amp; OR 进行查询。</p>
+<h3 id="SQL转数组"><a href="#SQL转数组" class="headerlink" title="SQL转数组"></a>SQL转数组</h3><p><code>mysqli_fetch_array()</code> 函数从结果集中取得一行作为关联数组，或数字数组，或二者兼有。它的语法如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_array(result,resulttype);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+<tr>
+<td><em>resulttype</em></td>
+<td>可选。规定产生哪种类型的数组。MYSQLI_ASSOC MYSQLI_NUM MYSQLI_BOTH。</td>
+</tr>
+</tbody>
+</table>
+<p>示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $result_arr = mysqli_fetch_array($result);</div><div class="line">    print_r($result_arr);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>mysqli_fetch_assoc()</code> 函数从结果集中取得一行作为关联数组。它的语法如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mysqli_fetch_assoc(result);</div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>result</em></td>
+<td>必需。规定由 mysqli_query() mysqli_store_result() mysqli_use_result() 返回的结果集标识符。</td>
+</tr>
+</tbody>
+</table>
+<p>它的输出结果等同于 <code>mysqli_fetch_array($result, MYSQLI_ASSOC);</code></p>
+<p>需要注意的是，两者返回的都是单条数据，如需获得数据库全部数据，需要循环遍历，示例如下：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">$sql = mysqli_connect(<span class="string">'localhost'</span>, <span class="string">'root'</span>, <span class="string">'root'</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($sql) &#123;</div><div class="line"></div><div class="line">    $result = mysqli_query($sql ,<span class="string">'SELECT * FROM users'</span>);</div><div class="line">    $rows = mysqli_num_rows($result);</div><div class="line"></div><div class="line">    $data_all = <span class="keyword">array</span>();</div><div class="line"></div><div class="line">    <span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$rows; $i++) &#123;</div><div class="line">        $data = mysqli_fetch_assoc($result);</div><div class="line">        array_push($data_all, $data);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    print_r($data_all);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">"连接错误"</span>.mysqli_connect_error());</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="查询SQL数据"><a href="#查询SQL数据" class="headerlink" title="查询SQL数据"></a>查询SQL数据</h3><p>以下示例是一个用 PHP 实现查询数据库的程序，首先设定数据库服务器链接，账户，密码的默认值：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">config.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line">define(<span class="string">'MYSQL_HOST'</span>, <span class="string">'localhost'</span>);</div><div class="line">define(<span class="string">'MYSQL_USER'</span>, <span class="string">'root'</span>);</div><div class="line">define(<span class="string">'MYSQL_PASSWORD'</span>, <span class="string">'root'</span>);</div></pre></td></tr></table></figure>
+<p>创建一个方法，获得并返回数据库的对象：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span>.<span class="title">php</span></span></div><div class="line">  </div><div class="line">&lt;?<span class="title">php</span></div><div class="line"><span class="title">require_once</span> '<span class="title">config</span>.<span class="title">php</span>';</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectDataBase</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> mysqli_connect(MYSQL_HOST, MYSQL_USER, MYSQL_PASSWORD, <span class="string">'test'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用 HTML 创建表格，获得所有 name 列为 ZhangSan 的行，并按 id 逆序排序：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line">select_data.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE name='ZhangSan' ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<h3 id="添加SQL数据"><a href="#添加SQL数据" class="headerlink" title="添加SQL数据"></a>添加SQL数据</h3><p>建立一个PHP页面，展示数据库里的所有数据，并新建一个链接，指向数据库添加页面：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>创建一个 HTML 页面，并添加输入框和提交按钮，将输入框的文本用 POST 方式传给 <code>user_add.php</code> :</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">user_add.html</div><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Title<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">form</span> <span class="attr">method</span>=<span class="string">"post"</span> <span class="attr">action</span>=<span class="string">"user_add.php"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        姓名:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"name"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">        年龄:<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"age"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">value</span>=<span class="string">"提交"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>使用 SQL 语句向数据库添加数据，如果没有添加错误，转跳到 <code>data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">user_add.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到name的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'没有收到age的值'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'name的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">'age的值是空的'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$age = intval($age);</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($coon) &#123;</div><div class="line">    mysqli_query($coon, <span class="string">"INSERT INTO users(name,age) VALUES ('$name', $age)"</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'数据库未成功连接'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="SQL防注入"><a href="#SQL防注入" class="headerlink" title="SQL防注入"></a>SQL防注入</h4><p>在上面的示例中，如果 <code>$name &amp; $age</code> 没有使用 <code>&#39;&#39;</code> 和 <code>intval</code> 进行格式转换，那么当用户输入的是SQL语句时 ，它有可能会被执行，所以对用户传入的值一定要进行相应的格式处理，避免被恶意注入 SQL 语句。</p>
+<h3 id="修改SQL数据"><a href="#修改SQL数据" class="headerlink" title="修改SQL数据"></a>修改SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为修改，单元格内添加链接，指向 <code>edituser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line">  </div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取此行的所有数据，并创建输入框和提交按钮，将获取的行数据填充为输入框默认数据，创建的表单将以 POST 方式将数据传输到 <code>edituser_server.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line">edituser.php</div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;编辑用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (!<span class="keyword">isset</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'没有获取到id'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = $_GET[<span class="string">'id'</span>];</div><div class="line">$coon = connectDataBase();</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"></div><div class="line">$data = mysqli_fetch_assoc($result);</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;form action=<span class="string">"edituser_server.php"</span> method=<span class="string">"post"</span>&gt;</div><div class="line">    &lt;div&gt;id:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"id"</span> value=<span class="string">"&lt;?php echo $data['id']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;姓名:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"name"</span> value=<span class="string">"&lt;?php echo $data['name']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">    &lt;div&gt;年龄:</div><div class="line">        &lt;input type=<span class="string">"text"</span> name=<span class="string">"age"</span> value=<span class="string">"&lt;?php echo $data['age']?&gt;"</span>&gt;</div><div class="line">    &lt;/div&gt;</div><div class="line">        &lt;input type=<span class="string">"submit"</span> value=<span class="string">"提交修改"</span>&gt;</div><div class="line">&lt;/form&gt;</div><div class="line"></div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取 <code>edituser.php</code> 中传输过来的数据，按 <code>id</code> 定位到目标行并进行修改，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'name'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'name没有获取'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_POST[<span class="string">'age'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'age没有获取'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$name = $_POST[<span class="string">'name'</span>];</div><div class="line">$age = $_POST[<span class="string">'age'</span>];</div><div class="line">$id = $_POST[<span class="string">'id'</span>];</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"UPDATE users SET name='$name', age=$age WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">echo</span> mysqli_error();</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:data_all.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="删除SQL数据"><a href="#删除SQL数据" class="headerlink" title="删除SQL数据"></a>删除SQL数据</h3><p>在 <code>data_all.php</code> 中添加一列，命名为删除，单元格内添加链接，指向 <code>deleteuser.php</code> ，并使用 GET 方式将此单元格的 <code>id</code> 进行传输：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">data_all.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"><span class="meta">?&gt;</span></div><div class="line"></div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;meta charset=<span class="string">"UTF-8"</span>&gt;</div><div class="line">    &lt;meta name=<span class="string">"viewport"</span></div><div class="line">          content=<span class="string">"width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"</span>&gt;</div><div class="line">    &lt;meta http-equiv=<span class="string">"X-UA-Compatible"</span> content=<span class="string">"ie=edge"</span>&gt;</div><div class="line">    &lt;title&gt;所有用户&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line"></div><div class="line">&lt;a href=<span class="string">"adduser.html"</span>&gt;添加用户&lt;/a&gt;</div><div class="line"></div><div class="line">&lt;table width=<span class="string">"100%"</span>&gt;&lt;tr&gt;&lt;th&gt;id&lt;/th&gt;&lt;th&gt;name&lt;/th&gt;&lt;th&gt;age&lt;/th&gt;&lt;th&gt;修改&lt;/th&gt;&lt;th&gt;删除&lt;/th&gt;&lt;/tr&gt;</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"></div><div class="line">$coon = connectDataBase();</div><div class="line">$data_count = mysqli_fetch_array(mysqli_query($coon, <span class="string">'SELECT COUNT(*) FROM users'</span>));</div><div class="line">$result = mysqli_query($coon, <span class="string">"SELECT * FROM users ORDER BY id DESC"</span>);</div><div class="line"></div><div class="line"><span class="keyword">for</span> ($i=<span class="number">0</span>; $i&lt;$data_count[<span class="number">0</span>]; $i++) &#123;</div><div class="line">    $data = mysqli_fetch_assoc($result);</div><div class="line">    $id = $data[<span class="string">'id'</span>];</div><div class="line">    $name = $data[<span class="string">'name'</span>];</div><div class="line">    $age = $data[<span class="string">'age'</span>];</div><div class="line">    <span class="keyword">echo</span> <span class="string">"&lt;tr&gt;&lt;td&gt;$id&lt;/td&gt;&lt;td&gt;$name&lt;/td&gt;&lt;td&gt;$age&lt;/td&gt;&lt;td&gt;&lt;a href='edituser.php?id=$id'&gt;修改&lt;/a&gt;&lt;/td&gt;&lt;td&gt;&lt;a href='deleteuser.php?id=$id'&gt;删除&lt;/a&gt;&lt;/td&gt;&lt;/tr&gt;"</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">?&gt;</span></div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>获取 <code>data_all.php</code> 中传输过来的 <code>id</code>，按 <code>id</code> 定位到目标行并删除，如没有报错则转跳到 <code>Location:data_all.php</code> ：</p>
+<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">deleteuser.php</div><div class="line"></div><div class="line"><span class="meta">&lt;?php</span></div><div class="line"><span class="keyword">require_once</span> <span class="string">'function.php'</span>;</div><div class="line"></div><div class="line">$conn = connectDataBase();</div><div class="line"></div><div class="line"><span class="keyword">if</span> (<span class="keyword">empty</span>($_GET[<span class="string">'id'</span>])) &#123;</div><div class="line">    <span class="keyword">die</span>(<span class="string">'id的值是空的'</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line">$id = intval($_GET[<span class="string">'id'</span>]);</div><div class="line"></div><div class="line">mysqli_query($conn, <span class="string">"DELETE FROM users WHERE id=$id"</span>);</div><div class="line"></div><div class="line"><span class="keyword">if</span> (mysqli_error()) &#123;</div><div class="line">    <span class="keyword">die</span>(mysqli_error());</div><div class="line">&#125;</div><div class="line"><span class="keyword">else</span> &#123;</div><div class="line">    header(<span class="string">'Location:allusers.php'</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/PHP/" rel="tag">#PHP</a>
+          
+            <a href="/tags/SQL/" rel="tag">#SQL</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2015/08/13/PHP-JSON数据读写/" rel="next" title="PHP数据操作 - JSON">
+                <i class="fa fa-chevron-left"></i> PHP数据操作 - JSON
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2015/08/17/SQL基础语法/" rel="prev" title="MYSQL入门 - 基础语法">
+                MYSQL入门 - 基础语法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2015/08/17/PHP操作MySQL/"
+     data-title="PHP数据操作 - MYSQL"
+     data-content=""
+     data-url="http://yoursite.com/2015/08/17/PHP操作MySQL/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/08/17/PHP操作MySQL/"
+           data-title="PHP数据操作 - MYSQL" data-url="http://yoursite.com/2015/08/17/PHP操作MySQL/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#连接数据库服务器"><span class="nav-number">1.</span> <span class="nav-text">连接数据库服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连接SQL数据库"><span class="nav-number">2.</span> <span class="nav-text">连接SQL数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#读取SQL数据库"><span class="nav-number">3.</span> <span class="nav-text">读取SQL数据库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#获取SQL条目数"><span class="nav-number">4.</span> <span class="nav-text">获取SQL条目数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SQL转数组"><span class="nav-number">5.</span> <span class="nav-text">SQL转数组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询SQL数据"><span class="nav-number">6.</span> <span class="nav-text">查询SQL数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加SQL数据"><span class="nav-number">7.</span> <span class="nav-text">添加SQL数据</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SQL防注入"><span class="nav-number">7.1.</span> <span class="nav-text">SQL防注入</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#修改SQL数据"><span class="nav-number">8.</span> <span class="nav-text">修改SQL数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#删除SQL数据"><span class="nav-number">9.</span> <span class="nav-text">删除SQL数据</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

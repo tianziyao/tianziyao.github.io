@@ -1,0 +1,766 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="设计模式,KVC," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。
+关于Apple是如何实现KVC这个问题：
+
+🙃 🙃 我也不知道…… 
+
+因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，
+对于setValue:forKey: ，在setter存在的情况，KVC 会直接发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS设计模式 - KVC内部机制&使用场景">
+<meta property="og:url" content="http://yoursite.com/2016/12/21/iOS设计模式 - KVC内部机制/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。
+关于Apple是如何实现KVC这个问题：
+
+🙃 🙃 我也不知道…… 
+
+因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，
+对于setValue:forKey: ，在setter存在的情况，KVC 会直接发">
+<meta property="og:updated_time" content="2017-01-24T15:46:44.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS设计模式 - KVC内部机制&使用场景">
+<meta name="twitter:description" content="前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。
+关于Apple是如何实现KVC这个问题：
+
+🙃 🙃 我也不知道…… 
+
+因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，
+对于setValue:forKey: ，在setter存在的情况，KVC 会直接发">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2016/12/21/iOS设计模式 - KVC内部机制/"/>
+
+  <title> iOS设计模式 - KVC内部机制&使用场景 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS设计模式 - KVC内部机制&使用场景
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-21T02:24:00+08:00" content="2016-12-21">
+              2016-12-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/21/iOS设计模式 - KVC内部机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。</p>
+<p>关于Apple是如何实现KVC这个问题：</p>
+<blockquote>
+<p>🙃 🙃 我也不知道…… </p>
+</blockquote>
+<p>因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，</p>
+<p>对于<code>setValue:forKey:</code> ，在setter存在的情况，KVC 会直接发送<code>set&lt;Key&gt;:</code> 消息赋值；</p>
+<p>在setter不在的情况下，且<code>accessInstanceVariablesDirectly</code>方法是true的情况下，会按<code>（_&lt;key&gt;, _&lt;isKey&gt;, &lt;key&gt;, is&lt;Key&gt;）</code>的顺序去查找实例变量，检查其是否存在之后通过<code>object_setIvar</code>给它赋值。</p>
+<p>如果都没有就调用<code>setValue:forUNdefinedKey:</code>抛出错误。</p>
+<p>对于<code>setValue:forKeyPath:</code>，递归地检查keyPath中的属性是否存在，到达目标路径时再调用<code>setValue:forKey:</code> 完成赋值。</p>
+<p>大致上我准备按上面的执行顺序进行实现，由于集合、字典和模型、KeyPath的情况比较复杂，所以我只实现了最普通的存值和取值，下面进入正题：</p>
+   <a id="more"></a>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">MyError</span>: <span class="title">ErrorType</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> <span class="type">NotExist</span></div><div class="line">    <span class="keyword">case</span> <span class="type">NotNSObjectType</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NSObject</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setMyValue</span><span class="params">(value value: AnyObject?, forKey key: String?)</span></span> <span class="keyword">throws</span> &#123;</div><div class="line">        </div><div class="line">        <span class="comment">/**判断Key是否是空值*/</span></div><div class="line">        <span class="keyword">if</span> key!.isEmpty &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="type">MyError</span>.<span class="type">NotExist</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">/**判断Value是否是空值*/</span></div><div class="line">        <span class="keyword">if</span> value == <span class="literal">nil</span>  &#123;</div><div class="line">            <span class="keyword">self</span>.setMyNilValue(key!)</div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">/**判断Value是否是NSObject类型*/</span></div><div class="line">        <span class="keyword">if</span> !(value <span class="keyword">is</span> <span class="type">NSObject</span>) &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="type">MyError</span>.<span class="type">NotNSObjectType</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">/**判断是否存在setKey方法，如果有执行这个方法*/</span></div><div class="line">        <span class="keyword">let</span> funcName = <span class="string">"set"</span> + (key?.capitalizedString)! + <span class="string">":"</span></div><div class="line">        </div><div class="line">        <span class="keyword">let</span> selector = <span class="type">NSSelectorFromString</span>(funcName)</div><div class="line">        <span class="comment">//let selector = Selector.init(funcName)</span></div><div class="line">        <span class="comment">//let selector = #selector(Address.setCity(_:))</span></div><div class="line">        <span class="comment">//print(self.respondsToSelector(selector))</span></div><div class="line">        </div><div class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.respondsToSelector(selector)&#123;</div><div class="line">            <span class="keyword">self</span>.performSelector((selector), withObject: value)</div><div class="line">            <span class="comment">//print("执行setKey方法")</span></div><div class="line">            <span class="keyword">return</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">/**判断该类中是否存在 key、_key、iskey成员，如果有给这个成员赋值*/</span></div><div class="line">        <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">UInt32</span> = <span class="number">0</span></div><div class="line">        <span class="keyword">var</span> flag: <span class="type">Bool</span> = <span class="literal">false</span></div><div class="line">        <span class="keyword">let</span> iVars = class_copyIvarList(<span class="keyword">self</span>.<span class="keyword">dynamicType</span>, &amp;<span class="built_in">count</span>)</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="built_in">count</span> &#123;</div><div class="line">            <span class="keyword">let</span> iVar = iVars[<span class="type">Int</span>(i)]</div><div class="line">            <span class="keyword">let</span> keyName = <span class="type">NSString</span>(<span class="type">CString</span>: ivar_getName(iVar), encoding: <span class="type">NSUTF8StringEncoding</span>)</div><div class="line">            <span class="keyword">if</span> keyName == key! || keyName == <span class="string">"_"</span> + key! || keyName == <span class="string">"is"</span> + key!&#123;</div><div class="line">                flag = <span class="literal">true</span></div><div class="line">                </div><div class="line">                object_setIvar(<span class="keyword">self</span>, iVar, value)</div><div class="line">                <span class="comment">//print("\(self) \(iVar) \(value)")</span></div><div class="line">                <span class="comment">//print("给\(keyName)赋值")</span></div><div class="line">                <span class="keyword">break</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">/**如果以上的成员和方法都不存在，调用未找到key的方法*/</span></div><div class="line">        <span class="keyword">if</span> !flag &#123;</div><div class="line">            <span class="keyword">self</span>.setMyValue(value!, forUndefinedKey: key!)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setMyNilValue</span><span class="params">(key: String?)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"无法修改<span class="subst">\(key)</span>的值，因为传入的是空值"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">setMyValue</span><span class="params">(value: AnyObject, forUndefinedKey key: String)</span></span> &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"无法将<span class="subst">\(key)</span>的值修改为，因为传入的是空值"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">myValueForKey</span><span class="params">(key: String?)</span></span> <span class="keyword">throws</span> -&gt; <span class="type">AnyObject</span>? &#123;</div><div class="line">        </div><div class="line">        <span class="comment">/**判断Key是否是空值*/</span></div><div class="line">        <span class="keyword">if</span> key!.isEmpty &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="type">MyError</span>.<span class="type">NotExist</span></div><div class="line">        &#125;</div><div class="line">        <span class="comment">/**判断是否存在getKey方法，如果有执行这个方法*/</span></div><div class="line">        <span class="keyword">let</span> funcName = <span class="string">"get"</span> + (key?.capitalizedString)! + <span class="string">":"</span></div><div class="line">        <span class="keyword">let</span> selector = <span class="type">NSSelectorFromString</span>(funcName)</div><div class="line">        <span class="comment">//let selector = Selector.init(funcName)</span></div><div class="line">        <span class="comment">//let selector = #selector(Address.setCity(_:))</span></div><div class="line">        <span class="comment">//print(self.respondsToSelector(selector))</span></div><div class="line">        </div><div class="line">        <span class="keyword">if</span> <span class="keyword">self</span>.respondsToSelector(selector)&#123;</div><div class="line">            <span class="keyword">let</span> result =  <span class="keyword">self</span>.performSelector(selector)</div><div class="line">            <span class="comment">//print("执行getKey方法")</span></div><div class="line">            <span class="keyword">return</span> result <span class="keyword">as</span>? <span class="type">AnyObject</span></div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">/**判断该类中是否存在 key、_key、iskey成员，如果有给这个成员赋值*/</span></div><div class="line">        <span class="keyword">var</span> <span class="built_in">count</span>: <span class="type">UInt32</span> = <span class="number">0</span></div><div class="line">        <span class="keyword">var</span> flag: <span class="type">Bool</span> = <span class="literal">false</span></div><div class="line">        <span class="keyword">let</span> iVars = class_copyIvarList(<span class="keyword">self</span>.<span class="keyword">dynamicType</span>, &amp;<span class="built_in">count</span>)</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="number">0</span>..&lt;<span class="built_in">count</span> &#123;</div><div class="line">            <span class="keyword">let</span> iVar = iVars[<span class="type">Int</span>(i)]</div><div class="line">            <span class="keyword">let</span> keyName = <span class="type">NSString</span>(<span class="type">CString</span>: ivar_getName(iVar), encoding: <span class="type">NSUTF8StringEncoding</span>)</div><div class="line">            <span class="keyword">if</span> keyName == key! || keyName == <span class="string">"_"</span> + key! || keyName == <span class="string">"is"</span> + key!&#123;</div><div class="line">                flag = <span class="literal">true</span></div><div class="line">                <span class="built_in">print</span>(<span class="string">"取出<span class="subst">\(keyName)</span>的值"</span>)</div><div class="line">                <span class="comment">//print("\(self) \(iVar) \(value)")</span></div><div class="line">                <span class="keyword">return</span> object_getIvar(<span class="keyword">self</span>, iVar)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        <span class="comment">/**如果以上的成员和方法都不存在，调用未找到key的方法*/</span></div><div class="line">        <span class="keyword">if</span> !flag &#123;</div><div class="line">            <span class="keyword">self</span>.myValueForUndefinedKey(key!)</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">myValueForUndefinedKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>?&#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"无法取出<span class="subst">\(key)</span>的值，因为属性不存在"</span>)</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> add = <span class="type">Address</span>()</div><div class="line"></div><div class="line">add._country = <span class="string">"China"</span></div><div class="line">add._province = <span class="string">"HeBei"</span></div><div class="line">add._city = <span class="string">"ShiJiaZhuang"</span></div><div class="line">add._province = <span class="string">"ChangAnQu"</span></div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">try</span> add.setMyValue(value: <span class="string">"BeiJing"</span>, forKey: <span class="string">"city"</span>)</div><div class="line">    <span class="keyword">try</span> add.setMyValue(value: <span class="string">"USA"</span>, forKey: <span class="string">"country"</span>)</div><div class="line">    <span class="keyword">try</span> add.setMyValue(value: <span class="string">"South"</span>, forKey: <span class="string">""</span>)</div><div class="line">    <span class="keyword">try</span> add.setMyValue(value: <span class="string">"300169"</span>, forKey: <span class="string">"postCode"</span>)</div><div class="line">    <span class="built_in">print</span>(<span class="string">"country:<span class="subst">\(add._country)</span> city:<span class="subst">\(add._city)</span> province:<span class="subst">\(add._province)</span> district<span class="subst">\(add._district)</span>"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> <span class="type">MyError</span>.<span class="type">NotExist</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"key是空的"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> <span class="type">MyError</span>.<span class="type">NotNSObjectType</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"value不是NSObject类型"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"传值出错"</span>)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">let</span> country = <span class="keyword">try</span> add.myValueForKey(<span class="string">"country"</span>)</div><div class="line">    <span class="keyword">let</span> city = <span class="keyword">try</span> add.myValueForKey(<span class="string">"city"</span>)</div><div class="line">    <span class="built_in">print</span>(<span class="string">"----------------/n <span class="subst">\(country)</span> <span class="subst">\(city)</span>"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> <span class="type">MyError</span>.<span class="type">NotExist</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"key是空的"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"取值出错"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>以上是根据KVC执行顺序自定义的一段代码，当然也省略了一些功能，总体上的逻辑还是比较清楚的，但是有一点问题，在使用<code>object_setIvar</code>和<code>object_getIvar</code>这两个runtime函数时，程序会频繁崩溃，而自己对runtime认识不足，以后再完整这段代码吧。</p>
+<p>关于KVC，除去存取方法，底层执行顺序，错误处理以外，还有几点需要了解：</p>
+<h2 id="Value合法性校验"><a href="#Value合法性校验" class="headerlink" title="Value合法性校验"></a>Value合法性校验</h2><p>KVC提供了校验key对应的value是否合法的方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">validateValue</span><span class="params">(ioValue: AutoreleasingUnsafeMutablePointer&lt;AnyObject?&gt;, forKey inKey: String)</span></span> <span class="keyword">throws</span></div><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">validateValue</span><span class="params">(ioValue: AutoreleasingUnsafeMutablePointer&lt;AnyObject?&gt;, forKeyPath inKeyPath: String)</span></span> <span class="keyword">throws</span></div></pre></td></tr></table></figure>
+<p>如果使用这个方法，需要进行重写，它的使用方法如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Address</span>: <span class="title">NSObject</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> _country: <span class="type">String</span>?</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">validateValue</span><span class="params">(ioValue: AutoreleasingUnsafeMutablePointer&lt;AnyObject?&gt;, forKey inKey: String)</span></span> <span class="keyword">throws</span> &#123;</div><div class="line">        </div><div class="line">        <span class="keyword">let</span> country = ioValue.memory <span class="keyword">as</span>! <span class="type">String</span></div><div class="line">        <span class="keyword">if</span> country == <span class="string">"Janpan"</span> &#123;</div><div class="line">            <span class="keyword">throw</span> <span class="type">MyError</span>.<span class="type">NotExist</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">throw</span> <span class="type">MyError</span>.<span class="type">Nothing</span></div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> add = <span class="type">Address</span>()</div><div class="line"><span class="keyword">var</span> value: <span class="type">AnyObject</span>? = <span class="string">"Janpan"</span></div><div class="line"></div><div class="line"><span class="keyword">do</span> &#123;</div><div class="line">    <span class="keyword">try</span> add.validateValue(&amp;value, forKey: <span class="string">"_country"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> <span class="type">MyError</span>.<span class="type">NotExist</span> &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"输入有误，请重新输入"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> <span class="type">MyError</span>.<span class="type">Nothing</span> &#123;</div><div class="line">    add.setValue(value, forKey: <span class="string">"_country"</span>)</div><div class="line">&#125;</div><div class="line"><span class="keyword">catch</span> &#123;&#125;</div><div class="line"><span class="built_in">print</span>(add._country)</div><div class="line"></div><div class="line"><span class="comment">/**当 var value: AnyObject? = "Janpan" 时输出*/</span></div><div class="line">输入有误，请重新输入</div><div class="line"><span class="literal">nil</span></div><div class="line"><span class="comment">/**当 var value: AnyObject? = "Chain" 时输出*/</span></div><div class="line"><span class="type">Optional</span>(<span class="string">"China"</span>)</div></pre></td></tr></table></figure>
+<p>这样就实现了先对传入值的合法性进行校验，无误后再进行赋值，如上面的代码，当我们需要验证能不能用KVC设定某个值时，可以将其重写后调用</p>
+<blockquote>
+<p><code>validateValue: forKey:</code></p>
+</blockquote>
+<p>这个方法来验证，那么KVC就会直接调用这个方法来返回。<strong>需要注意的是即使重写了该方法，如果我们没有主动进行调用，KVC也不会主动去做验证，所以这个方法需要手动调用。</strong></p>
+<h2 id="KVC的应用场景"><a href="#KVC的应用场景" class="headerlink" title="KVC的应用场景"></a>KVC的应用场景</h2><p>作为iOS平台的知名黑魔法，KVC有很多奇特的作用，KVC在iOS开发中是绝不可少的利器，这种基于运行时的编程方式极大地提高了灵活性，简化了代码，它的常见作用有以下几点：</p>
+<h2 id="动态的存值和取值"><a href="#动态的存值和取值" class="headerlink" title="动态的存值和取值"></a>动态的存值和取值</h2><p>🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 🙃 </p>
+<h2 id="访问和修改私有的成员"><a href="#访问和修改私有的成员" class="headerlink" title="访问和修改私有的成员"></a>访问和修改私有的成员</h2><p>对于类里的私有属性，无论Swift还是Objective-C都是无法直接访问的，但是KVC是可以的。</p>
+<h2 id="Model和字典的互相转换"><a href="#Model和字典的互相转换" class="headerlink" title="Model和字典的互相转换"></a>Model和字典的互相转换</h2><p>这是KVC又一个强大之处，只需要很少的代码量即可完成很多功能。</p>
+<h2 id="修改控件的内部属性"><a href="#修改控件的内部属性" class="headerlink" title="修改控件的内部属性"></a>修改控件的内部属性</h2><p>这也是iOS开发中必不可少的小技巧。众所周知很多UI控件都由很多内部UI控件组合而成的，但是Apple没有提供这访问这些控件的API，这样我们就无法正常地访问和修改这些控件的样式。</p>
+<p>而KVC在大多数情况可下可以解决这个问题。比如个性化UITextField中的placeHolderText，一般情况下可以运用runtime来获取Apple不想开放的属性名：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> <span class="built_in">count</span>:<span class="type">UnsafeMutablePointer</span>&lt;<span class="type">UInt32</span>&gt; =  <span class="literal">nil</span></div><div class="line"><span class="keyword">var</span> properties = class_copyIvarList(<span class="type">UITextField</span>.<span class="keyword">self</span>, <span class="built_in">count</span>)</div><div class="line"></div><div class="line"><span class="keyword">while</span> properties.memory.debugDescription !=  <span class="string">"0x0000000000000000"</span>&#123;</div><div class="line">    <span class="keyword">let</span> t = ivar_getName(properties.memory)</div><div class="line">    <span class="keyword">let</span> n = <span class="type">NSString</span>(<span class="type">CString</span>: t, encoding: <span class="type">NSUTF8StringEncoding</span>)</div><div class="line">    <span class="built_in">print</span>(n)</div><div class="line">    properties = properties.successor()</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">......</div><div class="line"><span class="type">Optional</span>(_background)</div><div class="line"><span class="type">Optional</span>(_disabledBackground)</div><div class="line"><span class="type">Optional</span>(_clearButtonMode)</div><div class="line"><span class="type">Optional</span>(_leftView)</div><div class="line"><span class="type">Optional</span>(_leftViewMode)</div><div class="line"><span class="type">Optional</span>(_rightView)</div><div class="line"><span class="type">Optional</span>(_rightViewMode)</div><div class="line"><span class="type">Optional</span>(_traits)</div><div class="line"><span class="type">Optional</span>(_nonAtomTraits)</div><div class="line"><span class="type">Optional</span>(_fullFontSize)</div><div class="line"><span class="type">Optional</span>(_padding)</div><div class="line"><span class="type">Optional</span>(_selectionRangeWhenNotEditing)</div><div class="line">......</div></pre></td></tr></table></figure>
+<p>可以从里面看到其他还有很多东西可以修改，运用KVC设值可以获得自己想要的效果。</p>
+<h2 id="KVC操作集合"><a href="#KVC操作集合" class="headerlink" title="KVC操作集合"></a>KVC操作集合</h2><p>Apple对KVC的<code>valueForKey:</code>方法作了一些特殊的实现，比如说NSArray和NSSet这样的容器类就实现了这些方法，所以可以用KVC很方便地操作集合。</p>
+<h3 id="高阶信息传递"><a href="#高阶信息传递" class="headerlink" title="高阶信息传递"></a>高阶信息传递</h3><p>当对容器类使用KVC时，<code>valueForKey:</code>将会被传递给容器中的每一个对象，而不是容器本身进行操作。结果会被添加进返回的容器中，这样，开发者可以很方便的操作集合来返回另一个集合：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**执行*/</span></div><div class="line"><span class="keyword">let</span> arrStr: <span class="type">NSArray</span> = [<span class="string">"english"</span>, <span class="string">"franch"</span>, <span class="string">"chinese"</span>]</div><div class="line"><span class="keyword">let</span> arrCapStr = arrStr.value(forKey: <span class="string">"capitalizedString"</span>)</div><div class="line"><span class="built_in">print</span>(arrCapStr <span class="keyword">as</span>! <span class="type">NSArray</span>)</div><div class="line"></div><div class="line"><span class="keyword">let</span> arrStrLength = arrStr.value(forKeyPath: <span class="string">"capitalizedString.length"</span>)</div><div class="line"><span class="built_in">print</span>(arrStrLength! <span class="keyword">as</span>! <span class="type">NSArray</span>)</div><div class="line"></div><div class="line"><span class="comment">/**输出*/</span></div><div class="line">(</div><div class="line">    <span class="type">English</span>,</div><div class="line">    <span class="type">Franch</span>,</div><div class="line">    <span class="type">Chinese</span></div><div class="line">)</div><div class="line">(</div><div class="line">    <span class="number">7</span>,</div><div class="line">    <span class="number">6</span>,</div><div class="line">    <span class="number">7</span></div><div class="line">)</div></pre></td></tr></table></figure>
+<p>方法<code>capitalizedString</code>被传递到NSArray中的每一项，这样，NSArray的每一员都会执行<code>capitalizedString</code>并返回一个包含结果的新的NSArray。从打印结果可以看出，所有String都成功以转成了大写。<br>同样如果要执行多个方法也可以用<code>valueForKeyPath:</code>方法。它先会对每一个成员调用 <code>capitalizedString</code>方法，然后再调用length，因为lenth方法返回是一个数字，所以返回结果以NSNumber的形式保存在新数组里。</p>
+<h2 id="KVO"><a href="#KVO" class="headerlink" title="KVO"></a>KVO</h2><p>当然了，KVC除了传值取值，访问和修改私有变量，修改控件属性，操作集合、字典和模型，更重要的就是KVO了。</p>
+<h2 id="Demo下载请点击这里"><a href="#Demo下载请点击这里" class="headerlink" title="Demo下载请点击这里"></a>Demo下载请<a href="https://github.com/tianziyao/MyCustomKVC" target="_blank" rel="external">点击这里</a></h2>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/设计模式/" rel="tag">#设计模式</a>
+          
+            <a href="/tags/KVC/" rel="tag">#KVC</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/11/26/Plist 和转义符/" rel="next" title="Xcode错误 - Plist和转义符「/」">
+                <i class="fa fa-chevron-left"></i> Xcode错误 - Plist和转义符「/」
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" rel="prev" title="iOS开发 - 利用Runtime优化归解档 ">
+                iOS开发 - 利用Runtime优化归解档  <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/"
+     data-title="iOS设计模式 - KVC内部机制&使用场景"
+     data-content=""
+     data-url="http://yoursite.com/2016/12/21/iOS设计模式 - KVC内部机制/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/"
+           data-title="iOS设计模式 - KVC内部机制&使用场景" data-url="http://yoursite.com/2016/12/21/iOS设计模式 - KVC内部机制/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Value合法性校验"><span class="nav-number">1.</span> <span class="nav-text">Value合法性校验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVC的应用场景"><span class="nav-number">2.</span> <span class="nav-text">KVC的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态的存值和取值"><span class="nav-number">3.</span> <span class="nav-text">动态的存值和取值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问和修改私有的成员"><span class="nav-number">4.</span> <span class="nav-text">访问和修改私有的成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Model和字典的互相转换"><span class="nav-number">5.</span> <span class="nav-text">Model和字典的互相转换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改控件的内部属性"><span class="nav-number">6.</span> <span class="nav-text">修改控件的内部属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVC操作集合"><span class="nav-number">7.</span> <span class="nav-text">KVC操作集合</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#高阶信息传递"><span class="nav-number">7.1.</span> <span class="nav-text">高阶信息传递</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#KVO"><span class="nav-number">8.</span> <span class="nav-text">KVO</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo下载请点击这里"><span class="nav-number">9.</span> <span class="nav-text">Demo下载请点击这里</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
