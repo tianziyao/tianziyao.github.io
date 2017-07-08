@@ -278,6 +278,133 @@
             
               
                 
+                <a class="post-title-link" href="/2017/04/08/iOS事件 - 响应者链和事件分发/" itemprop="url">
+                  iOS事件 - 响应者链和事件分发
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-08T02:24:00+08:00" content="2017-04-08">
+              2017-04-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/响应链/" itemprop="url" rel="index">
+                    <span itemprop="name">响应链</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/08/iOS事件 - 响应者链和事件分发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/iOS事件 - 响应者链和事件分发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 <code>UIResponder</code> 类，它定义了响应者对象的所有方法。<code>UIApplication</code>、<code>UIView</code> 等类都继承了 <code>UIResponder</code> 类，<code>UIWindow</code> 和 <code>UIKit</code> 中的控件因为继承了 <code>UIView</code>，所以也间接继承了 <code>UIResponder</code> 类，这些类的实例都可以当作响应者。</p>
+<p>当前接受触摸的响应者对象被称为第一响应者，即表示当前该对象正在与用户交互，它是响应者链的开端。</p>
+<p>响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者。</p>
+<p>一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件被交由它处理，如果它不处理，事件就会被传递给它的视图控制器对象(如果存在)，然后是它的父视图对象(如果存在)，以此类推，直到顶层视图。</p>
+<p>接下来会沿着顶层视图(<code>top view</code>)到窗口(<code>UIWindow</code>)再到程序(<code>UIApplication</code>)。如果整个过程都没有响应这个事件，该事件就被丢弃。</p>
+<p>一般情况下，在响应者链中只要由对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/04/08/iOS事件 - 响应者链和事件分发/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="url">
                   iOS开发 - 利用Runtime优化归解档 
                 </a>
@@ -1167,131 +1294,6 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
-                  微信开发 - access_token
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
-              2016-09-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
-<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
-<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
-<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/09/05/微信开发 - 接口简介/" itemprop="url">
                   微信开发 - 接口简介
                 </a>
@@ -1425,8 +1427,8 @@
             
               
                 
-                <a class="post-title-link" href="/2016/09/03/iOS多线程下载及图片缓存/" itemprop="url">
-                  iOS多线程 - 下载及图片缓存
+                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
+                  微信开发 - access_token
                 </a>
               
             
@@ -1439,8 +1441,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-03T02:46:00+08:00" content="2016-09-03">
-              2016-09-03
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
             </time>
           </span>
 
@@ -1453,8 +1455,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
                   </a>
                 </span>
 
@@ -1469,8 +1471,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/09/03/iOS多线程下载及图片缓存/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/03/iOS多线程下载及图片缓存/" itemprop="commentsCount"></span>
+                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -1494,22 +1496,12 @@
 
       
         
-          <blockquote>
-<p>线程可以理解为下载的通道，一个线程就是一个文件的下载通道，多线程也就是同时开起好几个下载通道.当服务器提供下载服务时，使用下载者是共享带宽的，在优先级相同的情况下，总服务器会对总下载线程进行平均分配。不难理解，如果你线程多的话，那下载的越快。现流行的下载软件都支持多线程。</p>
-</blockquote>
-<p>下面我们通过代码来了解以下几个知识点：</p>
-<ol>
-<li>多线程下载；</li>
-<li>自定义 NSOperation ；</li>
-<li>NSCache 增删改查；</li>
-<li>NSFileManager 增删改查；</li>
-<li>代理模式；</li>
-<li>闭包反向传值；</li>
-<li>扩展方法；</li>
-<li>Plist 文件解析；</li>
-</ol>
+          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
           <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/03/iOS多线程下载及图片缓存/#more" rel="contents">
+            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1584,7 +1576,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">57</span>
+              <span class="site-state-item-count">58</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1592,7 +1584,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">12</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1601,7 +1593,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">70</span>
+                <span class="site-state-item-count">74</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

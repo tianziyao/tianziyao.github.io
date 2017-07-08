@@ -1,0 +1,993 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="事件,Aciton-Target,事件分发,事件拦截," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 UIResponder 类，它定义了响应者对象的所有方法。UIApplication、UIView 等类都继承了 UIResponder 类，UIWindow 和 UIKit 中的控件因为继承了 UIView，所以也间接继承了 UIResponder 类，这些类的实例都可以当作响应者。
+当前接受触摸的响应者对象被称为第一响应者，即表">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS事件 - 响应者链和事件分发">
+<meta property="og:url" content="http://yoursite.com/2017/04/08/iOS事件 - 响应者链和事件分发/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 UIResponder 类，它定义了响应者对象的所有方法。UIApplication、UIView 等类都继承了 UIResponder 类，UIWindow 和 UIKit 中的控件因为继承了 UIView，所以也间接继承了 UIResponder 类，这些类的实例都可以当作响应者。
+当前接受触摸的响应者对象被称为第一响应者，即表">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/uitouchflow.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/calltraceoftouching.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/firstresponder.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/responderchain.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/actiontarget.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/possiblerecognized%20.png">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/uitouch.png">
+<meta property="og:updated_time" content="2017-07-08T11:54:05.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS事件 - 响应者链和事件分发">
+<meta name="twitter:description" content="响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 UIResponder 类，它定义了响应者对象的所有方法。UIApplication、UIView 等类都继承了 UIResponder 类，UIWindow 和 UIKit 中的控件因为继承了 UIView，所以也间接继承了 UIResponder 类，这些类的实例都可以当作响应者。
+当前接受触摸的响应者对象被称为第一响应者，即表">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/uitouchflow.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/04/08/iOS事件 - 响应者链和事件分发/"/>
+
+  <title> iOS事件 - 响应者链和事件分发 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS事件 - 响应者链和事件分发
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-04-08T02:24:00+08:00" content="2017-04-08">
+              2017-04-08
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/响应链/" itemprop="url" rel="index">
+                    <span itemprop="name">响应链</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/04/08/iOS事件 - 响应者链和事件分发/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/iOS事件 - 响应者链和事件分发/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 <code>UIResponder</code> 类，它定义了响应者对象的所有方法。<code>UIApplication</code>、<code>UIView</code> 等类都继承了 <code>UIResponder</code> 类，<code>UIWindow</code> 和 <code>UIKit</code> 中的控件因为继承了 <code>UIView</code>，所以也间接继承了 <code>UIResponder</code> 类，这些类的实例都可以当作响应者。</p>
+<p>当前接受触摸的响应者对象被称为第一响应者，即表示当前该对象正在与用户交互，它是响应者链的开端。</p>
+<p>响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者。</p>
+<p>一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件被交由它处理，如果它不处理，事件就会被传递给它的视图控制器对象(如果存在)，然后是它的父视图对象(如果存在)，以此类推，直到顶层视图。</p>
+<p>接下来会沿着顶层视图(<code>top view</code>)到窗口(<code>UIWindow</code>)再到程序(<code>UIApplication</code>)。如果整个过程都没有响应这个事件，该事件就被丢弃。</p>
+<p>一般情况下，在响应者链中只要由对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
+<a id="more"></a>
+<h2 id="事件分发"><a href="#事件分发" class="headerlink" title="事件分发"></a>事件分发</h2><p>视图对触摸事件是否需要作处回应可以通过设置视图的 <code>userInteractionEnabled</code> 属性。默认状态为 YES，如果设置为 NO，可以阻止视图接收和分发触摸事件。除此之外，当视图被隐藏或者透明也不会接收事件。</p>
+<p>不过这个属性只对视图有效，如果想要整个程序都不响应事件，可以调用 <code>UIApplication</code> 的 <code>beginIngnoringInteractionEvents</code> 方法来完全停止事件接收和分发。通过 <code>endIngnoringInteractionEvents</code> 方法来恢复让程序接收和分发事件。</p>
+<p>如果要让视图接收多点触摸，需要设置它的 <code>multipleTouchEnabled</code> 属性为 YES，默认状态下这个属性值为NO，即视图默认不接收多点触摸，整个 iOS 触摸事件从产生到寂灭大致如下图：</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/uitouchflow.png" alt="img"></p>
+<h3 id="起始阶段"><a href="#起始阶段" class="headerlink" title="起始阶段"></a>起始阶段</h3><ol>
+<li>CPU 处于睡眠状态，等待事件发生；</li>
+<li>手指触摸屏幕</li>
+</ol>
+<h3 id="系统响应阶段"><a href="#系统响应阶段" class="headerlink" title="系统响应阶段"></a>系统响应阶段</h3><ol>
+<li>屏幕硬件感应到输入，并将感应到的事件传递给输入输出驱动 <code>IOKit</code>；</li>
+<li><code>IOKit.framework</code> 封装整个触摸事件为 <code>IOHIDEvent</code> 对象；</li>
+<li><code>IOKit.framework</code> 通过 IPC 将事件转发给 <code>SpringBoard.app</code>；</li>
+</ol>
+<blockquote>
+<p><code>SpringBoard.app</code> 就是 iOS 的系统桌面，当触摸事件发生时，也只有负责管理桌面的 <code>SpringBoard.app</code> 才知道如何正确的响应。因为触摸发生时，有可能用户正在桌面翻页找 App，也有可能正处于在微信中刷朋友圈。</p>
+</blockquote>
+<p>以上是系统层的响应，系统感应到外界的输入，并将相应的输入封装成比较概括的 <a href="http://iphonedevwiki.net/index.php/IOHIDFamily" target="_blank" rel="external"><code>IOHIDEvent</code></a> 对象，然后 <code>UIKit</code> 通过 <code>IOHIDEvent</code> 的类型，判断出相应事件应该由 <a href="http://iphonedevwiki.net/index.php/`SpringBoard.app`" target="_blank" rel="external"><code>SpringBoard .app</code></a> 处理，直接通过 <code>Mach Port(IPC进程间通信)</code> 转发给 <code>SpringBoard.app</code>。</p>
+<h3 id="桌面响应阶段"><a href="#桌面响应阶段" class="headerlink" title="桌面响应阶段"></a>桌面响应阶段</h3><p><code>SpringBoard.app</code> 主线程 <code>Runloop</code> 收到 <a href="https://developer.apple.com/reference/`IOKit`" target="_blank" rel="external"><code>IOKit.framework</code></a> 转发来的消息苏醒，并触发对应 <code>Mach Port</code> 的 <code>Source1</code> 回调 <code>__IOHIDEventSystemClientQueueCallback()</code>。</p>
+<p>如果 <code>SpringBoard.app</code> 监测到有 App 在前台，即 xxxx.app，<code>SpringBoard.app</code> 通过 <code>Mach Port(IPC进程间通信)</code> 转发给 xxxx.app，如果 <code>SpringBoard.app</code> 监测到监测无前台 App，则 <code>SpringBoard.app</code> 进入 App 内部响应阶段的第二段，即触发 <code>Source0</code> 回调。</p>
+<h4 id="Source1-事件响应"><a href="#Source1-事件响应" class="headerlink" title="Source1 事件响应"></a>Source1 事件响应</h4><p>苹果注册了一个 <code>Source1</code> 用来接收系统事件，其回调函数为 <code>__IOHIDEventSystemClientQueueCallback()</code>。</p>
+<p>当一个硬件事件，如触摸/锁屏/摇晃等发生后，首先由 <code>IOKit.framework</code> 生成一个 <code>IOHIDEvent</code> 事件并由 <code>SpringBoard</code> 接收。<code>SpringBoard</code> 只接收按键(锁屏/静音等)，触摸，加速，距离传感器等几种 Event，随后用 <code>Mach Port</code> 转发给需要的 App 进程。随后苹果注册的那个 <code>Source1</code> 就会触发回调，并调用 <code>_UIApplicationHandleEventQueue()</code> 进行应用内部的分发。</p>
+<p><code>_UIApplicationHandleEventQueue()</code> 会把 <code>IOHIDEvent</code> 处理并包装成 <code>UIEvent</code> 进行处理或分发，其中包括识别 UIGesture，处理屏幕旋转，发送给 <code>UIWindow</code> 等。通常事件比如 <code>UIButton</code> 点击、<code>touchesBegin/Move/End/Cancel</code> 事件都是在这个回调中完成的。</p>
+<h4 id="Source0-手势识别"><a href="#Source0-手势识别" class="headerlink" title="Source0 手势识别"></a>Source0 手势识别</h4><p>当上面的 <code>_UIApplicationHandleEventQueue()</code> 识别了一个手势时，其首先会调用 <code>Cancel</code> 将当前的 <code>touchesBegin/Move/End</code> 系列回调打断。随后系统将对应的 <code>UIGestureRecognizer</code> 标记为待处理。</p>
+<p>苹果注册了一个 <code>Observer</code> 监测 <code>BeforeWaiting (Loop即将进入休眠)</code> 事件，这个 <code>Observer</code> 的回调函数是 <code>_UIGestureRecognizerUpdateObserver()</code>，其内部会获取所有刚被标记为待处理的 <code>GestureRecognizer</code>，并执行 <code>GestureRecognizer</code> 的回调。</p>
+<p>当有 <code>UIGestureRecognizer</code> 的变化(创建/销毁/状态改变)时，这个回调都会进行相应处理。</p>
+<h3 id="App内部响应阶段"><a href="#App内部响应阶段" class="headerlink" title="App内部响应阶段"></a>App内部响应阶段</h3><ol>
+<li>前台 App 主线程 <code>Runloop</code> 收到 <code>SpringBoard.app</code> 转发来的消息苏醒，并触发对应 <code>Mach Port</code> 的 <code>Source1</code> 回调 <code>__IOHIDEventSystemClientQueueCallback()</code> ；</li>
+<li><code>Source1</code> 回调内部触发 <code>Source0</code> 回调 <code>__UIApplicationHandleEventQueue()</code> ；</li>
+<li><code>Soucre0</code> 回调内部，封装 <code>IOHIDEvent</code> 为 <code>UIEvent</code> ；</li>
+<li>平时开发熟悉的触摸事件响应链从这开始了；</li>
+<li>通过递归调用<code>UIView</code>层级的 <code>hitTest(_:with:)</code> ，结合 <code>point(inside:with:)</code> 找到 <code>UIEvent</code> 中每一个 <code>UITouch</code> 所属的 <code>UIView</code>，其实是想找到离触摸事件点最近的那个<code>UIView</code>。</li>
+<li>这个过程是从 <code>UIView</code> 层级的最顶层往最底层递归查询，但这不是 <code>UIResponder</code> 响应链，事件响应是在 <code>UIEvent</code> 中每一个 <code>UITouch</code> 所属的 <code>UIView</code> 都确定之后方才开始。</li>
+</ol>
+<p>但需要注意，以下三种情况 <code>UIView</code> 的 <code>hitTest(_:with:)</code> 不会被调用，也导致其子 <code>UIView</code> 的 <code>hitTest(_:with:)</code> 不会被调用，而之后响应事件是下向上传递的，这直接导致以下三种情况的 <code>UIView</code> 及其子 <code>UIView</code> 不接收任何触摸事件：</p>
+<ol>
+<li>userInteractionEnabled = NO</li>
+<li>hidden = YES</li>
+<li>alpha = 0.0~0.01之间</li>
+</ol>
+<blockquote>
+<p>UIImageView 的 userInteractionEnabled 默认为NO，因此 UIImageView 以及它的子控件默认是不接收触摸事件的。</p>
+</blockquote>
+<p>当把断点打在某个 <code>UIView</code> <code>hitTest(_:with:)</code> 中时，对应的调用堆栈如下：<br><img src="http://oboehz2ag.bkt.clouddn.com/calltraceoftouching.png" alt="img"></p>
+<ol>
+<li><p>根据围绕 <code>UITouch</code> 所属的 <code>UIView</code> 及其父视图 <code>UIView</code> 的 <code>UIGestureRecognizer</code>，来确定一个 <code>UITouch</code> 的 <code>UIGestureRecognizer</code>；</p>
+</li>
+<li><p><code>UITouch</code> 所属的 <code>UIView</code> 和 <code>gestureRecognizers</code> 收到此 <code>UITouch</code> 和相应的 <code>UIEvent</code>，并按照 <code>UITouch</code> 所处的状态调用四大 <code>UITouch</code> 方法中的一个，事件响应开始；</p>
+</li>
+<li><p>对于 <code>UIView</code> 收到的 <code>UITouch</code> 事件，四大 <code>UITouch</code> 事件都是如此，则会按照 <code>UIResponder</code> 响应链一直往上传递，直到某个 <code>UIResponder</code> 因为主动响应触摸事件，切断了响应链，即不调用下一个 <code>UIResponder</code> 的响应方法，如果一直没有 <code>UIResponder</code> 做响应处理，则这些 <code>UITouch</code> 到达最后的响应者即 <code>UIApplication</code> 后，就被吃掉消失。</p>
+</li>
+<li><p>如果在事件响应过程中，有 <code>UIGestureRecognizer</code> 成功识别，则此 <code>UIGestureRecognizer</code> 将独自占有所需要的 <code>UITouch</code>，这些 <code>UITouch</code> 所属的 <code>UIView</code> 及其他的 <code>UIGestureRecognizer</code> 的 <code>touchesCancelled(_:with:)</code> 方法将调用。</p>
+<p>如果在手势的代理中设置可以同时识别两个手势，则允许同时识别的手势均可以收到所需要的 <code>UITouch</code>事件，但与识别成功的 <code>UIGestureRecognizer</code> 无关的 <code>UITouch</code> 则会继续按照上述传递逻辑传递。也即允许两个手势同时识别，只要所占有的 <code>UITouch</code> 不相同。</p>
+</li>
+<li><p>如果 <code>UIGestureRecognizer</code> 识别成功，则调用相应的 action，处理对应的逻辑。如果某个 <code>UIResponder</code> 主动响应了触摸事件，则根据其本身的响应逻辑处理对应的业务，<code>UIControl</code> 都是主动响应并切断 <code>UITouch</code> 的向上传递的。</p>
+</li>
+<li><p><code>UITouch</code> 事件流动完毕，整个系统重新进入睡眠等待下一个事件。</p>
+</li>
+</ol>
+<h2 id="响应者链"><a href="#响应者链" class="headerlink" title="响应者链"></a>响应者链</h2><p>通常，一个 iOS 应用中，在一块屏幕上通常有很多的 UI 控件，也就是有很多的 View，那么当一个事件发生时，如何来确定是哪个 View 响应了这个事件呢，接下来我们就一起来看看。</p>
+<h3 id="寻找hit-test-view"><a href="#寻找hit-test-view" class="headerlink" title="寻找hit-test view"></a>寻找<code>hit-test view</code></h3><p>什么是 <code>hit-test view</code> 呢？简单来说就是你触发事件所在的那个 View，寻找 <code>hit-test view</code> 的过程就叫做 <code>Hit-Testing</code>。</p>
+<p>发生触摸事件后，系统会将该事件加入到一个由 <code>UIApplication</code> 管理的事件队列中，为什么是队列而不是栈呢？因为队列是先进先出，触摸的处理也是顺序执行的。</p>
+<p><code>UIApplication</code> 会从事件队列中取出最前面的事件，并将事件分发下去以便处理，通常，先发送事件给应用程序的主窗口 <code>keyWindow</code>，主窗口会在视图层次结构中找到一个最合适的视图来处理触摸事件，这也是整个事件处理过程的第一步。找到合适的视图控件后，就会调用视图控件的 <code>touches</code> 方法来作具体的事件处理：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">touchesBegan…</div><div class="line">touchesMoved…</div><div class="line">touchedEnded…</div></pre></td></tr></table></figure>
+<p>那么响应链是如何找到最合适的控件来处理事件的呢？</p>
+<ol>
+<li>自己是否能接收触摸事件；</li>
+<li>触摸点是否在自己身上；</li>
+<li>从后往前遍历子控件数组，重复前面的两个步骤；</li>
+<li>如果没有符合条件的子控件，那么就自己最适合处理；</li>
+</ol>
+<p>下面是 <code>hitTest</code> 实现的伪代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//调用时机：只要时间传递到此控件，就会执行 hitTest 方法</span></div><div class="line"><span class="comment">//作用:  寻找最合适的 view 给你</span></div><div class="line"><span class="comment">//UIApplication -&gt; [UIWindow hitTest:withEvent:] 寻找最合适的view告诉系统</span></div><div class="line"><span class="comment">//point:当前手指触摸的点</span></div><div class="line"><span class="comment">//point:是方法调用者坐标系上的点</span></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">hitTest</span><span class="params">(<span class="number">_</span> point: CGPoint, with event: `UIEvent`?)</span></span> -&gt; `<span class="type">UIView</span>`? &#123;</div><div class="line">    <span class="comment">//1.保证开启交互，如未开启，没有合适的控件</span></div><div class="line">    <span class="keyword">guard</span> isUserInteractionEnabled == <span class="literal">true</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//2.保证未隐藏，如隐藏，没有合适的控件</span></div><div class="line">    <span class="keyword">guard</span> isHidden == <span class="literal">false</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//3.保证透明度大于 0.01，如 &lt;= 0.01，没有合适的控件</span></div><div class="line">    <span class="keyword">guard</span> alpha &gt; <span class="number">0.01</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//4.保证触摸点在自己的视图内，如不在，没有合适的控件</span></div><div class="line">    <span class="keyword">guard</span> <span class="keyword">self</span>.point(inside: point, with: event) == <span class="literal">true</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">    &#125;</div><div class="line">    <span class="comment">//5.便利控件下的子控件，如有更合适的子控件，返回</span></div><div class="line">    <span class="keyword">for</span> subView <span class="keyword">in</span> <span class="keyword">self</span>.subviews &#123;</div><div class="line">        <span class="keyword">let</span> subPoint = <span class="keyword">self</span>.convert(point, to: subView)</div><div class="line">        <span class="keyword">if</span> <span class="keyword">let</span> fitView = subView.hitTest(subPoint, with: event) &#123;</div><div class="line">            <span class="keyword">return</span> fitView</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">//6. 如没有更合适的子控件，返回自身</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在查找最合适的 View 的过程中用到了两个最重要的方法</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="type">UIView</span> *)hitTest:(<span class="type">CGPoint</span>)point withEvent:(<span class="type">UIEvent</span> *)event</div><div class="line">- (<span class="type">BOOL</span>)pointInside:(<span class="type">CGPoint</span>)point withEvent:(<span class="type">UIEvent</span> *)event;</div></pre></td></tr></table></figure>
+<h3 id="hitTest-withEvent"><a href="#hitTest-withEvent" class="headerlink" title="hitTest:withEvent:"></a>hitTest:withEvent:</h3><p>只要事件一传递给一个控件，这个控件就会调用自己的 <code>hitTest:withEvent:</code> 方法，用于寻找并返回最合适的 View， <strong>它不管这个控件能不能处理事件也不管点是否在 View 上，事件都会先传给这 View 再调用这个 View 的 <code>hitTest:withEvent:</code> 方法。不管点击哪里，最合适的 View 都是 hitTest 返回的那个 View。</strong></p>
+<p>利用这个特性可以拦截事件的处理：</p>
+<blockquote>
+<p>事件传递给谁就会调用这个 View 的 <code>hitTest:withEvent:</code> 方法，如果返回 <code>nil</code>，那么该方法的控件本身和子控件不是最合适的 View，那么最合适的 View 就是该控件的父控件。</p>
+</blockquote>
+<p>如果想让 A 成为最合适的 View 就重写 A 的父控件 B 的 <code>hitTest:withEvent:</code> 方法，或者自己的 <code>hitTest:withEvent:</code> 方法返回 <code>self</code>，建议采用第一种。</p>
+<h4 id="特殊情况"><a href="#特殊情况" class="headerlink" title="特殊情况"></a>特殊情况</h4><ul>
+<li><p>谁都不能处理事件，窗口也不能处理。</p>
+<blockquote>
+<p>重写 window 的 <code>hitTest：withEvent：</code> 方法返回 <code>nil</code> </p>
+</blockquote>
+</li>
+<li><p>只能由窗口处理事件。</p>
+<blockquote>
+<p>控制器的 view 的 <code>hitTest：withEvent：</code> 方法返回 <code>nil</code></p>
+<p>或者 window 的 <code>hitTest：withEvent：</code> 方法返回 <code>self</code></p>
+</blockquote>
+</li>
+<li><p>返回 <code>nil</code> 的含义：</p>
+<blockquote>
+<p>调用当前 <code>hitTest：withEvent：</code> 方法 <code>return nil</code> 的意思是 View 不是合适的 View，子控件也不是合适的 View。如果同级的兄弟控件也没有合适的 View，那么最合适的 View 就是父控件。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="pointInside-withEvent"><a href="#pointInside-withEvent" class="headerlink" title="pointInside:withEvent"></a>pointInside:withEvent</h3><p><code>pointInside:withEvent:</code> 方法判断点在不在当前 View 上(方法调用者的坐标系上)如果返回 YES，代表点在方法调用者的坐标系上；</p>
+<p>返回 NO 代表点不在方法调用者的坐标系上，那么方法调用者也就不能处理事件。我们可以重写这个方法，主动拦截事件的传递：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//作用:判断下传入过来的点在不在方法调用者的坐标系上</span></div><div class="line"><span class="comment">// point:是方法调用者坐标系上的点</span></div><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">point</span><span class="params">(inside point: CGPoint, with event: `UIEvent`?)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="响应者对象-Responsder-Object"><a href="#响应者对象-Responsder-Object" class="headerlink" title="响应者对象(Responsder Object)"></a>响应者对象(Responsder Object)</h3><p>响应者对象是能够响应并且处理事件的对象，<code>UIResponder</code> 是所有响应者对象的父类，包括 <code>UIApplication</code>、<code>UIView</code> 和 <code>UIViewController</code> 都是 <code>UIResponder</code> 的子类。也就意味着所有的 View 和 <code>ViewController</code> 都是响应者对象。</p>
+<h3 id="第一响应者-First-Responder"><a href="#第一响应者-First-Responder" class="headerlink" title="第一响应者(First Responder)"></a>第一响应者(First Responder)</h3><p>第一响应者是第一个接收事件的 View 对象，我们在 Xcode 的 Interface Builder 画视图时，可以看到视图结构中就有 First Responder。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/firstresponder.png" alt="img"></p>
+<p>这里的 First Responder 就是 <code>UIApplication</code> 了。另外，我们可以控制一个 View 让其成为 First Responder，通过实现 <code>canBecomeFirstResponder</code> 方法并返回 YES 可以使当前 View 成为第一响应者，或者调用 View 的 <code>becomeFirstResponder</code> 方法也可以，例如当 <code>UITextField</code> 调用该方法时会弹出键盘进行输入，此时输入框控件就是第一响应者。</p>
+<h3 id="事件传递机制"><a href="#事件传递机制" class="headerlink" title="事件传递机制"></a>事件传递机制</h3><p>如上所说，如果 <code>hit-test view</code> 不能处理当前事件，那么事件将会沿着响应者链(Responder Chain)进行传递，直到遇到能处理该事件的响应者(Responsder Object)。通过下图，我们来看看两种不同情况下得事件传递机制。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/responderchain.png" alt="img"></p>
+<p>左边的情况，接收事件的 <code>initial view</code> 如果不能处理该事件并且她不是顶层的 View，则事件会往它的父 View 进行传递。<code>initial view</code> 的父 View 获取事件后如果仍不能处理，则继续往上传递，循环这个过程。如果顶层的 View 还是不能处理这个事件的话，则会将事件传递给它们的 <code>ViewController</code>，如果 <code>ViewController</code> 也不能处理，则传递给 <code>UIWindow</code>，此时 <code>Window</code> 不能处理的话就将事件传递给 <code>UIApplication</code>，最后如果连 <code>Application</code> 也不能处理，则废弃该事件。</p>
+<p>右边图的流程唯一不同就在于，如果当前的 <code>ViewController</code> 是有层级关系的，那么当子 <code>ViewController</code> 不能处理事件时，它会将事件继续往上传递，直到传递到其 <code>Root ViewController</code>，后面的流程就跟之前分析的一样了。</p>
+<p>这就是事件响应者链的传递机制，通过这些内容，我们可以更深入的了解事件在 iOS 中得传递机制，对我们在实际开发中更好的理解事件操作的原理有很大的帮助，也对我们实现复杂布局进行事件处理时增添了多一份的理解。</p>
+<h3 id="事件传递的完整过程"><a href="#事件传递的完整过程" class="headerlink" title="事件传递的完整过程"></a>事件传递的完整过程</h3><ol>
+<li>先将事件对象由上往下传递(由父控件传递给子控件)，找到最合适的控件来处理这个事件；</li>
+<li>调用最合适控件的 <code>touches…</code> 方法；</li>
+<li>如果调用了 <code>super touches…</code> 就会将事件顺着响应者链条往上传递，传递给上一个响应者；</li>
+<li>接着就会调用上一个响应者的 <code>touches….</code> 方法；</li>
+</ol>
+<h3 id="判断上一个响应者"><a href="#判断上一个响应者" class="headerlink" title="判断上一个响应者"></a>判断上一个响应者</h3><ol>
+<li>如果当前这个 View 是控制器的 View，那么控制器就是上一个响应者；</li>
+<li>如果当前这个 View 不是控制器的 View，那么父控件就是上一个响应者；</li>
+</ol>
+<h2 id="UIResponder"><a href="#UIResponder" class="headerlink" title="UIResponder"></a>UIResponder</h2><p>如果你观察一下 <code>UIView</code> 的子类，可以发现 3 个基类: <code>reponders</code> (响应者)，<code>views</code> (视图)和 <code>controls</code> (控件)。我们快速重温一下它们之间发生了什么。</p>
+<p><code>UIResponder</code> 是 <code>UIView</code> 的父类。<code>responder</code> 能够处理触摸、手势、远程控制等事件。之所以它是一个单独的类而没有合并到 <code>UIView</code> 中，是因为 <code>UIResponder</code> 有更多的子类，最明显的就是 <code>UIApplication</code> 和 <code>UIViewController</code>。通过重写 <code>UIResponder</code> 的方法，可以决定一个类是否可以成为第一响应者，例如当前输入焦点元素。</p>
+<p>iOS 中要响应事件都必须继承 <code>UIResponder</code>，且是对象，我们称之为响应者对象。 继承 <code>UIResponder</code> 的有：</p>
+<ul>
+<li><code>UIApplication</code></li>
+<li><code>UIViewController</code></li>
+<li><code>UIView</code></li>
+</ul>
+<p>当触摸或运动传感器等交互行为发生时，它们被发送给第一响应者，通常是一个视图。如果第一响应者没有处理，则该行为沿着响应链到达视图控制器，如果行为仍然没有被处理，则继续传递给应用。如果想监测晃动手势，可以根据需要在这 3 层中的任意位置处理。</p>
+<p><code>UIResponder</code> 还允许自定义输入方法，从 <code>inputAccessoryView</code> 向键盘添加辅助视图到使用 <code>inputView</code> 提供一个完全自定义的键盘，<code>UIResponder</code> 内部提供了以下方法来处理事件：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一根或者多根手指开始触摸 view，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesBegan:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//一根或者多根手指在 view 上移动，系统会自动调用 view 的下面方法(随着手指的移动，会持续调用该方法)</span></div><div class="line">- (void)touchesMoved:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//一根或者多根手指离开 view，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesEnded:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//触摸结束前，某个系统事件(例如电话呼入)会打断触摸过程，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesCancelled:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"></div><div class="line"><span class="comment">//加速计事件</span></div><div class="line">- (void)motionBegan:(<span class="type">UIEventSubtype</span>)motion withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (void)motionEnded:(<span class="type">UIEventSubtype</span>)motion withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (void)motionCancelled:(<span class="type">UIEventSubtype</span>)motion withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"></div><div class="line"><span class="comment">//远程控制事件</span></div><div class="line">- (void)remoteControlReceivedWithEvent:(<span class="type">UIEvent</span> *)event;</div></pre></td></tr></table></figure>
+<h2 id="UIControl"><a href="#UIControl" class="headerlink" title="UIControl"></a>UIControl</h2><p><code>UIControl</code> 建立在视图上，增加了更多的交互支持。最重要的是，它增加了 <code>target / action</code> 模式。看一下具体的子类，我们可以看一下按钮，日期选择器，文本框等等。创建交互控件时，你通常想要子类化一个 <code>UIControl</code>。</p>
+<p>一些常见的像 <code>bar buttons</code> 虽然也支持 <code>target / action</code>，和 <code>text view</code> 其实并不是 <code>UIControl</code>。</p>
+<p><code>UIControl</code> 是控制对象，继承于 <code>UIView</code>，如传达用户意图的应用程序按钮和滑块的基类。你不能使用 <code>UIControl</code> 的类直接实例化控件。相反，它定义了它的所有子类的通用接口和行为结构</p>
+<blockquote>
+<p><code>UIControl</code> 主要包括触摸事件、加速事件、远程事件这几种。</p>
+</blockquote>
+<h3 id="UIControl-的常用属性"><a href="#UIControl-的常用属性" class="headerlink" title="UIControl 的常用属性"></a>UIControl 的常用属性</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//控件默认是启用的。要禁用控件，可以将 enabled 属性设置为 NO，这将导致控件忽略任何触摸事件。被禁用后，控件还可以用不同的方式显示自己，比如变成灰色不可用。虽然是由控件的子类完成的，这个属性却存在于 `UIControl` 中。</span></div><div class="line"><span class="type">BOOL</span> enabled;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//当用户选中控件时，`UIControl` 类会将其 selected 属性设置为 YES。子类有时使用这个属性来让控件选择自身，或者来表现不同的行为方式。</span></div><div class="line"><span class="type">BOOL</span> selected;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">BOOL</span> highlighted;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//控件如何在垂直方向上布置自身的内容。</span></div><div class="line"><span class="type">UIControlContentVerticalAlignment</span> contentVerticalAlignment;    </div><div class="line"><span class="type">UIControlContentVerticalAlignmentCenter</span> <span class="comment">//居中</span></div><div class="line"><span class="type">UIControlContentVerticalAlignmentTop</span>    <span class="comment">//居顶</span></div><div class="line"><span class="type">UIControlContentVerticalAlignmentBottom</span> <span class="comment">//居下</span></div><div class="line"><span class="type">UIControlContentVerticalAlignmentFill</span></div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//控件如何在水平方向上布置自身的内容</span></div><div class="line"><span class="type">UIControlContentHorizontalAlignment</span> contentHorizontalAlignment;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// `UIControl`状态(只读)</span></div><div class="line"><span class="type">UIControlState</span> state;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//只读</span></div><div class="line"><span class="type">BOOL</span> tracking;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//是否touchInside(只读)</span></div><div class="line"><span class="type">BOOL</span> touchInside;</div></pre></td></tr></table></figure>
+<h3 id="常用方法"><a href="#常用方法" class="headerlink" title="常用方法"></a>常用方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事件通知。UIControl类提供了一个标准机制，来进行事件登记和接收。这令你可以指定你的控件在发生特定事件时，通知代理类的一个方法。</span></div><div class="line">- (<span class="type">BOOL</span>)beginTrackingWithTouch:(<span class="type">UITouch</span> *)touch withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (<span class="type">BOOL</span>)continueTrackingWithTouch:(<span class="type">UITouch</span> *)touch withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (void)endTrackingWithTouch:(<span class="type">UITouch</span> *)touch withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (void)cancelTrackingWithEvent:(<span class="type">UIEvent</span> *)event;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//注册一个事件</span></div><div class="line">- (void)addTarget:(id)target action:(<span class="type">SEL</span>)action forControlEvents:(<span class="type">UIControlEvents</span>)controlEvents;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//移除事件通知。要删除一个或多个事件的相应动作，可以使用`UIControl`类的removeTarget方法。使用nil值就可以将给定事件目标的所有动作删除</span></div><div class="line">- (void)removeTarget:(id)target action:(<span class="type">SEL</span>)action forControlEvents:(<span class="type">UIControlEvents</span>)controlEvents;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//取得关于一个控件所有指定动作的列表，可以使用allTargets方法。这个方法返回一个NSSet，其中包含事件的完整列表</span></div><div class="line">- (<span class="type">NSSet</span>*)allTargets;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取关于一个控件所有事件的列表</span></div><div class="line">- (<span class="type">UIControlEvents</span>)allControlEvents;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//获取针对某一特定事件目标的全部动作列表</span></div><div class="line">- (<span class="type">NSArray</span> *)actionsForTarget:(id)target forControlEvent:(<span class="type">UIControlEvents</span>)controlEvent;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//如果设计了一个自定义控件类，可以使用sendActionsForControlEvent方法，为基本的`UIControl`事件或自己的自定义事件发送通知。例如，如果你的控件值正在发生变化，就可以发送相应通知，通过控件的代码可以指定时间目标，这个通知将被传播到这些指定的目标。</span></div><div class="line">- (void)sendAction:(<span class="type">SEL</span>)action to:(id)target forEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line">- (void)sendActionsForControlEvents:(<span class="type">UIControlEvents</span>)controlEvents;</div></pre></td></tr></table></figure>
+<h2 id="UIGestureRescognizer"><a href="#UIGestureRescognizer" class="headerlink" title="UIGestureRescognizer"></a>UIGestureRescognizer</h2><p><code>UIGestureRescognizer</code> 是一类手势识别器对象，它可以附属在你指定的 View 上，并且为其设定指定的手势操作，例如是点击、滑动或者是拖拽。当触控事件发生时，设置了<code>Gesture Recognizer`s` 的 View 会先通过识别器去拦截触控事件，如果该触控事件是事先为 View 设定的触控监听事件，那么</code>Gesture Recognizer<code>s</code> 将会发送动作消息给目标处理对象，目标处理对象则对这次触控事件进行处理，先看看如下流程图。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/actiontarget.png" alt="img"></p>
+<p>在 iOS 中，View 就是我们在屏幕上看到的各种 UI 控件，当一个触控事件发生时，<code>Gesture Recognizer`s` 会先获取到指定的事件，然后发送 `action message` 给目标对象 `target`，目标对象就是 `ViewController`，在 `ViewController` 中通过事件方法完成对该事件的处理。</code>Gesture Recognizer<code>s</code> 能设置诸如单击、滑动、拖拽等事件，通过 <code>Action-Target</code> 这种设计模式，好处是能动态为 View 添加各种事件监听，而不用去实现一个 View 的子类去完成这些功能。</p>
+<h3 id="常用手势识别类"><a href="#常用手势识别类" class="headerlink" title="常用手势识别类"></a>常用手势识别类</h3><p>在 <code>UIKit</code> 框架中，系统为我们事先定义好了一些常用的手势识别器，包括点击、双指缩放、拖拽、滑动、旋转以及长按，通过这些手势识别器我们可以构造丰富的操作方式。</p>
+<table>
+<thead>
+<tr>
+<th>子类</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UITapGestureRecognizer</td>
+<td>敲击</td>
+</tr>
+<tr>
+<td>UIPinchGestureRecognizer</td>
+<td>捏合，用于缩放</td>
+</tr>
+<tr>
+<td>UIPanGestureRecognizer</td>
+<td>拖拽</td>
+</tr>
+<tr>
+<td>UISwipeGestureRecognizer</td>
+<td>轻扫</td>
+</tr>
+<tr>
+<td>UIRotationGestureRecognizer</td>
+<td>旋转</td>
+</tr>
+<tr>
+<td>UILongPressGestureRecognizer</td>
+<td>长按</td>
+</tr>
+</tbody>
+</table>
+<p>在上表中可以看到，<code>UIKit</code> 框架中已经提供了诸如 <code>UITapGestureRecognizer</code> 在内的六种手势识别器，如果你需要实现自定义的手势识别器，也可以通过继承 <code>UIGestureRecognizer</code> 类并重写其中的方法来完成，这里我们就不详细讨论了。</p>
+<p>每一个 <code>Gesture Recognizer</code> 关联一个 View，但是一个 View 可以关联多个 <code>Gesture Recognizer</code>，因为一个 View可能还能响应多种触控操作方式。当一个触控事件发生时，<code>Gesture Recognizer</code> 接收一个动作消息要先于 View 本身，结果就是 <code>Gesture Recognizer</code> 作为 View 处理触控事件的代表，或者叫代理。当 <code>Gesture Recognizer</code> 接收到指定的事件时，它就会发送一条 <code>action message</code> 给 <code>ViewController</code> 并处理。</p>
+<h3 id="UIGestureRescognizer-常用属性和方法："><a href="#UIGestureRescognizer-常用属性和方法：" class="headerlink" title="UIGestureRescognizer 常用属性和方法："></a>UIGestureRescognizer 常用属性和方法：</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div></pre></td><td class="code"><pre><div class="line">@interface <span class="type">UIGestureRecognizer</span> : <span class="type">NSObject</span></div><div class="line">  </div><div class="line"><span class="comment">//创建一个手势对象并添加触发事件</span></div><div class="line">- (instancetype)initWithTarget:(nullable id)target action:(nullable <span class="type">SEL</span>)action <span class="type">NS_DESIGNATED_INITIALIZER</span>; </div><div class="line"></div><div class="line"><span class="comment">//给一个手势对象添加监听事件</span></div><div class="line">- (void)addTarget:(id)target action:(<span class="type">SEL</span>)action;  </div><div class="line"></div><div class="line"><span class="comment">//移除一个手势的监听事件</span></div><div class="line">- (void)removeTarget:(nullable id)target action:(nullable <span class="type">SEL</span>)action; </div><div class="line"></div><div class="line"><span class="comment">//设置能识别到手势的最少的轻触次数(默认为1)</span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span>  numberOfTapsRequired;     </div><div class="line"></div><div class="line"><span class="comment">//设置能识别到手势的最少的手指的个数(默认为1) </span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span>  numberOfTouchesRequired;  </div><div class="line"></div><div class="line"><span class="comment">//获取当前手势状态</span></div><div class="line">@property(nonatomic,readonly) <span class="type">UIGestureRecognizerState</span> state;  </div><div class="line"></div><div class="line"><span class="comment">//委托</span></div><div class="line">@property(nullable,nonatomic,<span class="keyword">weak</span>) id &lt;<span class="type">UIGestureRecognizerDelegate</span>&gt; delegate; </div><div class="line"></div><div class="line"><span class="comment">//手势识别是否可用</span></div><div class="line">@property(nonatomic, getter=isEnabled) <span class="type">BOOL</span> enabled;  </div><div class="line"></div><div class="line"><span class="comment">//获取手势触摸的View视图 只读</span></div><div class="line">@property(nullable, nonatomic,readonly) <span class="type">UIView</span> *view;  </div><div class="line"></div><div class="line"><span class="comment">/*是否取消触摸控件的响应</span></div><div class="line">默认为YES，这种情况下当手势识别器识别到触摸之后，会发送touchesCancelled</div><div class="line">给触摸到的控件以取消控件view对touch的响应，这个时候只有手势识别器响应touch，</div><div class="line">当设置成NO时，手势识别器识别到触摸之后不会发送touchesCancelled给控件，</div><div class="line">这个时候手势识别器和控件view均响应touch。</div><div class="line">注意：手势识别和触摸事件是同时存在的，只是因为touchesCancelled导致触摸事件失效。*/</div><div class="line">@property(nonatomic) <span class="type">BOOL</span> cancelsTouchesInView;    </div><div class="line"></div><div class="line"><span class="comment">/*是否延迟发送触摸事件给触摸到的控件</span></div><div class="line">默认是NO，这种情况下当发生一个触摸时，手势识别器先捕捉到到触摸，</div><div class="line">然后发给触摸到的控件，两者各自做出响应。</div><div class="line">如果设置为YES，手势识别器在识别的过程中(注意是识别过程)，不会将触摸发给触摸到的控件，即控件不会有任何触摸事件。</div><div class="line">只有在识别失败之后才会将触摸事件发给触摸到的控件，这种情况下控件view的响应会延迟约0.15ms。*/</div><div class="line">@property(nonatomic) <span class="type">BOOL</span> delaysTouchesBegan;     </div><div class="line">  </div><div class="line"><span class="comment">//如果触摸识别失败是否立即结束本次手势识别的触摸事件</span></div><div class="line">@property(nonatomic) <span class="type">BOOL</span> delaysTouchesEnded;        </div><div class="line"></div><div class="line"><span class="comment">/*指定一个手势需要另一个手势执行失败才会执行，同时触发多个手势使用其中一个手势的解决办法</span></div><div class="line">有时手势是相关联的，如单机和双击，点击和长按，点下去瞬间可能只会识别到单击无法识别其他，</div><div class="line">该方法可以指定某一个手势，即便自己已经满足条件了，也不会立刻触发，会等到该指定的手势确定失败之后才触发</div><div class="line">*/</div><div class="line">- (void)requireGestureRecognizerToFail:(<span class="type">UIGestureRecognizer</span> *)otherGestureRecognizer;</div><div class="line"></div><div class="line"><span class="comment">//获取当前触摸在指定视图上的点</span></div><div class="line">- (<span class="type">CGPoint</span>)locationInView:(nullable <span class="type">UIView</span>*)view;                               </div><div class="line"></div><div class="line"><span class="comment">//获取触摸手指数</span></div><div class="line">- (<span class="type">NSUInteger</span>)numberOfTouches;   </div><div class="line"></div><div class="line"><span class="comment">//多指触摸的触摸点相对于指定视图的位置</span></div><div class="line">- (<span class="type">CGPoint</span>)locationOfTouch:(<span class="type">NSUInteger</span>)touchIndex inView:(nullable <span class="type">UIView</span>*)view; </div><div class="line">@end</div><div class="line"> </div><div class="line"><span class="comment">//代理方法</span></div><div class="line">@<span class="class"><span class="keyword">protocol</span> <span class="title">UIGestureRecognizerDelegate</span> &lt;<span class="title">NSObject</span>&gt;</span></div><div class="line">  </div><div class="line">@<span class="title">optional</span></div><div class="line">//开始进行手势识别时调用的方法，返回<span class="title">NO</span>则结束识别，不再触发手势，用处：可以在控件指定的位置使用手势识别</div><div class="line">- (<span class="title">BOOL</span>)<span class="title">gestureRecognizerShouldBegin</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">gestureRecognizer</span>;</div><div class="line"></div><div class="line">/*是否支持多手势触发，返回<span class="title">YES</span>，则可以多个手势一起触发方法，返回<span class="title">NO</span>则为互斥。</div><div class="line">是否允许多个手势识别器共同识别，一个控件的手势识别后是否阻断手势识别继续向下传播。</div><div class="line">默认返回<span class="title">NO</span>，如果为<span class="title">YES</span>，响应者链上层对象触发手势识别后，如果下层对象也添加了手势并成功识别也会继续执行，</div><div class="line">否则上层对象识别后则不再继续传播*/</div><div class="line">- (<span class="title">BOOL</span>)<span class="title">gestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">gestureRecognizer</span> <span class="title">shouldRecognizeSimultaneouslyWithGestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">otherGestureRecognizer</span>;</div><div class="line"></div><div class="line">//这个方法返回<span class="title">YES</span>，第一个手势和第二个互斥时，第一个会失效</div><div class="line">- (<span class="title">BOOL</span>)<span class="title">gestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">gestureRecognizer</span> <span class="title">shouldRequireFailureOfGestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">otherGestureRecognizer</span>;</div><div class="line"></div><div class="line">//这个方法返回<span class="title">YES</span>，第一个和第二个互斥时，第二个会失效</div><div class="line">- (<span class="title">BOOL</span>)<span class="title">gestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">gestureRecognizer</span> <span class="title">shouldBeRequiredToFailByGestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">otherGestureRecognizer</span>;</div><div class="line"></div><div class="line">/*手指触摸屏幕后回调的方法，返回<span class="title">NO</span>则不再进行手势识别，方法触发等</div><div class="line">此方法在<span class="title">window</span>对象在有触摸事件发生时，调用`<span class="title">Gesture</span> <span class="title">Recognizer</span>`的</div><div class="line"><span class="title">touchesBegan</span>:<span class="title">withEvent</span>:方法之前调用。</div><div class="line">如果返回<span class="title">NO</span>,则`<span class="title">Gesture</span> <span class="title">Recognizer</span>`不会看到此触摸事件。(默认情况下为<span class="title">YES</span>)*/</div><div class="line">- (<span class="title">BOOL</span>)<span class="title">gestureRecognizer</span>:(<span class="title">UIGestureRecognizer</span> *)<span class="title">gestureRecognizer</span> <span class="title">shouldReceiveTouch</span>:(<span class="title">UITouch</span> *)<span class="title">touch</span>;</div><div class="line"></div><div class="line">@<span class="title">end</span></div></pre></td></tr></table></figure>
+<h3 id="UILongPressGestureRecognizer-常用属性和方法"><a href="#UILongPressGestureRecognizer-常用属性和方法" class="headerlink" title="UILongPressGestureRecognizer 常用属性和方法"></a>UILongPressGestureRecognizer 常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@interface <span class="type">UILongPressGestureRecognizer</span> : <span class="type">UIGestureRecognizer</span></div><div class="line"><span class="comment">//设置能识别到手势的最少的轻触次数(默认为1)</span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span> numberOfTapsRequired;     </div><div class="line"><span class="comment">//设置能识别到手势的最少的手指的个数(默认为1) </span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span> numberOfTouchesRequired;   </div><div class="line"><span class="comment">//设置能识别到长按手势的最短的长按时间，单位：秒，默认为0.5</span></div><div class="line">@property (nonatomic) <span class="type">CFTimeInterval</span> minimumPressDuration; </div><div class="line"><span class="comment">//设置长按时允许移动的最大距离，单位：像素，默认为10像素</span></div><div class="line">@property (nonatomic) <span class="type">CGFloat</span> allowableMovement;           </div><div class="line">@end</div><div class="line">  </div><div class="line"><span class="type">UILongPressGestureRecognizer</span> *longPress = [[<span class="type">UILongPressGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:@selector(longPressAction:)];</div><div class="line"><span class="comment">//设置能识别到长按手势的最小的长按时间</span></div><div class="line">longPress.minimumPressDuration = <span class="number">0.5</span>;</div><div class="line"><span class="comment">//"容错的范围"</span></div><div class="line">longPress.allowableMovement  = <span class="number">10</span>;</div><div class="line"><span class="comment">//把长按手势添加到对应的控件中</span></div><div class="line">[<span class="keyword">self</span>.imgView addGestureRecognizer:longPress];</div></pre></td></tr></table></figure>
+<h3 id="UISwipeGestureRecognizer-常用属性和方法"><a href="#UISwipeGestureRecognizer-常用属性和方法" class="headerlink" title="UISwipeGestureRecognizer 常用属性和方法"></a>UISwipeGestureRecognizer 常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">typedef <span class="type">NS_OPTIONS</span>(<span class="type">NSUInteger</span>, <span class="type">UISwipeGestureRecognizerDirection</span>) &#123;</div><div class="line">    <span class="type">UISwipeGestureRecognizerDirectionRight</span> = <span class="number">1</span> &lt;&lt; <span class="number">0</span>,  <span class="comment">//向右滑</span></div><div class="line">    <span class="type">UISwipeGestureRecognizerDirectionLeft</span>  = <span class="number">1</span> &lt;&lt; <span class="number">1</span>,  <span class="comment">//向左滑</span></div><div class="line">    <span class="type">UISwipeGestureRecognizerDirectionUp</span>    = <span class="number">1</span> &lt;&lt; <span class="number">2</span>,  <span class="comment">//向上滑</span></div><div class="line">    <span class="type">UISwipeGestureRecognizerDirectionDown</span>  = <span class="number">1</span> &lt;&lt; <span class="number">3</span>  <span class="comment">//向下滑</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">@interface <span class="type">UISwipeGestureRecognizer</span> : <span class="type">UIGestureRecognizer</span>`</div><div class="line"><span class="comment">//最少触摸手指个数，默认为1</span></div><div class="line">@property(nonatomic) <span class="type">NSUInteger</span> numberOfTouchesRequired; </div><div class="line"><span class="comment">//设置轻扫手势支持的方向，默认为向右滑</span></div><div class="line">@property(nonatomic) <span class="type">UISwipeGestureRecognizerDirection</span> direction;               </div><div class="line">@end</div></pre></td></tr></table></figure>
+<h3 id="UIRotationGestureRecognizer-常用属性和方法"><a href="#UIRotationGestureRecognizer-常用属性和方法" class="headerlink" title="UIRotationGestureRecognizer 常用属性和方法"></a>UIRotationGestureRecognizer 常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">@interface <span class="type">UIRotationGestureRecognizer</span> : <span class="type">UIGestureRecognizer</span></div><div class="line"><span class="comment">//旋转的角度</span></div><div class="line">@property (nonatomic) <span class="type">CGFloat</span> rotation;  </div><div class="line"><span class="comment">//旋转速度，单位：度/秒、         </span></div><div class="line">@property (nonatomic,readonly) <span class="type">CGFloat</span> velocity;           </div><div class="line">@end</div><div class="line"></div><div class="line"><span class="comment">//为图片框添加一个旋转手势</span></div><div class="line"><span class="type">UIRotationGestureRecognizer</span> *rotation = [[<span class="type">UIRotationGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:@selector(rotateAction:)];rotation.delegate = <span class="keyword">self</span>;</div><div class="line">[<span class="keyword">self</span>.imgView addGestureRecognizer:rotation];</div><div class="line"></div><div class="line"></div><div class="line"><span class="comment">//旋转手势的监听方法</span></div><div class="line">- (void)rotateAction:(<span class="type">UIRotationGestureRecognizer</span> *)recognizer &#123;</div><div class="line"><span class="comment">//在原来的基础上, 累加多少度</span></div><div class="line">recognizer.view.transform = <span class="type">CGAffineTransformRotate</span>(recognizer.view.transform, recognizer.rotation);</div><div class="line"><span class="comment">//每次旋转完毕后将rotation的值, 恢复到0的位置.recognizer.rotation = 0;</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="UIPanGestureRecognizer-常用属性和方法"><a href="#UIPanGestureRecognizer-常用属性和方法" class="headerlink" title="UIPanGestureRecognizer 常用属性和方法"></a>UIPanGestureRecognizer 常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">@interface <span class="type">UIPanGestureRecognizer</span> : <span class="type">UIGestureRecognizer</span></div><div class="line"><span class="comment">//设置触发拖拽最少手指数，默认为1</span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span> minimumNumberOfTouches;   </div><div class="line"><span class="comment">//设置触发拖拽最多手指数，默认为 UINT_MAX 无限大</span></div><div class="line">@property (nonatomic) <span class="type">NSUInteger</span> maximumNumberOfTouches;   </div><div class="line"><span class="comment">//获取当前拖拽位置</span></div><div class="line">- (<span class="type">CGPoint</span>)translationInView:(nullable <span class="type">UIView</span> *)view;                        </div><div class="line"><span class="comment">//设置当前拖拽位置</span></div><div class="line">- (void)setTranslation:(<span class="type">CGPoint</span>)translation inView:(nullable <span class="type">UIView</span> *)view;</div><div class="line"><span class="comment">//设置拖拽速度，单位：像素/秒</span></div><div class="line">- (<span class="type">CGPoint</span>)velocityInView:(nullable <span class="type">UIView</span> *)view;                          </div><div class="line">@end</div><div class="line">  </div><div class="line"><span class="type">UIPanGestureRecognizer</span> *pan = [[<span class="type">UIPanGestureRecognizer</span> alloc] initWithTarget:<span class="keyword">self</span> action:@selector(panAction:)];</div><div class="line">[<span class="keyword">self</span>.imgView addGestureRecognizer:pan];</div><div class="line"></div><div class="line"><span class="comment">//拖拽手势的监听方法</span></div><div class="line">- (void)panAction:(<span class="type">UIPanGestureRecognizer</span> *)recognizer &#123;</div><div class="line">  <span class="comment">//获取手指拖拽的时候, 平移的值</span></div><div class="line">  <span class="type">CGPoint</span> translation = [recognizer translationInView:recognizer.view];</div><div class="line">  <span class="comment">//让当前控件做响应的平移</span></div><div class="line">  recognizer.view.transform = <span class="type">CGAffineTransformTranslate</span>(recognizer.view.transform, translation.x, translation.y);</div><div class="line">  <span class="comment">//每次平移手势识别完毕后, 让平移的值不要累加</span></div><div class="line">  [recognizer setTranslation:<span class="type">CGPointZero</span> inView:recognizer.view];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="连续和不连续动作"><a href="#连续和不连续动作" class="headerlink" title="连续和不连续动作"></a>连续和不连续动作</h3><p>触控动作同时分为连续动作和不连续动作，连续动作例如滑动和拖拽，它会持续一小段时间，而不连续动作例如单击，它瞬间就会完成，在这两类事件的处理上又稍有不同。</p>
+<p>对于不连续动作，<code>Gesture Recognizer</code> 只会给 <code>ViewContoller</code> 发送一个单一的动作消息，而对于连续动作，<code>Gesture Recognizer</code> 会发送多条动作消息给 <code>ViewContoller</code>，直到所有的事件都结束。</p>
+<p>为一个 View 添加 <code>GestureRecognizer</code> 有两种方式，一种是通过 <code>InterfaceBuilder</code> 实现，另一种就是通过代码实现，我们看看通过代码来如何实现。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//初始化手势</span></div><div class="line"><span class="keyword">let</span> tap = <span class="type">UITapGestureRecognizer</span>(target: <span class="keyword">self</span>, action: #selector(<span class="keyword">self</span>.doSomeThing(tap:)))</div><div class="line"><span class="comment">//指定操作为点击 1 次</span></div><div class="line">tap.numberOfTapsRequired = <span class="number">1</span></div><div class="line"><span class="comment">//需要 2 根手指同时点击</span></div><div class="line">tap.numberOfTouchesRequired = <span class="number">2</span></div><div class="line"><span class="comment">//为当前 View 添加 GestureRecognizer</span></div><div class="line">view.addGestureRecognizer(tap</div></pre></td></tr></table></figure>
+<p>在事件处理过程中，这两种方式所处的状态又各有不同，首先，所有的触控事件最开始都是处于可用状态 <code>Possible</code>，对应 <code>UIKit</code> 里面的 <code>UIGestureRecognizerStatePossible</code> 类，如果是不连续动作事件，则状态只会从 <code>Possible</code> 转变为已识别状态 <code>Recognized</code> 或者是失败状态 <code>Failed</code>。例如一次成功的单击动作，就对应了 <code>Possible-Recognized</code> 这个过程。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/possiblerecognized%20.png" alt="img"></p>
+<p>手势识别有以下几种状态：</p>
+<table>
+<thead>
+<tr>
+<th>枚举值</th>
+<th>定义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UIGestureRecognizerStatePossible</td>
+<td>没有触摸事件发生，所有手势识别的默认状态</td>
+</tr>
+<tr>
+<td>UIGestureRecognizerStateBegan</td>
+<td>一个手势已经开始但尚未改变或者完成时</td>
+</tr>
+<tr>
+<td>UIGestureRecognizerStateChanged</td>
+<td>手势状态改变</td>
+</tr>
+<tr>
+<td>UIGestureRecognizerStateEnded</td>
+<td>手势完成</td>
+</tr>
+<tr>
+<td>UIGestureRecognizerStateCancelled</td>
+<td>手势取消，恢复至Possible状态</td>
+</tr>
+<tr>
+<td>UIGestureRecognizerStateFailed</td>
+<td>手势失败，恢复至Possible状态</td>
+</tr>
+</tbody>
+</table>
+<p>如果是连续动作事件，如果事件没有失败并且连续动作的第一个动作被 <code>Recognized</code>，则从 <code>Possible</code> 状态转移到 <code>Began</code> 状态，这里表示连续动作的开始，接着会转变为 <code>Changed</code> 状态，在这个状态下会不断循环的处理连续动作，直到动作执行完成变转变为 <code>Recognized</code> 已识别状态，最终该动作会处于完成状态 <code>Ended</code>，另外，连续动作事件的处理状态会从 <code>Changed</code> 状态转变为 <code>Canceled</code> 状态，原因是识别器认为当前的动作已经不匹配当初对事件的设定了。</p>
+<h2 id="UITouch-amp-UIEvent"><a href="#UITouch-amp-UIEvent" class="headerlink" title="UITouch &amp; UIEvent"></a>UITouch &amp; UIEvent</h2><p>在屏幕上的每一次动作事件都是一次 <code>Touch</code>，在 iOS 中用 <code>UITouch</code> 对象表示每一次的触控，多个 <code>Touch</code> 组成一次 <code>Event</code>，用 <code>UIEvent</code> 来表示一次事件对象。目前 iOS 设备支持的多点操作手指数最多是 5，下图展示了一个 <code>UIEvent</code> 对象与多个 <code>UITouch</code> 对象之间的关系。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/uitouch.png" alt="img"></p>
+<p><strong>当用户触摸屏幕后，就会产生相应的事件，所有相关的 <code>UITouch</code> 对象都被包装在事件中，被程序交由特定的对象来处理。<code>UITouch</code> 对象直接包括触摸的详细信息，比如触摸的位置、时间、阶段。</strong></p>
+<p>当手指移动时，系统会更新同一个 <code>UITouch</code> 对象，使之能够一直保存该手指在的触摸位置，当手指离开屏幕时，系统会销毁相应的 <code>UITouch</code> 对象。</p>
+<h3 id="UITouch-的常用属性和方法"><a href="#UITouch-的常用属性和方法" class="headerlink" title="UITouch 的常用属性和方法"></a>UITouch 的常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//触摸事件在屏幕上有一个周期</span></div><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">UITouchPhase</span>) &#123;</div><div class="line">    <span class="type">UITouchPhaseBegan</span>,           <span class="comment">//开始触摸  </span></div><div class="line">    <span class="type">UITouchPhaseMoved</span>,           <span class="comment">//移动    </span></div><div class="line">    <span class="type">UITouchPhaseStationary</span>,      <span class="comment">//停留</span></div><div class="line">    <span class="type">UITouchPhaseEnded</span>,           <span class="comment">//触摸结束</span></div><div class="line">    <span class="type">UITouchPhaseCancelled</span>,       <span class="comment">//触摸中断</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//检测是否支持3DTouch</span></div><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">UIForceTouchCapability</span>) &#123;</div><div class="line">    <span class="type">UIForceTouchCapabilityUnknown</span> = <span class="number">0</span>,  <span class="comment">//3D Touch检测失败</span></div><div class="line">    <span class="type">UIForceTouchCapabilityUnavailable</span> = <span class="number">1</span>,  <span class="comment">//3D Touch不可用</span></div><div class="line">    <span class="type">UIForceTouchCapabilityAvailable</span> = <span class="number">2</span>  <span class="comment">//3D Touch可用</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line">@interface <span class="type">UITouch</span> : <span class="type">NSObject</span></div><div class="line"></div><div class="line"><span class="comment">//触摸产生或变化的时间戳 只读</span></div><div class="line">@property(nonatomic,readonly) <span class="type">NSTimeInterval</span>      timestamp;</div><div class="line"><span class="comment">//触摸周期内的各个状态</span></div><div class="line">@property(nonatomic,readonly) <span class="type">UITouchPhase</span>        phase;</div><div class="line"><span class="comment">//短时间内点击的次数 只读</span></div><div class="line">@property(nonatomic,readonly) <span class="type">NSUInteger</span>          tapCount;   </div><div class="line"></div><div class="line"><span class="comment">//获取手指与屏幕的接触半径 IOS8以后可用 只读</span></div><div class="line">@property(nonatomic,readonly) <span class="type">CGFloat</span> majorRadius <span class="type">NS_AVAILABLE_IOS</span>(<span class="number">8_0</span>);</div><div class="line"><span class="comment">//获取手指与屏幕的接触半径的误差 IOS8以后可用 只读</span></div><div class="line">@property(nonatomic,readonly) <span class="type">CGFloat</span> majorRadiusTolerance <span class="type">NS_AVAILABLE_IOS</span>(<span class="number">8_0</span>);</div><div class="line"></div><div class="line"><span class="comment">//触摸时所在的窗口 只读</span></div><div class="line">@property(nullable,nonatomic,readonly,strong) <span class="type">UIWindow</span> *window;</div><div class="line"><span class="comment">//触摸时所在视图</span></div><div class="line">@property(nullable,nonatomic,readonly,strong) <span class="type">UIView</span> *view;</div><div class="line"><span class="comment">//获取触摸手势</span></div><div class="line">@property(nullable,nonatomic,readonly,copy)   <span class="type">NSArray</span> &lt;<span class="type">UIGestureRecognizer</span> *&gt;  *gestureRecognizers </div><div class="line"></div><div class="line"><span class="comment">//取得在指定视图的位置</span></div><div class="line"><span class="comment">//返回值表示触摸在view上的位置</span></div><div class="line"><span class="comment">//这里返回的位置是针对view的坐标系的(以view的左上角为原点(0,0))</span></div><div class="line"><span class="comment">//调用时传入的view参数为nil的话，返回的是触摸点在`UIWindow`的位置</span></div><div class="line">- (<span class="type">CGPoint</span>)locationInView:(nullable <span class="type">UIView</span> *)view;</div><div class="line"><span class="comment">//该方法记录了前一个触摸点的位置</span></div><div class="line">- (<span class="type">CGPoint</span>)previousLocationInView:(nullable <span class="type">UIView</span> *)view;</div><div class="line"></div><div class="line"><span class="comment">//获取触摸压力值，一般的压力感应值为1.0 IOS9 只读</span></div><div class="line">@property(nonatomic,readonly) <span class="type">CGFloat</span> force <span class="type">NS_AVAILABLE_IOS</span>(<span class="number">9_0</span>);</div><div class="line"></div><div class="line"><span class="comment">//获取最大触摸压力值</span></div><div class="line">@property(nonatomic,readonly) <span class="type">CGFloat</span> maximumPossibleForce <span class="type">NS_AVAILABLE_IOS</span>(<span class="number">9_0</span>);</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p>当手指接触到屏幕，不管是单点触摸还是多点触摸，事件都会开始，直到用户所有的手指都离开屏幕。期间所有的 <code>UITouch</code> 对象都被包含在 <code>UIEvent</code> 事件对象中，由程序分发给处理者，事件记录了这个周期中所有触摸对象状态的变化。</p>
+<p>只要屏幕被触摸，系统就会报若干个触摸的信息封装到 <code>UIEvent</code> 对象中发送给程序，由管理程序 <code>UIApplication</code> 对象将事件分发。一般来说，事件将被发给主窗口，然后传给第一响应者对象处理。</p>
+<p>在上述过程中，完成了一次双指缩放的事件动作，每一次手指状态的变化都对应事件动作处理过程中得一个阶段。通过 <code>Began-Moved-Ended</code> 这几个阶段的 <code>Touch</code> 共同构成了一次事件 <code>Event</code>。在事件响应对象 <code>UIResponder</code> 中有对应的方法来分别处理这几个阶段的事件。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//一根或者多根手指开始触摸 view，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesBegan:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//一根或者多根手指在 view 上移动，系统会自动调用 view 的下面方法(随着手指的移动，会持续调用该方法)</span></div><div class="line">- (void)touchesMoved:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//一根或者多根手指离开 view，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesEnded:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div><div class="line"><span class="comment">//触摸结束前，某个系统事件(例如电话呼入)会打断触摸过程，系统会自动调用 view 的下面方法</span></div><div class="line">- (void)touchesCancelled:(<span class="type">NSSet</span> *)touches withEvent:(<span class="type">UIEvent</span> *)event;</div></pre></td></tr></table></figure>
+<p>4 个触摸事件处理方法中，都有 <code>NSSet *touches</code> 和 <code>UIEvent *event</code> 两个参数，一次完整的触摸过程中，只会产生一个事件对象，4 个触摸方法都是同一个 <code>event</code> 参数。</p>
+<p>如果两根手指同时触摸一个 View，那么 View 只会调用一次 <code>touchesBegan:withEvent:</code> 方法，<code>touches</code> 参数中装着 2 个 <code>UITouch</code> 对象。</p>
+<p>如果这两根手指一前一后分开触摸同一个 View，那么 View 会分别调用 2 次 <code>touchesBegan:withEvent:</code> 方法，并且每次调用时的 <code>touches</code> 参数中只包含一个 <code>UITouch</code> 对象。根据 <code>touches</code> 中 <code>UITouch</code> 的个数可以判断出是单点触摸还是多点触摸。</p>
+<h3 id="UIEvent-常用属性和方法"><a href="#UIEvent-常用属性和方法" class="headerlink" title="UIEvent 常用属性和方法"></a>UIEvent 常用属性和方法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//事件类型</span></div><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">UIEventType</span>) &#123;</div><div class="line">    <span class="type">UIEventTypeTouches</span>,<span class="comment">//触控</span></div><div class="line">    <span class="type">UIEventTypeMotion</span>, <span class="comment">//加速感应器</span></div><div class="line">    <span class="type">UIEventTypeRemoteControl</span>,<span class="comment">//远程操作</span></div><div class="line">    <span class="type">UIEventTypePresses</span> <span class="comment">//3D touch</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="comment">//触摸事件的类型</span></div><div class="line">typedef <span class="type">NS_ENUM</span>(<span class="type">NSInteger</span>, <span class="type">UIEventSubtype</span>) &#123;</div><div class="line">    </div><div class="line">    <span class="type">UIEventSubtypeNone</span>                              = <span class="number">0</span>,</div><div class="line">    <span class="comment">//摇晃 </span></div><div class="line">    <span class="type">UIEventSubtypeMotionShake</span>                       = <span class="number">1</span>,</div><div class="line">   	<span class="comment">//播放</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlPlay</span>                 = <span class="number">100</span>,</div><div class="line">   	<span class="comment">//暂停</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlPause</span>                = <span class="number">101</span>,</div><div class="line">    <span class="comment">//停止</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlStop</span>                 = <span class="number">102</span>,</div><div class="line">    <span class="comment">//播放和暂停切换 </span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlTogglePlayPause</span>      = <span class="number">103</span>,</div><div class="line">    <span class="comment">//下一首</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlNextTrack</span>            = <span class="number">104</span>,</div><div class="line">    <span class="comment">//上一首</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlPreviousTrack</span>        = <span class="number">105</span>,</div><div class="line">    <span class="comment">//开始后退 </span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlBeginSeekingBackward</span> = <span class="number">106</span>,</div><div class="line">    <span class="comment">//结束后退 </span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlEndSeekingBackward</span>   = <span class="number">107</span>,</div><div class="line">    <span class="comment">//开始快进 </span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlBeginSeekingForward</span>  = <span class="number">108</span>,</div><div class="line">    <span class="comment">//结束快进</span></div><div class="line">    <span class="type">UIEventSubtypeRemoteControlEndSeekingForward</span>    = <span class="number">109</span>,</div><div class="line">&#125;;</div><div class="line"></div><div class="line">@interface <span class="type">UIEvent</span> : <span class="type">NSObject</span></div><div class="line"><span class="comment">//事件类型</span></div><div class="line">@property(nonatomic,readonly) <span class="type">UIEventType</span>   </div><div class="line"><span class="comment">//触摸事件的类型</span></div><div class="line">@property(nonatomic,readonly) <span class="type">UIEventSubtype</span>  </div><div class="line"></div><div class="line"><span class="comment">//事件的时间戳</span></div><div class="line">@property(nonatomic,readonly) <span class="type">NSTimeInterval</span>  timestamp;</div><div class="line"></div><div class="line"><span class="comment">//所有的触摸 </span></div><div class="line">- (nullable <span class="type">NSSet</span> &lt;<span class="type">UITouch</span> *&gt; *)allTouches;</div><div class="line"><span class="comment">//获得`UIWindow`的触摸</span></div><div class="line">- (nullable <span class="type">NSSet</span> &lt;<span class="type">UITouch</span> *&gt; *)touchesForWindow:(<span class="type">UIWindow</span> *)window;</div><div class="line"><span class="comment">//获得`UIView`的触摸  </span></div><div class="line">- (nullable <span class="type">NSSet</span> &lt;<span class="type">UITouch</span> *&gt; *)touchesForView:(<span class="type">UIView</span> *)view;</div><div class="line"><span class="comment">//获得事件中特定手势的触摸</span></div><div class="line">- (nullable <span class="type">NSSet</span> &lt;<span class="type">UITouch</span> *&gt; *)touchesForGestureRecognizer:(<span class="type">UIGestureRecognizer</span> *)gesture ;</div><div class="line"><span class="comment">//会将丢失的触摸放到一个新的 `UIEvent` 数组中，你可以用 coalescedTouchesForTouch(_:) 方法来访问</span></div><div class="line">- (nullable <span class="type">NSArray</span> &lt;<span class="type">UITouch</span> *&gt; *)coalescedTouchesForTouch:(<span class="type">UITouch</span> *)touch;</div><div class="line"><span class="comment">//辅助`UITouch`的触摸，预测发生了一系列主要的触摸事件。这些预测可能不完全匹配的触摸的真正的行为，因为它的移动，所以他们应该被解释为一个估计。</span></div><div class="line">- (nullable <span class="type">NSArray</span> &lt;<span class="type">UITouch</span> *&gt; *)predictedTouchesForTouch:(<span class="type">UITouch</span> *)touch;</div><div class="line">@end</div></pre></td></tr></table></figure>
+<p><code>UIEvent</code> 是代表 iOS 系统中的一个事件，一个事件包含一个或多个的 <code>UITouch</code>；<code>UIEvent</code> 分为三类：</p>
+<ol>
+<li><code>UIEventTypeTouches</code> 触摸事件，通过触摸、手势进行触发，例如手指点击、缩放；</li>
+<li><code>UIEventTypeMotion</code> 运动事件，通过加速器进行触发，例如手机晃动；</li>
+<li><code>UIEventTypeRemoteControl</code> 远程控制事件，通过其他远程设备触发，例如耳机控制按钮；</li>
+</ol>
+<p>触摸对象的事件类型包括一个或多个触摸，触摸与某一事件联系在一起。一个触摸是被一个 <code>UITouch</code> 对象调用的。当一个事件触发了，系统将会把它传递给合适的响应对象并通过 <code>UIEvent</code> 对象发出一个消息。</p>
+<p>调用 <code>UIResponder</code> 方法如 <code>touchesBegan:withEvent:</code>，响应对象可以分配触摸事件到合适的触摸类型并适当的控制他们。<code>UIEvent</code> 中的方法可以让你获取全部的触摸事件 <code>allTouches</code> 或者给定的视图或者窗口 <code>touchesForView: 或者 touchesForWindow:</code>，它可以分辨从响应对象传递过来的事件对象发生的时间 <code>timestamp</code>。</p>
+<p>一个 <code>UIEvent</code> 对象贯穿在多点触摸事件的序列中，<code>UIKit</code> 重用同一个 <code>UIEvent</code> 实例来分配每一个事件到应用程序。你不需要保持一个事件对象或者任何从事件对象返回的对象。如果你需要保存事件对象然后传递到另外一个对象，你需要从 <code>UITouch</code> 或者 <code>UIEvent</code> 中复制信息。</p>
+<p>你可以通过类型属性和子类型属性，获取事件类型和事件的子类型。<code>UIEvent</code> 定义了事件的类型为触摸，摇晃和遥控事件，它也定义了摇晃事件的子类型，以及为遥控事件定义了一系列的子类型。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>iOS触摸事件的流动：<a href="http://shellhue.github.io/2017/03/04/FlowOfUITouch/" target="_blank" rel="external">http://shellhue.github.io/2017/03/04/FlowOfUITouch/</a></p>
+<p>iOS事件的传递与响应：<a href="http://blog.csdn.net/yongyinmg/article/details/19616527" target="_blank" rel="external">http://blog.csdn.net/yongyinmg/article/details/19616527</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/事件/" rel="tag">#事件</a>
+          
+            <a href="/tags/Aciton-Target/" rel="tag">#Aciton-Target</a>
+          
+            <a href="/tags/事件分发/" rel="tag">#事件分发</a>
+          
+            <a href="/tags/事件拦截/" rel="tag">#事件拦截</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" rel="next" title="iOS开发 - 利用Runtime优化归解档 ">
+                <i class="fa fa-chevron-left"></i> iOS开发 - 利用Runtime优化归解档 
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/04/08/iOS事件 - 响应者链和事件分发/"
+     data-title="iOS事件 - 响应者链和事件分发"
+     data-content=""
+     data-url="http://yoursite.com/2017/04/08/iOS事件 - 响应者链和事件分发/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/08/iOS事件 - 响应者链和事件分发/"
+           data-title="iOS事件 - 响应者链和事件分发" data-url="http://yoursite.com/2017/04/08/iOS事件 - 响应者链和事件分发/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事件分发"><span class="nav-number">1.</span> <span class="nav-text">事件分发</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#起始阶段"><span class="nav-number">1.1.</span> <span class="nav-text">起始阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#系统响应阶段"><span class="nav-number">1.2.</span> <span class="nav-text">系统响应阶段</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#桌面响应阶段"><span class="nav-number">1.3.</span> <span class="nav-text">桌面响应阶段</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Source1-事件响应"><span class="nav-number">1.3.1.</span> <span class="nav-text">Source1 事件响应</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Source0-手势识别"><span class="nav-number">1.3.2.</span> <span class="nav-text">Source0 手势识别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#App内部响应阶段"><span class="nav-number">1.4.</span> <span class="nav-text">App内部响应阶段</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应者链"><span class="nav-number">2.</span> <span class="nav-text">响应者链</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#寻找hit-test-view"><span class="nav-number">2.1.</span> <span class="nav-text">寻找hit-test view</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hitTest-withEvent"><span class="nav-number">2.2.</span> <span class="nav-text">hitTest:withEvent:</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#特殊情况"><span class="nav-number">2.2.1.</span> <span class="nav-text">特殊情况</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pointInside-withEvent"><span class="nav-number">2.3.</span> <span class="nav-text">pointInside:withEvent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#响应者对象-Responsder-Object"><span class="nav-number">2.4.</span> <span class="nav-text">响应者对象(Responsder Object)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第一响应者-First-Responder"><span class="nav-number">2.5.</span> <span class="nav-text">第一响应者(First Responder)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件传递机制"><span class="nav-number">2.6.</span> <span class="nav-text">事件传递机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#事件传递的完整过程"><span class="nav-number">2.7.</span> <span class="nav-text">事件传递的完整过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#判断上一个响应者"><span class="nav-number">2.8.</span> <span class="nav-text">判断上一个响应者</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIResponder"><span class="nav-number">3.</span> <span class="nav-text">UIResponder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIControl"><span class="nav-number">4.</span> <span class="nav-text">UIControl</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UIControl-的常用属性"><span class="nav-number">4.1.</span> <span class="nav-text">UIControl 的常用属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用方法"><span class="nav-number">4.2.</span> <span class="nav-text">常用方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UIGestureRescognizer"><span class="nav-number">5.</span> <span class="nav-text">UIGestureRescognizer</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用手势识别类"><span class="nav-number">5.1.</span> <span class="nav-text">常用手势识别类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIGestureRescognizer-常用属性和方法："><span class="nav-number">5.2.</span> <span class="nav-text">UIGestureRescognizer 常用属性和方法：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UILongPressGestureRecognizer-常用属性和方法"><span class="nav-number">5.3.</span> <span class="nav-text">UILongPressGestureRecognizer 常用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UISwipeGestureRecognizer-常用属性和方法"><span class="nav-number">5.4.</span> <span class="nav-text">UISwipeGestureRecognizer 常用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIRotationGestureRecognizer-常用属性和方法"><span class="nav-number">5.5.</span> <span class="nav-text">UIRotationGestureRecognizer 常用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIPanGestureRecognizer-常用属性和方法"><span class="nav-number">5.6.</span> <span class="nav-text">UIPanGestureRecognizer 常用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#连续和不连续动作"><span class="nav-number">5.7.</span> <span class="nav-text">连续和不连续动作</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#UITouch-amp-UIEvent"><span class="nav-number">6.</span> <span class="nav-text">UITouch & UIEvent</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#UITouch-的常用属性和方法"><span class="nav-number">6.1.</span> <span class="nav-text">UITouch 的常用属性和方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#UIEvent-常用属性和方法"><span class="nav-number">6.2.</span> <span class="nav-text">UIEvent 常用属性和方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考链接"><span class="nav-number">7.</span> <span class="nav-text">参考链接</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
