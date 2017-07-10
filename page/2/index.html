@@ -278,6 +278,513 @@
             
               
                 
+                <a class="post-title-link" href="/2016/09/26/Xcode错误 - Pch file not found/" itemprop="url">
+                  Xcode错误 - Pch file not found
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-26T05:46:00+08:00" content="2016-09-26">
+              2016-09-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/26/Xcode错误 - Pch file not found/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/26/Xcode错误 - Pch file not found/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>这种问题出现的原因大多是路径问题，当 Mac 拷贝了工程或是工程的位置发生了变化，导致 Pch 文件的路径出错，解决方法如下：</p>
+<ol>
+<li><code>Targets -&gt; Build Settings -&gt; Apple llvm - Language</code> ，将项目里的的 Pch 文件直接拖到这边，设置为 YES；</li>
+<li><code>⌘ + ⇧ + K</code> 清除工程；</li>
+<li><code>⌘ + B</code> 编译工程；</li>
+</ol>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/pchnotfound.png" alt="pchnotfound"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p><a href="http://stackoverflow.com/questions/25840720/xcode-6-pch-file-not-found" target="_blank" rel="external">http://stackoverflow.com/questions/25840720/xcode-6-pch-file-not-found</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/15/Xcode错误 - Expected a type /" itemprop="url">
+                  Xcode错误 - Expected a type
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-15T02:24:00+08:00" content="2016-09-15">
+              2016-09-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/15/Xcode错误 - Expected a type /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/15/Xcode错误 - Expected a type /" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>需要自己手动导入库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;UIKit/UIKit.h&gt;</div></pre></td></tr></table></figure>
+<p>参考链接：<a href="http://stackoverflow.com/questions/26412635/ios-8-expected-a-type" target="_blank" rel="external">http://stackoverflow.com/questions/26412635/ios-8-expected-a-type</a></p>
+
+          
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/05/微信开发 - 接口简介/" itemprop="url">
+                  微信开发 - 接口简介
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/05/微信开发 - 接口简介/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信开发 - 接口简介/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>由于用户体验和安全性方面的考虑，微信公众号的注册有一定门槛，某些高级接口的权限需要微信认证后才可以获取。所以，为了帮助开发者快速了解和上手微信公众号开发，熟悉各个接口的调用，需要开通测试账号。</p>
+<p>开通测试账号的路径为：</p>
+<blockquote>
+<p>微信公众平台 &gt; 开发者工具 &gt; 公众平台测试帐号 &gt; 进入</p>
+</blockquote>
+<p>或点击<a href="http://mp.weixin.qq.com/debug/cgi-bin/sandboxinfo?action=showinfo&amp;t=sandbox/index">传送门</a>，需要填写的为以下几项：</p>
+<blockquote>
+<p>URL：接口文档所在的路径，如：<code>https://localhost/filepath/wxapifile.php</code></p>
+<p>Token：接口文档中设定的Token</p>
+<p>域名：网址或主机名，如：<code>localhost</code></p>
+</blockquote>
+<p>如对以上步骤陌生的同学可以先看<a href="https://tianziyao.github.io/2016/09/02/%E5%BE%AE%E4%BF%A1%E5%BC%80%E5%8F%91%20-%20%E5%BF%AB%E9%80%9F%E5%85%A5%E9%97%A8/">这篇文章</a>。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/微信开发 - 接口简介/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/09/05/微信接口 - access token/" itemprop="url">
+                  微信开发 - access_token
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-09-05T02:24:00+08:00" content="2016-09-05">
+              2016-09-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/微信开发/" itemprop="url" rel="index">
+                    <span itemprop="name">微信开发</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/09/05/微信接口 - access token/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/05/微信接口 - access token/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在微信公众平台接口开发中，access_token占据了一个很重要的地位，它相当于进入各种接口的钥匙，拿到这个钥匙才有调用其他各种特殊接口的权限。</p>
+<p>同样微信服务器也是通过access_token识别是哪个公众号，以及该公众号是否有权限调用该接口。</p>
+<p>access_token是公众号的全局唯一接口调用凭据，公众号调用各接口时都需使用access_token。开发者需要进行妥善保存。access_token的存储至少要保留512个字符空间。access_token的有效期目前为2个小时，需定时刷新，重复获取将导致上次获取的access_token失效。</p>
+<p><strong>公众号可以使用AppID和AppSecret调用本接口来获取access_token。AppID和AppSecret可在开发模式中获得，注意调用所有微信接口时均需使用https协议。</strong></p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/09/05/微信接口 - access token/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/03/iOS多线程下载及图片缓存/" itemprop="url">
                   iOS多线程 - 下载及图片缓存
                 </a>
@@ -1024,523 +1531,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/22/实现时间轴效果/" itemprop="url">
-                  iOS自定义控件 - 时间轴
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-22T01:21:00+08:00" content="2016-07-22">
-              2016-07-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/22/实现时间轴效果/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/22/实现时间轴效果/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
-</blockquote>
-<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
-<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
-<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
-<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
-<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
-<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
-<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/22/实现时间轴效果/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/21/iOS多线程之 线程间的通信/" itemprop="url">
-                  iOS多线程 - 线程间的通信
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T15:54:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/iOS多线程之 线程间的通信/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/iOS多线程之 线程间的通信/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>因为线程是串行的，这意味着如果我们要下载一个图片，使它呈现在一个<code>UIImageView</code> 里，那么这个线程必须要等待图片下载完成后，才能显示出来。为了解决这样的问题，我们需要用到多线程的技术，将下载图片交给子线程完成，将加载图片到 <code>UIImageView</code> 交给主线程，这就涉及到一个问题，就是线程之间的通信。</p>
-</blockquote>
-<h4 id="线程通讯的两种方式"><a href="#线程通讯的两种方式" class="headerlink" title="线程通讯的两种方式"></a>线程通讯的两种方式</h4><ol>
-<li>从一个线程给另一个线程传递数据。</li>
-<li>在一个线程中执行完特定任务后，转到另一个线程继续执行。</li>
-</ol>
-<p>以上面的问题举例，我们要在一个线程中下载图片，然后要另一个线程展示图片，<strong>苹果官方推荐，刷新界面的操作最好在主线程中完成</strong>，那么我们来实验一下，如果将展示图片的操作交给子线程，会发生什么。<strong>首先我们创建一个 <code>UIImageView</code> 并将它添加到 <code>UIViewController</code></strong>，然后我们创建一个子线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subThread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"我是传入参数"</span>)</div><div class="line">    subThread.start()</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/07/21/iOS多线程之 线程间的通信/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/21/Xcode错误 - No Such Module/" itemprop="url">
-                  Xcode错误 - No Such Module
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-21T04:43:00+08:00" content="2016-07-21">
-              2016-07-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xcode错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/07/21/Xcode错误 - No Such Module/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/07/21/Xcode错误 - No Such Module/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>No.1 首先确保工程中有这个库；</p>
-<p>No.2 进入 <code>Build Phases</code> 找到 <code>Link Binary With Libraries</code> ，添加这个库；</p>
-<p>No.3 点击 <code>Build Phases</code> 页面左上角加号，点击 <code>New Copy Files Phase</code> ，名字改为 <code>Copy FrameWorks</code> ，<code>Destination</code> 设置为 <code>FrameWorks</code>，将这个库添加进来即可。</p>
-
-          
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/06/21/iOS多线程之 3种方式创建线程/" itemprop="url">
-                  iOS多线程 - 3种方式创建线程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-06-21T09:33:00+08:00" content="2016-06-21">
-              2016-06-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/06/21/iOS多线程之 3种方式创建线程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/21/iOS多线程之 3种方式创建线程/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>首先来看这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">detachNewThreadSelector</span>(<span class="title">selector</span>: <span class="title">Selector</span>, <span class="title">toTarget</span> <span class="title">target</span>: <span class="title">AnyObject</span>, <span class="title">withObject</span> <span class="title">argument</span>: <span class="title">AnyObject</span>?)</span></div></pre></td></tr></table></figure>
-<p>下面这个是常见的 <code>init</code> 创建线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
-<p>这两种创建方式有哪些不同呢？我们对比来看下：</p>
-<blockquote>
-<p><code>init</code> 是一个构造器，<code>detachNewThreadSelector</code> 是一个类型方法。<code>detachNewThreadSelector</code> 返回值是 <code>void</code>，也就是说没有返回值。<code>detachNewThreadSelector</code> 在调用后立即启动，不需要 <code>start</code> 方法。</p>
-</blockquote>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/06/21/iOS多线程之 3种方式创建线程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1581,7 +1576,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">58</span>
+              <span class="site-state-item-count">62</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1589,7 +1584,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1598,7 +1593,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">74</span>
+                <span class="site-state-item-count">75</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

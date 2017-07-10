@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-08T11:54:05.000Z</updated>
+  <updated>2017-07-10T11:48:22.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -14,6 +14,1152 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>HTML - 表单</title>
+    <link href="http://yoursite.com/2017/05/12/HTML%20-%20%E8%A1%A8%E5%8D%95/"/>
+    <id>http://yoursite.com/2017/05/12/HTML - 表单/</id>
+    <published>2017-05-11T18:24:00.000Z</published>
+    <updated>2017-07-10T11:48:22.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>&lt;form&gt;</code> 的常用属性有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aciton</td>
+<td>URL</td>
+<td>服务器的 URL</td>
+</tr>
+<tr>
+<td>method</td>
+<td>GET、POST</td>
+<td>HTTP 方法</td>
+</tr>
+<tr>
+<td>name</td>
+<td>form_name</td>
+<td>表单的名称</td>
+</tr>
+<tr>
+<td>target</td>
+<td>blank、self、parent、top</td>
+<td>在何处打开 action URL</td>
+</tr>
+<tr>
+<td>enctype</td>
+<td>以下</td>
+<td>表单数据的编码方式</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//在发送前编码所有字符（默认）</div><div class="line">application/x-www-form-urlencoded</div><div class="line">//不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。</div><div class="line">multipart/form-data</div><div class="line">//空格转换为 &quot;+&quot; 加号，但不对特殊字符编码。</div><div class="line">text/plain</div></pre></td></tr></table></figure>
+<p>表单常见的元素有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>表单输入标签</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>菜单和列表标签</td>
+</tr>
+<tr>
+<td><code>&lt;option&gt;</code></td>
+<td>菜单和列表项目标签</td>
+</tr>
+<tr>
+<td><code>&lt;textarea&gt;</code></td>
+<td>文字域标签</td>
+</tr>
+<tr>
+<td><code>&lt;optgroup&gt;</code></td>
+<td>菜单和列表项目分组标签</td>
+</tr>
+</tbody>
+</table>
+   <a id="more"></a>
+<h2 id="input-标签"><a href="#input-标签" class="headerlink" title="input 标签"></a>input 标签</h2><p>多数情况下被用到的表单标签是输入标签 <code>&lt;input&gt;</code>，<code>&lt;input&gt;</code> 是单标记标签，输入类型是由类型属性 <code>type</code> 定义的，大多数经常被用到的输入类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>type 属性值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>文本域</td>
+</tr>
+<tr>
+<td>password</td>
+<td>密码域</td>
+</tr>
+<tr>
+<td>file</td>
+<td>文件域</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>复现域</td>
+</tr>
+<tr>
+<td>radio</td>
+<td>单选域</td>
+</tr>
+<tr>
+<td>button</td>
+<td>按钮域</td>
+</tr>
+<tr>
+<td>submit</td>
+<td>提交域</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>重置域</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>隐藏域</td>
+</tr>
+<tr>
+<td>image</td>
+<td>图像域</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span></div><div class="line">    密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw"</span>&gt;</span></div><div class="line">    提交：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="text-password-单行文本域"><a href="#text-password-单行文本域" class="headerlink" title="text password 单行文本域"></a>text password 单行文本域</h3><p>文字域有以下几个常用的属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>maxlength</td>
+<td>可输入的最大字符数</td>
+</tr>
+<tr>
+<td>size</td>
+<td>文本框宽度，以字符数为单位。缺省值是 20</td>
+</tr>
+<tr>
+<td>value</td>
+<td>文本框的默认文本</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>占位符，无文本输入时显示</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>maxlength 这个属性要比 iOS 优越啊，UITextField 如果需要限制长度要重写代理方法，还要考虑删除字符、输入法拼音已满但汉字还还打出来等情况。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>注册信息<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">hr</span> <span class="attr">color</span>=<span class="string">"#336699"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">bgcolor</span>=<span class="string">"#f2f2f2"</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                姓名：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请输入姓名"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                邮箱：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"@163.com"</span> <span class="attr">placeholder</span>=<span class="string">""</span> <span class="attr">size</span>=<span class="string">"25"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                密码：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请输入密码"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                确认密码：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw_confirm"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请再输入密码"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="radio-checkbox-单选和复选"><a href="#radio-checkbox-单选和复选" class="headerlink" title="radio checkbox 单选和复选"></a>radio checkbox 单选和复选</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key，相同 name 的 radio，只能选中一个</td>
+</tr>
+<tr>
+<td>value</td>
+<td>选项代表的值</td>
+</tr>
+<tr>
+<td>checked</td>
+<td>设置此项为选中</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"men"</span>&gt;</span></div><div class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"women"</span>&gt;</span></div><div class="line">保密<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"secret"</span> <span class="attr">checked</span>&gt;</span></div><div class="line"></div><div class="line">读书<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby1"</span> <span class="attr">value</span>=<span class="string">"read_book"</span> <span class="attr">checked</span>&gt;</span></div><div class="line">跳舞<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby2"</span> <span class="attr">value</span>=<span class="string">"dance"</span>&gt;</span></div><div class="line">唱歌<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby3"</span> <span class="attr">value</span>=<span class="string">"sing"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="button-submit-reset-按钮"><a href="#button-submit-reset-按钮" class="headerlink" title="button submit reset 按钮"></a>button submit reset 按钮</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>按钮的标题</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"来点我"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"submit"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"reset"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"reset"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="image-图像"><a href="#image-图像" class="headerlink" title="image 图像"></a>image 图像</h3><p><code>image</code> 可以设置一张图片作为按钮，其他方面与 <code>submit</code> 相同。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"image"</span> <span class="attr">name</span>=<span class="string">"image_button"</span> <span class="attr">src</span>=<span class="string">"image_url"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="hidden-隐藏"><a href="#hidden-隐藏" class="headerlink" title="hidden 隐藏"></a>hidden 隐藏</h3><p><code>hidden</code> 标签用于隐藏，主要用于希望将数据提交给服务器，但又不希望用户感知到时。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hiddent"</span> <span class="attr">name</span>=<span class="string">"hiddent"</span> <span class="attr">value</span>=<span class="string">"这是一个用户注册信息"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="select-option-列表和菜单"><a href="#select-option-列表和菜单" class="headerlink" title="select option 列表和菜单"></a>select option 列表和菜单</h2><p><code>&lt;select&gt; 和 &lt;option&gt;</code> 标签用于弹出列表，<code>&lt;select&gt;</code> 是列表，<code>&lt;option&gt;</code> 是列表项。</p>
+<p><code>&lt;select&gt;</code> 的常用属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>multiple</td>
+<td>开启 <code>shift</code> 多选</td>
+</tr>
+<tr>
+<td>size</td>
+<td>弹出框显示多少项，==1 时弹窗显示，&gt;1 时滚动显示</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;option&gt;</code> 常用的属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>选项代表的值</td>
+</tr>
+<tr>
+<td>selected</td>
+<td>设置此项为选中</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">size</span>=<span class="string">"4"</span> <span class="attr">multiple</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"default"</span>&gt;</span>---请选择---<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beijing"</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shanghai"</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"guangzhou"</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shenzhen"</span>&gt;</span>深圳<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hangzhou"</span> <span class="attr">selected</span>=<span class="string">""</span>&gt;</span>杭州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="optgroup-可选项分组"><a href="#optgroup-可选项分组" class="headerlink" title="optgroup 可选项分组"></a>optgroup 可选项分组</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"default"</span>&gt;</span>---请选择---<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">"北方"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beijing"</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">"南方"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shanghai"</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>类似 iOS 中 <code>section</code> 和 <code>row</code> 的 UI 关系。</p>
+<h2 id="textarea-多行文本域"><a href="#textarea-多行文本域" class="headerlink" title="textarea 多行文本域"></a>textarea 多行文本域</h2><p>单行文本域只能输入一行的内容，多行文本域可以输入多行文本。</p>
+<blockquote>
+<p>类似 iOS 中 UITextField 和 UITextView 的 UI 区别。</p>
+</blockquote>
+<p><code>&lt;textarea&gt;</code> 常用的属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>占位符</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>可看行数</td>
+</tr>
+<tr>
+<td>cols</td>
+<td>可见宽度</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"detail"</span> <span class="attr">rows</span>=<span class="string">"4"</span> <span class="attr">placeholder</span>=<span class="string">"请填写内容"</span> <span class="attr">cols</span>=<span class="string">"50"</span>&gt;</span></div><div class="line">        default value</div><div class="line">    <span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;&amp;lt;form&amp;gt;&lt;/code&gt; 的常用属性有以下几种：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;属性&lt;/th&gt;
+&lt;th&gt;值&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;aciton&lt;/td&gt;
+&lt;td&gt;URL&lt;/td&gt;
+&lt;td&gt;服务器的 URL&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;method&lt;/td&gt;
+&lt;td&gt;GET、POST&lt;/td&gt;
+&lt;td&gt;HTTP 方法&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;name&lt;/td&gt;
+&lt;td&gt;form_name&lt;/td&gt;
+&lt;td&gt;表单的名称&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;target&lt;/td&gt;
+&lt;td&gt;blank、self、parent、top&lt;/td&gt;
+&lt;td&gt;在何处打开 action URL&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;enctype&lt;/td&gt;
+&lt;td&gt;以下&lt;/td&gt;
+&lt;td&gt;表单数据的编码方式&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;//在发送前编码所有字符（默认）&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;application/x-www-form-urlencoded&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;//不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;multipart/form-data&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;//空格转换为 &amp;quot;+&amp;quot; 加号，但不对特殊字符编码。&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;text/plain&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;表单常见的元素有以下几种：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;标签&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;input&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;表单输入标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;select&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;菜单和列表标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;option&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;菜单和列表项目标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;textarea&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;文字域标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;optgroup&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;菜单和列表项目分组标签&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+    
+    </summary>
+    
+      <category term="HTML" scheme="http://yoursite.com/categories/HTML/"/>
+    
+    
+      <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML - 表格</title>
+    <link href="http://yoursite.com/2017/05/09/HTML%20-%20%E8%A1%A8%E6%A0%BC/"/>
+    <id>http://yoursite.com/2017/05/09/HTML - 表格/</id>
+    <published>2017-05-08T18:24:00.000Z</published>
+    <updated>2017-07-10T11:46:36.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTML 表格主要由以下标签组成：</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;table&gt;</code></td>
+<td>定义表格</td>
+</tr>
+<tr>
+<td><code>&lt;th&gt;</code></td>
+<td>定义表格的表头</td>
+</tr>
+<tr>
+<td><code>&lt;tr&gt;</code></td>
+<td>定义表格的行</td>
+</tr>
+<tr>
+<td><code>&lt;td&gt;</code></td>
+<td>定义表格单元</td>
+</tr>
+<tr>
+<td><code>&lt;caption&gt;</code></td>
+<td>定义表格标题</td>
+</tr>
+<tr>
+<td><code>&lt;colgroup&gt;</code></td>
+<td>定义表格列的组</td>
+</tr>
+<tr>
+<td><code>&lt;col&gt;</code></td>
+<td>定义用于表格列的属性</td>
+</tr>
+</tbody>
+</table>
+<p>代码演示如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--创建两行三列的表格--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">width</span>=<span class="string">"50%"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>前端工程师平均工资<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>城市<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2015<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2016<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">th</span>&gt;</span>城市<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>上半年<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>下半年<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2015<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2016<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>合计<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+   <a id="more"></a>
+<h2 id="表格结构标签"><a href="#表格结构标签" class="headerlink" title="表格结构标签"></a>表格结构标签</h2><p>在 HTML 中，表格的加载时完成后再显示，当表格的内容和结构比较复杂时，这会影响页面打开的速度。这种情况需要借助表格的结构进行优化，通过结构的划分，表格可以分几次加载和显示。</p>
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;thead&gt;</code></td>
+<td>定义表格的页眉，主要用于放标题之类的内容</td>
+</tr>
+<tr>
+<td><code>&lt;tbody&gt;</code></td>
+<td>定义表格的主体，主要用于存放数据主体</td>
+</tr>
+<tr>
+<td><code>&lt;tfoot&gt;</code></td>
+<td>定义表格的页脚，主要用于存放表格的脚注</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;thead&gt; &lt;tbody&gt; &lt;tfoot&gt;</code> 永远是依次展示，和代码的顺序无关，其常用属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>align</td>
+<td>left、center、right、justify、char</td>
+<td>单元格内容水平对齐</td>
+</tr>
+<tr>
+<td>valign</td>
+<td>top、middle、bottom、baseline</td>
+<td>单元格内容垂直对齐</td>
+</tr>
+</tbody>
+</table>
+<p>代码演示如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--创建两行三列的表格--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">width</span>=<span class="string">"50%"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">caption</span>&gt;</span>前端工程师平均工资<span class="tag">&lt;/<span class="name">caption</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>城市<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2015<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2016<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">th</span>&gt;</span>城市<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>上半年<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>下半年<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2015<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2016<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tfoot</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>合计<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tfoot</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="table-常用属性"><a href="#table-常用属性" class="headerlink" title="table 常用属性"></a>table 常用属性</h2><p><img src="http://oboehz2ag.bkt.clouddn.com/HTML-Table-%E5%B1%9E%E6%80%A7.png" alt="HTML-Table-属性"></p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>border</td>
+<td>像素和百分比</td>
+<td>表格边框的宽度</td>
+</tr>
+<tr>
+<td>width</td>
+<td>像素</td>
+<td>表格宽度，支持像素和百分比</td>
+</tr>
+<tr>
+<td>align</td>
+<td>right、left、center</td>
+<td>表格对齐方式</td>
+</tr>
+<tr>
+<td>bgcolor</td>
+<td>RGB、Hex、英文名</td>
+<td>表格背景颜色</td>
+</tr>
+<tr>
+<td>cell-padding</td>
+<td>像素和百分比</td>
+<td>单元格内边距</td>
+</tr>
+<tr>
+<td>cell-spacing</td>
+<td>像素和百分比</td>
+<td>单元格外边距</td>
+</tr>
+<tr>
+<td>frame</td>
+<td>属性值</td>
+<td>表格外边框显示方式</td>
+</tr>
+<tr>
+<td>rules</td>
+<td>属性值</td>
+<td>表格内边框显示方式</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td>不显示外侧边框。</td>
+</tr>
+<tr>
+<td>above</td>
+<td>显示上部的外侧边框。</td>
+</tr>
+<tr>
+<td>below</td>
+<td>显示下部的外侧边框。</td>
+</tr>
+<tr>
+<td>hsides</td>
+<td>显示上部和下部的外侧边框。</td>
+</tr>
+<tr>
+<td>vsides</td>
+<td>显示左边和右边的外侧边框。</td>
+</tr>
+<tr>
+<td>lhs</td>
+<td>显示左边的外侧边框。</td>
+</tr>
+<tr>
+<td>rhs</td>
+<td>显示右边的外侧边框。</td>
+</tr>
+<tr>
+<td>box</td>
+<td>在所有四个边上显示外侧边框。</td>
+</tr>
+<tr>
+<td>border</td>
+<td>在所有四个边上显示外侧边框。</td>
+</tr>
+</tbody>
+</table>
+<p><code>frame</code> 属性有以下几个值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void</td>
+<td>不显示外侧边框</td>
+</tr>
+<tr>
+<td>above</td>
+<td>显示上部的外侧边框</td>
+</tr>
+<tr>
+<td>below</td>
+<td>显示下部的外侧边框</td>
+</tr>
+<tr>
+<td>hsides</td>
+<td>显示上部和下部的外侧边框</td>
+</tr>
+<tr>
+<td>vsides</td>
+<td>显示左边和右边的外侧边框</td>
+</tr>
+<tr>
+<td>lhs</td>
+<td>显示左边的外侧边框</td>
+</tr>
+<tr>
+<td>rhs</td>
+<td>显示右边的外侧边框</td>
+</tr>
+<tr>
+<td>box</td>
+<td>在所有四个边上显示外侧边框</td>
+</tr>
+<tr>
+<td>border</td>
+<td>在所有四个边上显示外侧边框</td>
+</tr>
+</tbody>
+</table>
+<p><code>rules</code> 属性有以下几个值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>none</td>
+<td>没有线条</td>
+</tr>
+<tr>
+<td>groups</td>
+<td>位于行组和列组之间的线条</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>位于行之间的线条</td>
+</tr>
+<tr>
+<td>cols</td>
+<td>位于列之间的线条</td>
+</tr>
+<tr>
+<td>all</td>
+<td>位于行和列之间的线条</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tr-常用属性"><a href="#tr-常用属性" class="headerlink" title="tr 常用属性"></a>tr 常用属性</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>align</td>
+<td>left、center、right、justify、char</td>
+<td>行内容水平对齐</td>
+</tr>
+<tr>
+<td>valign</td>
+<td>top、middle、bottom、baseline</td>
+<td>行内容垂直对齐</td>
+</tr>
+<tr>
+<td>bgcolor</td>
+<td>RGB、Hex、英文名</td>
+<td>行的颜色</td>
+</tr>
+</tbody>
+</table>
+<h2 id="colspan-rowspan-跨行跨列"><a href="#colspan-rowspan-跨行跨列" class="headerlink" title="colspan rowspan 跨行跨列"></a>colspan rowspan 跨行跨列</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">bgcolor</span>=<span class="string">"pink"</span> <span class="attr">cellpadding</span>=<span class="string">"10"</span> <span class="attr">rules</span>=<span class="string">"rows"</span> <span class="attr">width</span>=<span class="string">"500"</span> <span class="attr">frame</span>=<span class="string">"vsides"</span> <span class="attr">border</span>=<span class="string">"1"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">thead</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">th</span> <span class="attr">colspan</span>=<span class="string">"2"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>2<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>3<span class="tag">&lt;/<span class="name">th</span>&gt;</span> <span class="tag">&lt;<span class="name">th</span>&gt;</span>4<span class="tag">&lt;/<span class="name">th</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">thead</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tbody</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span> <span class="attr">rowspan</span>=<span class="string">"2"</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span> <span class="tag">&lt;<span class="name">td</span>&gt;</span>data<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><strong>使用 <code>&lt;colspan&gt; &lt;rowspan&gt;</code> 时，需特别注意，要去除被覆盖的单元格，否则会造成单元格数量错误。</strong></p>
+<h2 id="表格嵌套"><a href="#表格嵌套" class="headerlink" title="表格嵌套"></a>表格嵌套</h2><p><strong>当表结构很复杂时，有时会用到表格的嵌套，表格嵌套需有完整的表格结构，且必须在 <code>&lt;td&gt;</code> 标签内。</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span><span class="attr">s</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>2014<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">table</span> <span class="attr">border</span>=<span class="string">"1"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>上半年<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>下半年<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>8000<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                    <span class="tag">&lt;<span class="name">td</span>&gt;</span>9000<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>10000<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">td</span>&gt;</span>12000<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="表格布局"><a href="#表格布局" class="headerlink" title="表格布局"></a>表格布局</h2><p>在使用表格布局时，要尽量少使用表格嵌套和跨行跨列，过多的使用会让维护成本变高。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--网页头部内容--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>使用表格进行网页布局<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content - Type"</span> <span class="attr">content</span>=<span class="string">"text/html"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">bgcolor</span>=<span class="string">"#f2f2f2"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span>=<span class="string">"80"</span> <span class="attr">bgcolor</span>=<span class="string">"#14191e"</span>&gt;</span><span class="comment">&lt;!--页头--&gt;</span>		</div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span>=<span class="string">"10"</span>&gt;</span><span class="comment">&lt;!--上空行--&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="comment">&lt;!--主体内容--&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">				<span class="tag">&lt;<span class="name">table</span> <span class="attr">align</span>=<span class="string">"center"</span> <span class="attr">width</span>=<span class="string">"1024"</span>&gt;</span></div><div class="line">					<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"240"</span> <span class="attr">valign</span>=<span class="string">"top"</span>&gt;</span><span class="comment">&lt;!--主体内容左侧--&gt;</span></div><div class="line">							<span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"100%"</span> <span class="attr">cellspacing</span>=<span class="string">"0"</span>&gt;</span></div><div class="line">								<span class="tag">&lt;<span class="name">tbody</span> <span class="attr">align</span>=<span class="string">"center"</span> <span class="attr">bgcolor</span>=<span class="string">"#ffffff"</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>4<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>5<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>6<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>7<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">									<span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">										<span class="tag">&lt;<span class="name">td</span> <span class="attr">height</span>=<span class="string">"60"</span>&gt;</span>8<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">									<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">								<span class="tag">&lt;/<span class="name">tbody</span>&gt;</span></div><div class="line">							<span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line">						<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"20"</span>&gt;</span><span class="comment">&lt;!--主体内容空隙--&gt;</span></div><div class="line"></div><div class="line">						<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">						<span class="tag">&lt;<span class="name">td</span> <span class="attr">width</span>=<span class="string">"764"</span> <span class="attr">bgcolor</span>=<span class="string">"#ffffff"</span>&gt;</span><span class="comment">&lt;!--主体内容右侧--&gt;</span></div><div class="line">							<span class="tag">&lt;<span class="name">p</span>&gt;</span>hello html<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">						<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">					<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">				<span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line">			<span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span>=<span class="string">"10"</span>&gt;</span><span class="comment">&lt;!--下空行--&gt;</span>	 </div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">tr</span> <span class="attr">height</span>=<span class="string">"150"</span> <span class="attr">bgcolor</span>=<span class="string">"#14191e"</span>&gt;</span><span class="comment">&lt;!--页尾--&gt;</span></div><div class="line">			<span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">		<span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTML 表格主要由以下标签组成：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;标签&lt;/th&gt;
+&lt;th&gt;描述&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;table&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;th&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格的表头&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;tr&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格的行&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;td&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格单元&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;caption&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格标题&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;colgroup&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义表格列的组&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;code&gt;&amp;lt;col&amp;gt;&lt;/code&gt;&lt;/td&gt;
+&lt;td&gt;定义用于表格列的属性&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;代码演示如下：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;9&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;10&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;11&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;12&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;13&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;14&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;15&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;16&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;17&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;18&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;19&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--创建两行三列的表格--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;table&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;border&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;1&quot;&lt;/span&gt; &lt;span class=&quot;attr&quot;&gt;width&lt;/span&gt;=&lt;span class=&quot;string&quot;&gt;&quot;50%&quot;&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;caption&lt;/span&gt;&amp;gt;&lt;/span&gt;前端工程师平均工资&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;caption&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;城市&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2014&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2014&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2015&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2016&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;城市&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;上半年&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;下半年&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2015&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;2016&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;th&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;北京&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;上海&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;        &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;合计&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;data&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    &lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;tr&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;table&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="HTML" scheme="http://yoursite.com/categories/HTML/"/>
+    
+    
+      <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML - 网页结构</title>
+    <link href="http://yoursite.com/2017/05/03/HTML%20-%20%E7%BD%91%E9%A1%B5%E7%BB%93%E6%9E%84/"/>
+    <id>http://yoursite.com/2017/05/03/HTML - 网页结构/</id>
+    <published>2017-05-02T18:24:00.000Z</published>
+    <updated>2017-07-10T11:40:46.000Z</updated>
+    
+    <content type="html"><![CDATA[<p><code>&lt;div&gt;</code> 和 <code>&lt;span&gt;</code> 可以将 HTML 元素组合起来，大多数 HTML 元素被定义为块级元素或内联元素。块级元素在浏览器显示时，通常会以新行来开始和结束，例如以下标签：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--标题--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--段落--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>		</div><div class="line"><span class="comment">&lt;!--无序列表--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span>	</div><div class="line"><span class="comment">&lt;!--表格--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">table</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>内联元素在显示时通常不会以新行开始，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--加粗--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">b</span>&gt;</span>		</div><div class="line"><span class="comment">&lt;!--单元格--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span>	</div><div class="line"><span class="comment">&lt;!--超链接和锚点--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">a</span>&gt;</span>		</div><div class="line"><span class="comment">&lt;!--图片--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">img</span>&gt;</span></div></pre></td></tr></table></figure>
+   <a id="more"></a>
+<h2 id="块级元素"><a href="#块级元素" class="headerlink" title="块级元素"></a>块级元素</h2><p><code>&lt;div&gt;</code> 可用于组合其他 HTML 元素的容器。<code>&lt;div&gt;</code> 元素没有特定的含义，除此之外，由于它属于块级元素，浏览器会在其前后显示折行。如果与 <code>CSS</code> 一同使用，<code>&lt;div&gt;</code> 元素可用于对大的内容块设置样式属性。</p>
+<p><code>&lt;div&gt;</code> 元素的另一个常见的用途是文档布局。它取代了使用表格定义布局的老式方法。使用 <code>&lt;table&gt;</code> 元素进行文档布局不是表格的正确用法。<code>&lt;table&gt;</code> 元素的作用是显示表格化的数据。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--div标签--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--div用了三行--&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="内联元素"><a href="#内联元素" class="headerlink" title="内联元素"></a>内联元素</h2><p><code>&lt;span&gt;</code> 可用作文本的容器。<code>&lt;span&gt;</code> 元素也没有特定的含义。当与 <code>CSS</code> 一同使用时，<code>&lt;span&gt;</code> 元素可用于为部分文本设置样式属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--span标签--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"https://images.apple.com/v/home/di/images/row-promos/iphone-7_large.jpg"</span> <span class="attr">width</span>=<span class="string">"200"</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line"><span class="comment">&lt;!--span 用了一行--&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="标签嵌套规则"><a href="#标签嵌套规则" class="headerlink" title="标签嵌套规则"></a>标签嵌套规则</h2><p><strong>块级元素可以包含行内元素和某些块级元素</strong>，其中 <code>&lt;div&gt;</code> 元素可以包括几乎所有的 HTML 元素。<strong>行内元素不能包含块级元素</strong>，只能包含其他的行内元素。<code>&lt;p&gt;</code> 标签虽然是块级元素，但是他不能包含其他的块级元素，块级元素与块级元素并列，行内元素和行内元素并列。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--正确，h1 和 p 都是块级元素，因此可以在同一层级--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span> 				</div><div class="line"><span class="comment">&lt;!--正确，span 和 a 都是行内元素，因此可以在同一层级--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">""</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>		</div><div class="line"><span class="comment">&lt;!--错误，h1 是块级元素，span 是行内元素，因此不能在同一层级--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;code&gt;&amp;lt;div&amp;gt;&lt;/code&gt; 和 &lt;code&gt;&amp;lt;span&amp;gt;&lt;/code&gt; 可以将 HTML 元素组合起来，大多数 HTML 元素被定义为块级元素或内联元素。块级元素在浏览器显示时，通常会以新行来开始和结束，例如以下标签：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--标题--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;h1&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--段落--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;		&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--无序列表--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;ul&lt;/span&gt;&amp;gt;&lt;/span&gt;	&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--表格--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;table&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;内联元素在显示时通常不会以新行开始，例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--加粗--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;b&lt;/span&gt;&amp;gt;&lt;/span&gt;		&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--单元格--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;td&lt;/span&gt;&amp;gt;&lt;/span&gt;	&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--超链接和锚点--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;a&lt;/span&gt;&amp;gt;&lt;/span&gt;		&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;comment&quot;&gt;&amp;lt;!--图片--&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;img&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+    
+    </summary>
+    
+      <category term="HTML" scheme="http://yoursite.com/categories/HTML/"/>
+    
+    
+      <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>HTML - 基本元素</title>
+    <link href="http://yoursite.com/2017/05/02/HTML%20-%20%E5%9F%BA%E6%9C%AC%E5%85%83%E7%B4%A0/"/>
+    <id>http://yoursite.com/2017/05/02/HTML - 基本元素/</id>
+    <published>2017-05-01T18:24:00.000Z</published>
+    <updated>2017-07-10T11:30:15.000Z</updated>
+    
+    <content type="html"><![CDATA[<p>HTML 主要由三大部分组成：</p>
+<ul>
+<li>头部信息，即 <code>&lt;head&gt;</code> 标签；</li>
+<li>网页内容，即 <code>&lt;body&gt;</code> 标签；</li>
+<li>HTML 文件，即 <code>&lt;html&gt;</code> 标签；</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">网页主体内容</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>HTML 是由一个个元素组成，元素就是一个一个的标签，例如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">hr</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>以上这些都是 HTML 元素。</p>
+   <a id="more"></a>
+<h2 id="HTML-属性"><a href="#HTML-属性" class="headerlink" title="HTML 属性"></a>HTML 属性</h2><p><strong>属性为 HTML 元素提供附加信息。</strong>HTML 标签可以拥有属性。属性提供了有关 HTML 元素的更多的信息。</p>
+<p>属性总是以名称/值对的形式出现，属性总是在 HTML 元素的<strong>开始标签</strong>中规定。</p>
+<p>属性值应该始终被包括在引号内。双引号是最常用的，不过使用单引号也没有问题。</p>
+<p>在某些个别的情况下，比如属性值本身就含有双引号，那么您必须使用单引号。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"red"</span>&gt;</span></div><div class="line">网页主体内容</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>上面的 <code>bgcolor=&quot;red&quot;</code> 就是一个 HTML 属性。</p>
+<h2 id="HTML-注释"><a href="#HTML-注释" class="headerlink" title="HTML 注释"></a>HTML 注释</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"red"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>hello html!<span class="tag">&lt;/<span class="name">p</span>&gt;</span>/*p是段落*/</div><div class="line"><span class="tag">&lt;<span class="name">hr</span>/&gt;</span> <span class="comment">&lt;!--hr是水平线--&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="文档声明"><a href="#文档声明" class="headerlink" title="文档声明"></a>文档声明</h2><p>建立符合标准的网页，需要所有网页中的内容在浏览器中正确一致的显示，我们需要告诉浏览器你要使用 HTML 或者 XML 的哪个版本。所以我们需要声明 <code>&lt;!DOCTYPE&gt;</code> 类型。</p>
+<p><code>&lt;!DOCTYPE&gt;</code> 必须放在 HTML 文档的第一行；</p>
+<p><code>&lt;!DOCTYPE&gt;</code> 声明不是 HTML 的标签；</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"gray"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>HELLO,everyone.This is my first page!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="网页编码"><a href="#网页编码" class="headerlink" title="网页编码"></a>网页编码</h2><p>有时我们编写的网页会出现中文乱码的情况，这是因为我们没有告诉浏览器我们使用的语言和编码形式。这种情况可以在 <code>&lt;head&gt;&lt;/head&gt;</code> 中使用 <code>&lt;meta/&gt;</code> 标签设定网页的编码形式。</p>
+<p>国内常用的编码形式是 <code>UTF-8</code> 和 <code>GB2312</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--网页头部内容--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>文字和段落标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content - Type"</span> <span class="attr">content</span>=<span class="string">"text/html"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"gray"</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--网页主体内容--&gt;</span></div><div class="line">	超文本</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="文本和段落"><a href="#文本和段落" class="headerlink" title="文本和段落"></a>文本和段落</h2><p>HTML 中对文本的层次处理大致是使用下面的几种标签：</p>
+<table>
+<thead>
+<tr>
+<th>标签名</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>标题</td>
+<td><code>&lt;h1&gt;&lt;/h1&gt; ~ &lt;h6&gt;&lt;/h6&gt;</code></td>
+</tr>
+<tr>
+<td>段落</td>
+<td><code>&lt;p&gt;&lt;/p&gt;</code></td>
+</tr>
+<tr>
+<td>换行</td>
+<td><code>&lt;br/&gt;</code></td>
+</tr>
+<tr>
+<td>空格</td>
+<td><code>&amp;nbsp;</code></td>
+</tr>
+<tr>
+<td>与编辑器中相同的格式</td>
+<td><code>&lt;pre&gt;&lt;/pre&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>上面我们学到，标签就是元素，元素可以有属性来提供附加信息，文本处理方面也有一个重要的属性，也就是对齐属性。对齐的 key 是 <code>align</code>，有以下几个 value：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>左对齐</td>
+</tr>
+<tr>
+<td>right</td>
+<td>右对齐</td>
+</tr>
+<tr>
+<td>center</td>
+<td>居中对齐</td>
+</tr>
+<tr>
+<td>justify</td>
+<td>对行进行伸展，这样每行都可以有相等的长度。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="修饰符和特殊符号"><a href="#修饰符和特殊符号" class="headerlink" title="修饰符和特殊符号"></a>修饰符和特殊符号</h2><p>HTML 中常用的修饰符号有：</p>
+<table>
+<thead>
+<tr>
+<th>标签名</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>水平线</td>
+<td><code>&lt;hr/&gt;</code></td>
+</tr>
+<tr>
+<td>斜体</td>
+<td><code>&lt;i&gt;&lt;/i&gt; &lt;em&gt;&lt;/em&gt;</code></td>
+</tr>
+<tr>
+<td>加粗</td>
+<td><code>&lt;b&gt;&lt;/b&gt; &lt;strong&gt;&lt;/strong&gt;</code></td>
+</tr>
+<tr>
+<td>下标</td>
+<td><code>&lt;sub&gt;</code></td>
+</tr>
+<tr>
+<td>上标</td>
+<td><code>&lt;sup&gt;</code></td>
+</tr>
+<tr>
+<td>下划线</td>
+<td><code>&lt;ins&gt;</code></td>
+</tr>
+<tr>
+<td>删除线</td>
+<td><code>&lt;del&gt;</code></td>
+</tr>
+</tbody>
+</table>
+<p>水平线有以下几种常用属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>width</td>
+<td>水平线宽度，可以是像素或百分比。</td>
+</tr>
+<tr>
+<td>color</td>
+<td>水平线颜色。</td>
+</tr>
+<tr>
+<td>align</td>
+<td>水平线居中对齐。</td>
+</tr>
+<tr>
+<td>noshade</td>
+<td>水平线无阴影。</td>
+</tr>
+</tbody>
+</table>
+<p>常用的特殊符号有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>显示结果</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;lt;</code></td>
+<td>&lt;</td>
+<td>小于号或显示标记</td>
+</tr>
+<tr>
+<td><code>&amp;gt;</code></td>
+<td>&gt;</td>
+<td>大于号或显示标记</td>
+</tr>
+<tr>
+<td><code>&amp;reg;</code></td>
+<td>®</td>
+<td>已注册</td>
+</tr>
+<tr>
+<td><code>&amp;copy;</code></td>
+<td>©</td>
+<td>版权</td>
+</tr>
+<tr>
+<td><code>&amp;trade;</code></td>
+<td>™</td>
+<td>商标</td>
+</tr>
+<tr>
+<td><code>&amp;nbsp;</code></td>
+<td>Space</td>
+<td>不断行的空白</td>
+</tr>
+</tbody>
+</table>
+<h2 id="列表标签"><a href="#列表标签" class="headerlink" title="列表标签"></a>列表标签</h2><p>HTML 列表分为有序列表和无序列表，无序列表使用 <code>&lt;ul&gt;&lt;/ul&gt;</code> 包裹，列表项使用 <code>&lt;li&gt;&lt;/li&gt;</code> 包裹，无序列表中经常用的是属性是 <code>type</code>，代表列表项前面的符号，有圆形、方形、空心圆几种：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--网页头部内容--&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>文字和段落标签<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">"Content - Type"</span> <span class="attr">content</span>=<span class="string">"text/html"</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">bgcolor</span>=<span class="string">"gray"</span>&gt;</span></div><div class="line">	<span class="comment">&lt;!--网页主体内容--&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">"disc"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>春<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>夏<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>秋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>冬<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">"square"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>春<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>夏<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>秋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>冬<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line">	<span class="tag">&lt;<span class="name">ul</span> <span class="attr">type</span>=<span class="string">"circle"</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>春<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>夏<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>秋<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">		<span class="tag">&lt;<span class="name">li</span>&gt;</span>冬<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">	<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>有序列表使用 <code>&lt;ol&gt;&lt;/ol&gt;</code> 包裹，列表项同样使用 <code>&lt;li&gt;&lt;/li&gt;</code> 包裹，有序列表中的 <code>type</code> 有以下几个值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>阿拉伯数字排序。</td>
+</tr>
+<tr>
+<td>a</td>
+<td>小写英文字母排序。</td>
+</tr>
+<tr>
+<td>A</td>
+<td>大写英文字母排序。</td>
+</tr>
+<tr>
+<td>i</td>
+<td>小写罗马数字排序。</td>
+</tr>
+<tr>
+<td>I</td>
+<td>大写罗马数字排序。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="HTML-路径"><a href="#HTML-路径" class="headerlink" title="HTML 路径"></a>HTML 路径</h2><p>HTML 的路径分为相对路径和绝对路径，绝对路径是以本地的盘符或网络主机开始的路径，相对路径是资源文件相对于网页的路径，相对路径有以下几种描述：</p>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>同级目录</td>
+<td>filename 或  ./filename</td>
+</tr>
+<tr>
+<td>上级目录</td>
+<td>../filename</td>
+</tr>
+<tr>
+<td>下级目录</td>
+<td>foldername/filename</td>
+</tr>
+<tr>
+<td>上级目录的上级目录</td>
+<td>../../filename</td>
+</tr>
+<tr>
+<td>下级目录的下级目录</td>
+<td>foldername/foldername/filename</td>
+</tr>
+</tbody>
+</table>
+<h2 id="图像和超链接"><a href="#图像和超链接" class="headerlink" title="图像和超链接"></a>图像和超链接</h2><p>HTML 中显示一张图片使用 <code>&lt;img src=&quot;&quot; alt=&quot;&quot; .../&gt;</code> 标签，<code>&lt;img/&gt;</code> 标签有以以下几个常用属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>src</td>
+<td>图片 url</td>
+</tr>
+<tr>
+<td>alt</td>
+<td>图片无法显示时的代替文字</td>
+</tr>
+<tr>
+<td>height</td>
+<td>像素或百分比</td>
+</tr>
+<tr>
+<td>width</td>
+<td>像素或百分比</td>
+</tr>
+</tbody>
+</table>
+<p>超链接标签的语语法是 <code>&lt;a href=&quot;&quot;&gt;&lt;/a&gt;</code>，<code>href</code> 可以是内部标签，也可以是外部标签。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>1:<span class="tag">&lt;/<span class="name">span</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"baidu.com"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"example.png"</span> <span class="attr">width</span>=<span class="string">"60%"</span> <span class="attr">atl</span>=<span class="string">"example"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">a</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>&lt;a&gt;&lt;/a&gt;</code> 的常用属性有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>href</td>
+<td>链接地址或 <code>#锚点名</code> 或空链接 <code>#</code>。</td>
+</tr>
+<tr>
+<td>target</td>
+<td>链接的目标窗口，有 <code>self、blank、top、parent</code> 等值。</td>
+</tr>
+<tr>
+<td>title</td>
+<td>链接提示文字。</td>
+</tr>
+<tr>
+<td>name</td>
+<td>链接命名，一般用于锚点。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="打开另一个网页中的锚点"><a href="#打开另一个网页中的锚点" class="headerlink" title="打开另一个网页中的锚点"></a>打开另一个网页中的锚点</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">页面A</div><div class="line">&lt;a href=&quot;页面B#锚点名&quot;&gt;&lt;/a&gt;</div><div class="line">页面B</div><div class="line">&lt;a name=&quot;锚点名&quot;&gt;&lt;/a&gt;</div></pre></td></tr></table></figure>
+<h3 id="邮件链接"><a href="#邮件链接" class="headerlink" title="邮件链接"></a>邮件链接</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"mailto:邮箱地址"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>mailto:name@email.com</td>
+<td>向 email 地址发邮件</td>
+</tr>
+<tr>
+<td>cc=name@email.com</td>
+<td>抄送邮件</td>
+</tr>
+<tr>
+<td>bcc=name@email.com</td>
+<td>暗送邮件</td>
+</tr>
+<tr>
+<td>subject=subject text</td>
+<td>email 的题目</td>
+</tr>
+<tr>
+<td>body=body text</td>
+<td>email 的内容</td>
+</tr>
+<tr>
+<td>?</td>
+<td>和浏览器地址操作一样，第一个参数符号是？</td>
+</tr>
+<tr>
+<td>&amp;</td>
+<td>其他参数符号是&amp;</td>
+</tr>
+</tbody>
+</table>
+<h3 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"../file.zip"</span>&gt;</span><span class="tag">&lt;/<span class="name">a</span>&gt;</span></div></pre></td></tr></table></figure>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;HTML 主要由三大部分组成：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;头部信息，即 &lt;code&gt;&amp;lt;head&amp;gt;&lt;/code&gt; 标签；&lt;/li&gt;
+&lt;li&gt;网页内容，即 &lt;code&gt;&amp;lt;body&amp;gt;&lt;/code&gt; 标签；&lt;/li&gt;
+&lt;li&gt;HTML 文件，即 &lt;code&gt;&amp;lt;html&amp;gt;&lt;/code&gt; 标签；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;6&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;7&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;8&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;	&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;标题&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;网页主体内容&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;html&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;HTML 是由一个个元素组成，元素就是一个一个的标签，例如：&lt;/p&gt;
+&lt;figure class=&quot;highlight html&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;3&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;4&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;5&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;p&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;hr&lt;/span&gt;/&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;head&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;title&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;tag&quot;&gt;&amp;lt;/&lt;span class=&quot;name&quot;&gt;body&lt;/span&gt;&amp;gt;&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;以上这些都是 HTML 元素。&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="HTML" scheme="http://yoursite.com/categories/HTML/"/>
+    
+    
+      <category term="HTML" scheme="http://yoursite.com/tags/HTML/"/>
+    
+  </entry>
   
   <entry>
     <title>iOS事件 - 响应者链和事件分发</title>
@@ -1483,260 +2629,6 @@
     
     
       <category term="MD5" scheme="http://yoursite.com/tags/MD5/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS自定义控件 - 时间轴</title>
-    <link href="http://yoursite.com/2016/07/22/%E5%AE%9E%E7%8E%B0%E6%97%B6%E9%97%B4%E8%BD%B4%E6%95%88%E6%9E%9C/"/>
-    <id>http://yoursite.com/2016/07/22/实现时间轴效果/</id>
-    <published>2016-07-21T17:21:00.000Z</published>
-    <updated>2016-08-21T18:14:12.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。</p>
-</blockquote>
-<h4 id="配置-StoryBoard："><a href="#配置-StoryBoard：" class="headerlink" title="配置 StoryBoard："></a>配置 StoryBoard：</h4><p>首先我们创建新的 <code>Project</code> ，删掉默认的 <code>ViewController.swift</code>，和 <code>MainStoryBoard</code> 中的 <code>ViewControlle r Scene</code> ，现在我们就有了一个空的项目。</p>
-<p>下面我们在 <code>Main.StoryBoard</code> 中拖进来一个 <code>TableViewController</code> 给它命名为 <code>NoteTableViewController</code> ，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewController</code> ，命名为 <code>NoteTableViewController</code> 。</p>
-<p>然后将 <code>NoteTableViewController</code> 和 <code>NoteTableViewController.Class</code> 进行绑定，并给<code>Main.StoryBoard</code> 设置一个 <code>Identity</code> ，并勾选 <code>Is Initial View Controller</code> 。</p>
-<p>下一步，选中 <code>NoteTableViewController</code> 下的 <code>TableView</code> ，将它的 <code>Row Height</code> 设置为60，<code>Prototype Cells</code> 设置为2。</p>
-<p>下面，设置两个 <code>Cell</code> ，分别命名为 <code>RightCell 和 LeftCell</code> ，给每个 <code>Cell</code> 添加 <code>3个Buttonh 和 1个UIView</code>。3个按钮命名依次为：<code>middle delete edit</code> ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，<code>UIView</code> 的宽度是2，高度30，背景颜色为黑色。</p>
-<p>给 <code>LeftCell</code> 添加一个<code>Label</code>，文本设置为右对齐，给 <code>RightCell</code> 添加一个 <code>Label</code>，文本设置为左对齐。</p>
-<p>最后，勾选 <code>delete edit</code> 两个按钮的 <code>Hidden</code> 选项，然后创建 <code>New File - File</code> ，选择 <code>Cocoa Touch Class</code> ，继承自 <code>UITableViewCell</code> ，命名为 <code>NoteTableViewCell</code> 。</p>
-<a id="more"></a>
-<h4 id="自定义-TableViewCell"><a href="#自定义-TableViewCell" class="headerlink" title="自定义 TableViewCell"></a>自定义 TableViewCell</h4><p>在 <code>NoteTableViewCell</code> 中创建两个子类，继承自  <code>NoteTableViewCell</code> 。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class LeftNoteTableViewCell: NoteTableViewCell &#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">class RightNoteTableViewCell: NoteTableViewCell &#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将 <code>RightCell 和 LeftCell</code> 和这两个子类绑定，并给这两个子类拖进来两个控件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class LeftNoteTableViewCell: NoteTableViewCell &#123;</div><div class="line">    @IBOutlet weak var descriptionLabel: UILabel!</div><div class="line">&#125;</div><div class="line"></div><div class="line">class RightNoteTableViewCell: NoteTableViewCell &#123;</div><div class="line">    @IBOutlet weak var descriptionLabel: UILabel!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>将三个通用的控件拖进 <code>NoteTableViewCell</code> 这个基类中，并设置一个 <code>Bool</code> 值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">class NoteTableViewCell: UITableViewCell &#123;</div><div class="line"></div><div class="line">    @IBOutlet weak var deleteButton: UIButton!</div><div class="line">    @IBOutlet weak var editButton: UIButton!</div><div class="line">    @IBOutlet weak var middleButton: UIButton!</div><div class="line">    var isExpand = false</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="创建模型"><a href="#创建模型" class="headerlink" title="创建模型"></a>创建模型</h4><p>新建一个文件命名为 <code>NoteItem</code> ，创建结构体并嵌入枚举：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">struct NoteItem &#123;</div><div class="line">    var cost: Float         </div><div class="line">    var content: String     </div><div class="line">    var type: NoteItemType  </div><div class="line">&#125;</div><div class="line"></div><div class="line">enum NoteItemType: Int &#123;</div><div class="line">    case income</div><div class="line">    case outcome</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h4 id="使用模型："><a href="#使用模型：" class="headerlink" title="使用模型："></a>使用模型：</h4><p>回到 <code>NoteTableViewCell</code> 中，创建配置方法 <code>configureCell</code> 将模型中的数据传给 <code>Cell</code> ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">func configureCell(withItem item: NoteItem) &#123;</div><div class="line"></div><div class="line">        switch item.content &#123;</div><div class="line">        case &quot;购物&quot;:</div><div class="line">            middleButton.setImage(UIImage(named: &quot;shopping.png&quot;), forState: .Normal)</div><div class="line">        case &quot;服装&quot;:</div><div class="line">            middleButton.setImage(UIImage(named: &quot;clothes.png&quot;), forState: .Normal)</div><div class="line">        case &quot;食品&quot;:</div><div class="line">            middleButton.setImage(UIImage(named: &quot;restaurant.png&quot;), forState: .Normal)</div><div class="line">        case &quot;工资&quot;,&quot;奖金&quot;:</div><div class="line">            middleButton.setImage(UIImage(named: &quot;income.png&quot;), forState: .Normal)</div><div class="line"></div><div class="line">        default:</div><div class="line">            middleButton.setImage(UIImage(named: &quot;middle_button.png&quot;), forState: .Normal)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        let lableConeten = &quot;\(item.content) \(item.cost)&quot;</div><div class="line"></div><div class="line">        setValue(lableConeten, forKeyPath: &quot;descriptionLabel.text&quot;)</div><div class="line"></div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p>回到 <code>NoteTableViewController</code> 中，完善模型的数据：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var datas: [NoteItem] = [NoteItem(cost: 1000, content: &quot;购物&quot;, type: .outcome),</div><div class="line">                         NoteItem(cost: 3000, content: &quot;宠物&quot;, type: .outcome),</div><div class="line">                         NoteItem(cost: 5000, content: &quot;工资&quot;, type: .income),</div><div class="line">                         NoteItem(cost: 2000, content: &quot;购物&quot;, type: .outcome),</div><div class="line">                         NoteItem(cost: 10000, content: &quot;奖金&quot;, type: .income),</div><div class="line">                         NoteItem(cost: 4000, content: &quot;服装&quot;, type: .outcome),</div><div class="line">                         NoteItem(cost: 8000, content: &quot;食品&quot;, type: .outcome),</div><div class="line">                         NoteItem(cost: 6000, content: &quot;购物&quot;, type: .outcome),]</div></pre></td></tr></table></figure>
-<p>配置 <code>tableView</code> 的行数：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> datas.<span class="built_in">count</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>自定义 <code>Cell</code> ：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -&gt; UITableViewCell &#123;</div><div class="line"></div><div class="line">    let item = datas[indexPath.row]</div><div class="line">    var identifier = &quot;&quot;</div><div class="line"></div><div class="line">    switch item.type &#123;              </div><div class="line">    case .income:</div><div class="line">        identifier = &quot;LeftCell&quot;</div><div class="line">    case .outcome:</div><div class="line">        identifier = &quot;RightCell&quot;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    let cell = tableView.dequeueReusableCellWithIdentifier(identifier) as? NoteTableViewCell</div><div class="line"></div><div class="line">    return cell!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>回到 <code>NoteTableViewCell</code> 中创建点击事件，让 <code>middleButton</code> 在点击时弹出隐藏的 <code>delete</code> 和 <code>edit</code> ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">middieButtonClicked</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line">    <span class="keyword">if</span> !isExpand &#123;</div><div class="line">        expand()</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        close()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>实现 <code>expand()</code> 和 <code>close()</code> 方法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line">func expand() &#123;</div><div class="line"></div><div class="line">        editButton.hidden = false</div><div class="line">        deleteButton.hidden = false</div><div class="line"></div><div class="line">        UIView.animateWithDuration(0.5, animations: &#123;</div><div class="line"></div><div class="line">            self.deleteButton.center.x = 30</div><div class="line">            self.editButton.center.x = self.frame.size.width - 30</div><div class="line"></div><div class="line">            &#125;) &#123; (done) in</div><div class="line">                self.isExpand = true</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">func close() &#123;</div><div class="line"></div><div class="line">        UIView.animateWithDuration(0.5, animations: &#123;</div><div class="line"></div><div class="line">            self.deleteButton.center = self.middleButton.center</div><div class="line">            self.editButton.center = self.middleButton.center</div><div class="line"></div><div class="line">            &#125;) &#123; (done) in</div><div class="line">                self.deleteButton.hidden = true</div><div class="line">                self.editButton.hidden = true</div><div class="line">                self.isExpand = false</div><div class="line">        &#125;</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<h4 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h4><p>将 <code>delete</code> 和 <code>edit</code> 的点击事件传递到 <code>TableViewController</code> ：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">NoteCellDelegate</span>: <span class="title">class</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">noteCellClickMiddleButtom</span><span class="params">(sender: NoteTableViewCell)</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>设置代理对象：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">NoteCellDelegate</span>?</div></pre></td></tr></table></figure>
-<p>新建一个文件，命名为 <code>NoteTableViewContorller+NoteCellDelegate</code> ，将代理方法添加为扩展方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NoteTableViewController</span>: <span class="title">NoteCellDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">noteCellClickMiddleButtom</span><span class="params">(sender: NoteTableViewCell)</span></span>&#123;</div><div class="line">    <span class="keyword">let</span> indexPath = tableView.indexPathForCell(sender)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"cell <span class="subst">\(indexPath?.row)</span> clicked"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>回到 <code>NoteTableViewCell</code> 中，完善 <code>middieButtonClicked</code> 方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">middieButtonClicked</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> !isExpand &#123;</div><div class="line">        expand()</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        close()</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">self</span>.delegate?.noteCellClickMiddleButtom(<span class="keyword">self</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>回到 <code>NoteTableViewController</code> 中，完善自定义 Cell 的方法，使用代理调用 <code>configureCell</code> 方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> item = datas[indexPath.row]     </div><div class="line">    <span class="keyword">var</span> identifier = <span class="string">""</span></div><div class="line"></div><div class="line">    <span class="keyword">switch</span> item.type &#123;                  </div><div class="line">    <span class="keyword">case</span> .income:</div><div class="line">        identifier = <span class="string">"LeftCell"</span></div><div class="line">    <span class="keyword">case</span> .outcome:</div><div class="line">        identifier = <span class="string">"RightCell"</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(identifier) <span class="keyword">as</span>? <span class="type">NoteTableViewCell</span></div><div class="line"></div><div class="line">    <span class="keyword">if</span> cell?.delegate == <span class="literal">nil</span> &#123;</div><div class="line"></div><div class="line">        cell?.delegate = <span class="keyword">self</span></div><div class="line"></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    cell?.configureCell(withItem: item)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> cell!</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后，添加 <code>tableView</code> 的 <code>tableHeaderView</code> ，原型基本上就完成了：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> frame = <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">70</span>)</div><div class="line"><span class="keyword">let</span> headerView = <span class="type">UIView</span>(frame: frame)</div><div class="line">headerView.backgroundColor = <span class="type">UIColor</span>.redColor()</div><div class="line">tableView.tableHeaderView = headerView</div></pre></td></tr></table></figure>
-<p>下面将完整代码贴出来方便大家参考。</p>
-<h4 id="完整代码："><a href="#完整代码：" class="headerlink" title="完整代码："></a>完整代码：</h4><p><code>NoteTableViewController</code> 文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NoteTableViewController</span>: <span class="title">UITableViewController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> datas: [<span class="type">NoteItem</span>] = [<span class="type">NoteItem</span>(cost: <span class="number">1000</span>, content: <span class="string">"购物"</span>, type: .outcome),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">3000</span>, content: <span class="string">"宠物"</span>, type: .outcome),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">5000</span>, content: <span class="string">"工资"</span>, type: .income),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">2000</span>, content: <span class="string">"购物"</span>, type: .outcome),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">10000</span>, content: <span class="string">"奖金"</span>, type: .income),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">4000</span>, content: <span class="string">"服装"</span>, type: .outcome),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">8000</span>, content: <span class="string">"食品"</span>, type: .outcome),</div><div class="line">                             <span class="type">NoteItem</span>(cost: <span class="number">6000</span>, content: <span class="string">"购物"</span>, type: .outcome),]      </div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line"></div><div class="line">        <span class="keyword">let</span> frame = <span class="type">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">70</span>)</div><div class="line">        <span class="keyword">let</span> headerView = <span class="type">UIView</span>(frame: frame)</div><div class="line">        headerView.backgroundColor = <span class="type">UIColor</span>.redColor()</div><div class="line">        tableView.tableHeaderView = headerView</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, numberOfRowsInSection section: Int)</span></span> -&gt; <span class="type">Int</span> &#123;</div><div class="line">        <span class="keyword">return</span> datas.<span class="built_in">count</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> item = datas[indexPath.row]     </div><div class="line">        <span class="keyword">var</span> identifier = <span class="string">""</span></div><div class="line"></div><div class="line">        <span class="keyword">switch</span> item.type &#123;                  </div><div class="line">        <span class="keyword">case</span> .income:</div><div class="line">            identifier = <span class="string">"LeftCell"</span></div><div class="line">        <span class="keyword">case</span> .outcome:</div><div class="line">            identifier = <span class="string">"RightCell"</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> cell = tableView.dequeueReusableCellWithIdentifier(identifier) <span class="keyword">as</span>? <span class="type">NoteTableViewCell</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> cell?.delegate == <span class="literal">nil</span> &#123;</div><div class="line"></div><div class="line">            cell?.delegate = <span class="keyword">self</span></div><div class="line"></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        cell?.configureCell(withItem: item)</div><div class="line"></div><div class="line">        <span class="keyword">return</span> cell!</div><div class="line"></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>NoteTableViewContorller+NoteCellDelegate</code> 文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">NoteTableViewController</span>: <span class="title">NoteCellDelegate</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">noteCellClickMiddleButtom</span><span class="params">(sender: NoteTableViewCell)</span></span>&#123;</div><div class="line">    <span class="keyword">let</span> indexPath = tableView.indexPathForCell(sender)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"cell <span class="subst">\(indexPath?.row)</span> clicked"</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>NoteTableViewCell</code> 文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NoteTableViewCell</span>: <span class="title">UITableViewCell</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> deleteButton: <span class="type">UIButton</span>!</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> editButton: <span class="type">UIButton</span>!</div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> middleButton: <span class="type">UIButton</span>!</div><div class="line"></div><div class="line">    <span class="keyword">var</span> isExpand = <span class="literal">false</span>    </div><div class="line">    <span class="keyword">weak</span> <span class="keyword">var</span> delegate: <span class="type">NoteCellDelegate</span>?</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">configureCell</span><span class="params">(withItem item: NoteItem)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">switch</span> item.content &#123;</div><div class="line">        <span class="keyword">case</span> <span class="string">"购物"</span>:</div><div class="line">            middleButton.setImage(<span class="type">UIImage</span>(named: <span class="string">"shopping.png"</span>), forState: .<span class="type">Normal</span>)</div><div class="line">        <span class="keyword">case</span> <span class="string">"服装"</span>:</div><div class="line">            middleButton.setImage(<span class="type">UIImage</span>(named: <span class="string">"clothes.png"</span>), forState: .<span class="type">Normal</span>)</div><div class="line">        <span class="keyword">case</span> <span class="string">"食品"</span>:</div><div class="line">            middleButton.setImage(<span class="type">UIImage</span>(named: <span class="string">"restaurant.png"</span>), forState: .<span class="type">Normal</span>)</div><div class="line">        <span class="keyword">case</span> <span class="string">"工资"</span>,<span class="string">"奖金"</span>:</div><div class="line">            middleButton.setImage(<span class="type">UIImage</span>(named: <span class="string">"income.png"</span>), forState: .<span class="type">Normal</span>)</div><div class="line"></div><div class="line">        <span class="keyword">default</span>:</div><div class="line">            middleButton.setImage(<span class="type">UIImage</span>(named: <span class="string">"middle_button.png"</span>), forState: .<span class="type">Normal</span>)</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">let</span> lableConeten = <span class="string">"<span class="subst">\(item.content)</span> <span class="subst">\(item.cost)</span>"</span></div><div class="line"></div><div class="line">        setValue(lableConeten, forKeyPath: <span class="string">"descriptionLabel.text"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">setNilValueForKey</span><span class="params">(key: String)</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.setNilValueForKey(key)</div><div class="line">        <span class="built_in">print</span>(<span class="string">"KVC 的传值目标<span class="subst">\(key)</span> 没有找到"</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@IBAction</span> <span class="function"><span class="keyword">func</span> <span class="title">middieButtonClicked</span><span class="params">(sender: AnyObject)</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> !isExpand &#123;</div><div class="line">            expand()</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            close()</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">self</span>.delegate?.noteCellClickMiddleButtom(<span class="keyword">self</span>)</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">expand</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        editButton.hidden = <span class="literal">false</span></div><div class="line">        deleteButton.hidden = <span class="literal">false</span></div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">0.5</span>, animations: &#123;</div><div class="line"></div><div class="line">            <span class="keyword">self</span>.deleteButton.center.x = <span class="number">30</span></div><div class="line">            <span class="keyword">self</span>.editButton.center.x = <span class="keyword">self</span>.frame.size.width - <span class="number">30</span></div><div class="line"></div><div class="line">            &#125;) &#123; (done) <span class="keyword">in</span></div><div class="line"></div><div class="line">                <span class="keyword">self</span>.isExpand = <span class="literal">true</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">close</span><span class="params">()</span></span> &#123;</div><div class="line"></div><div class="line">        <span class="type">UIView</span>.animateWithDuration(<span class="number">0.5</span>, animations: &#123;</div><div class="line"></div><div class="line">            <span class="keyword">self</span>.deleteButton.center = <span class="keyword">self</span>.middleButton.center</div><div class="line">            <span class="keyword">self</span>.editButton.center = <span class="keyword">self</span>.middleButton.center</div><div class="line"></div><div class="line">            &#125;) &#123; (done) <span class="keyword">in</span></div><div class="line">                <span class="keyword">self</span>.deleteButton.hidden = <span class="literal">true</span></div><div class="line">                <span class="keyword">self</span>.editButton.hidden = <span class="literal">true</span></div><div class="line">                <span class="keyword">self</span>.isExpand = <span class="literal">false</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">NoteCellDelegate</span>: <span class="title">class</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">noteCellClickMiddleButtom</span><span class="params">(sender: NoteTableViewCell)</span></span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">LeftNoteTableViewCell</span>: <span class="title">NoteTableViewCell</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> descriptionLabel: <span class="type">UILabel</span>!</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">RightNoteTableViewCell</span>: <span class="title">NoteTableViewCell</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@IBOutlet</span> <span class="keyword">weak</span> <span class="keyword">var</span> descriptionLabel: <span class="type">UILabel</span>!</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>NoteItem</code> 文件：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NoteItem</span> </span>&#123;</div><div class="line">    <span class="keyword">var</span> cost: <span class="type">Float</span>         </div><div class="line">    <span class="keyword">var</span> content: <span class="type">String</span>     </div><div class="line">    <span class="keyword">var</span> type: <span class="type">NoteItemType</span>  </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">enum</span> <span class="title">NoteItemType</span>: <span class="title">Int</span> </span>&#123;</div><div class="line">    <span class="keyword">case</span> income</div><div class="line">    <span class="keyword">case</span> outcome</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;时间轴是大家都很熟悉的特效，在网络上也有很多现成的资源，虽然轮子已经有很多，但是我们自己尝试来做一个也不失为是一种乐趣，下面我们通过 StoryBoard 和代码来完成一个时间轴的界面。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;配置-StoryBoard：&quot;&gt;&lt;a href=&quot;#配置-StoryBoard：&quot; class=&quot;headerlink&quot; title=&quot;配置 StoryBoard：&quot;&gt;&lt;/a&gt;配置 StoryBoard：&lt;/h4&gt;&lt;p&gt;首先我们创建新的 &lt;code&gt;Project&lt;/code&gt; ，删掉默认的 &lt;code&gt;ViewController.swift&lt;/code&gt;，和 &lt;code&gt;MainStoryBoard&lt;/code&gt; 中的 &lt;code&gt;ViewControlle r Scene&lt;/code&gt; ，现在我们就有了一个空的项目。&lt;/p&gt;
-&lt;p&gt;下面我们在 &lt;code&gt;Main.StoryBoard&lt;/code&gt; 中拖进来一个 &lt;code&gt;TableViewController&lt;/code&gt; 给它命名为 &lt;code&gt;NoteTableViewController&lt;/code&gt; ，然后创建 &lt;code&gt;New File - File&lt;/code&gt; ，选择 &lt;code&gt;Cocoa Touch Class&lt;/code&gt; ，继承自 &lt;code&gt;UITableViewController&lt;/code&gt; ，命名为 &lt;code&gt;NoteTableViewController&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;然后将 &lt;code&gt;NoteTableViewController&lt;/code&gt; 和 &lt;code&gt;NoteTableViewController.Class&lt;/code&gt; 进行绑定，并给&lt;code&gt;Main.StoryBoard&lt;/code&gt; 设置一个 &lt;code&gt;Identity&lt;/code&gt; ，并勾选 &lt;code&gt;Is Initial View Controller&lt;/code&gt; 。&lt;/p&gt;
-&lt;p&gt;下一步，选中 &lt;code&gt;NoteTableViewController&lt;/code&gt; 下的 &lt;code&gt;TableView&lt;/code&gt; ，将它的 &lt;code&gt;Row Height&lt;/code&gt; 设置为60，&lt;code&gt;Prototype Cells&lt;/code&gt; 设置为2。&lt;/p&gt;
-&lt;p&gt;下面，设置两个 &lt;code&gt;Cell&lt;/code&gt; ，分别命名为 &lt;code&gt;RightCell 和 LeftCell&lt;/code&gt; ，给每个 &lt;code&gt;Cell&lt;/code&gt; 添加 &lt;code&gt;3个Buttonh 和 1个UIView&lt;/code&gt;。3个按钮命名依次为：&lt;code&gt;middle delete edit&lt;/code&gt; ，宽度30，高度30，并给按钮设置对应的背景图片，并让3个按钮对齐，&lt;code&gt;UIView&lt;/code&gt; 的宽度是2，高度30，背景颜色为黑色。&lt;/p&gt;
-&lt;p&gt;给 &lt;code&gt;LeftCell&lt;/code&gt; 添加一个&lt;code&gt;Label&lt;/code&gt;，文本设置为右对齐，给 &lt;code&gt;RightCell&lt;/code&gt; 添加一个 &lt;code&gt;Label&lt;/code&gt;，文本设置为左对齐。&lt;/p&gt;
-&lt;p&gt;最后，勾选 &lt;code&gt;delete edit&lt;/code&gt; 两个按钮的 &lt;code&gt;Hidden&lt;/code&gt; 选项，然后创建 &lt;code&gt;New File - File&lt;/code&gt; ，选择 &lt;code&gt;Cocoa Touch Class&lt;/code&gt; ，继承自 &lt;code&gt;UITableViewCell&lt;/code&gt; ，命名为 &lt;code&gt;NoteTableViewCell&lt;/code&gt; 。&lt;/p&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="代理模式" scheme="http://yoursite.com/tags/%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F/"/>
-    
-      <category term="自定义控件" scheme="http://yoursite.com/tags/%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8E%A7%E4%BB%B6/"/>
-    
-      <category term="MVC设计模式" scheme="http://yoursite.com/tags/MVC%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS多线程 - 线程间的通信</title>
-    <link href="http://yoursite.com/2016/07/21/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%20%E7%BA%BF%E7%A8%8B%E9%97%B4%E7%9A%84%E9%80%9A%E4%BF%A1/"/>
-    <id>http://yoursite.com/2016/07/21/iOS多线程之 线程间的通信/</id>
-    <published>2016-07-21T07:54:00.000Z</published>
-    <updated>2016-08-21T18:12:07.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote>
-<p>因为线程是串行的，这意味着如果我们要下载一个图片，使它呈现在一个<code>UIImageView</code> 里，那么这个线程必须要等待图片下载完成后，才能显示出来。为了解决这样的问题，我们需要用到多线程的技术，将下载图片交给子线程完成，将加载图片到 <code>UIImageView</code> 交给主线程，这就涉及到一个问题，就是线程之间的通信。</p>
-</blockquote>
-<h4 id="线程通讯的两种方式"><a href="#线程通讯的两种方式" class="headerlink" title="线程通讯的两种方式"></a>线程通讯的两种方式</h4><ol>
-<li>从一个线程给另一个线程传递数据。</li>
-<li>在一个线程中执行完特定任务后，转到另一个线程继续执行。</li>
-</ol>
-<p>以上面的问题举例，我们要在一个线程中下载图片，然后要另一个线程展示图片，<strong>苹果官方推荐，刷新界面的操作最好在主线程中完成</strong>，那么我们来实验一下，如果将展示图片的操作交给子线程，会发生什么。<strong>首先我们创建一个 <code>UIImageView</code> 并将它添加到 <code>UIViewController</code></strong>，然后我们创建一个子线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> subThread = <span class="type">NSThread</span>(target: <span class="keyword">self</span>, selector: #selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), object: <span class="string">"我是传入参数"</span>)</div><div class="line">    subThread.start()</div></pre></td></tr></table></figure>
-<a id="more"></a>
-<p>下面我们创建 <code>run</code> 这个线程执行方法，写入以下代码下载图片：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">let</span> url: <span class="type">NSURL</span> = <span class="type">NSURL</span>(string: <span class="string">"http://pic.qiantucdn.com/58pic/19/40/65/17m58PICgSH_1024.jpg"</span>)!	<span class="comment">//使用 NSURL 创建下载链接</span></div><div class="line">    <span class="keyword">let</span> data: <span class="type">NSData</span> = <span class="type">NSData</span>(contentsOfURL: url)!	<span class="comment">//使用 NSData 获得文件</span></div><div class="line">    <span class="keyword">let</span> img: <span class="type">UIImage</span> = <span class="type">UIImage</span>(data: data)!	<span class="comment">//使用 init?(data: NSData) 实例化图片</span></div></pre></td></tr></table></figure>
-<p>最后将图片加载到 <code>UIImageView</code> 里：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">self</span>.myImg.image = img</div></pre></td></tr></table></figure>
-<p>现在我们运行这个程序，如果你的 XCode 版本是新的话，那么可能会收到一条报错：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">App</span> <span class="type">Transport</span> <span class="type">Security</span> has blocked a cleartext <span class="type">HTTP</span> (http:<span class="comment">//) resource load since it is insecure. Temporary exceptions can be configured via your app's Info.plist file.</span></div></pre></td></tr></table></figure>
-<p>这个原因是 iOS9 中新增了 <code>App Transport Security</code>（简称ATS）特性，在 iOS9 以前请求网络的时候都用到的<code>HTTP</code>，现在转向TLS1.2协议进行传输。这也意味着所有的 <code>HTTP</code> 协议都强制使用了 <code>HTTPS</code> 协议进行传输，所以系统会告诉我们不能直接使用HTTP进行请求，这需要在 <code>Info.plist</code> 新增一段用于控制ATS的配置：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;key&gt;<span class="type">NSAppTransportSecurity</span>&lt;/key&gt;</div><div class="line">&lt;dict&gt;</div><div class="line">   &lt;key&gt;<span class="type">NSAllowsArbitraryLoads</span>&lt;/key&gt;</div><div class="line">   &lt;<span class="literal">true</span>/&gt;</div><div class="line">&lt;/dict&gt;</div></pre></td></tr></table></figure>
-<p>我们重新运行这个程序，相信这时图片已经成功加载出来了，但是控制台会收到这样一句提示：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">This</span> application <span class="keyword">is</span> modifying the autolayout engine from a background thread, which can lead to engine corruption and weird crashes.  <span class="type">This</span> will cause an exception <span class="keyword">in</span> a future release.</div></pre></td></tr></table></figure>
-<p>这是说，我们使用了 <code>background thread</code> 后台进程更改了布局，这可能会导致崩溃和其他问题，这也符合苹果官方所推荐的：<strong>刷新界面的操作最好在主线程中完成</strong>。</p>
-<p>那么现在我们尝试解决这个问题，将刷新界面的操作交给主线程操作，相信大家已经意识到问题的核心，<strong>如何通知主线程刷新界面</strong> ？我们来调用这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">performSelectorOnMainThread(#selector(<span class="type">ViewController</span>.showImage(<span class="number">_</span>:)), withObject: img, waitUntilDone: <span class="literal">true</span>)</div></pre></td></tr></table></figure>
-<p>下面我们先看一下这个方法的参数：</p>
-<table>
-<thead>
-<tr>
-<th>形参</th>
-<th>作用</th>
-<th>填写</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>aSelector: Selector</td>
-<td>这是一个选择器，代表要执行的方法。</td>
-<td>自己写的方法</td>
-</tr>
-<tr>
-<td>withObject arg: AnyObject?</td>
-<td>这是执行方法的传入参数。</td>
-<td>可以是nil</td>
-</tr>
-<tr>
-<td>waitUntilDone wait: Bool</td>
-<td>是否要等待执行方法的完成。</td>
-<td>可以是false</td>
-</tr>
-</tbody>
-</table>
-<p>前两个参数比较好理解，因为执行方法也是需要时间的，第三个参数 <code>true</code> 和<code>false</code> 的区别是：如果是 <code>true</code> 的话，主线程会等待执行方法完成，主线程才会继续其他的操作；如是是 <code>false</code> 的话，主线程马上就会结束，并不关心执行方法是否完成。</p>
-<p><strong>如果你有一些限制，比如要等执行方法完成之后，在执行一些其他的工作，这是就输入 <code>true</code>，如果你不关心执行的结果，就输入 <code>false</code>。</strong></p>
-<p>下面我们实现让主线程操作 <code>UIImageView</code> 显示图片的方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">showImage</span><span class="params">(img: UIImage)</span></span> &#123;</div><div class="line">    <span class="keyword">self</span>.myImg.image = img</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>再次运行，风险提示没有了，这说明我们实现了，从子线程中下载图片，并调用主线程，在主线程中刷新界面这样一个功能。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;因为线程是串行的，这意味着如果我们要下载一个图片，使它呈现在一个&lt;code&gt;UIImageView&lt;/code&gt; 里，那么这个线程必须要等待图片下载完成后，才能显示出来。为了解决这样的问题，我们需要用到多线程的技术，将下载图片交给子线程完成，将加载图片到 &lt;code&gt;UIImageView&lt;/code&gt; 交给主线程，这就涉及到一个问题，就是线程之间的通信。&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h4 id=&quot;线程通讯的两种方式&quot;&gt;&lt;a href=&quot;#线程通讯的两种方式&quot; class=&quot;headerlink&quot; title=&quot;线程通讯的两种方式&quot;&gt;&lt;/a&gt;线程通讯的两种方式&lt;/h4&gt;&lt;ol&gt;
-&lt;li&gt;从一个线程给另一个线程传递数据。&lt;/li&gt;
-&lt;li&gt;在一个线程中执行完特定任务后，转到另一个线程继续执行。&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;以上面的问题举例，我们要在一个线程中下载图片，然后要另一个线程展示图片，&lt;strong&gt;苹果官方推荐，刷新界面的操作最好在主线程中完成&lt;/strong&gt;，那么我们来实验一下，如果将展示图片的操作交给子线程，会发生什么。&lt;strong&gt;首先我们创建一个 &lt;code&gt;UIImageView&lt;/code&gt; 并将它添加到 &lt;code&gt;UIViewController&lt;/code&gt;&lt;/strong&gt;，然后我们创建一个子线程：&lt;/p&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;let&lt;/span&gt; subThread = &lt;span class=&quot;type&quot;&gt;NSThread&lt;/span&gt;(target: &lt;span class=&quot;keyword&quot;&gt;self&lt;/span&gt;, selector: #selector(&lt;span class=&quot;type&quot;&gt;ViewController&lt;/span&gt;.run(&lt;span class=&quot;number&quot;&gt;_&lt;/span&gt;:)), object: &lt;span class=&quot;string&quot;&gt;&quot;我是传入参数&quot;&lt;/span&gt;)&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;    subThread.start()&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="线程通信" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E9%80%9A%E4%BF%A1/"/>
-    
-      <category term="ATS特性" scheme="http://yoursite.com/tags/ATS%E7%89%B9%E6%80%A7/"/>
-    
-      <category term="线程转跳" scheme="http://yoursite.com/tags/%E7%BA%BF%E7%A8%8B%E8%BD%AC%E8%B7%B3/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Xcode错误 - No Such Module</title>
-    <link href="http://yoursite.com/2016/07/21/Xcode%E9%94%99%E8%AF%AF%20-%20No%20Such%20Module/"/>
-    <id>http://yoursite.com/2016/07/21/Xcode错误 - No Such Module/</id>
-    <published>2016-07-20T20:43:00.000Z</published>
-    <updated>2016-11-26T01:16:02.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>No.1 首先确保工程中有这个库；</p>
-<p>No.2 进入 <code>Build Phases</code> 找到 <code>Link Binary With Libraries</code> ，添加这个库；</p>
-<p>No.3 点击 <code>Build Phases</code> 页面左上角加号，点击 <code>New Copy Files Phase</code> ，名字改为 <code>Copy FrameWorks</code> ，<code>Destination</code> 设置为 <code>FrameWorks</code>，将这个库添加进来即可。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;No.1 首先确保工程中有这个库；&lt;/p&gt;
-&lt;p&gt;No.2 进入 &lt;code&gt;Build Phases&lt;/code&gt; 找到 &lt;code&gt;Link Binary With Libraries&lt;/code&gt; ，添加这个库；&lt;/p&gt;
-&lt;p&gt;No.3 点击 &lt;code&gt;Build 
-    
-    </summary>
-    
-      <category term="Xcode错误" scheme="http://yoursite.com/categories/Xcode%E9%94%99%E8%AF%AF/"/>
-    
-    
-      <category term="Xcode错误" scheme="http://yoursite.com/tags/Xcode%E9%94%99%E8%AF%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>iOS多线程 - 3种方式创建线程</title>
-    <link href="http://yoursite.com/2016/06/21/iOS%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%203%E7%A7%8D%E6%96%B9%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B/"/>
-    <id>http://yoursite.com/2016/06/21/iOS多线程之 3种方式创建线程/</id>
-    <published>2016-06-21T01:33:00.000Z</published>
-    <updated>2017-01-24T15:48:21.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>首先来看这个方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">detachNewThreadSelector</span>(<span class="title">selector</span>: <span class="title">Selector</span>, <span class="title">toTarget</span> <span class="title">target</span>: <span class="title">AnyObject</span>, <span class="title">withObject</span> <span class="title">argument</span>: <span class="title">AnyObject</span>?)</span></div></pre></td></tr></table></figure>
-<p>下面这个是常见的 <code>init</code> 创建线程：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">convenience</span> <span class="keyword">init</span>(target: <span class="type">AnyObject</span>, selector: <span class="type">Selector</span>, object argument: <span class="type">AnyObject</span>?)</div></pre></td></tr></table></figure>
-<p>这两种创建方式有哪些不同呢？我们对比来看下：</p>
-<blockquote>
-<p><code>init</code> 是一个构造器，<code>detachNewThreadSelector</code> 是一个类型方法。<code>detachNewThreadSelector</code> 返回值是 <code>void</code>，也就是说没有返回值。<code>detachNewThreadSelector</code> 在调用后立即启动，不需要 <code>start</code> 方法。</p>
-</blockquote>
-<a id="more"></a>
-<p>下面我们来使用这个方法，在 <code>TouchesBegan</code> 方法中写入：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">NSThread</span>.detachNewThreadSelector(#selector(<span class="type">ViewController</span>.run), toTarget: <span class="keyword">self</span>, withObject: <span class="string">"detachNewThreadSelector"</span>)</div></pre></td></tr></table></figure>
-<p>创建 <code>run</code> 方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">(str: NSString)</span></span> &#123;</div><div class="line">    <span class="built_in">print</span>(str)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在我们就可以调用这个线程了。</p>
-<p><code>detachNewThread</code> 这个类型方法没有返回值，这意味着我们不能像使用 <code>init</code> 构造器创建那样，使用<code>start</code> <code>exit</code> <code>name</code> <code>stackSize</code> 那样控制线程启动、关闭、命名、获取栈大小，也无法使用 <code>currentThread</code>  <code>mainThread</code>  <code>isMainThread</code>  <code>threadPriority</code> 进行获取当前线程、获取主线程、指定优先级等操作。</p>
-<p>最后一种方法是 <code>selectorInBackground</code> ，从名字可以看出来，这是在在后台执行一个相应函数，与 <code>deathNewThread</code> 和 <code>init</code> 不同，<code>selectorInbackground</code> 是 <code>Object</code> 的实例方法，没有返回值，因此它同样不能对线程进行控制。这个方法的表达式如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">performSelectorInBackground(#selector(<span class="type">ViewController</span>.run(<span class="number">_</span>:)), withObject: <span class="string">"SelectorInBackground"</span>)</div></pre></td></tr></table></figure>
-<p>通过上面的对比，我们可以得出结论，同 <code>init</code> 这种方式对比，<code>detachNewThread</code> 和 <code>performSelectorBackgroud</code> 无法对创建的线程进行命名、比较、设定优先级等操作。</p>
-]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;首先来看这个方法：&lt;/p&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;class&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;detachNewThreadSelector&lt;/span&gt;(&lt;span class=&quot;title&quot;&gt;selector&lt;/span&gt;: &lt;span class=&quot;title&quot;&gt;Selector&lt;/span&gt;, &lt;span class=&quot;title&quot;&gt;toTarget&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;target&lt;/span&gt;: &lt;span class=&quot;title&quot;&gt;AnyObject&lt;/span&gt;, &lt;span class=&quot;title&quot;&gt;withObject&lt;/span&gt; &lt;span class=&quot;title&quot;&gt;argument&lt;/span&gt;: &lt;span class=&quot;title&quot;&gt;AnyObject&lt;/span&gt;?)&lt;/span&gt;&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;下面这个是常见的 &lt;code&gt;init&lt;/code&gt; 创建线程：&lt;/p&gt;
-&lt;figure class=&quot;highlight swift&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;convenience&lt;/span&gt; &lt;span class=&quot;keyword&quot;&gt;init&lt;/span&gt;(target: &lt;span class=&quot;type&quot;&gt;AnyObject&lt;/span&gt;, selector: &lt;span class=&quot;type&quot;&gt;Selector&lt;/span&gt;, object argument: &lt;span class=&quot;type&quot;&gt;AnyObject&lt;/span&gt;?)&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;这两种创建方式有哪些不同呢？我们对比来看下：&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;&lt;code&gt;init&lt;/code&gt; 是一个构造器，&lt;code&gt;detachNewThreadSelector&lt;/code&gt; 是一个类型方法。&lt;code&gt;detachNewThreadSelector&lt;/code&gt; 返回值是 &lt;code&gt;void&lt;/code&gt;，也就是说没有返回值。&lt;code&gt;detachNewThreadSelector&lt;/code&gt; 在调用后立即启动，不需要 &lt;code&gt;start&lt;/code&gt; 方法。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="iOS" scheme="http://yoursite.com/categories/iOS/"/>
-    
-    
-      <category term="多线程" scheme="http://yoursite.com/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="开线程" scheme="http://yoursite.com/tags/%E5%BC%80%E7%BA%BF%E7%A8%8B/"/>
-    
-      <category term="后台进程" scheme="http://yoursite.com/tags/%E5%90%8E%E5%8F%B0%E8%BF%9B%E7%A8%8B/"/>
     
   </entry>
   

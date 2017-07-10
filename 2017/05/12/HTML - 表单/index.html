@@ -1,0 +1,1093 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="&amp;lt;form&amp;gt; 的常用属性有以下几种：
+
+
+
+属性
+值
+描述
+
+
+
+
+aciton
+URL
+服务器的 URL
+
+
+method
+GET、POST
+HTTP 方法
+
+
+name
+form_name
+表单的名称
+
+
+target
+blank、self、parent、top
+在何处打开 action URL
+
+
+enctype
+以下
+表单数据的编码方式
+
+
+
+123456//在发送前编码所有字">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTML - 表单">
+<meta property="og:url" content="http://yoursite.com/2017/05/12/HTML - 表单/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="&amp;lt;form&amp;gt; 的常用属性有以下几种：
+
+
+
+属性
+值
+描述
+
+
+
+
+aciton
+URL
+服务器的 URL
+
+
+method
+GET、POST
+HTTP 方法
+
+
+name
+form_name
+表单的名称
+
+
+target
+blank、self、parent、top
+在何处打开 action URL
+
+
+enctype
+以下
+表单数据的编码方式
+
+
+
+123456//在发送前编码所有字">
+<meta property="og:updated_time" content="2017-07-10T11:48:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTML - 表单">
+<meta name="twitter:description" content="&amp;lt;form&amp;gt; 的常用属性有以下几种：
+
+
+
+属性
+值
+描述
+
+
+
+
+aciton
+URL
+服务器的 URL
+
+
+method
+GET、POST
+HTTP 方法
+
+
+name
+form_name
+表单的名称
+
+
+target
+blank、self、parent、top
+在何处打开 action URL
+
+
+enctype
+以下
+表单数据的编码方式
+
+
+
+123456//在发送前编码所有字">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/05/12/HTML - 表单/"/>
+
+  <title> HTML - 表单 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                HTML - 表单
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-12T02:24:00+08:00" content="2017-05-12">
+              2017-05-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/HTML/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/12/HTML - 表单/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/12/HTML - 表单/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><code>&lt;form&gt;</code> 的常用属性有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>aciton</td>
+<td>URL</td>
+<td>服务器的 URL</td>
+</tr>
+<tr>
+<td>method</td>
+<td>GET、POST</td>
+<td>HTTP 方法</td>
+</tr>
+<tr>
+<td>name</td>
+<td>form_name</td>
+<td>表单的名称</td>
+</tr>
+<tr>
+<td>target</td>
+<td>blank、self、parent、top</td>
+<td>在何处打开 action URL</td>
+</tr>
+<tr>
+<td>enctype</td>
+<td>以下</td>
+<td>表单数据的编码方式</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">//在发送前编码所有字符（默认）</div><div class="line">application/x-www-form-urlencoded</div><div class="line">//不对字符编码。在使用包含文件上传控件的表单时，必须使用该值。</div><div class="line">multipart/form-data</div><div class="line">//空格转换为 &quot;+&quot; 加号，但不对特殊字符编码。</div><div class="line">text/plain</div></pre></td></tr></table></figure>
+<p>表单常见的元素有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>标签</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;input&gt;</code></td>
+<td>表单输入标签</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>菜单和列表标签</td>
+</tr>
+<tr>
+<td><code>&lt;option&gt;</code></td>
+<td>菜单和列表项目标签</td>
+</tr>
+<tr>
+<td><code>&lt;textarea&gt;</code></td>
+<td>文字域标签</td>
+</tr>
+<tr>
+<td><code>&lt;optgroup&gt;</code></td>
+<td>菜单和列表项目分组标签</td>
+</tr>
+</tbody>
+</table>
+   <a id="more"></a>
+<h2 id="input-标签"><a href="#input-标签" class="headerlink" title="input 标签"></a>input 标签</h2><p>多数情况下被用到的表单标签是输入标签 <code>&lt;input&gt;</code>，<code>&lt;input&gt;</code> 是单标记标签，输入类型是由类型属性 <code>type</code> 定义的，大多数经常被用到的输入类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>type 属性值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>text</td>
+<td>文本域</td>
+</tr>
+<tr>
+<td>password</td>
+<td>密码域</td>
+</tr>
+<tr>
+<td>file</td>
+<td>文件域</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>复现域</td>
+</tr>
+<tr>
+<td>radio</td>
+<td>单选域</td>
+</tr>
+<tr>
+<td>button</td>
+<td>按钮域</td>
+</tr>
+<tr>
+<td>submit</td>
+<td>提交域</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>重置域</td>
+</tr>
+<tr>
+<td>hidden</td>
+<td>隐藏域</td>
+</tr>
+<tr>
+<td>image</td>
+<td>图像域</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span>&gt;</span></div><div class="line">    密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw"</span>&gt;</span></div><div class="line">    提交：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">""</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="text-password-单行文本域"><a href="#text-password-单行文本域" class="headerlink" title="text password 单行文本域"></a>text password 单行文本域</h3><p>文字域有以下几个常用的属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>maxlength</td>
+<td>可输入的最大字符数</td>
+</tr>
+<tr>
+<td>size</td>
+<td>文本框宽度，以字符数为单位。缺省值是 20</td>
+</tr>
+<tr>
+<td>value</td>
+<td>文本框的默认文本</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>占位符，无文本输入时显示</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>maxlength 这个属性要比 iOS 优越啊，UITextField 如果需要限制长度要重写代理方法，还要考虑删除字符、输入法拼音已满但汉字还还打出来等情况。</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span>注册信息<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">hr</span> <span class="attr">color</span>=<span class="string">"#336699"</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">table</span> <span class="attr">width</span>=<span class="string">"600"</span> <span class="attr">bgcolor</span>=<span class="string">"#f2f2f2"</span> <span class="attr">align</span>=<span class="string">"center"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                姓名：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"username"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请输入姓名"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                邮箱：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> <span class="attr">name</span>=<span class="string">"email"</span> <span class="attr">value</span>=<span class="string">"@163.com"</span> <span class="attr">placeholder</span>=<span class="string">""</span> <span class="attr">size</span>=<span class="string">"25"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                密码：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请输入密码"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tr</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                确认密码：</div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">td</span>&gt;</span></div><div class="line">                <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"password"</span> <span class="attr">name</span>=<span class="string">"paw_confirm"</span> <span class="attr">value</span>=<span class="string">""</span> <span class="attr">placeholder</span>=<span class="string">"请再输入密码"</span> <span class="attr">size</span>=<span class="string">"25"</span> <span class="attr">maxlength</span>=<span class="string">"6"</span>&gt;</span></div><div class="line">            <span class="tag">&lt;/<span class="name">td</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">tr</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">table</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="radio-checkbox-单选和复选"><a href="#radio-checkbox-单选和复选" class="headerlink" title="radio checkbox 单选和复选"></a>radio checkbox 单选和复选</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key，相同 name 的 radio，只能选中一个</td>
+</tr>
+<tr>
+<td>value</td>
+<td>选项代表的值</td>
+</tr>
+<tr>
+<td>checked</td>
+<td>设置此项为选中</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">男<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"men"</span>&gt;</span></div><div class="line">女<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"women"</span>&gt;</span></div><div class="line">保密<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"radio"</span> <span class="attr">name</span>=<span class="string">"sex"</span> <span class="attr">value</span>=<span class="string">"secret"</span> <span class="attr">checked</span>&gt;</span></div><div class="line"></div><div class="line">读书<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby1"</span> <span class="attr">value</span>=<span class="string">"read_book"</span> <span class="attr">checked</span>&gt;</span></div><div class="line">跳舞<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby2"</span> <span class="attr">value</span>=<span class="string">"dance"</span>&gt;</span></div><div class="line">唱歌<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"checkbox"</span> <span class="attr">name</span>=<span class="string">"hobby3"</span> <span class="attr">value</span>=<span class="string">"sing"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="button-submit-reset-按钮"><a href="#button-submit-reset-按钮" class="headerlink" title="button submit reset 按钮"></a>button submit reset 按钮</h3><table>
+<thead>
+<tr>
+<th>属性名</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>按钮的标题</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"来点我"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"submit"</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"reset"</span> <span class="attr">name</span>=<span class="string">""</span> <span class="attr">value</span>=<span class="string">"reset"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="image-图像"><a href="#image-图像" class="headerlink" title="image 图像"></a>image 图像</h3><p><code>image</code> 可以设置一张图片作为按钮，其他方面与 <code>submit</code> 相同。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"image"</span> <span class="attr">name</span>=<span class="string">"image_button"</span> <span class="attr">src</span>=<span class="string">"image_url"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="hidden-隐藏"><a href="#hidden-隐藏" class="headerlink" title="hidden 隐藏"></a>hidden 隐藏</h3><p><code>hidden</code> 标签用于隐藏，主要用于希望将数据提交给服务器，但又不希望用户感知到时。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"hiddent"</span> <span class="attr">name</span>=<span class="string">"hiddent"</span> <span class="attr">value</span>=<span class="string">"这是一个用户注册信息"</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="select-option-列表和菜单"><a href="#select-option-列表和菜单" class="headerlink" title="select option 列表和菜单"></a>select option 列表和菜单</h2><p><code>&lt;select&gt; 和 &lt;option&gt;</code> 标签用于弹出列表，<code>&lt;select&gt;</code> 是列表，<code>&lt;option&gt;</code> 是列表项。</p>
+<p><code>&lt;select&gt;</code> 的常用属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>multiple</td>
+<td>开启 <code>shift</code> 多选</td>
+</tr>
+<tr>
+<td>size</td>
+<td>弹出框显示多少项，==1 时弹窗显示，&gt;1 时滚动显示</td>
+</tr>
+</tbody>
+</table>
+<p><code>&lt;option&gt;</code> 常用的属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>value</td>
+<td>选项代表的值</td>
+</tr>
+<tr>
+<td>selected</td>
+<td>设置此项为选中</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">select</span> <span class="attr">size</span>=<span class="string">"4"</span> <span class="attr">multiple</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"default"</span>&gt;</span>---请选择---<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beijing"</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shanghai"</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"guangzhou"</span>&gt;</span>广州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shenzhen"</span>&gt;</span>深圳<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"hangzhou"</span> <span class="attr">selected</span>=<span class="string">""</span>&gt;</span>杭州<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">select</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+<h2 id="optgroup-可选项分组"><a href="#optgroup-可选项分组" class="headerlink" title="optgroup 可选项分组"></a>optgroup 可选项分组</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">select</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"default"</span>&gt;</span>---请选择---<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">"北方"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"beijing"</span>&gt;</span>北京<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">optgroup</span> <span class="attr">label</span>=<span class="string">"南方"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">"shanghai"</span>&gt;</span>上海<span class="tag">&lt;/<span class="name">option</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">optgroup</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">select</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>类似 iOS 中 <code>section</code> 和 <code>row</code> 的 UI 关系。</p>
+<h2 id="textarea-多行文本域"><a href="#textarea-多行文本域" class="headerlink" title="textarea 多行文本域"></a>textarea 多行文本域</h2><p>单行文本域只能输入一行的内容，多行文本域可以输入多行文本。</p>
+<blockquote>
+<p>类似 iOS 中 UITextField 和 UITextView 的 UI 区别。</p>
+</blockquote>
+<p><code>&lt;textarea&gt;</code> 常用的属性有：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>value 的 key</td>
+</tr>
+<tr>
+<td>placeholder</td>
+<td>占位符</td>
+</tr>
+<tr>
+<td>rows</td>
+<td>可看行数</td>
+</tr>
+<tr>
+<td>cols</td>
+<td>可见宽度</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">"detail"</span> <span class="attr">rows</span>=<span class="string">"4"</span> <span class="attr">placeholder</span>=<span class="string">"请填写内容"</span> <span class="attr">cols</span>=<span class="string">"50"</span>&gt;</span></div><div class="line">        default value</div><div class="line">    <span class="tag">&lt;/<span class="name">textarea</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTML/" rel="tag">#HTML</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/09/HTML - 表格/" rel="next" title="HTML - 表格">
+                <i class="fa fa-chevron-left"></i> HTML - 表格
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/05/12/HTML - 表单/"
+     data-title="HTML - 表单"
+     data-content=""
+     data-url="http://yoursite.com/2017/05/12/HTML - 表单/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/12/HTML - 表单/"
+           data-title="HTML - 表单" data-url="http://yoursite.com/2017/05/12/HTML - 表单/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#input-标签"><span class="nav-number">1.</span> <span class="nav-text">input 标签</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#text-password-单行文本域"><span class="nav-number">1.1.</span> <span class="nav-text">text password 单行文本域</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#radio-checkbox-单选和复选"><span class="nav-number">1.2.</span> <span class="nav-text">radio checkbox 单选和复选</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#button-submit-reset-按钮"><span class="nav-number">1.3.</span> <span class="nav-text">button submit reset 按钮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#image-图像"><span class="nav-number">1.4.</span> <span class="nav-text">image 图像</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#hidden-隐藏"><span class="nav-number">1.5.</span> <span class="nav-text">hidden 隐藏</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-option-列表和菜单"><span class="nav-number">2.</span> <span class="nav-text">select option 列表和菜单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#optgroup-可选项分组"><span class="nav-number">3.</span> <span class="nav-text">optgroup 可选项分组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#textarea-多行文本域"><span class="nav-number">4.</span> <span class="nav-text">textarea 多行文本域</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
