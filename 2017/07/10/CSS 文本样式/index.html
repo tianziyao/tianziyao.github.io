@@ -1,0 +1,1144 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="网页是由文字、图片、音视频组成，因此网页的文字很大程度影响网页的美观度，CSS 的常用文字样式属性如下：
+
+
+
+属性
+标记
+
+
+
+
+字体
+font-family
+
+
+字号
+font-size
+
+
+颜色
+font-color
+
+
+字重
+font-weight
+
+
+样式
+font-style
+
+
+
+font 标签1&amp;lt;h1&amp;gt;&amp;lt;font face=&quot;宋体&quot; size=&quot;20px&quot; col">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS - 文本样式">
+<meta property="og:url" content="http://yoursite.com/2017/07/10/CSS 文本样式/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="网页是由文字、图片、音视频组成，因此网页的文字很大程度影响网页的美观度，CSS 的常用文字样式属性如下：
+
+
+
+属性
+标记
+
+
+
+
+字体
+font-family
+
+
+字号
+font-size
+
+
+颜色
+font-color
+
+
+字重
+font-weight
+
+
+样式
+font-style
+
+
+
+font 标签1&amp;lt;h1&amp;gt;&amp;lt;font face=&quot;宋体&quot; size=&quot;20px&quot; col">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/CSS%20%E5%9E%82%E7%9B%B4%E5%AF%B9%E9%BD%90.jpg">
+<meta property="og:updated_time" content="2017-07-13T12:16:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS - 文本样式">
+<meta name="twitter:description" content="网页是由文字、图片、音视频组成，因此网页的文字很大程度影响网页的美观度，CSS 的常用文字样式属性如下：
+
+
+
+属性
+标记
+
+
+
+
+字体
+font-family
+
+
+字号
+font-size
+
+
+颜色
+font-color
+
+
+字重
+font-weight
+
+
+样式
+font-style
+
+
+
+font 标签1&amp;lt;h1&amp;gt;&amp;lt;font face=&quot;宋体&quot; size=&quot;20px&quot; col">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/CSS%20%E5%9E%82%E7%9B%B4%E5%AF%B9%E9%BD%90.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/10/CSS 文本样式/"/>
+
+  <title> CSS - 文本样式 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS - 文本样式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-10T01:21:00+08:00" content="2017-07-10">
+              2017-07-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/10/CSS 文本样式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/10/CSS 文本样式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>网页是由文字、图片、音视频组成，因此网页的文字很大程度影响网页的美观度，CSS 的常用文字样式属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字体</td>
+<td>font-family</td>
+</tr>
+<tr>
+<td>字号</td>
+<td>font-size</td>
+</tr>
+<tr>
+<td>颜色</td>
+<td>font-color</td>
+</tr>
+<tr>
+<td>字重</td>
+<td>font-weight</td>
+</tr>
+<tr>
+<td>样式</td>
+<td>font-style</td>
+</tr>
+</tbody>
+</table>
+<h2 id="font-标签"><a href="#font-标签" class="headerlink" title="font 标签"></a>font 标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"宋体"</span> <span class="attr">size</span>=<span class="string">"20px"</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>字体可以通过 <code>&lt;font&gt;</code> 标签设置，但是建议通过 <code>style</code> 标签和属性来设置字体，因为在很多版本中，<code>&lt;font&gt;</code> 标签已被弃用。</p>
+<a id="more"></a>
+<h2 id="font-family-字体"><a href="#font-family-字体" class="headerlink" title="font-family 字体"></a>font-family 字体</h2><p>定义元素内的字体，包含空格的字体名个中文字体名，需要用英文 <code>&quot;&quot;</code> 包裹，多个字体使用英文 <code>,</code> 隔开，当使用 <code>style</code> 属性声明字体时，使用英文 <code>&#39;&#39;</code> 包裹，如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-tag">h1</span> &#123;</div><div class="line">        <span class="attribute">font-family</span>: <span class="string">"lucida grande"</span>, <span class="string">"lucida sans unicode"</span>, lucida, helvetica, <span class="string">"Hiragino Sans GB"</span>, <span class="string">"Microsoft YaHei"</span>, <span class="string">"WenQuanYi Micro Hei"</span>, sans-serif;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">"font-family:'宋体';"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>font-family</code> 的属性值可以是字体名，也可以是字体集，<strong>字体集是一类字体的统称</strong>。</p>
+<h2 id="font-size-字号"><a href="#font-size-字号" class="headerlink" title="font-size 字号"></a>font-size 字号</h2><p><code>font-size</code> 用于定义元素内的字体大小，它的值可以相对单位，也可以是绝对单位。绝对单位有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>单位</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>in</td>
+<td>英寸</td>
+</tr>
+<tr>
+<td>cm</td>
+<td>厘米</td>
+</tr>
+<tr>
+<td>mm</td>
+<td>毫米</td>
+</tr>
+<tr>
+<td>pt</td>
+<td>磅，印刷的点数，1英寸 = 72磅。</td>
+</tr>
+<tr>
+<td>pc</td>
+<td>1pc = 12pt</td>
+</tr>
+</tbody>
+</table>
+<p>当没有设置 <code>font-size</code> 时，网页会使用浏览器默认的字体大小，一般是 <code>16px</code>。我们也可以使用绝对值来定义 <code>font-size</code>，可用的绝对值有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>属性值</th>
+<th>对应字号</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>xx-small</td>
+<td>9px</td>
+</tr>
+<tr>
+<td>x-small</td>
+<td>11px</td>
+</tr>
+<tr>
+<td>small</td>
+<td>13px</td>
+</tr>
+<tr>
+<td>medium</td>
+<td>16px</td>
+</tr>
+<tr>
+<td>large</td>
+<td>19px</td>
+</tr>
+<tr>
+<td>x-large</td>
+<td>23px</td>
+</tr>
+<tr>
+<td>xx-large</td>
+<td>28px</td>
+</tr>
+</tbody>
+</table>
+<p>绝对单位不会因为设备分辨率或父元素的大小而改变，且根据浏览器和默认设置的不同，展示效果也不一样，因此绝对单位在 <code>font-size</code> 中并不常用。</p>
+<p>相对单位有两种单位，<code>px</code> 、 <code>em</code>、 <code>%</code>，相对单位会根据屏幕分辨率的不同，改变自身的大小。其中 <code>em</code> 和 <code>%</code>  都是根据父元素的 <code>font-size</code> 进行计算得出值。<code>2em</code> 也就是父元素字体大小的 2 倍，<code>200%</code> 等同于 <code>2em</code>。</p>
+<p>相对单位还有两个特殊的值 <code>smaller</code> 和 <code>larger</code>，它们会根据父元素的 <code>font-size</code> 变大或变小。</p>
+<h2 id="color-文字颜色"><a href="#color-文字颜色" class="headerlink" title="color 文字颜色"></a>color 文字颜色</h2><p><code>color</code> 属性用于定义元素内文字的颜色，<code>color</code> 的值可以是英文名、Hex、RGB。</p>
+<h2 id="font-weight-字体粗细"><a href="#font-weight-字体粗细" class="headerlink" title="font-weight 字体粗细"></a>font-weight 字体粗细</h2><p><code>font-weight</code> 用于为元素内的文字设置粗细，<code>font-weight</code> 的值有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认</td>
+<td>normal / 400</td>
+</tr>
+<tr>
+<td>粗</td>
+<td>bold / 700</td>
+</tr>
+<tr>
+<td>更粗</td>
+<td>bolder</td>
+</tr>
+<tr>
+<td>更细</td>
+<td>lighter</td>
+</tr>
+<tr>
+<td>数字</td>
+<td>100 - 900</td>
+</tr>
+</tbody>
+</table>
+<h2 id="font-style-字体样式"><a href="#font-style-字体样式" class="headerlink" title="font-style 字体样式"></a>font-style 字体样式</h2><p>在 HTML 中，我们使用 <code>&lt;em&gt;</code> 和 <code>&lt;i&gt;</code> 标签设置斜体，那么在 CSS 中，如何设置斜体呢？那就是 <code>font-style</code>，它有以下几个常用的值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认</td>
+<td>normal</td>
+</tr>
+<tr>
+<td>斜体</td>
+<td>italic</td>
+</tr>
+<tr>
+<td>倾斜</td>
+<td>oblique</td>
+</tr>
+</tbody>
+</table>
+<h2 id="font-variant-字体变形"><a href="#font-variant-字体变形" class="headerlink" title="font-variant 字体变形"></a>font-variant 字体变形</h2><p>设置元素中文本为小型大写字母，只针对英文有效， <code>font-variant</code> 常用的值有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>默认</td>
+<td>normal</td>
+</tr>
+<tr>
+<td>小型大写字母</td>
+<td>small-caps</td>
+</tr>
+</tbody>
+</table>
+<h2 id="text-align-水平对齐"><a href="#text-align-水平对齐" class="headerlink" title="text-align 水平对齐"></a>text-align 水平对齐</h2><p>设置元素内文本的水 平对齐方式，<code>text-align</code> 常用的值有以下几种：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>左对齐</td>
+</tr>
+<tr>
+<td>right</td>
+<td>右对齐</td>
+</tr>
+<tr>
+<td>center</td>
+<td>居中对齐</td>
+</tr>
+<tr>
+<td>justify</td>
+<td>两段对齐</td>
+</tr>
+</tbody>
+</table>
+<p><strong>需要注意的是，<code>text-align</code> 只对块级元素有效</strong>。</p>
+<h2 id="vertical-align-垂直对齐"><a href="#vertical-align-垂直对齐" class="headerlink" title="vertical-align 垂直对齐"></a>vertical-align 垂直对齐</h2><p>设置元素内容的垂直方式，<code>vertical-align</code> 有以下几个常用的值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>baseline</td>
+<td>基线对齐</td>
+</tr>
+<tr>
+<td>sub</td>
+<td>下标</td>
+</tr>
+<tr>
+<td>super</td>
+<td>上标</td>
+</tr>
+<tr>
+<td>top</td>
+<td>元素顶部对齐</td>
+</tr>
+<tr>
+<td>text-top</td>
+<td>文字顶部对齐</td>
+</tr>
+<tr>
+<td>middle</td>
+<td>垂直居中对齐</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>元素底部对齐</td>
+</tr>
+<tr>
+<td>text-bottom</td>
+<td>文字底部对齐</td>
+</tr>
+<tr>
+<td>长度</td>
+<td>比如 15、-15</td>
+</tr>
+<tr>
+<td>百分比</td>
+<td>比如 30%、-30%。</td>
+</tr>
+</tbody>
+</table>
+<p><strong><code>vertical-align</code> 对行内元素有效，对块级元素无效</strong>。<code>vertical-align</code> 设定的是行内元素在父级元素中，两条基线的垂直对齐方式。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/CSS%20%E5%9E%82%E7%9B%B4%E5%AF%B9%E9%BD%90.jpg" alt="CSS 垂直对齐"></p>
+<h2 id="line-height-行高"><a href="#line-height-行高" class="headerlink" title="line-height 行高"></a>line-height 行高</h2><p>用于设定元素中文本的的行高，它的值可以是长度和  <code>%</code>，<code>em</code>。使用长度作为行高，如果 <code>font-size</code> 发生变化，由于 <code>line-height</code> 大于或小于 <code>font-size</code>，会造成页面文字挤压或过于稀疏，这种情况可以使用百分比来设定行高。</p>
+<h2 id="word-spacing-和-letter-spacing"><a href="#word-spacing-和-letter-spacing" class="headerlink" title="word-spacing 和 letter-spacing"></a>word-spacing 和 letter-spacing</h2><table>
+<thead>
+<tr>
+<th>字体属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>word-spacing</td>
+<td>设定元素内单词之间的间距</td>
+</tr>
+<tr>
+<td>letter-spacing</td>
+<td>设定元素内字母之间的间距</td>
+</tr>
+</tbody>
+</table>
+<p><code>word-spacing</code> 属性以空格作为单词的依据，将单词之间的间距增加或缩小。</p>
+<h2 id="text-transform"><a href="#text-transform" class="headerlink" title="text-transform"></a>text-transform</h2><p><code>text-transform</code> 用于设定元素内文本的大小写，有以下几个常用的值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>capitalize</td>
+<td>首字母大写</td>
+</tr>
+<tr>
+<td>uppercase</td>
+<td>大写</td>
+</tr>
+<tr>
+<td>lowercase</td>
+<td>小写</td>
+</tr>
+<tr>
+<td>none</td>
+<td>默认值</td>
+</tr>
+</tbody>
+</table>
+<p><code>text-transform</code> 是以空格区分文本中的单词，如 <code>text-align</code> 这样的单词，在一些浏览器中，可能不会生效。</p>
+<h2 id="text-decoration"><a href="#text-decoration" class="headerlink" title="text-decoration"></a>text-decoration</h2><p><code>text-decoration</code> 用以设定元素内文本的装饰，有以下几个常见的值：</p>
+<table>
+<thead>
+<tr>
+<th>值</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>underline</td>
+<td>下划线</td>
+</tr>
+<tr>
+<td>overline</td>
+<td>上划线</td>
+</tr>
+<tr>
+<td>line-through</td>
+<td>删除线</td>
+</tr>
+<tr>
+<td>blink</td>
+<td>闪烁</td>
+</tr>
+<tr>
+<td>none</td>
+<td>默认</td>
+</tr>
+</tbody>
+</table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/03/CSS 命名规范/" rel="next" title="CSS - 命名规范">
+                <i class="fa fa-chevron-left"></i> CSS - 命名规范
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/07/10/CSS 文本样式/"
+     data-title="CSS - 文本样式"
+     data-content=""
+     data-url="http://yoursite.com/2017/07/10/CSS 文本样式/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/10/CSS 文本样式/"
+           data-title="CSS - 文本样式" data-url="http://yoursite.com/2017/07/10/CSS 文本样式/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#font-标签"><span class="nav-number">1.</span> <span class="nav-text">font 标签</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-family-字体"><span class="nav-number">2.</span> <span class="nav-text">font-family 字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-size-字号"><span class="nav-number">3.</span> <span class="nav-text">font-size 字号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#color-文字颜色"><span class="nav-number">4.</span> <span class="nav-text">color 文字颜色</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-weight-字体粗细"><span class="nav-number">5.</span> <span class="nav-text">font-weight 字体粗细</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-style-字体样式"><span class="nav-number">6.</span> <span class="nav-text">font-style 字体样式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font-variant-字体变形"><span class="nav-number">7.</span> <span class="nav-text">font-variant 字体变形</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-align-水平对齐"><span class="nav-number">8.</span> <span class="nav-text">text-align 水平对齐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#vertical-align-垂直对齐"><span class="nav-number">9.</span> <span class="nav-text">vertical-align 垂直对齐</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#line-height-行高"><span class="nav-number">10.</span> <span class="nav-text">line-height 行高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#word-spacing-和-letter-spacing"><span class="nav-number">11.</span> <span class="nav-text">word-spacing 和 letter-spacing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-transform"><span class="nav-number">12.</span> <span class="nav-text">text-transform</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#text-decoration"><span class="nav-number">13.</span> <span class="nav-text">text-decoration</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

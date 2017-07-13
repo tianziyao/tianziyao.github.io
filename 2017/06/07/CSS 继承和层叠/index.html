@@ -1,0 +1,818 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="HTML 中，标签的层级关系就是树，&amp;lt;html&amp;gt; 是根节点。CSS 继承是指从父元素那继承部分 CSS 属性。
+
+应该类似父类和子类的关系吧，只不过这个类只用来描述 View 的 UI 元素。
+
+比如下面的代码：
+123456&amp;lt;style type=&quot;text/css&quot;&amp;gt;    p &amp;#123;        color: red;    &amp;#125;&amp;lt;/style&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS - 继承和层叠">
+<meta property="og:url" content="http://yoursite.com/2017/06/07/CSS 继承和层叠/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="HTML 中，标签的层级关系就是树，&amp;lt;html&amp;gt; 是根节点。CSS 继承是指从父元素那继承部分 CSS 属性。
+
+应该类似父类和子类的关系吧，只不过这个类只用来描述 View 的 UI 元素。
+
+比如下面的代码：
+123456&amp;lt;style type=&quot;text/css&quot;&amp;gt;    p &amp;#123;        color: red;    &amp;#125;&amp;lt;/style&amp;">
+<meta property="og:updated_time" content="2017-07-13T11:54:03.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS - 继承和层叠">
+<meta name="twitter:description" content="HTML 中，标签的层级关系就是树，&amp;lt;html&amp;gt; 是根节点。CSS 继承是指从父元素那继承部分 CSS 属性。
+
+应该类似父类和子类的关系吧，只不过这个类只用来描述 View 的 UI 元素。
+
+比如下面的代码：
+123456&amp;lt;style type=&quot;text/css&quot;&amp;gt;    p &amp;#123;        color: red;    &amp;#125;&amp;lt;/style&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/07/CSS 继承和层叠/"/>
+
+  <title> CSS - 继承和层叠 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS - 继承和层叠
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-07T01:21:00+08:00" content="2017-06-07">
+              2017-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/07/CSS 继承和层叠/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/CSS 继承和层叠/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>HTML 中，标签的层级关系就是树，<code>&lt;html&gt;</code> 是根节点。CSS 继承是指从父元素那继承部分 CSS 属性。</p>
+<blockquote>
+<p>应该类似父类和子类的关系吧，只不过这个类只用来描述 View 的 UI 元素。</p>
+</blockquote>
+<p>比如下面的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-tag">p</span> &#123;</div><div class="line">        <span class="attribute">color</span>: red;</div><div class="line">    &#125;</div><div class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>CSS <span class="tag">&lt;<span class="name">span</span>&gt;</span>继承<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们没有描述 <code>&lt;span&gt;</code>  的样式，<code>继承</code> 两个字也变成红色，用面向对象来理解，应该是这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</div><div class="line">	color = red</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Span</span>: <span class="title">P</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> span = <span class="type">Span</span>()</div><div class="line"><span class="built_in">print</span>(span.color)</div></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>CSS 的继承关系是比较弱的，子元素不一定会继承父元素所有的属性。</p>
+<p>CSS 层叠可以定义多个样式，不冲突时，多个样式可以层叠为一个，冲突时，按照不同样式规则优先级来应用样式。</p>
+<blockquote>
+<p>CSS 层叠类似子类重写和添加属性吧。CSS 的继承和层叠和面向对象的继承和多态感觉差不多。</p>
+</blockquote>
+<h2 id="CSS-权值"><a href="#CSS-权值" class="headerlink" title="CSS 权值"></a>CSS 权值</h2><table>
+<thead>
+<tr>
+<th>类型</th>
+<th>权值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>行内样式</td>
+<td>1000</td>
+</tr>
+<tr>
+<td>id 选择器</td>
+<td>100</td>
+</tr>
+<tr>
+<td>class 选择器和伪类</td>
+<td>10</td>
+</tr>
+<tr>
+<td>标签选择器</td>
+<td>1</td>
+</tr>
+<tr>
+<td>通配符选择器</td>
+<td>0</td>
+</tr>
+<tr>
+<td>继承</td>
+<td>无权值，有任意声明都会被覆盖。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="权值计算"><a href="#权值计算" class="headerlink" title="权值计算"></a>权值计算</h3><p>以 <code>#main div.warning h2 {...}</code> 举例：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>符名</th>
+<th>权重</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td><code>#main</code></td>
+<td>100</td>
+</tr>
+<tr>
+<td>标签</td>
+<td><code>div</code></td>
+<td>1</td>
+</tr>
+<tr>
+<td>class</td>
+<td><code>warning</code></td>
+<td>10</td>
+</tr>
+<tr>
+<td>标签</td>
+<td><code>h2</code></td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>因此它的权值是 112。</p>
+<h3 id="比较原则"><a href="#比较原则" class="headerlink" title="比较原则"></a>比较原则</h3><p><code>1,0,0,0 &gt; 0,99,99,99</code>，也就是说从左往右逐个等级比较，前一等级相等才往后比，无论是行间、内部和外部样式，都是按照这个规则来进行比较。而不是直观的 <code>行间 &gt; 内部 &gt; 外部样式</code>，<code>id &gt; class &gt; 元素</code>。之所以有这样的错觉，是因为确实行间为第一等的权重，所以它的权重是最高的，而内部样式可能一般写在了外部样式引用了之后，所以覆盖掉了之前的。</p>
+<p>同样权值的样式，后声明的样式会覆盖先声明的样式。</p>
+<h2 id="调整优先级"><a href="#调整优先级" class="headerlink" title="调整优先级"></a>调整优先级</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">"screen"</span>&gt;</span><span class="css"></span></div><div class="line">      * &#123;</div><div class="line">        <span class="attribute">color</span>: red <span class="meta">!important</span></div><div class="line">      &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span> <span class="attr">style</span>=<span class="string">"color:blue"</span>&gt;</span>hello world<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p><code>!importrtant</code> 关键字可以使样式的权重提升到无限大，通过 <code>!important</code> 声明的样式，会覆盖所有冲突样式。</p>
+<h2 id="CSS-优先级"><a href="#CSS-优先级" class="headerlink" title="CSS 优先级"></a>CSS 优先级</h2><p>之前我们学习过，CSS 的优先级 <code>行内样式 &gt; 内部样式 &gt; 外部样式</code> ，其中 <code>&lt;link&gt;</code> 和 <code>@import</code> 的优先级取决于位置的先后，最后定义的优先级最高，也就是就近原则。</p>
+<p>那么元素选择器、class 选择器、id 选择器、全局选择器，群组选择器、后代选择器，这几种选择器的优先级又是怎样的呢？</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>CSS 选择器优先级<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">media</span>=<span class="string">"screen"</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">      <span class="selector-tag">div</span> &#123;</div><div class="line">        <span class="attribute">color</span>: red;</div><div class="line">      &#125;</div><div class="line">      <span class="selector-id">#green</span> &#123;</div><div class="line">        <span class="attribute">color</span>: green;</div><div class="line">      &#125;</div><div class="line">      <span class="selector-class">.blue</span> &#123;</div><div class="line">        <span class="attribute">color</span>: blue;</div><div class="line">      &#125;</div><div class="line">    <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>单独使用<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">""</span>&gt;</span></div><div class="line">      使用标签选择器</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">""</span> <span class="attr">id</span>=<span class="string">"green"</span>&gt;</span></div><div class="line">      使用 id 样式</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"blue"</span>&gt;</span></div><div class="line">      使用 class 样式</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"blue"</span> <span class="attr">id</span>=<span class="string">"green"</span>&gt;</span></div><div class="line">      同时引用 class 和 id</div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!--id选择器 &gt; 标签选择器--&gt;</span></div><div class="line">    <span class="comment">&lt;!--class选择器 &gt; 标签选择器--&gt;</span></div><div class="line">    <span class="comment">&lt;!--id选择器 &gt; class选择器--&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>通过上面的代码，我们可以得出结论：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">id选择器 &gt; class选择器 &gt; 标签选择器</div></pre></td></tr></table></figure>
+<blockquote>
+<p>我们之前学习过，id 和 HTML 元素是一一对应的，但多个元素可以使用一个 class，一个元素也可以使用多个 class，因此 id 距离元素“更近”。</p>
+</blockquote>
+<p>一个元素同时继承多个 class 发生冲突时，后定义的 class 会覆盖之前的 class。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/05/26/CSS 选择器/" rel="next" title="CSS - 选择器">
+                <i class="fa fa-chevron-left"></i> CSS - 选择器
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/03/CSS 命名规范/" rel="prev" title="CSS - 命名规范">
+                CSS - 命名规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/06/07/CSS 继承和层叠/"
+     data-title="CSS - 继承和层叠"
+     data-content=""
+     data-url="http://yoursite.com/2017/06/07/CSS 继承和层叠/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/07/CSS 继承和层叠/"
+           data-title="CSS - 继承和层叠" data-url="http://yoursite.com/2017/06/07/CSS 继承和层叠/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">67</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-权值"><span class="nav-number">1.</span> <span class="nav-text">CSS 权值</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#权值计算"><span class="nav-number">1.1.</span> <span class="nav-text">权值计算</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#比较原则"><span class="nav-number">1.2.</span> <span class="nav-text">比较原则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#调整优先级"><span class="nav-number">2.</span> <span class="nav-text">调整优先级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-优先级"><span class="nav-number">3.</span> <span class="nav-text">CSS 优先级</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

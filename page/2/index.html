@@ -278,6 +278,646 @@
             
               
                 
+                <a class="post-title-link" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="url">
+                  iOS开发 - 利用Runtime优化归解档 
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-24T04:43:00+08:00" content="2017-01-24">
+              2017-01-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Runtime/" itemprop="url" rel="index">
+                    <span itemprop="name">Runtime</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>Runtime 是 iOS 开发中的知名黑魔法，充分体现了 Objective - C 的动态运行时特性，Swift 是一门静态语言，这意味着代码编译时即确定了其实际调用的方法和类型，所以纯粹的 Swift 类和对象没有办法使用 Runtime，更不存在 Method swizzling，但是呢，Swift 是兼容 Objective - C 的，继承自 NSObject 的类，也就具有了运行时的消息机制。</p>
+<p>纯粹的 Swift 类，也可以通过添加 <code>@objc</code> 修饰符， <code>@objc</code> 关键字只需要对那些不是继承自 <code>NSObject</code> 的类型进行，如果 class 是继承自 <code>NSObject</code> 的话，Swift 会默认自动为所有的非 private 的类和成员加上 <code>@objc</code>。</p>
+<p> <code>@objc</code> 修饰符主要用于需要暴露给 Objective-C 使用的任何地方 (包括类，属性和方法等) ，以支持其动态派发和运行时机制。</p>
+<p>添加 <code>@objc</code> 修饰符并不意味着这个方法或者属性会变成动态派发，Swift 依然可能会将其优化为静态调用。如果需要施展一些像 Method swizzling 或者运行时再决定实现这样的 “黑魔法” 的时候，我们就必须用到 <code>dynamic</code> 修饰符了。 <code>dynamic</code> 修饰符会隐式的添加 <code>@objc</code> 进行修饰。</p>
+<p>也就是说，需要 Swift 和 Objective 混合开发时，使用 <code>@objc</code> 就可以了，需要 Swift 完全实现运行时机制时，那么必须要添加 <code>dynamic</code> 修饰符。</p>
+<p>下面我们通过优化归解档，来了解 Runtime 在 Swift 中的应用：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="url">
+                  iOS设计模式 - KVC内部机制&使用场景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-21T02:24:00+08:00" content="2016-12-21">
+              2016-12-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/21/iOS设计模式 - KVC内部机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。</p>
+<p>关于Apple是如何实现KVC这个问题：</p>
+<blockquote>
+<p>🙃 🙃 我也不知道…… </p>
+</blockquote>
+<p>因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，</p>
+<p>对于<code>setValue:forKey:</code> ，在setter存在的情况，KVC 会直接发送<code>set&lt;Key&gt;:</code> 消息赋值；</p>
+<p>在setter不在的情况下，且<code>accessInstanceVariablesDirectly</code>方法是true的情况下，会按<code>（_&lt;key&gt;, _&lt;isKey&gt;, &lt;key&gt;, is&lt;Key&gt;）</code>的顺序去查找实例变量，检查其是否存在之后通过<code>object_setIvar</code>给它赋值。</p>
+<p>如果都没有就调用<code>setValue:forUNdefinedKey:</code>抛出错误。</p>
+<p>对于<code>setValue:forKeyPath:</code>，递归地检查keyPath中的属性是否存在，到达目标路径时再调用<code>setValue:forKey:</code> 完成赋值。</p>
+<p>大致上我准备按上面的执行顺序进行实现，由于集合、字典和模型、KeyPath的情况比较复杂，所以我只实现了最普通的存值和取值，下面进入正题：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/12/21/iOS设计模式 - KVC内部机制/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/26/Plist 和转义符/" itemprop="url">
+                  Xcode错误 - Plist和转义符「/」
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-26T02:24:00+08:00" content="2016-11-26">
+              2016-11-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/26/Plist 和转义符/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/Plist 和转义符/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
+<p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
+<p><strong>如果不想看过程，可以直接翻到最下面看验证的结果</strong>。</p>
+<p>问题是这样的，我创建了一个 Plist 文件，希望用来存储用户的设置选项，遇到的第一个坑是 KVC 不支持 Bool 类型，这个是我没想起了，使用 0 和 1 来替代解决了，现在要讲的是第二个坑。</p>
+<p>因为我在项目中使用了字体图标，它类似 Emoji 表情：使用 Unicode 编码，获取特定的图标。在其他的页面中，我使用了全局变量 + UILabel 转 UIImage 的方式，获取并使用字体图标，代码如下：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/26/Plist 和转义符/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/11/24/iOS设计模式 - Notification/" itemprop="url">
+                  iOS设计模式 - Notification
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-11-24T02:24:00+08:00" content="2016-11-24">
+              2016-11-24
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/11/24/iOS设计模式 - Notification/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/24/iOS设计模式 - Notification/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>iOS 中的观察者 Observer 模式包含了通知机制（Notification）和KVO（Key-Value-Observing）机制，我们知道对象之间的通讯有以下几种常见的方式：</p>
+<blockquote>
+<p>Delegate、Block、KVO、Notification；</p>
+</blockquote>
+<p>其中 Delegate 使用的是委托机制，是一对一的对象之间的通信；而 KVO 和 Notification 通知机制是广播，也就是一对多的对象之间的通信。那么对象之间的通讯又是做什么呢？简单来说就是在 A 类中创建的方法，在 B 类中执行，且 A 类可以传递数据给 B 类，我们知道当说起通知时，有以下几种：</p>
+<blockquote>
+<p>本地通知、推送通知、广播通知；</p>
+</blockquote>
+<p>这三种通知是不同的，本地通知使用的是 <code>UILocalNotification</code> 实现，是我们的 APP 运行时，给用户的通知；推送通知是使用 <code>UIUserNotification</code> 实现，是用户同意推送后，由我们的服务器提交给 APNS，再由 APNS 转发给用户的。</p>
+<p>而我们本文要探讨的是，程序中的对象与对象之间的通知，也就是最后一项，广播通知。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/11/24/iOS设计模式 - Notification/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/" itemprop="url">
+                  iOS开发 - 在一个工程中开发多个APP
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-11T02:24:00+08:00" content="2016-10-11">
+              2016-10-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/10/11/iOS开发 - 在一个工程中开发多个APP/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>一般情况下，我们是一个 App 应用对应一个<code>Xcode Project</code>，但是如果你需要同时开发多个产品，而这些产品 90% 的数据结构以及交互方式都一样，呈现在用户面前的这两个产品，最大的不一样就是UI元素以及某些配色时，如果这个时候还是一个 App 一个<code>Xcode Project</code>，普遍的做法是：</p>
+<p>你会先开发完成一个产品，然后在复制到其他的产品中，非常的麻烦而且效率很低，你需要一个一个文件去比对。如果你使用模块的方式，开发完一个模块，然后再利用<code>Pod</code>的方式导入到其他产品中，虽然这样可行，但是涉及到产品的迭代开发以及产品的随时会变的交互，模块的细化分很难实现。</p>
+<p>如果你也面临这样的问题，不放考虑一下下面讲的<code>一个工程来开发多个App</code>：</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/10/11/iOS开发 - 在一个工程中开发多个APP/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/09/26/Xcode错误 - Pch file not found/" itemprop="url">
                   Xcode错误 - Pch file not found
                 </a>
@@ -899,638 +1539,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 快速入门/" itemprop="url">
-                  微信开发 - 快速入门
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 快速入门/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 快速入门/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>微信是一个生活方式，张小龙提出的这个愿景已经得到了越来越清晰的体现。</p>
-</blockquote>
-<p>群聊、语音、视频，照片/视频/位置共享，支付和商店都有了，还能通过公众账号来获取各种资源……</p>
-<p>如今的微信就是在日中天的状态，公众平台带来的影响有目共睹，所以很多公司和个人都希望有自己的公众号，想充分利用却无处下手，下面我们分为几篇文章，由浅入深的了解微信开发。</p>
-<p>在下面的学习中，需要你具有PHP语言的基础，并拥有一台具有PHP运行环境的主机，如果还没有可以通过新浪SAE，阿里云ECS等进行搭建。</p>
-<p>下面进入正题！</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 快速入门/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/09/02/微信开发 - 公众平台简介/" itemprop="url">
-                  微信开发 - 公众平台简介
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-09-02T02:24:00+08:00" content="2016-09-02">
-              2016-09-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/微信开发/" itemprop="url" rel="index">
-                    <span itemprop="name">微信开发</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/09/02/微信开发 - 公众平台简介/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/09/02/微信开发 - 公众平台简介/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>微信开发即微信公众平台开发，将企业信息、服务、活动等内容通过微信网页的方式进行表现，用户通过简单的设置，就能生成微信3G网站。通过微信公众平台将企业品牌展示给微信用户，减少宣传成本，建立企业与消费者、客户的一对一互动和沟通，将消费者接入企业CRM系统，进行促销、推广、宣传、售后等。形成了一种主流的线上线下微信互动营销方式。</p>
-<p>通过二次开发可以将公众账号由一个媒体型营销工具转化成提供服务的产品。而一旦成为用户需要的产品，公众账号的营销功能便会开启。<br>微信的核心是通讯工具，这一工具属性将用户牢牢地黏在了平台之上。用户和企业可以非常方便地在上面进行沟通，所以微信很自然地就成了企业的CRM(客户管理系统)平台来面对忠实用户，这也给了企业将服务引入平台的机会。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/09/02/微信开发 - 公众平台简介/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/24/iOS多线程之 同步线程/" itemprop="url">
-                  iOS多线程 - 同步线程
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-24T05:09:00+08:00" content="2016-08-24">
-              2016-08-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/24/iOS多线程之 同步线程/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/24/iOS多线程之 同步线程/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>比如你去银行存10K，在用ATM存的同时，又使用网银取了10K，如果线程同步做的不好的话， 虽然取10K元的操作会有记录，但是可能不会反映在余额上。如果要解决这样的问题，就需要用到线程同步，线程同步在开发过程中是非常常见的。下面我们以12306为例，尝试解决如何保证一张票不会被不同窗口，不同客户端重复购买。</p>
-</blockquote>
-<p>首先我们来认识一下互斥锁的概念：</p>
-<blockquote>
-<p><strong>互斥锁</strong>（英语：Mutual exclusion，缩写 Mutex）是一种用于<a href="https://zh.wikipedia.org/wiki/%E5%A4%9A%E7%BA%BF%E7%A8%8B">多线程</a><a href="https://zh.wikipedia.org/wiki/%E7%BC%96%E7%A8%8B">编程</a>中，防止两条<a href="https://zh.wikipedia.org/wiki/%E7%BA%BF%E7%A8%8B">线程</a>同时对同一公共资源（比如<a href="https://zh.wikipedia.org/wiki/%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F">全局变量</a>）进行读写的机制。该目的通过将代码切片成一个一个的<a href="https://zh.wikipedia.org/wiki/%E4%B8%B4%E7%95%8C%E5%8C%BA%E5%9F%9F">临界区域</a>（critical section）达成。临界区域指的是一块对公共资源进行访问的代码，并非一种机制或是算法。一个程序、进程、线程可以拥有多个临界区域，但是并不一定会应用互斥锁。</p>
-</blockquote>
-<p>以上是维基百科给出的解释，如需了解更多请 <a href="https://zh.wikipedia.org/wiki/%E4%BA%92%E6%96%A5%E9%94%81">点击这里</a>。</p>
-<p>简单来讲，互斥锁是为了防止多个线程访问同一个对象、方法、变量、文件等引起的数据错误。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/24/iOS多线程之 同步线程/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/" itemprop="url">
-                  Xcode错误 - Failed to import && .h file not found
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-05T05:46:00+08:00" content="2016-08-05">
-              2016-08-05
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xcode错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/Xcode错误 - Failed to import && .h file not found/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>出现这两个问题时，首先要确保相关的库和依赖已经导入到工程，如果还是有提示，这说明出错的文件 Xcode 无法获取到。</p>
-<p>首先进入工程的 Build Phases ，找到 Link Binary With Libraries ，点击 + 号将提示缺失的文件导入。</p>
-<p><img src="http://ob2q6r0fn.bkt.clouddn.com/buildphases.png" alt=""></p>
-<p>如果文件已经存在的话，进入工程的 Build Settings ，在 TARGETS 而不是 PROJECT 下，搜索 Search Paths，确保 Frameworks Search Paths 和 Header Search Paths 指向正确的文件路径。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="url">
-                  iOS数据处理 - 转载·字符串MD5加密
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-03T02:46:00+08:00" content="2016-08-03">
-              2016-08-03
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <blockquote>
-<p>MD5 即 Message-Digest Algorithm 5（信息-摘要算法5），用于确保信息传输完整一致。是计算机广泛使用的杂凑算法之一（又译摘要算法、哈希算法），主流编程语言普遍已有MD5实现。 其作用是让大容量信息在用数字签名软件签署私人密钥前被”压缩”成一种保密的格式（就是把一个任意长度的字节串变换成一定长的十六进制数字串）。</p>
-</blockquote>
-<p>首先，创建桥接头文件 <code>bridge.h</code> 来包含需要引用的 <code>Objective-C</code> 头文件，并在项目中配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">#import &lt;CommonCrypto/CommonDigest.h&gt;</div></pre></td></tr></table></figure>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1576,7 +1584,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">62</span>
+              <span class="site-state-item-count">67</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1584,7 +1592,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-count">14</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1593,7 +1601,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">75</span>
+                <span class="site-state-item-count">76</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
