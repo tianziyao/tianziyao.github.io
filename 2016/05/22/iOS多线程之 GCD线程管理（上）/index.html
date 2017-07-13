@@ -182,7 +182,7 @@ GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁�
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
+      <div class="header-inner"><div class="site-meta custom-logo">
   
 
   <div class="custom-logo-site-title">
@@ -436,7 +436,7 @@ GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁�
 <p>串行：一个任务执行完毕后，再执行下一个任务；</p>
 </li>
 </ol>
-<h4 id="使用异步函数执行主队列"><a href="#使用异步函数执行主队列" class="headerlink" title="使用异步函数执行主队列"></a>使用异步函数执行主队列</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> mainQueue: dispatch_queue_t =  dispatch_get_main_queue()  <span class="comment">//获取主队列</span></div><div class="line">       dispatch_async(mainQueue) &#123;</div><div class="line">           <span class="built_in">print</span>(<span class="string">"使用异步函数执行主队列，所在的线程是<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
+<h4 id="使用异步函数执行主队列"><a href="#使用异步函数执行主队列" class="headerlink" title="使用异步函数执行主队列"></a>使用异步函数执行主队列</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> mainQueue: dispatch_queue_t =  dispatch_get_main_queue()  <span class="comment">//获取主队列</span></div><div class="line">       dispatch_async(mainQueue) &#123;</div><div class="line">           <span class="built_in">print</span>(<span class="string">"使用异步函数执行主队列，所在的线程是\(NSThread.currentThread())"</span>)</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
 <p>通过打印日志，我们可以知道主队列是在主线程中执行。</p>
 <h4 id="使用异步函数执行并行队列"><a href="#使用异步函数执行并行队列" class="headerlink" title="使用异步函数执行并行队列"></a>使用异步函数执行并行队列</h4><p><strong>获取并行队列</strong></p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">dispatch_get_global_queue</span><span class="params">(identifier: Int, <span class="number">_</span> flags: UInt)</span></span> -&gt; dispatch_queue_t!</div></pre></td></tr></table></figure>
@@ -527,7 +527,7 @@ GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁�
 </table>
 <p>值得注意的是：<code>BACKGROUND</code> 表示用户不需要知道任务什么时候完成，如果选择这个选项速度慢得令人发指，非常不利于调试！对于优先级推荐不要搞得太负责，就用最简单，以免发生优先级反转。</p>
 <p>下面我们创建 2 个异步函数并执行一个并行队列：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> concurentQueue =  dispatch_get_global_queue(<span class="type">QOS_CLASS_DEFAULT</span>, <span class="number">0</span>)</div><div class="line"></div><div class="line">    dispatch_async(concurentQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"使用异步函数执行第1个全局并行队列，线程是<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    &#125;</div><div class="line">    dispatch_async(concurentQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"使用异步函数执行第2个全局并行队列，线程是<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> concurentQueue =  dispatch_get_global_queue(<span class="type">QOS_CLASS_DEFAULT</span>, <span class="number">0</span>)</div><div class="line"></div><div class="line">    dispatch_async(concurentQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"使用异步函数执行第1个全局并行队列，线程是\(NSThread.currentThread())"</span>)</div><div class="line">    &#125;</div><div class="line">    dispatch_async(concurentQueue) &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"使用异步函数执行第2个全局并行队列，线程是\(NSThread.currentThread())"</span>)</div><div class="line">    &#125;</div></pre></td></tr></table></figure>
 <p>通过打印日志我们可以知道：如果使用全局并行队列，并且使用异步函数执行时，异步函数会创建一个新的并行线程，并行线程和主线程是同时运行的，所以哪个先执行并不能掌握。</p>
 <p>每当有一个异步函数执行并行队列，都会创建一个新的子线程，并在这个新的线程中运行。但这并不意味着你使用很多异步函数执行并行队列，就会有很多个子线程，当这种情况发生时，系统会将你在 block 的操作封装给其他的子线程运行。</p>
 <h4 id="使用异步函数执行自定义队列"><a href="#使用异步函数执行自定义队列" class="headerlink" title="使用异步函数执行自定义队列"></a>使用异步函数执行自定义队列</h4><p><strong>创建自定义队列</strong></p>
@@ -555,7 +555,7 @@ GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁�
 </tbody>
 </table>
 <p>下面我们创建 2 个异步函数并执行一个串行行队列：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myQueue = dispatch_queue_create(<span class="string">"请求的操作"</span>, <span class="type">DISPATCH_QUEUE_SERIAL</span>)</div><div class="line">dispatch_async(myQueue) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"使用异步函数执行第1个串行队列，线程是<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">&#125;</div><div class="line">dispatch_async(myQueue) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"使用异步函数执行第2个串行队列，线程是<span class="subst">\(NSThread.currentThread()</span>)"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> myQueue = dispatch_queue_create(<span class="string">"请求的操作"</span>, <span class="type">DISPATCH_QUEUE_SERIAL</span>)</div><div class="line">dispatch_async(myQueue) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"使用异步函数执行第1个串行队列，线程是\(NSThread.currentThread())"</span>)</div><div class="line">&#125;</div><div class="line">dispatch_async(myQueue) &#123;</div><div class="line">    <span class="built_in">print</span>(<span class="string">"使用异步函数执行第2个串行队列，线程是\(NSThread.currentThread())"</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>通过打印结果，我们可以知道：如果使用串行队列，并且是异步函数时，不论有多少异步函数，只会创建一个新的线程。</p>
 <h4 id="异步函数执行不同队列的对比"><a href="#异步函数执行不同队列的对比" class="headerlink" title="异步函数执行不同队列的对比"></a>异步函数执行不同队列的对比</h4><table>
 <thead>
@@ -642,25 +642,6 @@ GCD 会自动管理线程的生命周期（创建任务、调度任务、销毁�
 
 
     <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/05/22/iOS多线程之 GCD线程管理（上）/"
-     data-title="iOS多线程 - GCD线程管理"
-     data-content=""
-     data-url="http://yoursite.com/2016/05/22/iOS多线程之 GCD线程管理（上）/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
       
     </div>
   </div>

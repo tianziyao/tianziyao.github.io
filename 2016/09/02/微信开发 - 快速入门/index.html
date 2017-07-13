@@ -175,7 +175,7 @@
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-meta ">
+      <div class="header-inner"><div class="site-meta custom-logo">
   
 
   <div class="custom-logo-site-title">
@@ -444,7 +444,7 @@
 </tbody>
 </table>
 <h3 id="关注事件文字回复"><a href="#关注事件文字回复" class="headerlink" title="关注事件文字回复"></a>关注事件文字回复</h3><p>首先我们需要获取Event参数，并对Event进行相应的处理：</p>
-<figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$postObj = simplexml_load_string($postStr, <span class="string">'SimpleXMLElement'</span>, LIBXML_NOCDATA);</div><div class="line">$fromUsername = $postObj-&gt;FromUserName;</div><div class="line">$toUsername = $postObj-&gt;ToUserName;</div><div class="line">$keyword = trim($postObj-&gt;Content);</div><div class="line">$event = $postObj-&gt;Event;</div><div class="line">$time = time();</div><div class="line">$textTpl = <span class="string">"&lt;xml&gt;</span></div><div class="line">			&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;</div><div class="line">			&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;</div><div class="line">			&lt;CreateTime&gt;%s&lt;/CreateTime&gt;</div><div class="line">			&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;</div><div class="line">			&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;</div><div class="line">			&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;</div><div class="line">			&lt;/xml&gt;";</div><div class="line"></div><div class="line"><span class="keyword">if</span> ($event == <span class="string">"subscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"订阅事件"</span>;</div><div class="line">    $msgType = <span class="string">"text"</span>;</div><div class="line">    $contentStr = <span class="string">"欢迎关注superliar"</span>;</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    <span class="keyword">echo</span> $resultStr;</div><div class="line">&#125;</div><div class="line"><span class="keyword">elseif</span> ($event == <span class="string">"unsubscribe"</span>) &#123;</div><div class="line">    <span class="keyword">echo</span> <span class="string">"取消订阅事件"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">$postObj = simplexml_load_string($postStr, 'SimpleXMLElement', LIBXML_NOCDATA);</div><div class="line">$fromUsername = $postObj-&gt;FromUserName;</div><div class="line">$toUsername = $postObj-&gt;ToUserName;</div><div class="line">$keyword = trim($postObj-&gt;Content);</div><div class="line">$event = $postObj-&gt;Event;</div><div class="line">$time = time();</div><div class="line">$textTpl = "&lt;xml&gt;</div><div class="line">			&lt;ToUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/ToUserName&gt;</div><div class="line">			&lt;FromUserName&gt;&lt;![CDATA[%s]]&gt;&lt;/FromUserName&gt;</div><div class="line">			&lt;CreateTime&gt;%s&lt;/CreateTime&gt;</div><div class="line">			&lt;MsgType&gt;&lt;![CDATA[%s]]&gt;&lt;/MsgType&gt;</div><div class="line">			&lt;Content&gt;&lt;![CDATA[%s]]&gt;&lt;/Content&gt;</div><div class="line">			&lt;FuncFlag&gt;0&lt;/FuncFlag&gt;</div><div class="line">			&lt;/xml&gt;";</div><div class="line"></div><div class="line">if ($event == "subscribe") &#123;</div><div class="line">    echo "订阅事件";</div><div class="line">    $msgType = "text";</div><div class="line">    $contentStr = "欢迎关注superliar";</div><div class="line">    $resultStr = sprintf($textTpl, $fromUsername, $toUsername, $time, $msgType, $contentStr);</div><div class="line">    echo $resultStr;</div><div class="line">&#125;</div><div class="line">elseif ($event == "unsubscribe") &#123;</div><div class="line">    echo "取消订阅事件";</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这时我们取消关注的公众号，再重新关注它，会收到：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">欢迎关注superliar</div></pre></td></tr></table></figure>
 <h3 id="关注事件图文回复"><a href="#关注事件图文回复" class="headerlink" title="关注事件图文回复"></a>关注事件图文回复</h3><p>图文消息的XML包结构如下：</p>
@@ -586,25 +586,6 @@
 
 
     <div class="post-spread">
-      
-        <div class="ds-share flat" data-thread-key="2016/09/02/微信开发 - 快速入门/"
-     data-title="微信开发 - 快速入门"
-     data-content=""
-     data-url="http://yoursite.com/2016/09/02/微信开发 - 快速入门/">
-  <div class="ds-share-inline">
-    <ul  class="ds-share-icons-16">
-
-      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-
-    </ul>
-    <div class="ds-share-icons-more">
-    </div>
-  </div>
-</div>
       
     </div>
   </div>
