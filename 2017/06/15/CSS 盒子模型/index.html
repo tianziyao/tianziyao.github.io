@@ -1,0 +1,834 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CSS," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="在网页中，元素可以视作可以产生矩形的框，这些框会影响元素之间的距离，元素内容的距离等。盒子模型的概念是将网页视作一个个盒子，每个盒子用来放网页中的各种元素。比如图片，文字等元素，都可以视为盒子，这些盒子可以用更大的盒子 &amp;lt;div&amp;gt; 进行嵌套。将这些盒子进行嵌套，叠加，排列，最后就成为了网页。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS - 盒子模型">
+<meta property="og:url" content="http://yoursite.com/2017/06/15/CSS 盒子模型/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="在网页中，元素可以视作可以产生矩形的框，这些框会影响元素之间的距离，元素内容的距离等。盒子模型的概念是将网页视作一个个盒子，每个盒子用来放网页中的各种元素。比如图片，文字等元素，都可以视为盒子，这些盒子可以用更大的盒子 &amp;lt;div&amp;gt; 进行嵌套。将这些盒子进行嵌套，叠加，排列，最后就成为了网页。">
+<meta property="og:image" content="http://oboehz2ag.bkt.clouddn.com/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:updated_time" content="2017-07-14T13:41:11.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS - 盒子模型">
+<meta name="twitter:description" content="在网页中，元素可以视作可以产生矩形的框，这些框会影响元素之间的距离，元素内容的距离等。盒子模型的概念是将网页视作一个个盒子，每个盒子用来放网页中的各种元素。比如图片，文字等元素，都可以视为盒子，这些盒子可以用更大的盒子 &amp;lt;div&amp;gt; 进行嵌套。将这些盒子进行嵌套，叠加，排列，最后就成为了网页。">
+<meta name="twitter:image" content="http://oboehz2ag.bkt.clouddn.com/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/06/15/CSS 盒子模型/"/>
+
+  <title> CSS - 盒子模型 | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                CSS - 盒子模型
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-15T01:21:00+08:00" content="2017-06-15">
+              2017-06-15
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/15/CSS 盒子模型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/15/CSS 盒子模型/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在网页中，元素可以视作可以产生矩形的框，这些框会影响元素之间的距离，元素内容的距离等。盒子模型的概念是将网页视作一个个盒子，每个盒子用来放网页中的各种元素。比如图片，文字等元素，都可以视为盒子，这些盒子可以用更大的盒子 <code>&lt;div&gt;</code> 进行嵌套。将这些盒子进行嵌套，叠加，排列，最后就成为了网页。</p>
+<p><img src="http://oboehz2ag.bkt.clouddn.com/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B.png" alt="盒子模型"></p>
+<a id="more"></a>
+<h2 id="width"><a href="#width" class="headerlink" title="width"></a>width</h2><p>如上图所示，<code>height</code> 和 <code>width</code> 是指元素本身的宽和高，宽度的值可以是数值和百分比以及 <code>auto</code>，与宽度有关的还有以下两个属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min-width</td>
+<td>最大宽度</td>
+</tr>
+<tr>
+<td>max-width</td>
+<td>最小宽度</td>
+</tr>
+</tbody>
+</table>
+<p>最小和最大宽度，主要是为了防止页面变形，比如一个页面的宽度设置为百分比，这时此页面的宽度会根据浏览器的宽度而定，但如果浏览器的宽度过小，页面就会变形。</p>
+<p>例如百分比设置的页面，浏览器窗口宽度被缩小成 <code>100px</code> 宽度，如果设定了 <code>min-width:780px</code>，那么网页会正常显示，只不过有一部分看不到。同理，<code>max-width</code> 也是如此，现在大多显示都是宽屏的，如果不想页面铺满全屏或各模块的间隔过大，就可以通过最大宽度进行限制。</p>
+<h2 id="height"><a href="#height" class="headerlink" title="height"></a>height</h2><p><code>height</code> 和 <code>width</code> 的值时一样的，而且同样有两个属性：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>min-height</td>
+<td>最大高度</td>
+</tr>
+<tr>
+<td>max-height</td>
+<td>最小高度</td>
+</tr>
+</tbody>
+</table>
+<p>我们有时设置一个对象盒子时候避免对象没有内容时候不能撑开，但内容多少不能确定所以又不能固定高度，这个时候我们就会需要设置 <code>min-height</code> 最小高度撑高对象盒子。当内容少时候最小高度能将内容显示出，如果内容多余最小高度能装下时候，对象也会再随内容增多而增高。</p>
+<p><code>max-height</code> 此属性很少使用，可能是为了避免内容太多将高度撑太高影响布局美化统一，这个时候我们设置最大高度限制。比如一个 <code>table tr td</code> 表格对象里装一个图片，而图片高度不确定，如果太高了不想图片撑破 <code>tr td</code> 表格，这个时候通过 <code>max-height</code> 限制图片最大高度是有必要的。</p>
+<p><strong>需要注意的是，如果 <code>max</code> 小于 <code>min</code> 时，元素会优先使用 <code>min-height</code>，宽度也是如此。 </strong></p>
+<h2 id="支持-height-和-width-的元素"><a href="#支持-height-和-width-的元素" class="headerlink" title="支持 height 和 width 的元素"></a>支持 height 和 width 的元素</h2><p>块级元素支持 <code>height</code> 和 <code>width</code> 属性，而行内元素不支持。此外，替换元素也支持 <code>height</code> 和 <code>width</code> 属性，那么是替换元素呢？</p>
+<h3 id="替换元素"><a href="#替换元素" class="headerlink" title="替换元素"></a>替换元素</h3><p>替换元素是浏览器根据其标签的元素与属性来判断显示具体的内容。</p>
+<p>比如：<code>&lt;input /&gt; type=&quot;text&quot;</code> 时，这是一个文本输入框，换一个其他的时候，浏览器显示就不一样。</p>
+<p>HTML中的 <code>&lt;img&gt;、&lt;input&gt;、&lt;textarea&gt;、&lt;select&gt;、&lt;object&gt;</code> 都是替换元素，这些元素都没有实际的内容。</p>
+<h3 id="非替换元素"><a href="#非替换元素" class="headerlink" title="非替换元素"></a>非替换元素</h3><p>HTML 的大多数元素是不可替换元素，他们将内容直接告诉浏览器，将其显示出来。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;p&gt;wanmei.com&lt;/p&gt;</div></pre></td></tr></table></figure>
+<p>浏览器将把这段内容直接显示出来。</p>
+<h2 id="boder"><a href="#boder" class="headerlink" title="boder"></a>boder</h2><table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>boder-width</td>
+<td>边框宽度</td>
+</tr>
+<tr>
+<td>boder-color</td>
+<td>边框颜色</td>
+</tr>
+<tr>
+<td>boder-style</td>
+<td>边框样式</td>
+</tr>
+</tbody>
+</table>
+<h2 id="padding"><a href="#padding" class="headerlink" title="padding"></a>padding</h2><p><code>padding</code> 属性是指元素内容到元素边框的距离。<code>padding</code> 可以通过四个方向表示对应的内边距：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>padding-left</td>
+<td>左内边距</td>
+</tr>
+<tr>
+<td>padding-right</td>
+<td>右内边距</td>
+</tr>
+<tr>
+<td>padding-top</td>
+<td>顶内边距</td>
+</tr>
+<tr>
+<td>padding-bottom</td>
+<td>底内边距</td>
+</tr>
+</tbody>
+</table>
+<p>它们的值可以是长度值和百分比，但不能是负值。盒子在网页中所占用的空间，不单与 <code>height</code> 和 <code>width</code> 属性有关，还与 <code>padding</code> 属性有关。</p>
+<h2 id="margin"><a href="#margin" class="headerlink" title="margin"></a>margin</h2><p><code>margin</code> 属性用于设定元素与元素之间的距离，即外边距，<code>margin</code> 同样有四个方向：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>margin-left</td>
+<td>左外边距</td>
+</tr>
+<tr>
+<td>margin-right</td>
+<td>右外边距</td>
+</tr>
+<tr>
+<td>margin-top</td>
+<td>顶外边距</td>
+</tr>
+<tr>
+<td>margin-bottom</td>
+<td>底外边距</td>
+</tr>
+</tbody>
+</table>
+<p>与 <code>padding</code> 不同的是，<code>margin</code> 的值可以是负数。默认情况下，下面这些元素是存在外边距的，为了不受默认边距的影响，我们经常会去掉他们的边距：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">body</span>, <span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span>, <span class="selector-tag">p</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0px</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>margin</code> 还有一个特殊的值 <code>auto</code>，这个值会使元素在父元素中水平居中。</p>
+<p><strong>需要注意的是，两个元素之间的外边距，不会相加，而是取其中较大的一个，作为彼此的间距。</strong></p>
+<h2 id="display"><a href="#display" class="headerlink" title="display"></a>display</h2><p><code>display</code> 属性用于设置元素是内联元素还是块级元素，它有以下两个值：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">inline</span>:元素将显示为内联元素，元素前后没有换行</div><div class="line"></div><div class="line"><span class="selector-tag">block</span>:元素将显示为块级元素，元素前后会带有换行</div><div class="line"></div><div class="line"><span class="selector-tag">inline-block</span>:行内块元素，元素呈现为 <span class="selector-tag">inline</span>，但具有 <span class="selector-tag">block</span> 相应的特性</div><div class="line"></div><div class="line"><span class="selector-tag">none</span>:元素不会被显示</div></pre></td></tr></table></figure>
+<p>需要注意的是，内联元素和使用 <code>display: inline</code> 设定为内联的元素，<code>width</code> 和 <code>height</code> 无效，水平方向的 <code>margin</code> 和 <code>padding</code> 有效，垂直无效。</p>
+<p>块级元素和行内块元素，垂直和水平的 <code>margin</code> 和 <code>padding</code> 均有效。</p>
+<h2 id="CSS-交互效果"><a href="#CSS-交互效果" class="headerlink" title="CSS 交互效果"></a>CSS 交互效果</h2><p>之前我们已经了解过，当鼠标移过时可以通过 <code>:hover</code> 伪类捕捉事件并修改元素，那么一个元素的事件如何修改另一个元素呢？如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">head</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"UTF-8"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">title</span>&gt;</span>display属性<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></span></div><div class="line">    <span class="selector-tag">ul</span> &#123;</div><div class="line">      <span class="attribute">width</span>: <span class="number">200px</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">li</span> &#123;</div><div class="line">      <span class="attribute">display</span>: none;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="selector-tag">ul</span><span class="selector-pseudo">:hover</span> <span class="selector-tag">li</span> &#123;</div><div class="line">      <span class="attribute">color</span>: red;</div><div class="line">      <span class="attribute">display</span>: inline;</div><div class="line">    &#125;</div><div class="line">  <span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">h2</span>&gt;</span>家电<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>冰箱<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>空调<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>洗衣机<span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在这个例子中，<code>li</code> 标签默认隐藏，当鼠标移动到 <code>ul</code> 上面时，<code>li</code> 标签会以行内元素显示。</p>
+<p><strong>需要注意的是，这种事件只能修改自己的子元素，兄弟元素和父级元素无法通过这种方式修改。</strong></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CSS/" rel="tag">#CSS</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/06/12/CSS 列表样式/" rel="next" title="CSS - 列表样式">
+                <i class="fa fa-chevron-left"></i> CSS - 列表样式
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/06/22/CSS 浮动/" rel="prev" title="CSS - 浮动">
+                CSS - 浮动 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/06/15/CSS 盒子模型/"
+           data-title="CSS - 盒子模型" data-url="http://yoursite.com/2017/06/15/CSS 盒子模型/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">73</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">76</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#width"><span class="nav-number">1.</span> <span class="nav-text">width</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#height"><span class="nav-number">2.</span> <span class="nav-text">height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#支持-height-和-width-的元素"><span class="nav-number">3.</span> <span class="nav-text">支持 height 和 width 的元素</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#替换元素"><span class="nav-number">3.1.</span> <span class="nav-text">替换元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#非替换元素"><span class="nav-number">3.2.</span> <span class="nav-text">非替换元素</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#boder"><span class="nav-number">4.</span> <span class="nav-text">boder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#padding"><span class="nav-number">5.</span> <span class="nav-text">padding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#margin"><span class="nav-number">6.</span> <span class="nav-text">margin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#display"><span class="nav-number">7.</span> <span class="nav-text">display</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS-交互效果"><span class="nav-number">8.</span> <span class="nav-text">CSS 交互效果</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
