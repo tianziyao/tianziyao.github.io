@@ -278,6 +278,131 @@
             
               
                 
+                <a class="post-title-link" href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/" itemprop="url">
+                  Xcode错误 - Failed to import && .h file not found
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-05T05:46:00+08:00" content="2016-08-05">
+              2016-08-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/05/Xcode错误 - Failed to import && .h file not found/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>出现这两个问题时，首先要确保相关的库和依赖已经导入到工程，如果还是有提示，这说明出错的文件 Xcode 无法获取到。</p>
+<p>首先进入工程的 Build Phases ，找到 Link Binary With Libraries ，点击 + 号将提示缺失的文件导入。</p>
+<p><img src="http://ob2q6r0fn.bkt.clouddn.com/buildphases.png" alt=""></p>
+<p>如果文件已经存在的话，进入工程的 Build Settings ，在 TARGETS 而不是 PROJECT 下，搜索 Search Paths，确保 Frameworks Search Paths 和 Header Search Paths 指向正确的文件路径。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2016/08/05/Xcode错误 - Failed to import && .h file not found/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2016/08/03/【转载】Swift - 获取字符串的MD5值/" itemprop="url">
                   iOS数据处理 - 转载·字符串MD5加密
                 </a>
@@ -1400,128 +1525,6 @@
 <p>栈是操作系统给当前的应用程序分配的，仅供当前应用程序使用的内存空间，也就是给我们的线程分配的内存空间，这个空间是有限制的，它主要是用来定义一些函数内部的成员变量，栈里的数据其他程序不能访问。</p>
           <div class="post-more-link text-center">
             <a class="btn" href="/2016/03/20/iOS多线程之 Pthread/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/02/25/iOS网络编程 - NSURLConnection/" itemprop="url">
-                  iOS网络编程 - NSURLConnection
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-02-25T18:16:00+08:00" content="2016-02-25">
-              2016-02-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/02/25/iOS网络编程 - NSURLConnection/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/02/25/iOS网络编程 - NSURLConnection/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><img src="http://pic.58pic.com/58pic/15/60/34/15Q58PICAS4_1024.png" alt=""></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/02/25/iOS网络编程 - NSURLConnection/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
