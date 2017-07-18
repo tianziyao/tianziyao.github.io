@@ -114,7 +114,7 @@
 <meta property="og:description" content="我们经常能听到映射和反射，那么它们代表的含义是什么呢？
 映射只是一种概念，通常是用代码方式来表示一个比较复杂的意义。例如访问网站时 404 错误的含义是“找不到当前页”，500错误是“服务器内部错误”。那么我们会把这些错误的原因和一些固定的数字对应起来，这就是一种映射。
 体现在程序里，映射用的比较多的地方就是和数据库打交道。我们通常会期望不直接操作数据库而对数据库做出一些改变。那么我们会声明一个类">
-<meta property="og:updated_time" content="2017-07-18T12:48:10.000Z">
+<meta property="og:updated_time" content="2017-07-18T12:50:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Swift - Mirror反射">
 <meta name="twitter:description" content="我们经常能听到映射和反射，那么它们代表的含义是什么呢？
@@ -394,7 +394,7 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> <span class="keyword">case</span> <span class="keyword">let</span> (label?, value) <span class="keyword">in</span> aMirror.children &#123;</div><div class="line">    <span class="built_in">print</span> (label, value)</div><div class="line">&#125;</div><div class="line"><span class="comment">//输出:</span></div><div class="line"><span class="comment">//: store main.BookmarkStore</span></div><div class="line"><span class="comment">//: title Optional("Appventure")</span></div><div class="line"><span class="comment">//: url appventure.me</span></div><div class="line"><span class="comment">//: keywords ["Swift", "iOS", "OSX"]</span></div><div class="line"><span class="comment">//: group Tech</span></div></pre></td></tr></table></figure>
 <h3 id="SubjectType"><a href="#SubjectType" class="headerlink" title="SubjectType"></a>SubjectType</h3><p>这是对象的类型：</p>
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">print</span>(aMirror.subjectType)</div><div class="line"><span class="comment">//输出 : Bookmark</span></div><div class="line"><span class="built_in">print</span>(<span class="type">Mirror</span>(reflecting: <span class="number">5</span>).subjectType)</div><div class="line"><span class="comment">//输出 : Int</span></div><div class="line"><span class="built_in">print</span>(<span class="type">Mirror</span>(reflecting: <span class="string">"test"</span>).subjectType)</div><div class="line"><span class="comment">//输出 : String</span></div><div class="line"><span class="built_in">print</span>(<span class="type">Mirror</span>(reflecting: <span class="type">NSNull</span>()).subjectType)</div><div class="line"><span class="comment">//输出 : NSNull</span></div></pre></td></tr></table></figure>
-<p>然而，Swift 的文档中有下面一句话：</p>
+<p>然而，<code>Swift</code> 的文档中有下面一句话：</p>
 <blockquote>
 <p>“当 <code>self</code> 是另外一个 <code>mirror</code> 的 <code>superclassMirror()</code> 时，这个类型和对象的动态类型可能会不一样。”</p>
 </blockquote>
@@ -407,7 +407,7 @@
 <h3 id="一个协议"><a href="#一个协议" class="headerlink" title="一个协议"></a>一个协议</h3><p>记住，我们有一个 <code>struct</code>，它需要自动转换为 <code>NSManagedObject</code> （<strong>Core Data</strong>）。</p>
 <p>如果我们想要支持不同的 <code>struct</code> 甚至类型，我们可以用协议来实现，然后确保我们需要的类型符合这个协议。所以我们假想的协议应该有哪些功能呢？</p>
 <ul>
-<li>第一，协议应该允许自定义我们想要创建的<strong>Core Data 实体</strong>的名字</li>
+<li>第一，协议应该允许自定义我们想要创建的 <strong>Core Data 实体</strong>的名字</li>
 <li>第二，协议需要提供一种方式来告诉它如何转换为 <code>NSManagedObject</code>。</li>
 </ul>
 <p>我们的 <code>protocol</code>（协议） 看起来是下面这个样子的：</p>
@@ -472,7 +472,8 @@
 <li>运行时分析对象的一致性</li>
 <li>自动生成详细日志 / 调试信息（即外部生成对象）</li>
 </ul>
-<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>Swift 反射 API 及用法：<a href="http://swift.gg/2015/11/23/swift-reflection-api-what-you-can-do/" target="_blank" rel="external">http://swift.gg/2015/11/23/swift-reflection-api-what-you-can-do/</a></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><p>Swift 反射 API 及用法：</p>
+<p><a href="http://swift.gg/2015/11/23/swift-reflection-api-what-you-can-do/" target="_blank" rel="external">http://swift.gg/2015/11/23/swift-reflection-api-what-you-can-do/</a></p>
 
       
     </div>
