@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2017-07-18T12:50:27.000Z</updated>
+  <updated>2017-07-18T12:51:04.000Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -20,7 +20,7 @@
     <link href="http://yoursite.com/2017/07/18/%10Swift%20-%20Mirror%E5%8F%8D%E5%B0%84/"/>
     <id>http://yoursite.com/2017/07/18/Swift - Mirror反射/</id>
     <published>2017-07-17T18:46:00.000Z</published>
-    <updated>2017-07-18T12:50:27.000Z</updated>
+    <updated>2017-07-18T12:51:04.000Z</updated>
     
     <content type="html"><![CDATA[<p>我们经常能听到映射和反射，那么它们代表的含义是什么呢？</p>
 <p>映射只是一种概念，通常是用代码方式来表示一个比较复杂的意义。例如访问网站时 404 错误的含义是“找不到当前页”，500错误是“服务器内部错误”。那么我们会把这些错误的原因和一些固定的数字对应起来，这就是一种映射。</p>
@@ -136,7 +136,7 @@
 <li>收藏书签</li>
 <li>加星</li>
 <li>记住上一次选择</li>
-<li>在重新启动时存储AST打开的项目</li>
+<li>在重新启动时存储 AST 打开的项目</li>
 <li>在特殊处理时做临时存储</li>
 </ul>
 <p>当然除此之外，反射当然还有其他的使用场景：</p>
