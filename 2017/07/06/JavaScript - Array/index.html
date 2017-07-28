@@ -1,0 +1,776 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="iSTian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 中的对象是指带有属性和方法的特殊数据类型。JavaScript 中的所有事物都是对象，比如字符串、数组、函数等。对象分为内置对象和原生对象，它们的区别在于：前者总是在引擎初始化阶段就被创建好的对象，是后者的一个子集；而后者包括了一些在运行过程中动态创建的对象。从语法层面来看的话，原生对象需要使用 new 创建，而内置对象则不需要。
+JavaScript 常见的内置对象有：A">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript - Array">
+<meta property="og:url" content="http://yoursite.com/2017/07/06/JavaScript - Array/index.html">
+<meta property="og:site_name" content="iSTian'notes">
+<meta property="og:description" content="JavaScript 中的对象是指带有属性和方法的特殊数据类型。JavaScript 中的所有事物都是对象，比如字符串、数组、函数等。对象分为内置对象和原生对象，它们的区别在于：前者总是在引擎初始化阶段就被创建好的对象，是后者的一个子集；而后者包括了一些在运行过程中动态创建的对象。从语法层面来看的话，原生对象需要使用 new 创建，而内置对象则不需要。
+JavaScript 常见的内置对象有：A">
+<meta property="og:updated_time" content="2017-07-28T14:51:17.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript - Array">
+<meta name="twitter:description" content="JavaScript 中的对象是指带有属性和方法的特殊数据类型。JavaScript 中的所有事物都是对象，比如字符串、数组、函数等。对象分为内置对象和原生对象，它们的区别在于：前者总是在引擎初始化阶段就被创建好的对象，是后者的一个子集；而后者包括了一些在运行过程中动态创建的对象。从语法层面来看的话，原生对象需要使用 new 创建，而内置对象则不需要。
+JavaScript 常见的内置对象有：A">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/07/06/JavaScript - Array/"/>
+
+  <title> JavaScript - Array | iSTian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">iSTian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript - Array
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-07-06T02:24:00+08:00" content="2017-07-06">
+              2017-07-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/07/06/JavaScript - Array/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/07/06/JavaScript - Array/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>JavaScript 中的对象是指带有属性和方法的特殊数据类型。JavaScript 中的所有事物都是对象，比如字符串、数组、函数等。对象分为内置对象和原生对象，它们的区别在于：<strong>前者总是在引擎初始化阶段就被创建好的对象，是后者的一个子集；而后者包括了一些在运行过程中动态创建的对象。从语法层面来看的话，原生对象需要使用 <code>new</code> 创建，而内置对象则不需要。</strong></p>
+<p>JavaScript 常见的内置对象有：<code>Array</code> 、<code>String</code> 、<code>Math</code> 、<code>Date</code> 几种。</p>
+</blockquote>
+<p><code>Array</code> 的元素可以是任意的类型。<code>Array</code> 的创建有两种方式，使用构造函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//构造函数创建数组</span></div><div class="line"><span class="keyword">var</span> nums = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line"><span class="comment">//指定数组的长度</span></div><div class="line"><span class="keyword">var</span> colors = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">10</span>);</div><div class="line"><span class="comment">//指定数组包含的项</span></div><div class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>);</div></pre></td></tr></table></figure>
+<p>或者使用字面量来创建数组：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="string">'a'</span>;</div><div class="line"><span class="keyword">var</span> b = <span class="literal">true</span>;</div><div class="line"><span class="keyword">var</span> c = <span class="number">100</span>;</div><div class="line"><span class="keyword">var</span> chars = [a, b, c];</div></pre></td></tr></table></figure>
+  <a id="more"></a>
+<h2 id="读写"><a href="#读写" class="headerlink" title="读写"></a>读写</h2><p><code>Array</code> 的取值和赋值可以通过 <code>[]</code> 进行。如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</div><div class="line"><span class="keyword">var</span> a = chars[<span class="number">0</span>];</div><div class="line"><span class="keyword">var</span> f = chars[<span class="number">5</span>];</div><div class="line"><span class="built_in">console</span>.log(a, f);  <span class="comment">//log: a undefined</span></div><div class="line"></div><div class="line"><span class="keyword">var</span> upperChars = <span class="keyword">new</span> <span class="built_in">Array</span>(<span class="number">10</span>);</div><div class="line"><span class="built_in">console</span>.log(upperChars.length); <span class="comment">//log: 10</span></div><div class="line"><span class="keyword">var</span> z = <span class="string">'Z'</span>;</div><div class="line">upperChars[<span class="number">24</span>] = z;</div><div class="line"><span class="built_in">console</span>.log(upperChars.length); <span class="comment">//log: 25</span></div><div class="line"><span class="built_in">console</span>.log(upperChars[<span class="number">24</span>], upperChars[<span class="number">2</span>]); <span class="comment">//log: Z undefined</span></div></pre></td></tr></table></figure>
+<p>上面的代码说明，<code>Array</code> 可以灵活的改变长度，越界和未赋值的部分，都是 <code>undefined</code>。</p>
+<h2 id="栈方法"><a href="#栈方法" class="headerlink" title="栈方法"></a>栈方法</h2><p>栈方法，顾名思义，就是把数组当做栈来处理，也就是先进先出的原则。主要有以下几个方法：</p>
+<h3 id="push"><a href="#push" class="headerlink" title="push"></a>push</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</div><div class="line">chars[<span class="number">24</span>] = <span class="string">'z'</span>;</div><div class="line"><span class="keyword">var</span> len = chars.push(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(len); <span class="comment">//log: 28</span></div></pre></td></tr></table></figure>
+<p><code>push</code> 的作用是将元素序列添加到 <code>Array</code> 的尾部，其返回值是添加后的数组长度。</p>
+<h3 id="pop"><a href="#pop" class="headerlink" title="pop"></a>pop</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>];</div><div class="line"><span class="keyword">var</span> c = chars.pop()</div><div class="line"><span class="keyword">var</span> len = chars.length;</div><div class="line"><span class="built_in">console</span>.log(c, len);  <span class="comment">//log: c 2</span></div></pre></td></tr></table></figure>
+<p><code>pop</code> 的作用是移除 <code>Array</code> 的最后一个元素，其返回值是被移除的元素。</p>
+<h3 id="unshift"><a href="#unshift" class="headerlink" title="unshift"></a>unshift</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line"><span class="keyword">var</span> len = chars.unshift(<span class="number">-3</span>, <span class="number">-2</span>, <span class="number">-1</span>, <span class="number">0</span>);</div><div class="line"><span class="built_in">console</span>.log(chars);</div><div class="line"><span class="comment">//log: [-3, -2, -1, 0, 1, 2, 3]</span></div><div class="line"><span class="built_in">console</span>.log(len);</div><div class="line"><span class="comment">//log: 7</span></div></pre></td></tr></table></figure>
+<p><code>unshift</code> 的作用是将元素序列添加到 <code>Array</code> 的头部，其返回值是添加后的数组长度。</p>
+<h3 id="shift"><a href="#shift" class="headerlink" title="shift"></a>shift</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> chars = [];</div><div class="line"><span class="keyword">var</span> unknown = chars.shift()</div><div class="line"><span class="keyword">var</span> len = chars.length;</div><div class="line"><span class="built_in">console</span>.log(unknown, len);  <span class="comment">//log: undefined 0</span></div></pre></td></tr></table></figure>
+<p><code>pop</code> 的作用是移除 <code>Array</code> 的第一个元素，其返回值是被移除的元素。</p>
+<h2 id="转字符串"><a href="#转字符串" class="headerlink" title="转字符串"></a>转字符串</h2><p><code>join</code> 方法可以将 <code>Array</code> 转换成一个字符串，语法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> infos = [<span class="number">1</span>, <span class="string">'2'</span>, <span class="literal">true</span>, <span class="number">3.14</span>, <span class="literal">undefined</span>, <span class="literal">null</span>];</div><div class="line"><span class="keyword">var</span> infoStr = infos.join();</div><div class="line"><span class="built_in">console</span>.log(infoStr); </div><div class="line"><span class="comment">//log: 1,2,true,3.14,,</span></div><div class="line"><span class="built_in">console</span>.log(infos.join(<span class="string">'-'</span>)); </div><div class="line"><span class="comment">//log: 1-2-true-3.14--</span></div><div class="line"><span class="built_in">console</span>.log(infos.join(<span class="string">''</span>));</div><div class="line"><span class="comment">//log: 12true3.14</span></div></pre></td></tr></table></figure>
+<h2 id="反序"><a href="#反序" class="headerlink" title="反序"></a>反序</h2><p><code>reverse</code> 方法可以将 <code>Array</code> 反序排列，如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nums = [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>,];</div><div class="line"><span class="keyword">var</span> result = nums.reverse();</div><div class="line"><span class="built_in">console</span>.log(result);  </div><div class="line"><span class="comment">//log: [8, 6, 4, 2]</span></div></pre></td></tr></table></figure>
+<h2 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h2><p><code>sort</code> 方法可以根据传入的参数，对 <code>Array</code> 进行排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var chars = [<span class="string">'e'</span>, <span class="string">'z'</span>, <span class="string">'p'</span>, <span class="string">'o'</span>, <span class="string">'a'</span>, <span class="string">'c'</span>];</div><div class="line">var result = chars.sort();</div><div class="line">console.log(result);</div><div class="line"><span class="comment">//log: ["a", "c", "e", "o", "p", "z"]</span></div></pre></td></tr></table></figure>
+<p>需要注意的是，<code>sort</code> 方法在对数值进行排序时，也是先将元素转为 <code>String</code> 类型在排序，因此，数值的排序是按首位排序，首位相同再对第二位进行比较：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> nums = [<span class="number">9</span>, <span class="number">-1</span>, <span class="number">3.24</span>, <span class="number">3.3</span>, <span class="number">2</span>, <span class="number">0</span>, <span class="number">25.6</span>, <span class="number">25.9</span>, <span class="number">24.8</span>, <span class="string">'A'</span>, <span class="string">'a'</span>, <span class="string">'z'</span>, <span class="string">'Z'</span>];</div><div class="line"><span class="keyword">var</span> result = nums.sort();</div><div class="line"><span class="built_in">console</span>.log(result);</div><div class="line"><span class="comment">//log: [-1, 0, 2, 24.8, 25.6, 25.9, 3.24, 3.3, 9, "A", "Z", "a", "z"]</span></div></pre></td></tr></table></figure>
+<p>如果需要对数值进行排序，那么需要给 <code>sort</code> 传入一个匿名函数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">var nums = [9, -1, 3.24, 3.3, 2, 0, 25.6, 25.9, 24.8];</div><div class="line">var result = nums.sort(function(a, b)&#123; return a &gt; b&#125;);</div><div class="line">console.log(result);</div><div class="line">//log: [-1, 0, 2, 3.24, 3.3, 9, 24.8, 25.6, 25.9]</div></pre></td></tr></table></figure>
+<h2 id="连接其他数组"><a href="#连接其他数组" class="headerlink" title="连接其他数组"></a>连接其他数组</h2><p><code>concat</code> 方法用于两个或多个数组的连接：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line"><span class="keyword">var</span> b = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</div><div class="line"><span class="keyword">var</span> c = [<span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>];</div><div class="line"><span class="keyword">var</span> arr = a.concat(c, b);</div><div class="line"><span class="built_in">console</span>.log(arr);</div><div class="line"><span class="comment">//log: [1, 2, 3, 7, 8, 9, 4, 5, 6]</span></div></pre></td></tr></table></figure>
+<h2 id="截取"><a href="#截取" class="headerlink" title="截取"></a>截取</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="literal">undefined</span>, <span class="literal">null</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>];</div><div class="line"><span class="keyword">var</span> subArr = arr.slice(<span class="number">2</span>,<span class="number">10</span>);</div><div class="line"><span class="built_in">console</span>.log(subArr);</div><div class="line"><span class="comment">//log: [undefined, null, 3, 4, 5]</span></div></pre></td></tr></table></figure>
+<p><code>slice</code> 方法越界，会截取所有在此范围内的元素。<code>slice</code> 方法可以接受两个参数，<code>start</code> 和 <code>end</code>，其中 <code>start</code> 是必需的，<code>start</code> 参数可以是负数，如果是负数，表示从数组尾部开始计算。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>];</div><div class="line"><span class="keyword">var</span> subArr = arr.slice(<span class="number">-3</span>,<span class="number">-1</span>);</div><div class="line"><span class="built_in">console</span>.log(subArr);</div><div class="line"><span class="comment">//log: [3, 4]</span></div></pre></td></tr></table></figure>
+<p>当 <code>slice</code> 方法的参数是负数时，会用数组的长度加上这个数，来确定起始或结束的位置。</p>
+<h2 id="删除、插入和替换"><a href="#删除、插入和替换" class="headerlink" title="删除、插入和替换"></a>删除、插入和替换</h2><p><strong>删除</strong>的语法是 <code>arr.splice(index,count)</code>，参数含义如下：</p>
+<table>
+<thead>
+<tr>
+<th>形参</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>index</td>
+<td>要删除的起始位置</td>
+</tr>
+<tr>
+<td>count</td>
+<td>要删除的元素个数</td>
+</tr>
+</tbody>
+</table>
+<p><code>count</code> 如不填，则删除 <code>index</code> 后的所有元素，如为 0，则不删除任何元素，示例如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>];</div><div class="line"><span class="keyword">var</span> subArr = arr.splice(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(subArr);</div><div class="line"><span class="comment">//log: [3, 4, 5]</span></div><div class="line"><span class="built_in">console</span>.log(arr);</div><div class="line"><span class="comment">//log: [1, 2, 6]</span></div></pre></td></tr></table></figure>
+<p><code>splice</code> 的返回值是被删除的数组片段。</p>
+<p><strong>插入</strong>的语法是 <code>arr.splice(index,0,item1,...,itemX)</code>，返回值是空数组；</p>
+<p><strong>替换</strong>的语法是 <code>arr.splice(index,count,item1,...,itemX)</code>，返回值是被删除的数组片段；</p>
+<h2 id="查找元素下标"><a href="#查找元素下标" class="headerlink" title="查找元素下标"></a>查找元素下标</h2><p><code>indexOf</code> 方法用于查找元素在数组中的位置，可以接收两个参数：</p>
+<table>
+<thead>
+<tr>
+<th>形参</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>searchValue</td>
+<td>必需，要查找的元素</td>
+</tr>
+<tr>
+<td>startIndex</td>
+<td>可选，索引的起始位置，不填则从 0 开始</td>
+</tr>
+</tbody>
+</table>
+<p>返回值是 <code>Number</code> 类型，如未找到该元素，则返回 <code>-1</code>，如有多个元素，则返回第一个元素的下标：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">7</span>,<span class="number">5</span>,<span class="number">3</span>,<span class="number">1</span>,<span class="number">3</span>];</div><div class="line"><span class="keyword">var</span> index = arr.indexOf(<span class="number">3</span>,<span class="number">4</span>);</div><div class="line"><span class="built_in">console</span>.log(index);</div><div class="line"><span class="comment">//log: 5</span></div></pre></td></tr></table></figure>
+<p><code>lastIndexOf</code> 方法和 <code>indexOf</code> 作用相同，不同的地方是从数组末尾开始查找。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag">#JavaScript</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/03/字符编码的故事/" rel="next" title="字符编码的故事">
+                <i class="fa fa-chevron-left"></i> 字符编码的故事
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/07/JavaScript - DOM基础/" rel="prev" title="JavaScript - DOM基础">
+                JavaScript - DOM基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/07/06/JavaScript - Array/"
+           data-title="JavaScript - Array" data-url="http://yoursite.com/2017/07/06/JavaScript - Array/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="iSTian" />
+          <p class="site-author-name" itemprop="name">iSTian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#读写"><span class="nav-number">1.</span> <span class="nav-text">读写</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#栈方法"><span class="nav-number">2.</span> <span class="nav-text">栈方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#push"><span class="nav-number">2.1.</span> <span class="nav-text">push</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#pop"><span class="nav-number">2.2.</span> <span class="nav-text">pop</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unshift"><span class="nav-number">2.3.</span> <span class="nav-text">unshift</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#shift"><span class="nav-number">2.4.</span> <span class="nav-text">shift</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#转字符串"><span class="nav-number">3.</span> <span class="nav-text">转字符串</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#反序"><span class="nav-number">4.</span> <span class="nav-text">反序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#排序"><span class="nav-number">5.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#连接其他数组"><span class="nav-number">6.</span> <span class="nav-text">连接其他数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#截取"><span class="nav-number">7.</span> <span class="nav-text">截取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除、插入和替换"><span class="nav-number">8.</span> <span class="nav-text">删除、插入和替换</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查找元素下标"><span class="nav-number">9.</span> <span class="nav-text">查找元素下标</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">iSTian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

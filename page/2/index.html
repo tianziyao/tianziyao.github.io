@@ -278,6 +278,749 @@
             
               
                 
+                <a class="post-title-link" href="/2017/06/11/CSS 背景/" itemprop="url">
+                  CSS - 背景
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-11T01:21:00+08:00" content="2017-06-11">
+              2017-06-11
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/11/CSS 背景/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/11/CSS 背景/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <table>
+<thead>
+<tr>
+<th>属性</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>background-color</td>
+<td>元素的背景颜色</td>
+</tr>
+<tr>
+<td>background-image</td>
+<td>元素的背景图片</td>
+</tr>
+<tr>
+<td>background-position</td>
+<td>背景图片的起始位置</td>
+</tr>
+<tr>
+<td>background-attachment</td>
+<td>背景图片是否固定</td>
+</tr>
+<tr>
+<td>background-repeat</td>
+<td>背景图片是否重复及如何重复</td>
+</tr>
+</tbody>
+</table>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/11/CSS 背景/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/10/Xcode错误 - Apple Mach-O Linker (ld) Error Group/" itemprop="url">
+                  Xcode错误 - Apple Mach-O Linker (ld) Error Group
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-10T02:24:00+08:00" content="2017-06-10">
+              2017-06-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
+                    <span itemprop="name">Xcode错误</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/10/Xcode错误 - Apple Mach-O Linker (ld) Error Group/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/10/Xcode错误 - Apple Mach-O Linker (ld) Error Group/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>使用 <a href="https://github.com/ZipArchive/ZipArchive">ZipArchive</a> 时，Xcode 报错 <code>Apple Mach-O Linker (ld) Error Group</code>，错误原因是类库依赖的框架没有添加，添加缺失的框架即可，在这个例子中我添加了 <code>libe.tbd</code> 后解决。</p>
+<blockquote>
+<p>Teaching a man (or women) how to fish:</p>
+<p>Usually Mach-O Linker Error means you have not included a header file for a function you are using in your code.</p>
+<p>Easiest way is to copy that function or method call and paste into Xcode quick search using shift+command+O. This will search all frameworks (and header files), find that function or method call and show you its location (the header in this case):</p>
+<p>In this case, this call belongs to the Accelerate framework so on top of your file, enter <code>#import &lt;Accelerate/Accelerate.h&gt;</code>.</p>
+<p>When doing quick search, you might have to get rid of leading underscore. In other words, search for vImageBoxConvolve_ARGB8888</p>
+<p>Hope this helps</p>
+</blockquote>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/10/Xcode错误 - Apple Mach-O Linker (ld) Error Group/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/09/CSS 文本样式/" itemprop="url">
+                  CSS - 文本样式
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-09T01:21:00+08:00" content="2017-06-09">
+              2017-06-09
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/09/CSS 文本样式/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/09/CSS 文本样式/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>网页是由文字、图片、音视频组成，因此网页的文字很大程度影响网页的美观度，CSS 的常用文字样式属性如下：</p>
+<table>
+<thead>
+<tr>
+<th>属性</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>字体</td>
+<td>font-family</td>
+</tr>
+<tr>
+<td>字号</td>
+<td>font-size</td>
+</tr>
+<tr>
+<td>颜色</td>
+<td>font-color</td>
+</tr>
+<tr>
+<td>字重</td>
+<td>font-weight</td>
+</tr>
+<tr>
+<td>样式</td>
+<td>font-style</td>
+</tr>
+</tbody>
+</table>
+<h2 id="font-标签"><a href="#font-标签" class="headerlink" title="font 标签"></a>font 标签</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span><span class="tag">&lt;<span class="name">font</span> <span class="attr">face</span>=<span class="string">"宋体"</span> <span class="attr">size</span>=<span class="string">"20px"</span> <span class="attr">color</span>=<span class="string">"red"</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">font</span>&gt;</span><span class="tag">&lt;/<span class="name">h1</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>字体可以通过 <code>&lt;font&gt;</code> 标签设置，但是建议通过 <code>style</code> 标签和属性来设置字体，因为在很多版本中，<code>&lt;font&gt;</code> 标签已被弃用。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/09/CSS 文本样式/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/07/CSS 继承和层叠/" itemprop="url">
+                  CSS - 继承和层叠
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-07T01:21:00+08:00" content="2017-06-07">
+              2017-06-07
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/07/CSS 继承和层叠/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/07/CSS 继承和层叠/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>HTML 中，标签的层级关系就是树，<code>&lt;html&gt;</code> 是根节点。CSS 继承是指从父元素那继承部分 CSS 属性。</p>
+<blockquote>
+<p>应该类似父类和子类的关系吧，只不过这个类只用来描述 View 的 UI 元素。</p>
+</blockquote>
+<p>比如下面的代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">type</span>=<span class="string">"text/css"</span>&gt;</span><span class="css"></div><div class="line">    <span class="selector-tag">p</span> &#123;</div><div class="line">        <span class="attribute">color</span>: red;</div><div class="line">    &#125;</div><div class="line"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>CSS <span class="tag">&lt;<span class="name">span</span>&gt;</span>继承<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>我们没有描述 <code>&lt;span&gt;</code>  的样式，<code>继承</code> 两个字也变成红色，用面向对象来理解，应该是这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">P</span> </span>&#123;</div><div class="line">	color = red</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Span</span>: <span class="title">P</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> span = <span class="type">Span</span>()</div><div class="line"><span class="built_in">print</span>(span.color)</div></pre></td></tr></table></figure>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/07/CSS 继承和层叠/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/06/03/CSS 命名规范/" itemprop="url">
+                  CSS - 命名规范
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-06-03T01:21:00+08:00" content="2017-06-03">
+              2017-06-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/CSS/" itemprop="url" rel="index">
+                    <span itemprop="name">CSS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/06/03/CSS 命名规范/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/03/CSS 命名规范/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>CSS 样式可以通过 <code>&lt;link&gt;</code> 的方式，提供给多个 HTML 文件使用，这其中有很多的 <code>id</code>、<code>class</code> 的命名，命名的重要性不必多说，那么 CSS 中，怎样的命名才算是规范的呢？有以下几个规则：</p>
+<ul>
+<li>采用英文字母、数字、以及 <code>-</code> 和 <code>_</code> 命名；</li>
+<li>使用小写字母命名，不能以数字、<code>-</code>、<code>_</code> 开头；</li>
+<li>尽量使用单词命名，多个单词使用 <code>_</code>、<code>-</code> 进行连接，或使用小驼峰命名；</li>
+<li>使用具有具体意义的命名；</li>
+</ul>
+<p>命名一般使用元素位置所为标记，常用的命名标记有以下几个：</p>
+<table>
+<thead>
+<tr>
+<th>结构</th>
+<th>标记</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页头</td>
+<td>header</td>
+</tr>
+<tr>
+<td>页尾</td>
+<td>footer</td>
+</tr>
+<tr>
+<td>导航</td>
+<td>nav</td>
+</tr>
+<tr>
+<td>页面主体</td>
+<td>main</td>
+</tr>
+<tr>
+<td>侧栏</td>
+<td>sidebar</td>
+</tr>
+<tr>
+<td>栏目</td>
+<td>column</td>
+</tr>
+<tr>
+<td>内容</td>
+<td>content / container</td>
+</tr>
+<tr>
+<td>容器</td>
+<td>container</td>
+</tr>
+<tr>
+<td>左中右</td>
+<td>left right center</td>
+</tr>
+<tr>
+<td>页面外围控制</td>
+<td>wrapper</td>
+</tr>
+</tbody>
+</table>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/06/03/CSS 命名规范/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/05/26/CSS 选择器/" itemprop="url">
                   CSS - 选择器
                 </a>
@@ -989,649 +1732,6 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/05/02/HTML - 基本元素/" itemprop="url">
-                  HTML - 基本元素
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-05-02T02:24:00+08:00" content="2017-05-02">
-              2017-05-02
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/HTML/" itemprop="url" rel="index">
-                    <span itemprop="name">HTML</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/05/02/HTML - 基本元素/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/02/HTML - 基本元素/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>HTML 主要由三大部分组成：</p>
-<ul>
-<li>头部信息，即 <code>&lt;head&gt;</code> 标签；</li>
-<li>网页内容，即 <code>&lt;body&gt;</code> 标签；</li>
-<li>HTML 文件，即 <code>&lt;html&gt;</code> 标签；</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">title</span>&gt;</span>标题<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line">网页主体内容</div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>HTML 是由一个个元素组成，元素就是一个一个的标签，例如：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">hr</span>/&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span><span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>以上这些都是 HTML 元素。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/05/02/HTML - 基本元素/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/04/08/iOS事件 - 响应者链和事件分发/" itemprop="url">
-                  iOS事件 - 响应者链和事件分发
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-04-08T02:24:00+08:00" content="2017-04-08">
-              2017-04-08
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/响应链/" itemprop="url" rel="index">
-                    <span itemprop="name">响应链</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/04/08/iOS事件 - 响应者链和事件分发/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/08/iOS事件 - 响应者链和事件分发/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>响应者对象就是可以响应事件并对事件作出处理。在 iOS 中，存在 <code>UIResponder</code> 类，它定义了响应者对象的所有方法。<code>UIApplication</code>、<code>UIView</code> 等类都继承了 <code>UIResponder</code> 类，<code>UIWindow</code> 和 <code>UIKit</code> 中的控件因为继承了 <code>UIView</code>，所以也间接继承了 <code>UIResponder</code> 类，这些类的实例都可以当作响应者。</p>
-<p>当前接受触摸的响应者对象被称为第一响应者，即表示当前该对象正在与用户交互，它是响应者链的开端。</p>
-<p>响应者链表示一系列的响应者对象。事件被交由第一响应者对象处理，如果第一响应者不处理，事件被沿着响应者链向上传递，交给下一个响应者。</p>
-<p>一般来说，第一响应者是个视图对象或者其子类对象，当其被触摸后事件被交由它处理，如果它不处理，事件就会被传递给它的视图控制器对象(如果存在)，然后是它的父视图对象(如果存在)，以此类推，直到顶层视图。</p>
-<p>接下来会沿着顶层视图(<code>top view</code>)到窗口(<code>UIWindow</code>)再到程序(<code>UIApplication</code>)。如果整个过程都没有响应这个事件，该事件就被丢弃。</p>
-<p>一般情况下，在响应者链中只要由对象处理事件，事件就停止传递。但有时候可以在视图的响应方法中根据一些条件判断来决定是否需要继续传递事件。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/04/08/iOS事件 - 响应者链和事件分发/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="url">
-                  iOS开发 - 利用Runtime优化归解档 
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-01-24T04:43:00+08:00" content="2017-01-24">
-              2017-01-24
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Runtime/" itemprop="url" rel="index">
-                    <span itemprop="name">Runtime</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/24/iOS开发 - 利用Runtime优化归解档 /" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Runtime 是 iOS 开发中的知名黑魔法，充分体现了 Objective - C 的动态运行时特性，Swift 是一门静态语言，这意味着代码编译时即确定了其实际调用的方法和类型，所以纯粹的 Swift 类和对象没有办法使用 Runtime，更不存在 Method swizzling，但是呢，Swift 是兼容 Objective - C 的，继承自 NSObject 的类，也就具有了运行时的消息机制。</p>
-<p>纯粹的 Swift 类，也可以通过添加 <code>@objc</code> 修饰符， <code>@objc</code> 关键字只需要对那些不是继承自 <code>NSObject</code> 的类型进行，如果 class 是继承自 <code>NSObject</code> 的话，Swift 会默认自动为所有的非 private 的类和成员加上 <code>@objc</code>。</p>
-<p> <code>@objc</code> 修饰符主要用于需要暴露给 Objective-C 使用的任何地方 (包括类，属性和方法等) ，以支持其动态派发和运行时机制。</p>
-<p>添加 <code>@objc</code> 修饰符并不意味着这个方法或者属性会变成动态派发，Swift 依然可能会将其优化为静态调用。如果需要施展一些像 Method swizzling 或者运行时再决定实现这样的 “黑魔法” 的时候，我们就必须用到 <code>dynamic</code> 修饰符了。 <code>dynamic</code> 修饰符会隐式的添加 <code>@objc</code> 进行修饰。</p>
-<p>也就是说，需要 Swift 和 Objective 混合开发时，使用 <code>@objc</code> 就可以了，需要 Swift 完全实现运行时机制时，那么必须要添加 <code>dynamic</code> 修饰符。</p>
-<p>下面我们通过优化归解档，来了解 Runtime 在 Swift 中的应用：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/01/24/iOS开发 - 利用Runtime优化归解档 /#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="url">
-                  iOS设计模式 - KVC内部机制&使用场景
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-12-21T02:24:00+08:00" content="2016-12-21">
-              2016-12-21
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index">
-                    <span itemprop="name">iOS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/12/21/iOS设计模式 - KVC内部机制/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/21/iOS设计模式 - KVC内部机制/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前两天面试在KVC的问题上有所欠缺，对于底层了解不够，因此写下这篇文章。这篇文章主要是使用KVC对Key的搜索原理，自己写代码来实现KVC。</p>
-<p>关于Apple是如何实现KVC这个问题：</p>
-<blockquote>
-<p>🙃 🙃 我也不知道…… </p>
-</blockquote>
-<p>因为没有办法打印出调用过的函数，所以KVC背后的一切还是很神秘的，只能通过几个有限的API来猜想，</p>
-<p>对于<code>setValue:forKey:</code> ，在setter存在的情况，KVC 会直接发送<code>set&lt;Key&gt;:</code> 消息赋值；</p>
-<p>在setter不在的情况下，且<code>accessInstanceVariablesDirectly</code>方法是true的情况下，会按<code>（_&lt;key&gt;, _&lt;isKey&gt;, &lt;key&gt;, is&lt;Key&gt;）</code>的顺序去查找实例变量，检查其是否存在之后通过<code>object_setIvar</code>给它赋值。</p>
-<p>如果都没有就调用<code>setValue:forUNdefinedKey:</code>抛出错误。</p>
-<p>对于<code>setValue:forKeyPath:</code>，递归地检查keyPath中的属性是否存在，到达目标路径时再调用<code>setValue:forKey:</code> 完成赋值。</p>
-<p>大致上我准备按上面的执行顺序进行实现，由于集合、字典和模型、KeyPath的情况比较复杂，所以我只实现了最普通的存值和取值，下面进入正题：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/12/21/iOS设计模式 - KVC内部机制/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/11/26/Plist 和转义符/" itemprop="url">
-                  Xcode错误 - Plist和转义符「/」
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-11-26T02:24:00+08:00" content="2016-11-26">
-              2016-11-26
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/Xcode错误/" itemprop="url" rel="index">
-                    <span itemprop="name">Xcode错误</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2016/11/26/Plist 和转义符/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/11/26/Plist 和转义符/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>前两天遇到一个 Plist 和转义符的问题，这个问题我翻了 Google 十几页，但是并没有找到解决的方法，也没有找到关于这个问题的描述，因此我想先记录下来，如果有人和我遇到同样的问题，可以知道结果是怎样的。</p>
-<p>当然，由于我的才疏学浅，我没能解决不一定大家都不能解决，如果你有解决的思路，欢迎邮件我啊！</p>
-<p><strong>如果不想看过程，可以直接翻到最下面看验证的结果</strong>。</p>
-<p>问题是这样的，我创建了一个 Plist 文件，希望用来存储用户的设置选项，遇到的第一个坑是 KVC 不支持 Bool 类型，这个是我没想起了，使用 0 和 1 来替代解决了，现在要讲的是第二个坑。</p>
-<p>因为我在项目中使用了字体图标，它类似 Emoji 表情：使用 Unicode 编码，获取特定的图标。在其他的页面中，我使用了全局变量 + UILabel 转 UIImage 的方式，获取并使用字体图标，代码如下：</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2016/11/26/Plist 和转义符/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -1677,7 +1777,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">74</span>
+              <span class="site-state-item-count">79</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1685,7 +1785,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1694,7 +1794,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">77</span>
+                <span class="site-state-item-count">79</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
