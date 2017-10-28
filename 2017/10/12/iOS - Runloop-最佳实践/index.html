@@ -1,0 +1,768 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,Runloop," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="关于 Runloop，这篇文章写的非常棒，深入理解RunLoop。我写这篇文章在深度上是不如它的，但是为什么还想写一下呢？
+Runloop 是一个偏门的东西，在我的工作经历中，几乎没有使用到它的地方，在我当时学习它时，因为本身对 iOS 整个生态了解不够，很多概念让我非常头疼。
+因此这篇文章我希望可以换一下因果关系，先不要管 Runloop 是什么，让我们从需求入手，看看 Runloop 能做什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - Runloop 最佳实践">
+<meta property="og:url" content="http://yoursite.com/2017/10/12/iOS - Runloop-最佳实践/index.html">
+<meta property="og:site_name" content="Tian'notes">
+<meta property="og:description" content="关于 Runloop，这篇文章写的非常棒，深入理解RunLoop。我写这篇文章在深度上是不如它的，但是为什么还想写一下呢？
+Runloop 是一个偏门的东西，在我的工作经历中，几乎没有使用到它的地方，在我当时学习它时，因为本身对 iOS 整个生态了解不够，很多概念让我非常头疼。
+因此这篇文章我希望可以换一下因果关系，先不要管 Runloop 是什么，让我们从需求入手，看看 Runloop 能做什么">
+<meta property="og:updated_time" content="2017-10-28T06:58:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS - Runloop 最佳实践">
+<meta name="twitter:description" content="关于 Runloop，这篇文章写的非常棒，深入理解RunLoop。我写这篇文章在深度上是不如它的，但是为什么还想写一下呢？
+Runloop 是一个偏门的东西，在我的工作经历中，几乎没有使用到它的地方，在我当时学习它时，因为本身对 iOS 整个生态了解不够，很多概念让我非常头疼。
+因此这篇文章我希望可以换一下因果关系，先不要管 Runloop 是什么，让我们从需求入手，看看 Runloop 能做什么">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/12/iOS - Runloop-最佳实践/"/>
+
+  <title> iOS - Runloop 最佳实践 | Tian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Tian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS - Runloop 最佳实践
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-12T01:21:00+08:00" content="2017-10-12">
+              2017-10-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/12/iOS - Runloop-最佳实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/12/iOS - Runloop-最佳实践/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>关于 Runloop，这篇文章写的非常棒，<a href="https://blog.ibireme.com/2015/05/18/runloop/" target="_blank" rel="external">深入理解RunLoop</a>。我写这篇文章在深度上是不如它的，但是为什么还想写一下呢？</p>
+<p>Runloop 是一个偏门的东西，在我的工作经历中，几乎没有使用到它的地方，在我当时学习它时，因为本身对 iOS 整个生态了解不够，很多概念让我非常头疼。</p>
+<p>因此这篇文章我希望可以换一下因果关系，先不要管 Runloop 是什么，让我们从需求入手，看看 Runloop 能做什么，当你实现过一次之后，回头看这些高屋建瓴的文章，可能会更有启发性。</p>
+<p>本文涉及的代码托管在：<a href="https://github.com/tianziyao/Runloop" target="_blank" rel="external">https://github.com/tianziyao/Runloop</a></p>
+<p>首先先记下 Runloop 负责做什么事情：</p>
+<ul>
+<li>保证程序不退出；</li>
+<li>负责监听事件，如触摸事件，计时器事件，网络事件等；</li>
+<li>负责渲染屏幕上所有的 UI，一次 Runloop 循环，需要渲染屏幕上所有变化的像素点；</li>
+<li>节省 CPU 的开销，让程序该工作时工作，改休息时休息；</li>
+</ul>
+<p>保证程序不退出和监听应该比较容易理解，用伪代码来表示，大致是这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 退出</span></div><div class="line"><span class="keyword">var</span> exit = <span class="literal">false</span></div><div class="line"></div><div class="line"><span class="comment">// 事件</span></div><div class="line"><span class="keyword">var</span> event: <span class="type">UIEvent</span>? = <span class="literal">nil</span></div><div class="line"></div><div class="line"><span class="comment">// 事件队列</span></div><div class="line"><span class="keyword">var</span> events: [<span class="type">UIEvent</span>] = [<span class="type">UIEvent</span>]()</div><div class="line"></div><div class="line"><span class="comment">// 事件分发/响应链</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handle</span><span class="params">(event: UIEvent)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 主线程 Runloop</span></div><div class="line"><span class="keyword">repeat</span> &#123;</div><div class="line">    <span class="comment">// 出现新的事件</span></div><div class="line">    <span class="keyword">if</span> event != <span class="literal">nil</span> &#123;</div><div class="line">        <span class="comment">// 将事件加入队列</span></div><div class="line">        events.append(event!)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 如果队列中有事件</span></div><div class="line">    <span class="keyword">if</span> events.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</div><div class="line">        <span class="comment">// 处理队列中第一个事件</span></div><div class="line">        <span class="keyword">let</span> result = handle(event: events.first!)</div><div class="line">        <span class="comment">// 处理完成移除第一个事件</span></div><div class="line">        <span class="keyword">if</span> result &#123;</div><div class="line">            events.removeFirst()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 再次进入发现事件-&gt;添加到队列-&gt;事件分发-&gt;处理事件-&gt;移除事件</span></div><div class="line">    <span class="comment">// 直到 exit=true，主线程退出</span></div><div class="line">&#125; <span class="keyword">while</span> exit == <span class="literal">false</span></div></pre></td></tr></table></figure>
+<p>负责渲染屏幕上所有的 UI，也就是在一次 Runloop 中，事件引起了 UI 的变化，再通过像素点的重绘表现出来。</p>
+<p>上面讲到的，全部是 Runloop 在系统层面的用处，那么在应用层面，Runloop 能做什么，以及应用在什么地方呢？首先我们从一个计时器开始。</p>
+<a id="more"></a>
+<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a>基本概念</h2><p>当我们使用计时器的时候，应该有了解过 timer 的几种构造方法，有的需要加入到 Runloop 中，有的不需要。</p>
+<p>实际上，就算我们不需要手动将 timer 加入到 Runloop，它也是在 Runloop 中，下面的两种初始化方式是等价的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> timer = <span class="type">Timer</span>(timeInterval: <span class="number">1</span>,</div><div class="line">                  target: <span class="keyword">self</span>,</div><div class="line">                  selector: #selector(<span class="keyword">self</span>.run),</div><div class="line">                  userInfo: <span class="literal">nil</span>,</div><div class="line">                  repeats: <span class="literal">true</span>)</div><div class="line"></div><div class="line"><span class="type">RunLoop</span>.current.add(timer, forMode: .defaultRunLoopMode)</div><div class="line"></div><div class="line"><span class="comment">///////////////////////////////////////////////////////////////////////////</span></div><div class="line"></div><div class="line"><span class="keyword">let</span> scheduledTimer = <span class="type">Timer</span>.scheduledTimer(timeInterval: <span class="number">1</span>,</div><div class="line">                                 target: <span class="keyword">self</span>,</div><div class="line">                                 selector: #selector(<span class="keyword">self</span>.run),</div><div class="line">                                 userInfo: <span class="literal">nil</span>,</div><div class="line">                                 repeats: <span class="literal">true</span>)</div></pre></td></tr></table></figure>
+<p>现在新建一个项目，添加一个 <code>TextView</code>，你的 ViewController 文件应该是这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">var</span> num = <span class="number">0</span></div><div class="line">    </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        <span class="keyword">let</span> timer = <span class="type">Timer</span>(timeInterval: <span class="number">1</span>,</div><div class="line">                          target: <span class="keyword">self</span>,</div><div class="line">                          selector: #selector(<span class="keyword">self</span>.run),</div><div class="line">                          userInfo: <span class="literal">nil</span>,</div><div class="line">                          repeats: <span class="literal">true</span>)</div><div class="line">        <span class="type">RunLoop</span>.current.add(timer, forMode: .defaultRunLoopMode)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span></span> &#123;</div><div class="line">        num += <span class="number">1</span></div><div class="line">        <span class="built_in">print</span>(<span class="type">Thread</span>.current ,num)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>按照直觉，当 App 运行后，控制台会每秒打印一次，<strong>但是当你滚动 <code>TextView</code> 时，会发现打印停止了，<code>TextView</code> 停止滚动时，打印又继续进行。</strong></p>
+<p>这是什么原因呢？在学习线程的时候我们知道，主线程的优先级是最高的，主线程也叫做 UI 线程，UI 的变化不允许在子线程进行。因此在 iOS 中，UI 事件的优先级是最高的。</p>
+<p>Runloop 也有一样的概念，Runloop 分为几种模式：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// App 的默认 Mode，通常主线程是在这个 Mode 下运行</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">let</span> defaultRunLoopMode: <span class="type">RunLoopMode</span></div><div class="line"><span class="comment">// 这是一个占位用的Mode，不是一种真正的Mode，用于区分 defaultMode </span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">let</span> commonModes: <span class="type">RunLoopMode</span></div><div class="line"><span class="comment">// 界面跟踪 Mode，用于 ScrollView 追踪触摸滑动，保证界面滑动时不受其他 Mode 影响</span></div><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">let</span> <span class="type">UITrackingRunLoopMode</span>: <span class="type">RunLoopMode</span></div></pre></td></tr></table></figure>
+<p>看到这里大家应该可以明白，我们的 timer 是在 <code>defaultRunLoopMode</code> 中，而 <code>TextView</code> 的滚动则处于 <code>UITrackingRunLoopMode</code> 中，因此两者不能同时进行。</p>
+<p>这个问题会在什么场景下出现呢？比如你使用定时器做了轮播，当下面的列表滚动时，轮播图停住了。</p>
+<p>那么现在将 timer 的 <code>Mode</code> 修改为 <code>commonModes</code> 和 <code>UITrackingRunLoopMode</code> 再试一下，看看会发生什么有趣的事情？</p>
+<p><code>commonModes</code> 模式下，<code>run</code> 方法会持续进行，不受 <code>TextView</code> 滚动和静止的影响，<code>UITrackingRunLoopMode</code> 模式下，当 <code>TextView</code> 滚动时，<code>run</code> 方法执行，当 <code>TextView</code> 静止时，<code>run</code> 方法停止执行。</p>
+<h3 id="阻塞"><a href="#阻塞" class="headerlink" title="阻塞"></a>阻塞</h3><p>如果看过一些关于 Runloop 的介绍，我们应该知道，每个线程都有 Runloop，主线程默认开启，子线程需手动开启，在上面的例子中，当 Mode 是 <code>commonModes</code> 时，定时器和 UI 滚动同时进行，看起来像是在同时进行，但实际上无论 Runloop Mode 如何变化，它始终是在这条线程上循环往复。</p>
+<p>大家都知道，在 iOS 开发中有一条铁律，永远不能阻塞主线程。因此，在主线程的任何 Mode 上，也不能进行耗时操作，现在将 <code>run</code> 方法改成下面这样试下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">run</span><span class="params">()</span></span> &#123;</div><div class="line">    num += <span class="number">1</span></div><div class="line">    <span class="built_in">print</span>(<span class="type">Thread</span>.current ,num)</div><div class="line">    <span class="type">Thread</span>.sleep(forTimeInterval: <span class="number">3</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="应用-Runloop-的思路"><a href="#应用-Runloop-的思路" class="headerlink" title="应用 Runloop 的思路"></a>应用 Runloop 的思路</h2><p>现在我们了解了 Runloop 是怎样运行的，以及运行的几种 Mode，下面我们尝试解决一个实际的问题，<code>TableCell</code> 的内容加载。</p>
+<p>在日常的开发中，我们大致会将 <code>TableView</code> 的加载分为两部分处理：</p>
+<ol>
+<li>将网络请求、缓存读写、数据解析、构造模型等耗时操作放在子线程处理；</li>
+<li>模型数组准备完毕，回调主线程刷新 <code>TableView</code>，使用模型数据填充 <code>TableCell</code>；</li>
+</ol>
+<p>为什么我们大多会这样处理？实际上还是上面的原则：永远不能阻塞主线程。因此，为了 UI 的流畅，我们会想方设法将耗时操作从主线程中剥离，才有了上面的方案。</p>
+<p>但是有一点，UI 的操作是必须在主线程中完成的，那么，如果<strong>使用模型数据填充 <code>TableCell</code></strong> 也是一个耗时操作，该怎么办？</p>
+<p>比如像下面这种操作：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> path = <span class="type">Bundle</span>.main.path(forResource: <span class="string">"rose"</span>, ofType: <span class="string">"jpg"</span>)</div><div class="line"><span class="keyword">let</span> image = <span class="type">UIImage</span>(contentsOfFile: path ?? <span class="string">""</span>) ?? <span class="type">UIImage</span>()</div><div class="line">cell.config(image: image)</div></pre></td></tr></table></figure>
+<p>在这个例子中，<code>rose.jpg</code> 是一张很大的图片，每个 <code>TableCell</code> 上有 3 张这样的图片，我们当然可以将图片在子线程中读取完毕后再更新，不过我们需要模拟一个耗时的 UI 操作，因此先这样处理。</p>
+<p>大家可以下载代码运行一下，滚动 <code>TableView</code>，FPS 最低会降到 40 以下，这种现象是如何产生的呢？</p>
+<p><strong>上面我们讲到过，Runloop 负责渲染屏幕的 UI 和监听触摸事件，手指滑动时，<code>TableView</code> 随之移动，触发屏幕上的 UI 变化，UI 的变化触发 Cell 的复用和渲染，而 Cell 的渲染是一个耗时操作，导致 Runloop 循环一次的时间变长，因此造成 UI 的卡顿。</strong></p>
+<p>那么针对这个过程，我们怎样改善呢？既然 Cell 的渲染是耗时操作，那么需要把 Cell 的渲染剥离出来，使其不影响 <code>TableView</code> 的滚动，保证 UI 的流畅后，在合适的时机再执行 Cell 的渲染，总结一下，也就是下面这样的过程：</p>
+<ol>
+<li>声明一个数组，用来存放渲染 Cell 的代码；</li>
+<li>在 <code>cellForRowAtIndexPath</code> 代理中直接返回 Cell；</li>
+<li>监听 Runloop 的循环，循环完成，进入休眠后取出数组中的代码执行；</li>
+</ol>
+<p>数组存放代码大家应该可以理解，也就是一个 Block 的数组，但是 Runloop 如何监听呢？</p>
+<h2 id="监听-Runloop"><a href="#监听-Runloop" class="headerlink" title="监听 Runloop"></a>监听 Runloop</h2><p>我们需要知道 Runloop 循环在何时开始，在何时结束，Demo 如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div></pre></td><td class="code"><pre><div class="line">fileprivate <span class="function"><span class="keyword">func</span> <span class="title">addRunLoopObServer</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="keyword">do</span> &#123;</div><div class="line">        <span class="keyword">let</span> block = &#123; (ob: <span class="type">CFRunLoopObserver</span>?, ac: <span class="type">CFRunLoopActivity</span>) <span class="keyword">in</span></div><div class="line">            <span class="keyword">if</span> ac == .entry &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"进入 Runloop"</span>)</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ac == .beforeTimers &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"即将处理 Timer 事件"</span>)</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ac == .beforeSources &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"即将处理 Source 事件"</span>)</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ac == .beforeWaiting &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Runloop 即将休眠"</span>)</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ac == .afterWaiting &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"Runloop 被唤醒"</span>)</div><div class="line"></div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> ac == .exit &#123;</div><div class="line">                <span class="built_in">print</span>(<span class="string">"退出 Runloop"</span>)</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">let</span> ob = <span class="keyword">try</span> createRunloopObserver(block: block)</div><div class="line"></div><div class="line">        <span class="comment">/// - Parameter rl: 要监听的 Runloop</span></div><div class="line">        <span class="comment">/// - Parameter observer: Runloop 观察者</span></div><div class="line">        <span class="comment">/// - Parameter mode: 要监听的 mode</span></div><div class="line">        <span class="type">CFRunLoopAddObserver</span>(<span class="type">CFRunLoopGetCurrent</span>(), ob, .defaultMode)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> <span class="type">RunloopError</span>.canNotCreate &#123;</div><div class="line">        <span class="built_in">print</span>(<span class="string">"runloop 观察者创建失败"</span>)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> &#123;&#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">fileprivate <span class="function"><span class="keyword">func</span> <span class="title">createRunloopObserver</span><span class="params">(block: @escaping <span class="params">(CFRunLoopObserver?, CFRunLoopActivity)</span></span></span> -&gt; <span class="type">Void</span>) <span class="keyword">throws</span> -&gt; <span class="type">CFRunLoopObserver</span> &#123;</div><div class="line"></div><div class="line">    <span class="comment">/*</span></div><div class="line">     *</div><div class="line">     allocator: 分配空间给新的对象。默认情况下使用NULL或者kCFAllocatorDefault。</div><div class="line"></div><div class="line">     activities: 设置Runloop的运行阶段的标志，当运行到此阶段时，CFRunLoopObserver会被调用。</div><div class="line"></div><div class="line">         public struct CFRunLoopActivity : OptionSet &#123;</div><div class="line">             public init(rawValue: CFOptionFlags)</div><div class="line">             public static var entry             //进入工作</div><div class="line">             public static var beforeTimers      //即将处理Timers事件</div><div class="line">             public static var beforeSources     //即将处理Source事件</div><div class="line">             public static var beforeWaiting     //即将休眠</div><div class="line">             public static var afterWaiting      //被唤醒</div><div class="line">             public static var exit              //退出RunLoop</div><div class="line">             public static var allActivities     //监听所有事件</div><div class="line">         &#125;</div><div class="line"></div><div class="line">     repeats: CFRunLoopObserver是否循环调用</div><div class="line"></div><div class="line">     order: CFRunLoopObserver的优先级，正常情况下使用0。</div><div class="line"></div><div class="line">     block: 这个block有两个参数：observer：正在运行的run loop observe。activity：runloop当前的运行阶段。返回值：新的CFRunLoopObserver对象。</div><div class="line">     */</div><div class="line">    <span class="keyword">let</span> ob = <span class="type">CFRunLoopObserverCreateWithHandler</span>(kCFAllocatorDefault, <span class="type">CFRunLoopActivity</span>.allActivities.rawValue, <span class="literal">true</span>, <span class="number">0</span>, block)</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> observer = ob <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">throw</span> <span class="type">RunloopError</span>.canNotCreate</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> observer</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="利用-Runloop-休眠"><a href="#利用-Runloop-休眠" class="headerlink" title="利用 Runloop 休眠"></a>利用 Runloop 休眠</h2><p>根据上面的 Demo，我们可以监听到 Runloop 的开始和结束了，现在在控制器中加入一个 <code>TableView</code>，和一个 Runloop 的观察者，你的控制器现在应该是这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ViewController</span>: <span class="title">UIViewController</span> </span>&#123;</div><div class="line">        </div><div class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">func</span> <span class="title">viewDidLoad</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="keyword">super</span>.viewDidLoad()</div><div class="line">        addRunloopObserver()</div><div class="line">        view.addSubview(tableView)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    fileprivate <span class="function"><span class="keyword">func</span> <span class="title">addRunloopObserver</span><span class="params">()</span></span> &#123;</div><div class="line">        <span class="comment">// 获取当前的 Runloop</span></div><div class="line">        <span class="keyword">let</span> runloop = <span class="type">CFRunLoopGetCurrent</span>()</div><div class="line">        <span class="comment">// 需要监听 Runloop 的哪个状态</span></div><div class="line">        <span class="keyword">let</span> activities = <span class="type">CFRunLoopActivity</span>.beforeWaiting.rawValue</div><div class="line">        <span class="comment">// 创建 Runloop 观察者</span></div><div class="line">        <span class="keyword">let</span> observer = <span class="type">CFRunLoopObserverCreateWithHandler</span>(<span class="literal">nil</span>, activities, <span class="literal">true</span>, <span class="type">Int</span>.<span class="built_in">max</span> - <span class="number">999</span>, runLoopBeforeWaitingCallBack)</div><div class="line">        <span class="comment">// 注册 Runloop 观察者</span></div><div class="line">        <span class="type">CFRunLoopAddObserver</span>(runloop, observer, .defaultMode)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    fileprivate <span class="keyword">let</span> runLoopBeforeWaitingCallBack = &#123; (ob: <span class="type">CFRunLoopObserver</span>?, ac: <span class="type">CFRunLoopActivity</span>) <span class="keyword">in</span></div><div class="line">        <span class="built_in">print</span>(<span class="string">"runloop 循环完毕"</span>)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    fileprivate <span class="built_in">lazy</span> <span class="keyword">var</span> tableView: <span class="type">UITableView</span> = &#123;</div><div class="line">        <span class="keyword">let</span> table = <span class="type">UITableView</span>(frame: <span class="keyword">self</span>.view.frame)</div><div class="line">        table.delegate = <span class="keyword">self</span></div><div class="line">        table.dataSource = <span class="keyword">self</span></div><div class="line">        table.register(<span class="type">TableViewCell</span>.<span class="keyword">self</span>, forCellReuseIdentifier: <span class="string">"tableViewCell"</span>)</div><div class="line">        <span class="keyword">return</span> table</div><div class="line">    &#125;()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在运行起来，打印信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">runloop 循环完毕</div><div class="line">runloop 循环完毕</div><div class="line">runloop 循环完毕</div><div class="line">runloop 循环完毕</div></pre></td></tr></table></figure>
+<p>从这里我们看到，从控制器的 <code>viewDidLoad</code> 开始，经过几次 Runloop，<code>TableView</code> 成功在屏幕出现，然后进入休眠，当我们滑动屏幕或者触发陀螺仪、耳机等事件发生时，Runloop 进入工作，处理完毕后再次进入休眠。</p>
+<p><strong>而我们的目的是利用 Runloop 的休眠时间，在用户没有产生事件的时候，可以处理 Cell 的渲染任务。本文的开头我们提到 Runloop 负责的事情，触摸和网络等事件一般是由用户触发，且执行完 Runloop 会再次进入休眠，那么合适的的事件，也就是时钟了。</strong></p>
+<p>因此我们监听了 <code>defaultMode</code>，并需要在观察者的回调中启动一个时钟事件，让 Runloop 始终保持在活动状态，但是这个时钟也不需要它执行什么事情，所以我开启了一个 <code>CADisplayLink</code>，用来显示 FPS。不了解 <code>CADisplayLink</code> 的同学，将它想象为一个大约 1/60 秒执行一次的定时器就可以了，执行的动作是输出一个数字。</p>
+<h2 id="实现-Runloop-应用"><a href="#实现-Runloop-应用" class="headerlink" title="实现 Runloop 应用"></a>实现 Runloop 应用</h2><p>首先我们声明几个变量：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 是否使用 Runloop 优化</span></div><div class="line">fileprivate <span class="keyword">let</span> useRunloop: <span class="type">Bool</span> = <span class="literal">false</span></div><div class="line"></div><div class="line"><span class="comment">/// cell 的高度</span></div><div class="line">fileprivate <span class="keyword">let</span> rowHeight: <span class="type">CGFloat</span> = <span class="number">120</span></div><div class="line"></div><div class="line"><span class="comment">/// runloop 空闲时执行的代码</span></div><div class="line">fileprivate <span class="keyword">var</span> runloopBlockArr: [<span class="type">RunloopBlock</span>] = [<span class="type">RunloopBlock</span>]()</div><div class="line"></div><div class="line"><span class="comment">/// runloopBlockArr 中的最大任务数</span></div><div class="line">fileprivate <span class="keyword">var</span> maxQueueLength: <span class="type">Int</span> &#123;</div><div class="line">    <span class="keyword">return</span> (<span class="type">Int</span>(<span class="type">UIScreen</span>.main.bounds.height / rowHeight) + <span class="number">2</span>)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>修改 <code>addRunloopObserver</code> 方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 注册 Runloop 观察者</span></div><div class="line">fileprivate <span class="function"><span class="keyword">func</span> <span class="title">addRunloopObserver</span><span class="params">()</span></span> &#123;</div><div class="line">    <span class="comment">// 获取当前的 Runloop</span></div><div class="line">    <span class="keyword">let</span> runloop = <span class="type">CFRunLoopGetCurrent</span>()</div><div class="line">    <span class="comment">// 需要监听 Runloop 的哪个状态</span></div><div class="line">    <span class="keyword">let</span> activities = <span class="type">CFRunLoopActivity</span>.beforeWaiting.rawValue</div><div class="line">    <span class="comment">// 创建 Runloop 观察者</span></div><div class="line">    <span class="keyword">let</span> observer = <span class="type">CFRunLoopObserverCreateWithHandler</span>(<span class="literal">nil</span>, activities, <span class="literal">true</span>, <span class="number">0</span>) &#123; [<span class="keyword">weak</span> <span class="keyword">self</span>] (ob, ac) <span class="keyword">in</span></div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> `<span class="keyword">self</span>` = <span class="keyword">self</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">        <span class="keyword">guard</span> <span class="keyword">self</span>.runloopBlockArr.<span class="built_in">count</span> != <span class="number">0</span> <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">        <span class="comment">// 是否退出任务组</span></div><div class="line">        <span class="keyword">var</span> quit = <span class="literal">false</span></div><div class="line">        <span class="comment">// 如果不退出且任务组中有任务存在</span></div><div class="line">        <span class="keyword">while</span> quit == <span class="literal">false</span> &amp;&amp; <span class="keyword">self</span>.runloopBlockArr.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</div><div class="line">            <span class="comment">// 执行任务</span></div><div class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> block = <span class="keyword">self</span>.runloopBlockArr.first <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">            <span class="comment">// 是否退出任务组</span></div><div class="line">            quit = block()</div><div class="line">            <span class="comment">// 删除已完成的任务</span></div><div class="line">            <span class="keyword">let</span> <span class="number">_</span> = <span class="keyword">self</span>.runloopBlockArr.removeFirst()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 注册 Runloop 观察者</span></div><div class="line">    <span class="type">CFRunLoopAddObserver</span>(runloop, observer, .defaultMode)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>创建 <code>addRunloopBlock</code> 方法：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 添加代码块到数组，在 Runloop BeforeWaiting 时执行</span></div><div class="line"><span class="comment">///</span></div><div class="line"><span class="comment">/// - Parameter block: &lt;#block description#&gt;</span></div><div class="line">fileprivate <span class="function"><span class="keyword">func</span> <span class="title">addRunloopBlock</span><span class="params">(block: @escaping RunloopBlock)</span></span> &#123;</div><div class="line">    runloopBlockArr.append(block)</div><div class="line">    <span class="comment">// 快速滚动时，没有来得及显示的 cell 不会进行渲染，只渲染屏幕中出现的 cell</span></div><div class="line">    <span class="keyword">if</span> runloopBlockArr.<span class="built_in">count</span> &gt; maxQueueLength &#123;</div><div class="line">       <span class="keyword">let</span> <span class="number">_</span> = runloopBlockArr.removeFirst()</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>最后将渲染 cell 的 Block 丢进 <code>runloopBlockArr</code>:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">tableView</span><span class="params">(<span class="number">_</span> tableView: UITableView, cellForRowAt indexPath: IndexPath)</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">    <span class="keyword">if</span> useRunloop &#123;</div><div class="line">        <span class="keyword">return</span> loadCellWithRunloop()</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> loadCell()</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">loadCellWithRunloop</span><span class="params">()</span></span> -&gt; <span class="type">UITableViewCell</span> &#123;</div><div class="line">    <span class="keyword">guard</span> <span class="keyword">let</span> cell = tableView.dequeueReusableCell(withIdentifier: <span class="string">"tableViewCell"</span>) <span class="keyword">as</span>? <span class="type">TableViewCell</span> <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="type">UITableViewCell</span>()</div><div class="line">    &#125;</div><div class="line">    addRunloopBlock &#123; () -&gt; (<span class="type">Bool</span>) <span class="keyword">in</span></div><div class="line">        <span class="keyword">let</span> path = <span class="type">Bundle</span>.main.path(forResource: <span class="string">"rose"</span>, ofType: <span class="string">"jpg"</span>)</div><div class="line">        <span class="keyword">let</span> image = <span class="type">UIImage</span>(contentsOfFile: path ?? <span class="string">""</span>) ?? <span class="type">UIImage</span>()</div><div class="line">        cell.config(image: image)</div><div class="line">        <span class="keyword">return</span> <span class="literal">false</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> cell</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="Demo-地址"><a href="#Demo-地址" class="headerlink" title="Demo 地址"></a>Demo 地址</h2><p><a href="https://github.com/tianziyao/Runloop" target="_blank" rel="external">https://github.com/tianziyao/Runloop</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/Runloop/" rel="tag">#Runloop</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/26/架构 - 注册、登录和-token-的安全之道/" rel="next" title="架构 - 注册、登录和 token 的安全之道">
+                <i class="fa fa-chevron-left"></i> 架构 - 注册、登录和 token 的安全之道
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/27/iOS - CocoaPods-原理及库制作/" rel="prev" title="iOS - CocoaPods 原理及库制作">
+                iOS - CocoaPods 原理及库制作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/10/12/iOS - Runloop-最佳实践/"
+           data-title="iOS - Runloop 最佳实践" data-url="http://yoursite.com/2017/10/12/iOS - Runloop-最佳实践/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="Tian" />
+          <p class="site-author-name" itemprop="name">Tian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本概念"><span class="nav-number">1.</span> <span class="nav-text">基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#阻塞"><span class="nav-number">1.1.</span> <span class="nav-text">阻塞</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用-Runloop-的思路"><span class="nav-number">2.</span> <span class="nav-text">应用 Runloop 的思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#监听-Runloop"><span class="nav-number">3.</span> <span class="nav-text">监听 Runloop</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用-Runloop-休眠"><span class="nav-number">4.</span> <span class="nav-text">利用 Runloop 休眠</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现-Runloop-应用"><span class="nav-number">5.</span> <span class="nav-text">实现 Runloop 应用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo-地址"><span class="nav-number">6.</span> <span class="nav-text">Demo 地址</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

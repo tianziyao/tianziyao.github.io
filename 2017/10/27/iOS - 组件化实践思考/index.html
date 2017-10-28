@@ -1,0 +1,839 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="iOS,组件化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="组件化的应用背景和优势在此不再赘述，下面我们将从实践的角度，讨论一下如何应用组件化的思想，下面将以我自己的理解逐步展开，抛砖引玉。
+哪些内容需要组件化在我的理解中，一个项目可以拆分为以下几种组件：
+
+基础组件；
+功能组件；
+业务组件；
+
+下面依次来解释几种组件的定义和规则。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - 组件化实践思考">
+<meta property="og:url" content="http://yoursite.com/2017/10/27/iOS - 组件化实践思考/index.html">
+<meta property="og:site_name" content="Tian'notes">
+<meta property="og:description" content="组件化的应用背景和优势在此不再赘述，下面我们将从实践的角度，讨论一下如何应用组件化的思想，下面将以我自己的理解逐步展开，抛砖引玉。
+哪些内容需要组件化在我的理解中，一个项目可以拆分为以下几种组件：
+
+基础组件；
+功能组件；
+业务组件；
+
+下面依次来解释几种组件的定义和规则。">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/27/1feb64c07d059c070fd70f5b6f9d1f03">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/27/bc9f8816adcdf3f98431496fa7aa600c">
+<meta property="og:updated_time" content="2017-10-28T06:58:51.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS - 组件化实践思考">
+<meta name="twitter:description" content="组件化的应用背景和优势在此不再赘述，下面我们将从实践的角度，讨论一下如何应用组件化的思想，下面将以我自己的理解逐步展开，抛砖引玉。
+哪些内容需要组件化在我的理解中，一个项目可以拆分为以下几种组件：
+
+基础组件；
+功能组件；
+业务组件；
+
+下面依次来解释几种组件的定义和规则。">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/10/27/1feb64c07d059c070fd70f5b6f9d1f03">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/27/iOS - 组件化实践思考/"/>
+
+  <title> iOS - 组件化实践思考 | Tian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Tian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS - 组件化实践思考
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-27T01:21:00+08:00" content="2017-10-27">
+              2017-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/27/iOS - 组件化实践思考/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/iOS - 组件化实践思考/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>组件化的应用背景和优势在此不再赘述，下面我们将从实践的角度，讨论一下如何应用组件化的思想，下面将以我自己的理解逐步展开，抛砖引玉。</p>
+<h2 id="哪些内容需要组件化"><a href="#哪些内容需要组件化" class="headerlink" title="哪些内容需要组件化"></a>哪些内容需要组件化</h2><p>在我的理解中，一个项目可以拆分为以下几种组件：</p>
+<ul>
+<li>基础组件；</li>
+<li>功能组件；</li>
+<li>业务组件；</li>
+</ul>
+<p>下面依次来解释几种组件的定义和规则。</p>
+<a id="more"></a>
+<h3 id="基础组件"><a href="#基础组件" class="headerlink" title="基础组件"></a>基础组件</h3><ul>
+<li>基本配置<ul>
+<li>常量；</li>
+<li>宏定义；</li>
+</ul>
+</li>
+<li>分类<ul>
+<li>各种系统类的扩展；</li>
+</ul>
+</li>
+<li>网络<ul>
+<li>对 AFN 的封装；</li>
+<li>对 SDWebImage 的封装；</li>
+</ul>
+</li>
+<li>工具类<ul>
+<li>文件处理；</li>
+<li>设备信息；</li>
+<li>时间日期处理；</li>
+</ul>
+</li>
+</ul>
+<p>基础组件的含义就是最基础的东西，每个业务组件都有可能会使用到，基础组件需要抽取的应该是类似上面的代码，举例来说，比如我们定义了一个常量，表示接口的根路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">let BASEMIRRORURL = &quot;http://rest.mirror.xxxx.com/ios&quot;</div></pre></td></tr></table></figure>
+<p>那么这个常量在 Home，List，Detail 都有可能会被引用，因此我们将这种最底层的，最下一层的东西归类到基础组件。</p>
+<p>又比如分类和扩展，我们给 <code>UIView</code> 的扩展定义一个计算属性：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIView</span> </span>&#123;</div><div class="line">  <span class="keyword">var</span> height &#123;</div><div class="line">    <span class="keyword">set</span> &#123;</div><div class="line">      <span class="keyword">self</span>.frame.size.height = newValue</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">get</span> &#123;</div><div class="line">      <span class="keyword">return</span> <span class="keyword">self</span>.frame.size.height</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以想到，也会有很多的业务组件会使用到这个扩展。</p>
+<h3 id="功能组件"><a href="#功能组件" class="headerlink" title="功能组件"></a>功能组件</h3><ul>
+<li>控件<ul>
+<li>弹幕；</li>
+<li>轮播；</li>
+<li>菜单；</li>
+<li>瀑布流；</li>
+</ul>
+</li>
+<li>功能<ul>
+<li>断点续传；</li>
+<li>音视频处理；</li>
+<li>CUPImage 封装；</li>
+</ul>
+</li>
+</ul>
+<p>功能组件分为可见和不可见两种，可见的是控件，不可见的是功能。功能组件的作用顾名思义，就是实现了一个功能。</p>
+<h3 id="业务组件"><a href="#业务组件" class="headerlink" title="业务组件"></a>业务组件</h3><p>业务组件，也就是业务的具体实现了，比如一个 App 的骨架如下：</p>
+<ul>
+<li>首页；</li>
+<li>发现；</li>
+<li>我的；</li>
+</ul>
+<p>首页下又分为这样：</p>
+<ul>
+<li>侧滑菜单；</li>
+<li>Banner；</li>
+<li>热门；</li>
+</ul>
+<p>这里的每个部分，都可以称为业务组件。</p>
+<h2 id="三种组件的关系"><a href="#三种组件的关系" class="headerlink" title="三种组件的关系"></a>三种组件的关系</h2><p><img src="https://user-gold-cdn.xitu.io/2017/10/27/1feb64c07d059c070fd70f5b6f9d1f03" alt="三种组件的关系"></p>
+<h3 id="基础组件规则"><a href="#基础组件规则" class="headerlink" title="基础组件规则"></a>基础组件规则</h3><p>基础组件和基础组件之间不应该产生依赖，比如我们使用网络请求组件，希望根路径是一个默认参数，但可以对外暴露和修改，像下面这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetWork</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(baseUrl: String = BASEMIRRORURL, path: String, param: [String:Any])</span></span> &#123;</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="type">NetWork</span>.request(path: <span class="string">"/g/login.server"</span>, param: param)</div></pre></td></tr></table></figure>
+<p>这时，<code>NetWork</code> 就依赖了 <code>常量</code> 这个基础组件，我们如果使用 <code>NetWork</code> 基础组件，还需要导入 <code>常量</code> 这个基础组件，这是<strong>不应该</strong>的。</p>
+<p>但为了代码的简洁性，这样的封装又是必要的，那么应该怎么做呢？这个问题我们下面会讲到。</p>
+<h3 id="功能组件规则"><a href="#功能组件规则" class="headerlink" title="功能组件规则"></a>功能组件规则</h3><p>功能组件和基础组件之间不应该产生依赖，比如我们做轮播图，会用到 <code>UIView 的扩展</code>和 <code>常量</code> ，像下面这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imageView.width = <span class="type">SCREENWIDTH</span></div></pre></td></tr></table></figure>
+<p>其中 <code>.width</code> 和 <code>SCREENWIDTH</code> ，都在基础组件中，但基础组件中不仅仅是这些东西，如果依赖了基础组件，就需要导入基础组件中其他无用的代码，而且其他人使用轮播图组件，也需要导入基础组件。</p>
+<p>因此，在功能组件中，<strong>不建议</strong>依赖基础组件，上面的代码应该改成这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">imageView.frame.size.width = <span class="type">UIScreen</span>.main.bounds.size.width</div></pre></td></tr></table></figure>
+<p>或者直接复制代码，将需要的基础组件的功能，复制到功能组件当中。</p>
+<p>同基础组件一样，功能组件和功能组件也不应该产生依赖，道理是一样的，我们使用一个功能，<strong>不应该</strong>将另一个功能也导入进来。</p>
+<h3 id="业务组件规则"><a href="#业务组件规则" class="headerlink" title="业务组件规则"></a>业务组件规则</h3><p>基础组件和功能组件都是为业务服务的，因此业务组件可以依赖于基础组件和功能组件，快速的实现业务，但是<strong>业务组件和业务组件之间不应该产生依赖。</strong></p>
+<p>比如这样一条业务线，我们要求 <code>发现</code> 这个业务组件，点击一条视频，跳转到 <code>视频播放器</code>：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pushToPlayerVC</span><span class="params">(model: VideoModel)</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> vc = <span class="type">PlayerVC</span>(videoModel: model)</div><div class="line">  navigationVC.push(vc)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这时 <code>发现</code> 就对 <code>视频播放器</code>产生了依赖，如果将 <code>发现</code> 进行组件化进行剥离，能行吗？不行。</p>
+<p>其实这个问题和网络请求使用默认参数封装一样，是组件与组件之间的通讯问题，当然，这个问题我们下面会讲到，现在再提一下是为了一会儿往下写的时候忘了填坑 …</p>
+<h2 id="每个组件存在的形式"><a href="#每个组件存在的形式" class="headerlink" title="每个组件存在的形式"></a>每个组件存在的形式</h2><ul>
+<li>组件内部；</li>
+<li>组件外部；</li>
+<li>组件测试；</li>
+</ul>
+<h3 id="组件内部"><a href="#组件内部" class="headerlink" title="组件内部"></a>组件内部</h3><p>组件的内部应该使用设计模式划分文件夹的结构，例如 MVVM 结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">---- PlayerView</div><div class="line">  -- View</div><div class="line">  -- Model</div><div class="line">  -- ViewModel</div></pre></td></tr></table></figure>
+<h3 id="组件外部"><a href="#组件外部" class="headerlink" title="组件外部"></a>组件外部</h3><p>组件的外部应该是一个远程私有 <code>pod</code> 库，使用 CocoaPods 进行管理。</p>
+<h3 id="组件测试"><a href="#组件测试" class="headerlink" title="组件测试"></a>组件测试</h3><p>单独的测试工程。</p>
+<h2 id="怎样集成各个组件"><a href="#怎样集成各个组件" class="headerlink" title="怎样集成各个组件"></a>怎样集成各个组件</h2><p><img src="https://user-gold-cdn.xitu.io/2017/10/27/bc9f8816adcdf3f98431496fa7aa600c" alt="组件集成"></p>
+<p>组件的集成应该像上面的图一样，基础组件和功能组件互不依赖，制作远程 <code>pod</code> 私有库，业务组件依赖于这些 <code>pod</code> 私有库开发，同样制作成远程 <code>pod</code> 私有库，壳工程依赖于 CocoaPods 管理这些私有库，完成整个项目。</p>
+<p>当然还有另外的方式，比如将壳工程作为主工程，组件创建为子工程，这方式的缺点是子工程可以修改，缺少约束性，目录结构也比较凌乱。</p>
+<p>还有将组件制作为 <code>FrameWork</code>，壳工程中导入一个个 <code>FrameWork</code> 库，这种方式个人感觉比上一种好一些，但是在物理上，组件和壳还是没能做到分离。</p>
+<p>因此，我个人还是更倾向于 <code>pod</code> 库的形式。</p>
+<h2 id="组件之间的通讯"><a href="#组件之间的通讯" class="headerlink" title="组件之间的通讯"></a>组件之间的通讯</h2><ul>
+<li>对外公开 API 接口；</li>
+<li>通过中间件的中转；</li>
+</ul>
+<p>上面我们有两个遗留的问题，归纳为组件之间的通讯问题，下面就通过这两个问题，讨论一下组件之间的通讯。</p>
+<h3 id="网络请求默认参数"><a href="#网络请求默认参数" class="headerlink" title="网络请求默认参数"></a>网络请求默认参数</h3><p>下面的思路就是暴露出 <code>baseUrl</code> 参数，通过中间件 <code>NetWorkMW</code> 将 <code>NetWork</code> 和 <code>常量</code> 两个基础组件组合，完成默认参数网络请求的封装。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 基础组件 - 常量</span></div><div class="line"><span class="keyword">let</span> <span class="type">BASEMIRRORURL</span> = <span class="string">"http://rest.mirror.xxxx.com/ios"</span></div><div class="line"></div><div class="line"><span class="comment">// 基础组件 - 网络请求</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetWork</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(baseUrl: String, path: String, param: [String:Any])</span></span> &#123;</div><div class="line">    </div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//壳工程 - 网络请求中间件</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">NetWorkMW</span> </span>&#123;</div><div class="line">  <span class="function"><span class="keyword">func</span> <span class="title">request</span><span class="params">(baseUrl: String = BASEMIRRORURL, path: String, param: [String:Any])</span></span> &#123;</div><div class="line">    <span class="type">NetWork</span>.request(baseUrl: baseUrl, path: path, param: param)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="type">NetWorkMW</span>.request(path: <span class="string">"/g/login.server"</span>, param: param)</div></pre></td></tr></table></figure>
+<h3 id="发现跳转视频播放"><a href="#发现跳转视频播放" class="headerlink" title="发现跳转视频播放"></a>发现跳转视频播放</h3><p>这个思路是使用代理，对外暴露点击事件，通过中间件，导入 <code>视频播放</code> 业务组件，<code>topVC</code> 基础组件，完成向 <code>视频播放</code> 的跳转：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 业务组件 - 发现</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pushToPlayerVC</span><span class="params">(model: VideoModel)</span></span> &#123;</div><div class="line">  delegate?.pushToPlayerVC?(videoModel: model)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 中间件 - 发现</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">pushToPlayerVC</span><span class="params">(model: VideoModel)</span></span> &#123;</div><div class="line">  <span class="keyword">let</span> vc = <span class="type">PlayerVC</span>(videoModel: model)</div><div class="line">  topVC.navigationVC.push(vc)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><strong>以上实际上是怎么样把多个组件组合使用起来，这种组合是确定的，还有一些是不确定的，例如有一个组件的状态改变了，我要让其他组件知道我的变化，但是我不知道都要告诉谁，怎么办？</strong></p>
+<p><strong>眼珠一转，对外暴露状态变化，中间件在变化时发送通知。但是同时我想附带一个模型过去，通知的接收方怎样正确的使用这个模型呢？如果要使用模型，势必要和发送通知的业务组件产生耦合，怎么办？</strong></p>
+<p>以后再办，先埋个坑，这些场景我们会在以后再讲到。</p>
+<h2 id="组件分离的难点"><a href="#组件分离的难点" class="headerlink" title="组件分离的难点"></a>组件分离的难点</h2><p>组件分离的重点和难点也就是解耦，比如我们现在负责一个项目，其中的一个业务或者功能，希望实现组件化，但是它依赖于项目中的其他公共功能，该如何处理呢？这里提供两种思路：</p>
+<ol>
+<li>拷代码，简单粗暴，摆脱依赖，对于一些不重要的工具方法，可以直接拷贝到内部来使用；</li>
+<li>把组件依赖的代码先做一个 <code>pod</code> 库，然后依赖这个 <code>pod</code> 库；</li>
+</ol>
+<p>上面讲到的是代码方面的依赖，还有一种情况是功能方面的依赖，比如我们有一个菜单，这个菜单涉及到网络图片的加载，那么怎样将这个菜单进行组件化呢？</p>
+<ol>
+<li>使用 Block 或者代理，将网络图片加载这部分的职责交给外部控制；</li>
+</ol>
+<p>举例来说，像下面这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 业务组件 - 菜单</span></div><div class="line"><span class="keyword">self</span>.imageView.sd_setImage(with: url, completed: completed)</div></pre></td></tr></table></figure>
+<p>那么如果现在将它组件化，这个组件就要依赖于 <code>SDWebImage</code>，我们应该修改成这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 业务组件 - 菜单</span></div><div class="line">setImage?(<span class="keyword">for</span>: imageView, completed: <span class="type">ImageLoadCompletedBlock</span>)</div><div class="line"></div><div class="line"><span class="comment">// 中间件 - 菜单</span></div><div class="line">menu.setImage = &#123; (imageView, completed) <span class="keyword">in</span> </div><div class="line">  imageView.sd_setImage(with: url, completed: completed)</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在菜单就摆脱了对 <code>SDWebImage</code> 的依赖。</p>
+<h2 id="附加问题"><a href="#附加问题" class="headerlink" title="附加问题"></a>附加问题</h2><p>以上的环节掌握了，应该可以尝试简单的组件化了，但是问题没完，还有哪些呢？</p>
+<h3 id="库的升级维护"><a href="#库的升级维护" class="headerlink" title="库的升级维护"></a>库的升级维护</h3><p>随着项目的迭代，你负责的库升级了，其他的小伙伴们还在用上个版本的库，怎么办？</p>
+<h3 id="各种路径资源问题"><a href="#各种路径资源问题" class="headerlink" title="各种路径资源问题"></a>各种路径资源问题</h3><p>我们在自己的库里使用了 <code>imageNamed</code> 、<code>mainBundle</code>，但是小伙伴把我们的库拖过去后，这些路径和我们不是一个路径，<code>Assets.xcassets</code> 跟我们也不是同一个 <code>Assets.xcassets</code>，怎么办？</p>
+<p>这些问题你可以从这篇文章找到答案：<a href="https://juejin.im/post/59f2c7eaf265da432c2318e5" target="_blank" rel="external">你真的会用 CocoaPods 吗？</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/组件化/" rel="tag">#组件化</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/27/iOS - CocoaPods-原理及库制作/" rel="next" title="iOS - CocoaPods 原理及库制作">
+                <i class="fa fa-chevron-left"></i> iOS - CocoaPods 原理及库制作
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/10/27/iOS - 组件化实践思考/"
+           data-title="iOS - 组件化实践思考" data-url="http://yoursite.com/2017/10/27/iOS - 组件化实践思考/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="Tian" />
+          <p class="site-author-name" itemprop="name">Tian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#哪些内容需要组件化"><span class="nav-number">1.</span> <span class="nav-text">哪些内容需要组件化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础组件"><span class="nav-number">1.1.</span> <span class="nav-text">基础组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能组件"><span class="nav-number">1.2.</span> <span class="nav-text">功能组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务组件"><span class="nav-number">1.3.</span> <span class="nav-text">业务组件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三种组件的关系"><span class="nav-number">2.</span> <span class="nav-text">三种组件的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基础组件规则"><span class="nav-number">2.1.</span> <span class="nav-text">基础组件规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#功能组件规则"><span class="nav-number">2.2.</span> <span class="nav-text">功能组件规则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#业务组件规则"><span class="nav-number">2.3.</span> <span class="nav-text">业务组件规则</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#每个组件存在的形式"><span class="nav-number">3.</span> <span class="nav-text">每个组件存在的形式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#组件内部"><span class="nav-number">3.1.</span> <span class="nav-text">组件内部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件外部"><span class="nav-number">3.2.</span> <span class="nav-text">组件外部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组件测试"><span class="nav-number">3.3.</span> <span class="nav-text">组件测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#怎样集成各个组件"><span class="nav-number">4.</span> <span class="nav-text">怎样集成各个组件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件之间的通讯"><span class="nav-number">5.</span> <span class="nav-text">组件之间的通讯</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#网络请求默认参数"><span class="nav-number">5.1.</span> <span class="nav-text">网络请求默认参数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发现跳转视频播放"><span class="nav-number">5.2.</span> <span class="nav-text">发现跳转视频播放</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#组件分离的难点"><span class="nav-number">6.</span> <span class="nav-text">组件分离的难点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#附加问题"><span class="nav-number">7.</span> <span class="nav-text">附加问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#库的升级维护"><span class="nav-number">7.1.</span> <span class="nav-text">库的升级维护</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#各种路径资源问题"><span class="nav-number">7.2.</span> <span class="nav-text">各种路径资源问题</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

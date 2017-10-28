@@ -278,6 +278,540 @@
             
               
                 
+                <a class="post-title-link" href="/2017/10/27/iOS - 组件化实践思考/" itemprop="url">
+                  iOS - 组件化实践思考
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-27T01:21:00+08:00" content="2017-10-27">
+              2017-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/27/iOS - 组件化实践思考/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/iOS - 组件化实践思考/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>组件化的应用背景和优势在此不再赘述，下面我们将从实践的角度，讨论一下如何应用组件化的思想，下面将以我自己的理解逐步展开，抛砖引玉。</p>
+<h2 id="哪些内容需要组件化"><a href="#哪些内容需要组件化" class="headerlink" title="哪些内容需要组件化"></a>哪些内容需要组件化</h2><p>在我的理解中，一个项目可以拆分为以下几种组件：</p>
+<ul>
+<li>基础组件；</li>
+<li>功能组件；</li>
+<li>业务组件；</li>
+</ul>
+<p>下面依次来解释几种组件的定义和规则。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/10/27/iOS - 组件化实践思考/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/27/iOS - CocoaPods-原理及库制作/" itemprop="url">
+                  iOS - CocoaPods 原理及库制作
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-27T01:21:00+08:00" content="2017-10-27">
+              2017-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/27/iOS - CocoaPods-原理及库制作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/iOS - CocoaPods-原理及库制作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>CocoaPods 可以说是 iOS 开发应用最广泛的包管理工具，本篇文章主要介绍 CocoaPods 的第三方库是怎样从网络集成到我们本地的项目当中，也是制作私有库、开源库和 iOS 项目组件化的一个知识铺垫。</p>
+<p>让我们从一张图片开始：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CocoaPods 工作流程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://user-gold-cdn.xitu.io/2017/10/27/2c5a3729f05e0ed26c16d83ae0ac13f0" alt="未命名文件"></td>
+</tr>
+</tbody>
+</table>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/10/27/iOS - CocoaPods-原理及库制作/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/10/12/iOS - Runloop-最佳实践/" itemprop="url">
+                  iOS - Runloop 最佳实践
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-12T01:21:00+08:00" content="2017-10-12">
+              2017-10-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index">
+                    <span itemprop="name">iOS</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/12/iOS - Runloop-最佳实践/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/12/iOS - Runloop-最佳实践/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>关于 Runloop，这篇文章写的非常棒，<a href="https://blog.ibireme.com/2015/05/18/runloop/">深入理解RunLoop</a>。我写这篇文章在深度上是不如它的，但是为什么还想写一下呢？</p>
+<p>Runloop 是一个偏门的东西，在我的工作经历中，几乎没有使用到它的地方，在我当时学习它时，因为本身对 iOS 整个生态了解不够，很多概念让我非常头疼。</p>
+<p>因此这篇文章我希望可以换一下因果关系，先不要管 Runloop 是什么，让我们从需求入手，看看 Runloop 能做什么，当你实现过一次之后，回头看这些高屋建瓴的文章，可能会更有启发性。</p>
+<p>本文涉及的代码托管在：<a href="https://github.com/tianziyao/Runloop">https://github.com/tianziyao/Runloop</a></p>
+<p>首先先记下 Runloop 负责做什么事情：</p>
+<ul>
+<li>保证程序不退出；</li>
+<li>负责监听事件，如触摸事件，计时器事件，网络事件等；</li>
+<li>负责渲染屏幕上所有的 UI，一次 Runloop 循环，需要渲染屏幕上所有变化的像素点；</li>
+<li>节省 CPU 的开销，让程序该工作时工作，改休息时休息；</li>
+</ul>
+<p>保证程序不退出和监听应该比较容易理解，用伪代码来表示，大致是这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 退出</span></div><div class="line"><span class="keyword">var</span> exit = <span class="literal">false</span></div><div class="line"></div><div class="line"><span class="comment">// 事件</span></div><div class="line"><span class="keyword">var</span> event: <span class="type">UIEvent</span>? = <span class="literal">nil</span></div><div class="line"></div><div class="line"><span class="comment">// 事件队列</span></div><div class="line"><span class="keyword">var</span> events: [<span class="type">UIEvent</span>] = [<span class="type">UIEvent</span>]()</div><div class="line"></div><div class="line"><span class="comment">// 事件分发/响应链</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">handle</span><span class="params">(event: UIEvent)</span></span> -&gt; <span class="type">Bool</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="literal">true</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 主线程 Runloop</span></div><div class="line"><span class="keyword">repeat</span> &#123;</div><div class="line">    <span class="comment">// 出现新的事件</span></div><div class="line">    <span class="keyword">if</span> event != <span class="literal">nil</span> &#123;</div><div class="line">        <span class="comment">// 将事件加入队列</span></div><div class="line">        events.append(event!)</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 如果队列中有事件</span></div><div class="line">    <span class="keyword">if</span> events.<span class="built_in">count</span> &gt; <span class="number">0</span> &#123;</div><div class="line">        <span class="comment">// 处理队列中第一个事件</span></div><div class="line">        <span class="keyword">let</span> result = handle(event: events.first!)</div><div class="line">        <span class="comment">// 处理完成移除第一个事件</span></div><div class="line">        <span class="keyword">if</span> result &#123;</div><div class="line">            events.removeFirst()</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="comment">// 再次进入发现事件-&gt;添加到队列-&gt;事件分发-&gt;处理事件-&gt;移除事件</span></div><div class="line">    <span class="comment">// 直到 exit=true，主线程退出</span></div><div class="line">&#125; <span class="keyword">while</span> exit == <span class="literal">false</span></div></pre></td></tr></table></figure>
+<p>负责渲染屏幕上所有的 UI，也就是在一次 Runloop 中，事件引起了 UI 的变化，再通过像素点的重绘表现出来。</p>
+<p>上面讲到的，全部是 Runloop 在系统层面的用处，那么在应用层面，Runloop 能做什么，以及应用在什么地方呢？首先我们从一个计时器开始。</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/10/12/iOS - Runloop-最佳实践/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2017/08/26/架构 - 注册、登录和-token-的安全之道/" itemprop="url">
+                  架构 - 注册、登录和 token 的安全之道
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-08-26T01:21:00+08:00" content="2017-08-26">
+              2017-08-26
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/08/26/架构 - 注册、登录和-token-的安全之道/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/08/26/架构 - 注册、登录和-token-的安全之道/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>最近想要做一个小项目，由于前后都是一个人，在登录和注册的接口上就被卡住了，因此想登录、注册、口令之间的关系，使用 PHP 实现登录注册模块，和访问口令。</p>
+<p>出于安全的考虑，首先定下三项原则：</p>
+<ol>
+<li>在传输中，不允许明文传输用户隐私数据；</li>
+<li>在本地，不允许明文保存用户隐私数据；</li>
+<li>在服务器，不允许明文保存用户隐私数据；</li>
+</ol>
+<p>在网络来说，我们知道不论 POST 请求和 GET 请求都会被抓包，在没有使用 HTTPS 的情况下，抓包我们是防不住的，如果明文传输用户隐私，那后果就不说了。</p>
+<p>本地和服务器也是如此，比如 iOS 设备，如果存储在本地，越狱之后通过设备 Finder 之类的功能，也能轻易找到我们存储在本地的用户隐私。</p>
+<blockquote>
+<p>使用 Keychain 在本地也有保存，但不在沙盒，暂且忽略。</p>
+</blockquote>
+<p>上面讲到，用户隐私数据总归可以被拿到的，如何保证被拿到之后不会被用来做坏事？</p>
+          <div class="post-more-link text-center">
+            <a class="btn" href="/2017/08/26/架构 - 注册、登录和-token-的安全之道/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+        
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2017/07/18/Swift - Mirror反射/" itemprop="url">
                   Swift - Mirror反射
                 </a>
@@ -1022,595 +1556,11 @@
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/25/CSS 定位模型/" itemprop="url">
-                  CSS - 定位模型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-25T01:21:00+08:00" content="2017-06-25">
-              2017-06-25
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/06/25/CSS 定位模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/25/CSS 定位模型/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>position</code> 属性定义建立元素布局所用的定位机制。任何元素都可以定位，不过绝对或固定元素会生成一个块级框，而不论该元素本身是什么类型。相对定位元素会相对于它在正常流中的默认位置偏移。<code>position</code> 属性有以下几种模型：</p>
-<ul>
-<li>static 自然模型</li>
-<li>relative 相对定位模型</li>
-<li>absolute 绝对定位模型</li>
-<li>fixed 固定定位模型</li>
-<li>sticky 磁贴定位模型</li>
-</ul>
-<p>在学习布局模型之前，我们先来了解几个属性。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/25/CSS 定位模型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/22/CSS 浮动/" itemprop="url">
-                  CSS - 浮动
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-22T01:21:00+08:00" content="2017-06-22">
-              2017-06-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/06/22/CSS 浮动/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/22/CSS 浮动/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>float</code> 属性可以让元素显示在任意的问题，下面是 <code>float</code> 的几个常用值：</p>
-<table>
-<thead>
-<tr>
-<th>值</th>
-<th>描述</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>left</td>
-<td>左浮动</td>
-</tr>
-<tr>
-<td>right</td>
-<td>右浮动</td>
-</tr>
-<tr>
-<td>none</td>
-<td>无浮动</td>
-</tr>
-<tr>
-<td>inherit</td>
-<td>继承浮动</td>
-</tr>
-</tbody>
-</table>
-<p><code>float</code> 属性最初被设计出来，是为了解决图片的排版问题，也就是让文字环绕着图片。</p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/22/CSS 浮动/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/15/CSS 盒子模型/" itemprop="url">
-                  CSS - 盒子模型
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-15T01:21:00+08:00" content="2017-06-15">
-              2017-06-15
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/06/15/CSS 盒子模型/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/15/CSS 盒子模型/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>在网页中，元素可以视作可以产生矩形的框，这些框会影响元素之间的距离，元素内容的距离等。盒子模型的概念是将网页视作一个个盒子，每个盒子用来放网页中的各种元素。比如图片，文字等元素，都可以视为盒子，这些盒子可以用更大的盒子 <code>&lt;div&gt;</code> 进行嵌套。将这些盒子进行嵌套，叠加，排列，最后就成为了网页。</p>
-<p><img src="http://oboehz2ag.bkt.clouddn.com/%E7%9B%92%E5%AD%90%E6%A8%A1%E5%9E%8B.png" alt="盒子模型"></p>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/15/CSS 盒子模型/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2017/06/12/CSS 列表样式/" itemprop="url">
-                  CSS - 列表样式
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2017-06-12T01:21:00+08:00" content="2017-06-12">
-              2017-06-12
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/CSS/" itemprop="url" rel="index">
-                    <span itemprop="name">CSS</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-              <span class="post-comments-count">
-                &nbsp; | &nbsp;
-                <a href="/2017/06/12/CSS 列表样式/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/06/12/CSS 列表样式/" itemprop="commentsCount"></span>
-                </a>
-              </span>
-            
-          
-
-          
-
-          
-          
-
-          
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><code>list-style-type</code> 用于设定<strong>列表项</strong>的标记样式，有以下几个常用的值：</p>
-<table>
-<thead>
-<tr>
-<th>ul 值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>none</td>
-<td>无标记</td>
-</tr>
-<tr>
-<td>disc</td>
-<td>默认值，实心圆点</td>
-</tr>
-<tr>
-<td>circle</td>
-<td>空心的圆点</td>
-</tr>
-<tr>
-<td>square</td>
-<td>实心的方块</td>
-</tr>
-</tbody>
-</table>
-<table>
-<thead>
-<tr>
-<th>ol 值</th>
-<th>说明</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>none</td>
-<td>无标记</td>
-</tr>
-<tr>
-<td>decimal</td>
-<td>默认，阿拉伯数字</td>
-</tr>
-<tr>
-<td>lower-roman</td>
-<td>小写罗马数字</td>
-</tr>
-<tr>
-<td>upper-roman</td>
-<td>大写罗马数字</td>
-</tr>
-<tr>
-<td>lower-alpha</td>
-<td>小写英文字母</td>
-</tr>
-<tr>
-<td>upper-alpha</td>
-<td>大写英文字母</td>
-</tr>
-</tbody>
-</table>
-          <div class="post-more-link text-center">
-            <a class="btn" href="/2017/06/12/CSS 列表样式/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-        
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1651,7 +1601,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">79</span>
+              <span class="site-state-item-count">83</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1659,7 +1609,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-count">17</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -1668,7 +1618,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">79</span>
+                <span class="site-state-item-count">82</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

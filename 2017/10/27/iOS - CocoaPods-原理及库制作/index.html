@@ -1,0 +1,974 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="CocoaPods,iOS,组件化," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="Tian'notes" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="CocoaPods 可以说是 iOS 开发应用最广泛的包管理工具，本篇文章主要介绍 CocoaPods 的第三方库是怎样从网络集成到我们本地的项目当中，也是制作私有库、开源库和 iOS 项目组件化的一个知识铺垫。
+让我们从一张图片开始：
+
+
+
+CocoaPods 工作流程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS - CocoaPods 原理及库制作">
+<meta property="og:url" content="http://yoursite.com/2017/10/27/iOS - CocoaPods-原理及库制作/index.html">
+<meta property="og:site_name" content="Tian'notes">
+<meta property="og:description" content="CocoaPods 可以说是 iOS 开发应用最广泛的包管理工具，本篇文章主要介绍 CocoaPods 的第三方库是怎样从网络集成到我们本地的项目当中，也是制作私有库、开源库和 iOS 项目组件化的一个知识铺垫。
+让我们从一张图片开始：
+
+
+
+CocoaPods 工作流程">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/27/2c5a3729f05e0ed26c16d83ae0ac13f0">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/27/b182b81ea976c575cd689039d0b2e61e">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2017/10/27/03855bebbd9549c26b02e498afe767c1">
+<meta property="og:updated_time" content="2017-10-28T06:58:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS - CocoaPods 原理及库制作">
+<meta name="twitter:description" content="CocoaPods 可以说是 iOS 开发应用最广泛的包管理工具，本篇文章主要介绍 CocoaPods 的第三方库是怎样从网络集成到我们本地的项目当中，也是制作私有库、开源库和 iOS 项目组件化的一个知识铺垫。
+让我们从一张图片开始：
+
+
+
+CocoaPods 工作流程">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2017/10/27/2c5a3729f05e0ed26c16d83ae0ac13f0">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2017/10/27/iOS - CocoaPods-原理及库制作/"/>
+
+  <title> iOS - CocoaPods 原理及库制作 | Tian'notes </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Tian'notes</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">Quick notes</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                iOS - CocoaPods 原理及库制作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-10-27T01:21:00+08:00" content="2017-10-27">
+              2017-10-27
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/架构/" itemprop="url" rel="index">
+                    <span itemprop="name">架构</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/10/27/iOS - CocoaPods-原理及库制作/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/10/27/iOS - CocoaPods-原理及库制作/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>CocoaPods 可以说是 iOS 开发应用最广泛的包管理工具，本篇文章主要介绍 CocoaPods 的第三方库是怎样从网络集成到我们本地的项目当中，也是制作私有库、开源库和 iOS 项目组件化的一个知识铺垫。</p>
+<p>让我们从一张图片开始：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">CocoaPods 工作流程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://user-gold-cdn.xitu.io/2017/10/27/2c5a3729f05e0ed26c16d83ae0ac13f0" alt="未命名文件"></td>
+</tr>
+</tbody>
+</table>
+<a id="more"></a>
+<h2 id="远程索引库"><a href="#远程索引库" class="headerlink" title="远程索引库"></a>远程索引库</h2><p>远程索引库里存放的是各种框架的描述信息，这个库托管在 Github 上，地址如下：</p>
+<p><a href="https://github.com/CocoaPods/Specs" target="_blank" rel="external">https://github.com/CocoaPods/Specs</a></p>
+<p>每个框架下有数个版本，每个版本有一个 <code>json</code> 格式的描述信息，如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"name"</span>: <span class="string">"CAIStatusBar"</span>,</div><div class="line">  <span class="attr">"version"</span>: <span class="string">"0.0.1"</span>,</div><div class="line">  <span class="attr">"summary"</span>: <span class="string">"A simple indicator"</span>,</div><div class="line">  <span class="attr">"homepage"</span>: <span class="string">"https://github.com/apple5566/CAIStatusBar.git"</span>,</div><div class="line">  <span class="attr">"license"</span>: <span class="string">"MIT"</span>,</div><div class="line">  <span class="attr">"authors"</span>: &#123;</div><div class="line">    <span class="attr">"apple5566"</span>: <span class="string">"zaijiank110@sohu.com"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"platforms"</span>: &#123;</div><div class="line">    <span class="attr">"ios"</span>: <span class="string">"6.0"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"source"</span>: &#123;</div><div class="line">    <span class="attr">"git"</span>: <span class="string">"https://github.com/apple5566/CAIStatusBar.git"</span>,</div><div class="line">    <span class="attr">"tag"</span>: <span class="string">"0.0.1"</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">"source_files"</span>: <span class="string">"CAIStatusBar/**/*.&#123;h,m&#125;"</span>,</div><div class="line">  <span class="attr">"resources"</span>: <span class="string">"CAIStatusBar/CAIStatusBar.bundle"</span>,</div><div class="line">  <span class="attr">"requires_arc"</span>: <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>其中 <code>git</code> 字段表示该框架的托管地址，也就是上面时序图中的 <code>远程框架库</code>。</p>
+<h2 id="本地索引库"><a href="#本地索引库" class="headerlink" title="本地索引库"></a>本地索引库</h2><p>在 <code>install cocoapods</code> 命令后，需要执行 <code>pod setup</code> 这个命令，<code>pod setup</code> 命令就是将远程索引库克隆到本地来，本地索引库的路径如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/.cocoapods/repos/master</div></pre></td></tr></table></figure>
+<p>本地索引库和远程索引库的目录一致，结构如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">本地索引库</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://user-gold-cdn.xitu.io/2017/10/27/b182b81ea976c575cd689039d0b2e61e" alt="本地索引库"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="本地索引文件"><a href="#本地索引文件" class="headerlink" title="本地索引文件"></a>本地索引文件</h2><p>当执行 <code>pod search</code> 命令时，如果本地索引文件不存在，会创建这个文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">tianziyaodeMacBook-Air:~ Tian$ pod search afn</div><div class="line">Creating search index for spec repo &apos;master&apos;..</div></pre></td></tr></table></figure>
+<p>如果这个文件存在，则会在此文件中进行索引，确认所需要的框架是否存在，本地索引文件的路径如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/资源库/Caches/CocoaPods</div></pre></td></tr></table></figure>
+<h2 id="制作-CocoaPods-库"><a href="#制作-CocoaPods-库" class="headerlink" title="制作 CocoaPods 库"></a>制作 CocoaPods 库</h2><p>上面的流程清楚以后，制作 CocoaPods 库相信应该不会太难了，大致分为以下几步：</p>
+<ol>
+<li>托管框架源码到 Git；</li>
+<li>创建框架描述信息；</li>
+<li>上传框架描述信息到 <code>https://github.com/CocoaPods/Specs</code>；</li>
+<li>命令行 <code>pod setup</code> ， 创建本地索引库；</li>
+<li>命令行 <code>pod install</code> ，将框架集成到项目中；</li>
+</ol>
+<p>现在开始动手吧！首先在桌面新建一个 <code>testLib</code> 目录，在该目录下新建一个 <code>Classes</code> 目录，用来存放框架源码，然后将 <code>testLib</code> 托管到 Git。</p>
+<blockquote>
+<p>你可以给 Classes 目录任意的命名，Classes 只是一种约定俗称的命名。</p>
+</blockquote>
+<h3 id="pod-spec"><a href="#pod-spec" class="headerlink" title="pod spec"></a>pod spec</h3><p><code>pod spec</code> 命令用于创建框架的描述信息文件，文档如下：</p>
+<p><a href="https://guides.cocoapods.org/syntax/podspec.html" target="_blank" rel="external">https://guides.cocoapods.org/syntax/podspec.html</a></p>
+<p>现在在 <code>testLib</code> 目录下执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod spec create testLib</div></pre></td></tr></table></figure>
+<p>目录下会创建一个 <code>testLib.podspec</code> 文件，然后编辑这个文件，主要有以下几个字段：</p>
+<ul>
+<li>version：这个 spec 映射的版本，保证 Git 的 <code>releases</code> 与此对应；</li>
+<li>homepage：项目主页；</li>
+<li>source：框架源代码的托管地址；</li>
+<li>tag：与 version 对应；</li>
+<li>source_files：框架源代码的目录、文件、文件类型等规则；</li>
+</ul>
+<h2 id="CocoaPods-公开库"><a href="#CocoaPods-公开库" class="headerlink" title="CocoaPods 公开库"></a>CocoaPods 公开库</h2><p>根据上面的步骤，现在你需要将生成的 <code>testLib.podspec</code> 文件上传到远程索引库，在此之前，你需要注册一个 Trunk 账号，文档如下：</p>
+<p><a href="https://guides.cocoapods.org/making/getting-setup-with-trunk.html" target="_blank" rel="external">https://guides.cocoapods.org/making/getting-setup-with-trunk.html</a></p>
+<p>现在执行下面的命令，记得修改邮箱昵称描述等：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod trunk register ziyao.tian@gmail.com &apos;Tian&apos; --description=&apos;macbook air&apos;</div></pre></td></tr></table></figure>
+<p>你的邮箱会收到一封邮件，打开邮件里面的链接，会有类似 <code>you can back termainal</code> 的提示，现在回到终端。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod lib lint</div></pre></td></tr></table></figure>
+<p>检查 <code>testLib.podspec</code> 的合法性，根据错误提示修复问题，当显示 <code>passed validation</code> 后，执行下面的命令： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod trunk push testLib.podspec</div></pre></td></tr></table></figure>
+<p>提示信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Updating spec repo `master`</div><div class="line"></div><div class="line">--------------------------------------------------------------------------------</div><div class="line"> 🎉  Congrats</div><div class="line"></div><div class="line"> 🚀  testLib (0.0.7) successfully published</div><div class="line"> 📅  October 17th, 00:38</div><div class="line"> 🌎  https://cocoapods.org/pods/testLib</div><div class="line"> 👍  Tell your friends!</div><div class="line">--------------------------------------------------------------------------------</div></pre></td></tr></table></figure>
+<p>此时你的 <code>testLib.podspec</code> 就会 <code>pull request</code> 到远程索引库，CocoaPods 官方审核通过后，就可以出现在远程索引库中，当远程索引库收录后：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod setup</div></pre></td></tr></table></figure>
+<p>这时你的本地索引库，会新加入 <code>testLib.podspec</code> 这条记录，但是本地索引文件还未更新，因此删除掉以下路径的本地索引文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/资源库/Caches/CocoaPods/search_index.json</div></pre></td></tr></table></figure>
+<p>执行  <code>pod search testLib</code> 命令，当 <code>search_index.json</code> 文件重建完毕后，就可以在使用这个远程框架库了。</p>
+<h2 id="CocoaPods-私有库"><a href="#CocoaPods-私有库" class="headerlink" title="CocoaPods 私有库"></a>CocoaPods 私有库</h2><p>有了公开库，当然也就有私有库，私有库主要分为远程和本地两种，什么时候会用到私用库呢？也就是需要将源码封装成库，但又不希望将源码公开，一般的使用场景是公司内部的组件化开发。</p>
+<h2 id="本地私有库"><a href="#本地私有库" class="headerlink" title="本地私有库"></a>本地私有库</h2><p>本地私有库就是创建一个仓库，将其存储在本地，在本地的其他工程中直接使用。首先在桌面新建一个库，路径如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">LocalLib/NetWork/Classes/Test.swift</div></pre></td></tr></table></figure>
+<p>接着创建一个壳工程，现在你的目标是使用 <code>pod</code> 的方式，将 <code>NetWork</code> 这个库集成到壳工程中。</p>
+<h3 id="创建本地-GIt-仓库"><a href="#创建本地-GIt-仓库" class="headerlink" title="创建本地 GIt 仓库"></a>创建本地 GIt 仓库</h3><p>将 <code>NetWork</code> 加入到 Git，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git init</div><div class="line">git add.</div><div class="line">git commit -m &apos;x&apos;</div></pre></td></tr></table></figure>
+<h3 id="创建库描述文件"><a href="#创建库描述文件" class="headerlink" title="创建库描述文件"></a>创建库描述文件</h3><p>和公开库一样，我们需要先创建一个 <code>spec</code> 文件，命令如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod spec create LocalLib</div></pre></td></tr></table></figure>
+<p>编辑 <code>NetWork.podspec</code> 文件，修改成下面这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line"></div><div class="line">  s.name         = <span class="string">"NetWork"</span></div><div class="line">  s.version      = <span class="string">"0.0.1"</span></div><div class="line">  s.summary      = <span class="string">"A short description of NetWork."</span></div><div class="line">  s.description  = <span class="string">"A short description of NetWork.xxxxxxxxxxxxxxxxxx"</span></div><div class="line">  s.homepage     = <span class="string">"http://EXAMPLE/NetWork"</span></div><div class="line">  s.license      = <span class="string">"MIT"</span></div><div class="line">  s.author             = &#123; <span class="string">"tianziyao"</span> =&gt; <span class="string">"ziyao.tian@gmail.com"</span> &#125;</div><div class="line">  s.source       = &#123; <span class="symbol">:git</span> =&gt; <span class="string">""</span>, <span class="symbol">:tag</span> =&gt; <span class="string">"<span class="subst">#&#123;s.version&#125;</span>"</span> &#125;</div><div class="line">  s.source_files  = <span class="string">"Classes"</span>, <span class="string">"Classes/**/*.&#123;h,m,swift&#125;"</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>现在你的本地库已经准备完毕了，下面就可以使用这个库了。</p>
+<h3 id="导入本地私有库"><a href="#导入本地私有库" class="headerlink" title="导入本地私有库"></a>导入本地私有库</h3><p>现在进入到壳工程目录下，执行命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod init</div></pre></td></tr></table></figure>
+<p>编辑 <code>Podfile</code> 文件，如下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">target <span class="string">'Test'</span> <span class="keyword">do</span></div><div class="line">  use_frameworks!</div><div class="line"></div><div class="line">  pod <span class="string">'NetWork'</span>, <span class="symbol">:path</span> =&gt; <span class="string">'../NetWork'</span></div><div class="line"></div><div class="line">  target <span class="string">'TestTests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  target <span class="string">'TestUITests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>这里有一个 <code>path</code> 关键字，它表示在 <code>pod install</code> 执行时，在指定的路径下寻找 <code>NetWork.podspec</code> 文件。</p>
+<p>下面执行 <code>pod install</code> 命令，提示信息如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Analyzing dependencies</div><div class="line">Fetching podspec for `NetWork` from `../NetWork`</div><div class="line">Downloading dependencies</div><div class="line">Installing NetWork (0.0.1)</div><div class="line">Generating Pods project</div><div class="line">Integrating client project</div></pre></td></tr></table></figure>
+<p>现在 <code>NetWork</code> 这个库就集成到了壳工程中。</p>
+<p>与使用远程库不同，本地库的源文件会在 <code>Development Pods</code> 这个目录下，而不是 <code>Pods</code> 目录，顺便一提，CocoaPods 的库开发，一般也是这样搭建环境的，开发完成后再修改 <code>spec</code> 文件，将其 <code>pull request</code> 到远程索引库。</p>
+<h2 id="CocoaPods-模板库"><a href="#CocoaPods-模板库" class="headerlink" title="CocoaPods 模板库"></a>CocoaPods 模板库</h2><p>本地私有库这个方式还存在以下问题：</p>
+<ul>
+<li>需要手动创建 <code>podspec</code> 文件；</li>
+<li>无法单独测试，需要依托于壳工程运行；</li>
+</ul>
+<p>假设我们有一个基础组件，里面全部是扩展文件，无法单独运行，如果依托壳工程运行，只有这一个组件，那么这个壳工程实际跟测试工程是一样的，但壳工程内有多个组件呢？</p>
+<p>我们在壳工程中进行测试的话，不但要对其他的组件进行编译，而且自己负责的组件也可能会收到其他组件的影响，这样也就失去了组件化开发的本意，那么怎么优化呢？</p>
+<h3 id="单独测试"><a href="#单独测试" class="headerlink" title="单独测试"></a>单独测试</h3><p>首先在 <code>LocalLib/NetWork/</code> 路径下创建一个测试工程 <code>Example</code>，然后将 <code>Classes</code> 拖到这个测试工程中，这里需要注意的是，<strong><code>Example</code> 和 <code>Classes</code> 是引用关系，不要 Copy。</strong></p>
+<p>简单粗暴的拖拽，现在 <code>Example</code> 工程就可以使用 <code>NetWork</code> 库了。</p>
+<p>另外一种方式是将 <code>NetWork</code> 通过 CocoaPods 安装在 <code>Example</code> 中，和安装在壳工程一样。</p>
+<p>看到这里，是不是感觉很烦？就是想做个测试而已，还要拖来拖去，那么繁琐。</p>
+<p>不要着急下面来介绍一种更快捷高效的方式，执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">pod lib create BaseMoudle</div><div class="line">////////////////////////////////////////////////////////////////////////</div><div class="line">What language do you want to use?? [ Swift / ObjC ] </div><div class="line"> &gt; Swift</div><div class="line"></div><div class="line">Would you like to include a demo application with your library? [ Yes / No ]</div><div class="line"> &gt; Yes</div><div class="line"></div><div class="line">Which testing frameworks will you use? [ Quick / None ]</div><div class="line"> &gt; None</div><div class="line"></div><div class="line">Would you like to do view based testing? [ Yes / No ]</div><div class="line"> &gt; Yes</div></pre></td></tr></table></figure>
+<p>现在我们就有了一个 CocoaPods 的模板工程，它的结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── BaseMoudle</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       └── ReplaceMe.swift</div><div class="line">├── BaseMoudle.podspec</div><div class="line">├── Example</div><div class="line">│   ├── BaseMoudle</div><div class="line">│   ├── BaseMoudle.xcodeproj</div><div class="line">│   ├── BaseMoudle.xcworkspace</div><div class="line">│   ├── Podfile</div><div class="line">│   ├── Podfile.lock</div><div class="line">│   ├── Pods</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">└── _Pods.xcodeproj -&gt; Example/Pods/Pods.xcodeproj</div></pre></td></tr></table></figure>
+<p>看吧，把源码拖到 <code>ReplaceMe.swift</code> 的同级目录，执行 <code>pod install</code>，就完成了本地私有库和其测试工程。</p>
+<blockquote>
+<p>这一步可能会有 Swift 语言版本的问题，保持测试工程和私有库源码语言版本一致就可以。</p>
+</blockquote>
+<h2 id="远程私有库"><a href="#远程私有库" class="headerlink" title="远程私有库"></a>远程私有库</h2><table>
+<thead>
+<tr>
+<th style="text-align:center">远程私有库工作流程</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center"><img src="https://user-gold-cdn.xitu.io/2017/10/27/03855bebbd9549c26b02e498afe767c1" alt="远程私有库"></td>
+</tr>
+</tbody>
+</table>
+<p>现在使用 <code>pod lib create</code> 就可以方便的生成一个本地私有库了，但是本地私有库有一定的局限性，例如：</p>
+<ul>
+<li>需要在 <code>Podfile</code> 文件中主动指明路径；</li>
+<li>版本升级不容易维护；</li>
+<li>多人开发时，不方便进行合作；</li>
+</ul>
+<p>远程私有库就可以方便的解决以上的问题，制作远程私有库分为以下几个步骤：</p>
+<ol>
+<li>创建私有 Git 远程仓库；</li>
+<li>创建私有 CocoaPods 远程索引库；</li>
+<li>创建 Pod 所需要的项目工程文件，并上传到 Git 远程私有库；</li>
+<li>验证 <code>podspec</code> 描述文件；</li>
+<li>向私有 CocoaPods 远程索引库提交 <code>podspec</code> 描述文件；</li>
+<li>使用 Pod 库；</li>
+</ol>
+<p>Git 仓库的创建在此就不在赘述了，本文中我使用码市做示例，私有 CocoaPods 远程索引库实际上也是一个 Git 仓库，现在我们有两个私有库，一个用来存放 Pod 库的源码，一个用来存放 Pod 库的描述文件。</p>
+<h3 id="SSH-授权"><a href="#SSH-授权" class="headerlink" title="SSH 授权"></a>SSH 授权</h3><p>添加私有索引库需要使用 SSH 授权，也是和 Git 仓库一样的，了解的同学可以跳过这一步骤，首先创建公钥：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen</div></pre></td></tr></table></figure>
+<p>然后找到下面的文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure>
+<p>里面存放的字符就是公钥了，然后将公钥添加码市，链接如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https://coding.net/user/account/setting/keys</div></pre></td></tr></table></figure>
+<h3 id="添加私有远程索引库"><a href="#添加私有远程索引库" class="headerlink" title="添加私有远程索引库"></a>添加私有远程索引库</h3><p>现在执行 <code>pod repo</code>，可以看到下面的信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">master</div><div class="line">- Type: git (master)</div><div class="line">- URL:  https://github.com/CocoaPods/Specs.git</div><div class="line">- Path: /Users/Tian/.cocoapods/repos/master</div></pre></td></tr></table></figure>
+<p>现在我们只有一个 CocoaPods 远程索引库，也是官方的索引库，下面执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod repo add TZYSpecs git@git.coding.net:tianziyao/TZYSpecs.git</div></pre></td></tr></table></figure>
+<p>此时我们的 CocoaPods 远程索引库就安装好了，到下面的路径去看一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/.cocoapods/repos</div></pre></td></tr></table></figure>
+<h3 id="上传源码到-Git"><a href="#上传源码到-Git" class="headerlink" title="上传源码到 Git"></a>上传源码到 Git</h3><p>还记得 <code>pod lib create</code> 命令吗？前面我们使用它来制作了本地私有库，现在它又排上用场了，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod lib create BaseComponent</div></pre></td></tr></table></figure>
+<p>源码拖到 <code>ReplaceMe.swift</code> 的同级目录，它现在看起来应该是这个样子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── BaseComponent</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       ├── Extension</div><div class="line">│       │   ├── Array+Safe.swift</div><div class="line">│       │   ├── CALayer+PauseAimate.swift</div><div class="line">│       │   ├── UIImage+.swift</div><div class="line">│       │   └── UIView+Property.swift</div><div class="line">├── BaseComponent.podspec</div><div class="line">├── Example</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">└── _Pods.xcodeproj -&gt; Example/Pods/Pods.xcodeproj</div></pre></td></tr></table></figure>
+<p>执行 <code>pod install</code>，就完成了本地私有库和其测试工程，通过测试之后，我们就可以把这个本地私有库制作成远程私有库了。</p>
+<p>首先修改 <code>BaseComponent.podspec</code> 文件：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line"></div><div class="line">  s.name             = <span class="string">'BaseComponent'</span></div><div class="line">  s.version          = <span class="string">'0.1.0'</span></div><div class="line">  s.summary          = <span class="string">'基础组价'</span></div><div class="line">  s.description      = <span class="string">'包括基本配置，常量，扩展，工具类等'</span></div><div class="line">  s.homepage         = <span class="string">'https://coding.net/u/tianziyao/p/BaseComponent'</span></div><div class="line">  s.license          = &#123; <span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span> &#125;</div><div class="line">  s.author           = &#123; <span class="string">'tianziyao'</span> =&gt; <span class="string">'ziyao.tian@gmail.com'</span> &#125;</div><div class="line">  s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">'https://git.coding.net/tianziyao/BaseComponent.git'</span>, <span class="symbol">:tag</span> =&gt; s.version.to_s &#125;</div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">  s.source_files = <span class="string">'BaseComponent/Classes/**/*'</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>然后使用质量检查工具验证一下，保证在 <code>BaseComponent.podspec</code> 路径下，执行：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod lib lint</div></pre></td></tr></table></figure>
+<p>如果你使用 Swift，会得到一个提示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"> -&gt; BaseComponent (0.1.0)</div><div class="line">    - WARN  | [iOS] swift_version: The validator for Swift projects uses Swift 3.0 by default, if you are using a different version of swift you can use a `.swift-version` file to set the version for your Pod. For example to use Swift 2.3, run: </div><div class="line">    `echo &quot;2.3&quot; &gt; .swift-version`</div><div class="line"></div><div class="line">[!] BaseComponent did not pass validation, due to 1 warning (but you can use `--allow-warnings` to ignore it).</div><div class="line">You can use the `--no-clean` option to inspect any issue.</div></pre></td></tr></table></figure>
+<p>根据提示修复就好了，在这里你可能会遇到很多 Swift 语言版本的问题，善用搜索引擎吧，通过检验以后提示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"> -&gt; BaseComponent (0.1.0)</div><div class="line"></div><div class="line">BaseComponent passed validation.</div></pre></td></tr></table></figure>
+<p>下面执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git add .</div><div class="line">git commit -m &apos;x&apos;</div></pre></td></tr></table></figure>
+<p>然后和远程仓库进行关联：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git remote add origin https://git.coding.net/tianziyao/BaseComponent.git</div><div class="line">git pull origin master </div><div class="line">git push origin master</div></pre></td></tr></table></figure>
+<h3 id="上传-Spec-到远程索引库"><a href="#上传-Spec-到远程索引库" class="headerlink" title="上传 Spec 到远程索引库"></a>上传 Spec 到远程索引库</h3><p>首先执行下面的命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod spec lint</div></pre></td></tr></table></figure>
+<p>提示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"> -&gt; BaseComponent (0.1.0)</div><div class="line">    - ERROR | [iOS] unknown: Encountered an unknown error ([!] /usr/local/bin/git clone https://git.coding.net/tianziyao/BaseComponent.git /var/folders/2v/qkx5m4sx4dg86x4c82yfyjdc0000gn/T/d20171021-69604-1bekfgk --template= --single-branch --depth 1 --branch 0.1.0</div><div class="line"></div><div class="line">Cloning into &apos;/var/folders/2v/qkx5m4sx4dg86x4c82yfyjdc0000gn/T/d20171021-69604-1bekfgk&apos;...</div><div class="line">warning: Could not find remote branch 0.1.0 to clone.</div><div class="line">fatal: Remote branch 0.1.0 not found in upstream origin</div><div class="line">) during validation.</div><div class="line"></div><div class="line">Analyzed 1 podspec.</div><div class="line"></div><div class="line">[!] The spec did not pass validation, due to 1 error.</div></pre></td></tr></table></figure>
+<p>根据提示，我们需要先建立一个 Tag：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git tag &apos;0.1.0&apos;</div><div class="line">git push --tags</div><div class="line">pod spec lint</div></pre></td></tr></table></figure>
+<p>检验通过后，提示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"> -&gt; BaseComponent (0.1.0)</div><div class="line"></div><div class="line">Analyzed 1 podspec.</div><div class="line"></div><div class="line">BaseComponent.podspec passed validation.</div></pre></td></tr></table></figure>
+<p>然后将 <code>podspec</code> 文件推到远程私有索引库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod repo push TZYSpecs BaseComponent.podspec</div></pre></td></tr></table></figure>
+<p>现在看一下本地索引库中是否已经添加成功：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">~/.cocoapods/repos</div></pre></td></tr></table></figure>
+<p>再看一看你的远程索引库中是否添加成功，现在搜索一下本地索引文件试试：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">-&gt; BaseComponent (0.1.0)</div><div class="line">   基础组价</div><div class="line">   pod &apos;BaseComponent&apos;, &apos;~&gt; 0.1.0&apos;</div><div class="line">   - Homepage: https://coding.net/u/tianziyao/p/BaseComponent</div><div class="line">   - Source:   https://git.coding.net/tianziyao/BaseComponent.git</div><div class="line">   - Versions: 0.1.0 [TZYSpecs repo]</div></pre></td></tr></table></figure>
+<p>现在我们可以找到自己的远程私有库了，下面将 <code>Podfile</code> 文件改成这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">project <span class="string">'Ting.xcodeproj'</span></div><div class="line"></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></div><div class="line">source <span class="string">'git@git.coding.net:tianziyao/TZYSpecs.git'</span></div><div class="line"></div><div class="line">target <span class="string">'Ting'</span> <span class="keyword">do</span></div><div class="line"></div><div class="line">  use_frameworks!</div><div class="line">  </div><div class="line">  pod <span class="string">'BaseComponent'</span></div><div class="line">  pod <span class="string">'Alamofire'</span></div><div class="line">  </div><div class="line">  target <span class="string">'TingTests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  target <span class="string">'TingUITests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>执行 <code>pod install</code>，整个远程私有库的搭建和使用就完成了。</p>
+<h2 id="CocoaPods-库升级"><a href="#CocoaPods-库升级" class="headerlink" title="CocoaPods 库升级"></a>CocoaPods 库升级</h2><p>我们使用远程私有库的目的就是为了版本升级和多人开发，那么远程私有库如何进行升级，升级后其他人又如何使用呢？现在我们给 <code>BaseComponent</code> 进行升级，给它再增加一些功能：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── BaseComponent</div><div class="line">│   ├── Assets</div><div class="line">│   └── Classes</div><div class="line">│       ├── Const</div><div class="line">│       │   └── Const.swift</div><div class="line">│       ├── Extension</div><div class="line">│       │   ├── Array+Safe.swift</div><div class="line">│       │   ├── CALayer+PauseAimate.swift</div><div class="line">│       │   ├── UIImage+.swift</div><div class="line">│       │   └── UIView+Property.swift</div><div class="line">│       └── Tool</div><div class="line">│           ├── AlertTool.swift</div><div class="line">│           ├── CacheTool.swift</div><div class="line">│           ├── DeviceMessage.swift</div><div class="line">│           └── NoticeLocalTool.swift</div><div class="line">├── BaseComponent.podspec</div><div class="line">├── Example</div><div class="line">├── LICENSE</div><div class="line">├── README.md</div><div class="line">└── _Pods.xcodeproj -&gt; Example/Pods/Pods.xcodeproj</div></pre></td></tr></table></figure>
+<p>在 <code>BaseComponent</code> 的测试工程中测试无误后，将 <code>BaseComponent.podspec</code> 的 <code>version</code> 修改一下：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name             = <span class="string">'BaseComponent'</span></div><div class="line">  s.version          = <span class="string">'0.2.0'</span></div><div class="line">  s.summary          = <span class="string">'基础组价'</span></div><div class="line">  s.description      = <span class="string">'包括基本配置，常量，扩展，工具类等'</span></div><div class="line">  s.homepage         = <span class="string">'https://coding.net/u/tianziyao/p/BaseComponent'</span></div><div class="line">  s.license          = &#123; <span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span> &#125;</div><div class="line">  s.author           = &#123; <span class="string">'tianziyao'</span> =&gt; <span class="string">'ziyao.tian@gmail.com'</span> &#125;</div><div class="line">  s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">'https://git.coding.net/tianziyao/BaseComponent.git'</span>, <span class="symbol">:tag</span> =&gt; s.version.to_s &#125;</div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">  s.source_files = <span class="string">'BaseComponent/Classes/**/*'</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>现在检查一下私有库是否有错误：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod lib lint</div></pre></td></tr></table></figure>
+<p>检查通过后就可以将 <code>BaseComponent</code> 的 <code>0.2.0</code> 版本推到远程私有库中，同时建立 <code>0.2.0</code> 的 Tag。</p>
+<p> 然后检查一下 <code>spec</code> 文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod spec lint</div></pre></td></tr></table></figure>
+<p>检查通过后，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pod repo push TZYSpecs BaseComponent.podspec</div></pre></td></tr></table></figure>
+<p>远程私有库和远程私有索引库全部更新完毕，现在我们回到使用者的视角，这个库可以使用了吗？还不行。</p>
+<p>因为本地的索引文件还没有更新，这个源还找不到，现在进入壳工程，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pod update --no-repo-update</div><div class="line">pod install</div></pre></td></tr></table></figure>
+<p><code>BaseComponent</code> 的 <code>0.2.0</code> 版本就乖乖的进入了壳工程。</p>
+<h2 id="CocoaPods-库依赖"><a href="#CocoaPods-库依赖" class="headerlink" title="CocoaPods 库依赖"></a>CocoaPods 库依赖</h2><p>在上面的壳工程中，我们引入了 <code>Alamofire</code> 这个框架，但是如果用着用着突然觉得不爽了，要换框架，这时 <code>Alamofire</code> 的引用在工程中已经无处不再了，这样换的话是不是很痛苦？</p>
+<p>所以我们一般在开发中都会封装网络请求，做到分层解耦，这样如果换框架，只修改网络请求这层的封装就可以了，那么现在我们需要将 <code>Alamofire</code> 封装成 <code>Network</code>，再把 <code>Network</code> 弄到我们的 <code>BaseComponent</code> 里面去，怎么做呢？</p>
+<p>现在先将 <code>Network</code> 拖到 <code>BaseComponent</code> 的 <code>Classes</code> 目录中，因为 <code>BaseComponent</code> 的测试工程没有 <code>Alamofire</code>，所以 <code>Network</code> 肯定是会报错了，不要慌，下面我们修改 <code>spec</code> 文件：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name             = <span class="string">'BaseComponent'</span></div><div class="line">  s.version          = <span class="string">'0.2.0'</span></div><div class="line">  s.summary          = <span class="string">'基础组价'</span></div><div class="line">  s.description      = <span class="string">'包括基本配置，常量，扩展，工具类等'</span></div><div class="line">  s.homepage         = <span class="string">'https://coding.net/u/tianziyao/p/BaseComponent'</span></div><div class="line">  s.license          = &#123; <span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span> &#125;</div><div class="line">  s.author           = &#123; <span class="string">'tianziyao'</span> =&gt; <span class="string">'ziyao.tian@gmail.com'</span> &#125;</div><div class="line">  s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">'https://git.coding.net/tianziyao/BaseComponent.git'</span>, <span class="symbol">:tag</span> =&gt; s.version.to_s &#125;</div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">  s.source_files = <span class="string">'BaseComponent/Classes/**/*'</span></div><div class="line">  s.dependency <span class="string">'Alamofire'</span></div><div class="line">  s.dependency <span class="string">'SDWebImage'</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p><code>dependency</code> 指明了这个库的依赖，改好之后 <code>pod install</code>，<code>Alamofire</code> 就安装到了 <code>BaseComponent</code> 的测试工程中，现在就可以使用 <code>Alamofire</code> 进行网络请求封装，直接 <code>import</code> 就可以了：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Foundation</div><div class="line"><span class="keyword">import</span> Alamofire</div><div class="line"><span class="keyword">import</span> SDWebImage</div><div class="line"></div><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">Network</span> </span>&#123;</div><div class="line">    </div><div class="line">    open <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">request</span>(<span class="title">url</span>: <span class="title">String</span>, <span class="title">parameters</span>: [<span class="title">String</span>:<span class="title">Any</span>]?) </span>&#123;</div><div class="line">        <span class="type">Alamofire</span>.request(url, method: .<span class="keyword">get</span>, parameters: parameters).responseJSON &#123; (response) <span class="keyword">in</span></div><div class="line">            <span class="keyword">guard</span> <span class="keyword">let</span> <span class="type">JSON</span> = response.result.value <span class="keyword">else</span> &#123; <span class="keyword">return</span> &#125;</div><div class="line">            <span class="built_in">print</span>(<span class="type">JSON</span>)</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImageView</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">image</span><span class="params">(with url: URL?)</span></span> &#123;</div><div class="line">        <span class="keyword">self</span>.sd_setImage(with: url)</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>现在再进行一次远程私有库升级，整个依赖就做好了，需要注意的是，已经做了依赖的话，相关的库就可以从 <code>Podfile</code> 文件中去掉了：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">project <span class="string">'Ting.xcodeproj'</span></div><div class="line"></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></div><div class="line">source <span class="string">'git@git.coding.net:tianziyao/TZYSpecs.git'</span></div><div class="line"></div><div class="line">target <span class="string">'Ting'</span> <span class="keyword">do</span></div><div class="line"></div><div class="line">  use_frameworks!</div><div class="line">  </div><div class="line">  pod <span class="string">'BaseComponent'</span></div><div class="line">  <span class="comment"># pod 'Alamofire'</span></div><div class="line">  </div><div class="line">  target <span class="string">'TingTests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  target <span class="string">'TingUITests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>现在是我们依赖的是公开库，直接升级 CocoaPods 私有库就可以，但是如果依赖的是另外一个私有库，这个依赖关系最终还要上传到私有索引库中，这样其他人在使用的时候才会知道这个依赖关系，现在走一下升级的流程，你会得到类似这个报错：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[!] The `TargetComponent.podspec` specification does not validate.</div></pre></td></tr></table></figure>
+<p>这个报错是因为 <code>TargetComponent</code> 这个库没有在官方的索引库当中，忽略就可以了，当然，在使用的时候，<code>TargetComponent</code> 这个库可以在你的本地索引文件中找到，否则无法使用。</p>
+<h2 id="CocoaPods-资源依赖"><a href="#CocoaPods-资源依赖" class="headerlink" title="CocoaPods 资源依赖"></a>CocoaPods 资源依赖</h2><p>现在我们可以让一个库依赖另外一个库，但是看下面这段代码：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// 获取中间的视图</span></div><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">tabBarMiddleView</span>() -&gt; <span class="title">TZYTabBarMiddleView</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> view = <span class="type">Bundle</span>.main.loadNibNamed(<span class="string">"TZYTabBarMiddleView"</span>, owner: <span class="literal">nil</span>, options: <span class="literal">nil</span>)?.first</div><div class="line">    <span class="keyword">return</span> (view <span class="keyword">as</span>? <span class="type">TZYTabBarMiddleView</span>) ?? <span class="type">TZYTabBarMiddleView</span>()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这段代码读取了一个 XIB 文件，这个库的结构是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Assets</div><div class="line">└── Classes</div><div class="line">    └── MainModule</div><div class="line">        ├── Controller</div><div class="line">        │   ├── TZYNavBarC.swift</div><div class="line">        │   └── TZYTabBarC.swift</div><div class="line">        └── View</div><div class="line">            ├── TZYNavBar.swift</div><div class="line">            ├── TZYTabBar.swift</div><div class="line">            ├── TZYTabBarMiddleView.swift</div><div class="line">            └── TZYTabBarMiddleView.xib</div></pre></td></tr></table></figure>
+<p>我们可以成功调用这个方法吗？不能，因为 <code>TZYTabBarMiddleView.xib</code> 这个文件的 Target 是 <code>MainModule</code>，使用 CocoaPods 把这个库安装到我们项目后，XIB 文件即使在，也是在 Pods 这个工程里，而我们在壳工程中使用 <code>TZYTabBarMiddleView.xib</code>，也是必然找不到的。</p>
+<p>下面我们把模板库的测试工程编译一下，打开 Products 目录下的 <code>.app</code> 文件，看一下文件结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Base.lproj</div><div class="line">│   ├── LaunchScreen.nib</div><div class="line">│   └── Main.storyboardc</div><div class="line">├── Frameworks</div><div class="line">│   ├── Alamofire.framework</div><div class="line">│   │   ├── Alamofire</div><div class="line">│   │   ├── Info.plist</div><div class="line">│   │   └── _CodeSignature</div><div class="line">│   │       └── CodeResources</div><div class="line">│   ├── BaseComponent.framework</div><div class="line">│   │   ├── BaseComponent</div><div class="line">│   │   ├── Info.plist</div><div class="line">│   │   └── _CodeSignature</div><div class="line">│   │       └── CodeResources</div><div class="line">│   ├── SDWebImage.framework</div><div class="line">│   │   ├── Info.plist</div><div class="line">│   │   ├── SDWebImage</div><div class="line">│   │   └── _CodeSignature</div><div class="line">│   │       └── CodeResources</div><div class="line">│   ├── TargetComponent.framework</div><div class="line">│   │   ├── Info.plist</div><div class="line">│   │   ├── TZYTabBarMiddleView.nib</div><div class="line">│   │   ├── TargetComponent</div><div class="line">│   │   └── _CodeSignature</div><div class="line">│   │       └── CodeResources</div><div class="line">├── Info.plist</div><div class="line">├── PkgInfo</div><div class="line">├── TargetComponent_Example</div><div class="line">├── _CodeSignature</div><div class="line">│   └── CodeResources</div><div class="line">└── libswiftRemoteMirror.dylib</div></pre></td></tr></table></figure>
+<p>通过路径可以看到，<code>TZYTabBarMiddleView.nib</code> 是在：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mainBundle/Frameworks/TargetComponent.framework</div></pre></td></tr></table></figure>
+<p>这个路径下面，因此 <code>mainBundle.loadXIb</code> 肯定是找不到资源文件的，那么该如何修改呢？</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">open <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">tabBarMiddleView</span>() -&gt; <span class="title">TZYTabBarMiddleView</span> </span>&#123;</div><div class="line">    <span class="keyword">let</span> view = <span class="type">Bundle</span>(<span class="keyword">for</span>: <span class="type">TZYTabBarMiddleView</span>.<span class="keyword">self</span>).loadNibNamed(<span class="string">"TZYTabBarMiddleView"</span>, owner: <span class="literal">nil</span>, options: <span class="literal">nil</span>)?.first</div><div class="line">    <span class="comment">//let view = Bundle.main.loadNibNamed("TZYTabBarMiddleView", owner: nil, options: nil)?.first</span></div><div class="line">    <span class="keyword">return</span> (view <span class="keyword">as</span>? <span class="type">TZYTabBarMiddleView</span>) ?? <span class="type">TZYTabBarMiddleView</span>()</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这部分的重点就是 <code>Bundle(for aClass: Swift.AnyClass)</code> 这个方法。</p>
+<h2 id="CocoaPods-图片依赖"><a href="#CocoaPods-图片依赖" class="headerlink" title="CocoaPods 图片依赖"></a>CocoaPods 图片依赖</h2><p>上面我们讲到了怎样使用 Pod 库里面的 XIB 文件，但是还有其他资源文件，例如图片、音频、视频，图片我们一般是放在 <code>Assets.xcassets</code>，但是 Pod 库并没有对应的路径，那么它所需要的图片放在哪里，已经如何使用呢？现在使用 <code>pod lib create</code> 命令创建一个 Pod 库，进入以下路径：    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">组件名/Assets</div></pre></td></tr></table></figure>
+<p>把一些图片拖入到 <code>Assets</code> 文件夹内，然后在 <code>podspec</code> 文件中加入以下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">s.resource_bundles = &#123;</div><div class="line">  &apos;组件名&apos; =&gt; [&apos;组件名/Assets/*.png&apos;] //只加载 png 文件</div><div class="line">  # &apos;组件名&apos; =&gt; [&apos;组件名/Assets/*&apos;] //加载所有文件</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后执行 <code>pod install</code>，Pod 库中就出现了之前拖入 <code>Assets</code> 文件夹的图片，但是现在还不能使用，我们先来看一下打包以后这些图片的路径：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── Base.lproj</div><div class="line">│   ├── LaunchScreen.nib</div><div class="line">│   └── Main.storyboardc</div><div class="line">│       ├── Info.plist</div><div class="line">│       ├── UIViewController-vXZ-lx-hvc.nib</div><div class="line">│       └── vXZ-lx-hvc-view-kh9-bI-dsS.nib</div><div class="line">├── Frameworks</div><div class="line">│   ├── TargetComponent.framework</div><div class="line">│   │   ├── Info.plist</div><div class="line">│   │   ├── TZYTabBarMiddleView.nib</div><div class="line">│   │   ├── TargetComponent</div><div class="line">│   │   ├── TargetComponent.bundle</div><div class="line">│   │   │   ├── Info.plist</div><div class="line">│   │   │   ├── tabbar_bg_320x49_@3x.png</div><div class="line">│   │   │   └── zxy_icon_48x48_@2x.png</div><div class="line">│   │   └── _CodeSignature</div><div class="line">│   │       └── CodeResources</div><div class="line">│   └── libswiftUIKit.dylib</div><div class="line">├── Info.plist</div><div class="line">├── PkgInfo</div><div class="line">├── TargetComponent_Example</div><div class="line">├── _CodeSignature</div><div class="line">│   └── CodeResources</div><div class="line">├── embedded.mobileprovision</div><div class="line">└── libswiftRemoteMirror.dylib</div></pre></td></tr></table></figure>
+<p>可以看到，打包后的路径在：</p>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mainBundle/Frameworks/TargetComponent.framework/TargetComponent.bundle</div></pre></td></tr></table></figure>
+<p>这个路径下面，而代码中的 <code>UIImage(named: &quot;tabbar_bg&quot;)</code> 读取的是 <code>mainBundle</code> 下的资源文件，因此还是找不到的，那么这时使用图片，应该将代码改成这样：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">backgroundImage = <span class="type">UIImage</span>.image(withName: <span class="string">"tabbar_bg_320x49_@3x.png"</span>)</div><div class="line"><span class="class"><span class="keyword">extension</span> <span class="title">UIImage</span> </span>&#123;</div><div class="line">    </div><div class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">func</span> <span class="title">image</span>(<span class="title">withName</span> <span class="title">name</span>: <span class="title">String</span>) -&gt; <span class="title">UIImage</span>? </span>&#123;</div><div class="line">        <span class="keyword">let</span> bundle = <span class="type">Bundle</span>(<span class="keyword">for</span>: <span class="type">UIImage</span>.<span class="keyword">self</span>)</div><div class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> path = bundle.path(forResource: name, ofType: <span class="literal">nil</span>, inDirectory: <span class="string">"TargetComponent.bundle"</span>) <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> <span class="literal">nil</span></div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="type">UIImage</span>(contentsOfFile: path)</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p> 这里需要注意的是，<strong>文件名需要完整</strong>。以上是在代码中加载图片，如果是在 XIB 中加载图片，应该怎样做呢？那么再看一下上面的目录结构，<code>TZYTabBarMiddleView.nib</code> 和 <code>TargetComponent.bundle</code> 处于同一个目录，我们可以在 <code>TZYTabBarMiddleView.xib</code> 中通过相对路径，使用 <code>TargetComponent.bundle</code> 里面的图片，因此在 XIB 中，图片名应该是这样的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TargetComponent.bundle/tabbar_bg_320x49_@3x</div></pre></td></tr></table></figure>
+<h2 id="CocoaPods-子库"><a href="#CocoaPods-子库" class="headerlink" title="CocoaPods 子库"></a>CocoaPods 子库</h2><p>现在我们实现了一个完整的远程私有库，可以升级，依赖其他的库，提供给其他人使用，但是现在还有一点问题，其他人如果要用我们的库，就需要把 <code>BaseComponent</code> 完整的克隆过来，但是他可能只需要 <code>BaseComponent</code> 里面的 <code>Network</code>，其他的扩展、工具等并不想使用，也不想导入过来，怎么办？有两种方案：</p>
+<ol>
+<li>把 <code>Network</code> 剥离出来，再单独建一个远程私有库；</li>
+<li>使用子库迁出 <code>Network</code>；</li>
+</ol>
+<p>第一种方案大家已经知道了，就是上面的一大篇，麻烦不说，而且东西一多起来，这里一个库，那里一个库，也不容易管理，所以，下面就有请子库隆重登场。</p>
+<p>在开始之前，我们先来开一个东西，下面是 <code>pod search AFN</code> 中的一条记录：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">-&gt; AFNetworking (3.1.0)</div><div class="line">   A delightful iOS and OS X networking framework.</div><div class="line">   pod &apos;AFNetworking&apos;, &apos;~&gt; 3.1.0&apos;</div><div class="line">   - Homepage: https://github.com/AFNetworking/AFNetworking</div><div class="line">   - Source:   https://github.com/AFNetworking/AFNetworking.git</div><div class="line">   - Versions: 3.1.0, 3.0.4, 3.0.3, 3.0.2, 3.0.1, 3.0.0, 3.0.0-beta.3, 3.0.0-beta.2, 3.0.0-beta.1, 2.6.3, 2.6.2, 2.6.1, 2.6.0, 2.5.4, 2.5.3, 2.5.2, 2.5.1, 2.5.0, 2.4.1,</div><div class="line">   2.4.0, 2.3.1, 2.3.0, 2.2.4, 2.2.3, 2.2.2, 2.2.1, 2.2.0, 2.1.0, 2.0.3, 2.0.2, 2.0.1, 2.0.0, 2.0.0-RC3, 2.0.0-RC2, 2.0.0-RC1, 1.3.4, 1.3.3, 1.3.2, 1.3.1, 1.3.0, 1.2.1,</div><div class="line">   1.2.0, 1.1.0, 1.0.1, 1.0, 1.0RC3, 1.0RC2, 1.0RC1, 0.10.1, 0.10.0, 0.9.2, 0.9.1, 0.9.0, 0.7.0, 0.5.1 [master repo]</div><div class="line">   - Subspecs:</div><div class="line">     - AFNetworking/Serialization (3.1.0)</div><div class="line">     - AFNetworking/Security (3.1.0)</div><div class="line">     - AFNetworking/Reachability (3.1.0)</div><div class="line">     - AFNetworking/NSURLSession (3.1.0)</div><div class="line">     - AFNetworking/UIKit (3.1.0)</div></pre></td></tr></table></figure>
+<p>注意 <code>Subspecs</code> 这里，它就是本节要讲的东西，首先将 <code>spec</code> 改成下面这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">Pod::Spec.new <span class="keyword">do</span> <span class="params">|s|</span></div><div class="line">  s.name             = <span class="string">'BaseComponent'</span></div><div class="line">  s.version          = <span class="string">'0.4.0'</span></div><div class="line">  s.summary          = <span class="string">'基础组价'</span></div><div class="line">  s.description      = <span class="string">'包括基本配置，常量，扩展，工具类等'</span></div><div class="line">  s.homepage         = <span class="string">'https://coding.net/u/tianziyao/p/BaseComponent'</span></div><div class="line">  s.license          = &#123; <span class="symbol">:type</span> =&gt; <span class="string">'MIT'</span>, <span class="symbol">:file</span> =&gt; <span class="string">'LICENSE'</span> &#125;</div><div class="line">  s.author           = &#123; <span class="string">'tianziyao'</span> =&gt; <span class="string">'ziyao.tian@gmail.com'</span> &#125;</div><div class="line">  s.source           = &#123; <span class="symbol">:git</span> =&gt; <span class="string">'https://git.coding.net/tianziyao/BaseComponent.git'</span>, <span class="symbol">:tag</span> =&gt; s.version.to_s &#125;</div><div class="line">  s.ios.deployment_target = <span class="string">'8.0'</span></div><div class="line">  <span class="comment"># s.source_files = 'BaseComponent/Classes/**/*'</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'Network'</span> <span class="keyword">do</span> <span class="params">|n|</span></div><div class="line">    n.source_files = <span class="string">'BaseComponent/Classes/Network/**/*'</span></div><div class="line">    n.dependency <span class="string">'Alamofire'</span></div><div class="line">    n.dependency <span class="string">'SDWebImage'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'Const'</span> <span class="keyword">do</span> <span class="params">|c|</span></div><div class="line">    c.source_files = <span class="string">'BaseComponent/Classes/Const/**/*'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'Extension'</span> <span class="keyword">do</span> <span class="params">|e|</span></div><div class="line">    e.source_files = <span class="string">'BaseComponent/Classes/Extension/**/*'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  s.subspec <span class="string">'Tool'</span> <span class="keyword">do</span> <span class="params">|t|</span></div><div class="line">    t.source_files = <span class="string">'BaseComponent/Classes/Tool/**/*'</span></div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>在这里要注意 <code>source_files</code> 和 <code>dependency</code> 以及版本的变化，修改完成推到远程索引库，并打好 <code>0.4.0</code> 的分支，执行：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pod spec lint</div><div class="line">pod repo push TZYSpecs BaseComponent.podspec</div><div class="line">pod update --no-repo-update</div><div class="line">pod search Base</div></pre></td></tr></table></figure>
+<p>现在就可以找到了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">-&gt; BaseComponent (0.4.0)</div><div class="line">   基础组价</div><div class="line">   pod &apos;BaseComponent&apos;, &apos;~&gt; 0.4.0&apos;</div><div class="line">   - Homepage: https://coding.net/u/tianziyao/p/BaseComponent</div><div class="line">   - Source:   https://git.coding.net/tianziyao/BaseComponent.git</div><div class="line">   - Versions: 0.4.0, 0.3.0, 0.2.0, 0.1.0 [TZYSpecs repo]</div><div class="line">   - Subspecs:</div><div class="line">     - BaseComponent/Network (0.4.0)</div><div class="line">     - BaseComponent/Const (0.4.0)</div><div class="line">     - BaseComponent/Extension (0.4.0)</div><div class="line">     - BaseComponent/Tool (0.4.0)</div></pre></td></tr></table></figure>
+<p>那么如何使用呢？把 <code>Podfile</code> 改成这样：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">project <span class="string">'Ting.xcodeproj'</span></div><div class="line"></div><div class="line">source <span class="string">'https://github.com/CocoaPods/Specs.git'</span></div><div class="line">source <span class="string">'git@git.coding.net:tianziyao/TZYSpecs.git'</span></div><div class="line"></div><div class="line">target <span class="string">'Ting'</span> <span class="keyword">do</span></div><div class="line"></div><div class="line">  use_frameworks!</div><div class="line">  </div><div class="line">  pod <span class="string">'BaseComponent/Network'</span></div><div class="line">  </div><div class="line">  <span class="comment"># 也可以用下面的写法</span></div><div class="line">  <span class="comment"># pod 'BaseComponent', :subspecs =&gt; ['Network', 'Extension']</span></div><div class="line">  </div><div class="line">  target <span class="string">'TingTests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line">  target <span class="string">'TingUITests'</span> <span class="keyword">do</span></div><div class="line">    inherit! <span class="symbol">:search_paths</span></div><div class="line">    </div><div class="line">  <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div></pre></td></tr></table></figure>
+<p>现在 <code>pod install</code>，就完成了子库的创建和使用。</p>
+<h2 id="结尾"><a href="#结尾" class="headerlink" title="结尾"></a>结尾</h2><p>这篇文章断断续续写了快一周，其实一般我们用不到 CocoaPods 这些功能，不过了解一下 CocoaPods 的工作原理也是没有坏处的。</p>
+<p>这篇文章主要是为了使用 CocoaPods 进行组件化开发，关于组件化开发的思想，可以看下面这篇文章：</p>
+<p><a href="https://juejin.im/post/59f2cc5d6fb9a04525775bce" target="_blank" rel="external">iOS 组件化实践思考</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CocoaPods/" rel="tag">#CocoaPods</a>
+          
+            <a href="/tags/iOS/" rel="tag">#iOS</a>
+          
+            <a href="/tags/组件化/" rel="tag">#组件化</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/12/iOS - Runloop-最佳实践/" rel="next" title="iOS - Runloop 最佳实践">
+                <i class="fa fa-chevron-left"></i> iOS - Runloop 最佳实践
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/27/iOS - 组件化实践思考/" rel="prev" title="iOS - 组件化实践思考">
+                iOS - 组件化实践思考 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/10/27/iOS - CocoaPods-原理及库制作/"
+           data-title="iOS - CocoaPods 原理及库制作" data-url="http://yoursite.com/2017/10/27/iOS - CocoaPods-原理及库制作/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="http://ob2q6r0fn.bkt.clouddn.com/touxiang.jpg"
+               alt="Tian" />
+          <p class="site-author-name" itemprop="name">Tian</p>
+          <p class="site-description motion-element" itemprop="description">不积跬步，无以至千里。<br>不积小流，无以成江海。</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">83</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">82</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/tianziyao" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/2646913484" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#远程索引库"><span class="nav-number">1.</span> <span class="nav-text">远程索引库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地索引库"><span class="nav-number">2.</span> <span class="nav-text">本地索引库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地索引文件"><span class="nav-number">3.</span> <span class="nav-text">本地索引文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#制作-CocoaPods-库"><span class="nav-number">4.</span> <span class="nav-text">制作 CocoaPods 库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#pod-spec"><span class="nav-number">4.1.</span> <span class="nav-text">pod spec</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-公开库"><span class="nav-number">5.</span> <span class="nav-text">CocoaPods 公开库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-私有库"><span class="nav-number">6.</span> <span class="nav-text">CocoaPods 私有库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#本地私有库"><span class="nav-number">7.</span> <span class="nav-text">本地私有库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建本地-GIt-仓库"><span class="nav-number">7.1.</span> <span class="nav-text">创建本地 GIt 仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建库描述文件"><span class="nav-number">7.2.</span> <span class="nav-text">创建库描述文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#导入本地私有库"><span class="nav-number">7.3.</span> <span class="nav-text">导入本地私有库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-模板库"><span class="nav-number">8.</span> <span class="nav-text">CocoaPods 模板库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单独测试"><span class="nav-number">8.1.</span> <span class="nav-text">单独测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程私有库"><span class="nav-number">9.</span> <span class="nav-text">远程私有库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#SSH-授权"><span class="nav-number">9.1.</span> <span class="nav-text">SSH 授权</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#添加私有远程索引库"><span class="nav-number">9.2.</span> <span class="nav-text">添加私有远程索引库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传源码到-Git"><span class="nav-number">9.3.</span> <span class="nav-text">上传源码到 Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#上传-Spec-到远程索引库"><span class="nav-number">9.4.</span> <span class="nav-text">上传 Spec 到远程索引库</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-库升级"><span class="nav-number">10.</span> <span class="nav-text">CocoaPods 库升级</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-库依赖"><span class="nav-number">11.</span> <span class="nav-text">CocoaPods 库依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-资源依赖"><span class="nav-number">12.</span> <span class="nav-text">CocoaPods 资源依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-图片依赖"><span class="nav-number">13.</span> <span class="nav-text">CocoaPods 图片依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CocoaPods-子库"><span class="nav-number">14.</span> <span class="nav-text">CocoaPods 子库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结尾"><span class="nav-number">15.</span> <span class="nav-text">结尾</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Tian</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"tianziyao"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    <script src="/vendors/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
